@@ -1,0 +1,4 @@
+site_name: "de.NBI Cloud User Wiki"                         
+docs_dir: /srv_root/docs/wiki
+site_dir: /var/www/html/wiki
+theme: bootstrap
