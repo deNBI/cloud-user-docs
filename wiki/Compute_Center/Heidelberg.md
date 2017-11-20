@@ -56,6 +56,7 @@ as you are connected to this machine you are inside of your project network
 and can connect to VMs without any floating ip address.
 
 ### Connect to your VMs
+#### Linux-based host
 None of your VMs is directly visible and accessible from the internet. To 
 connect to one of your VMs, you have to use our jump-host
 denbi-jumphost-01.bioquant.uni-heidelberg.de (129.206.69.162) with the same 
@@ -68,6 +69,29 @@ credentials you used for the OpenStack dashboard:
 
 From the jump-host you can connect to every of your VMs which has an 
 associated floating ip address.
+
+#### Windows-based host
+If you want to connect from a Windows-based system you can use Putty 
+(http://www.putty.org/) to connect to the jump-host and your virtual machines.
+
+In the field **Host Name (or IP address)** you have to enter the ip address 
+or name of our jump-host:
+
+    denbi-jumphost-01.bioquant.uni-heidelberg.de
+
+**or**
+
+    129.206.69.162
+    
+Under **Connection - Data** you can choose the username for the auto-login. 
+Please use your username here.
+
+In the section **Connection - SSH - Auth** you can provide your SSH-key. 
+Please make sure that you also check the option **Allow agent forwarding** so
+that you can connect to your VM.
+
+When you connect the first time to our jump-host you may get a warning 
+related server host keys. Please confirm with yes.
 
 ### How to change your password
 If you want to change the password of your "denbi" account we assigned to 
@@ -136,6 +160,15 @@ according to your needs (max 50GB). After the successful creation of the
 volume you have to attach it to your VM. Choose the arrow on the right side 
 of the created volume and select **Attach Volume**. In the new window you 
 have to choose your VM from the drop-down menu under **Attach to Instance**.
+
+On your VM you now have to setup a filesystem on the device so that you can 
+mount it to your machine. Use mkfs to make an ext4 filesystem:
+
+    mkfs.ext4 /dev/vdb
+    
+After this step you can mount the filesystem to your VM and start using it:
+
+    sudo mount /dev/vdb /mnt
 
 ### Upload your own Linux images
 If you need an extra Linux image we do not provide, you also can upload your 
