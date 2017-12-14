@@ -5,7 +5,7 @@ to give you a quick introduction how to use our cloud site.
 Please note, you are responsible for everything that happens with the virtual
 machines (VMs) you deploy! We as resource provider are not liable for 
 anything and do not give any guarantees. It is anticipated to have a more 
-sophisticated user agreement available till the end of 2017.
+sophisticated user agreement available at the beginning of 2018.
 
 ## How to get in contact with us
 In case you have questions or want to give us any kind of feedback, please 
@@ -16,7 +16,8 @@ contact us via <denbi-cloud@bioquant.uni-heidelberg.de>.
 The OpenStack dashboard gives you all information about your 
 project, e.g. your available resources, your virtual machines etc. The 
 dashboard is available [here](https://denbi-cloud.bioquant.uni-heidelberg.de/).
-To log in to your project, use the domain “bioquant” and your credentials.
+To access your project, use Elixir as authentication provider. After 
+authentication you will be redirected to the OpenStack dashboard.
 
 ### SSH-Keys
 As a first step make sure that you import a public ssh-key into your 
@@ -59,13 +60,12 @@ and can connect to VMs without any floating ip address.
 #### Linux-based host
 None of your VMs is directly visible and accessible from the internet. To 
 connect to one of your VMs, you have to use our jump-host
-denbi-jumphost-01.bioquant.uni-heidelberg.de (129.206.69.162) with the same 
-credentials you used for the OpenStack dashboard:
+denbi-jumphost-01.bioquant.uni-heidelberg.de with your elixir login name (not
+your elixir id!):
 
     ssh -A -i YOUR-SSH-KEY USERNAME@denbi-jumphost-01.bioquant.uni-heidelberg.de
     
-**Example:** ssh -A -i ~/.ssh/denbi-cloud.key bq_00denbi@denbi-jumphost-01.bioquant
-.uni-heidelberg.de
+**Example:** ssh -A -i ~/.ssh/denbi-cloud.key elixir1234@denbi-jumphost-01.bioquant.uni-heidelberg.de
 
 From the jump-host you can connect to every of your VMs which has an 
 associated floating ip address.
@@ -74,17 +74,12 @@ associated floating ip address.
 If you want to connect from a Windows-based system you can use Putty 
 (http://www.putty.org/) to connect to the jump-host and your virtual machines.
 
-In the field **Host Name (or IP address)** you have to enter the ip address 
-or name of our jump-host:
+In the field **Host Name** you have to enter the name of our jump-host:
 
     denbi-jumphost-01.bioquant.uni-heidelberg.de
-
-**or**
-
-    129.206.69.162
     
 Under **Connection - Data** you can choose the username for the auto-login. 
-Please use your username here.
+Please use your elixir username here.
 
 In the section **Connection - SSH - Auth** you can provide your SSH-key. 
 Please make sure that you also check the option **Allow agent forwarding** so
@@ -93,23 +88,68 @@ that you can connect to your VM.
 When you connect the first time to our jump-host you may get a warning 
 related server host keys. Please confirm with yes.
 
-### How to change your password
-If you want to change the password of your "denbi" account we assigned to 
-you, please connect to appl2:
+### Create and configure a NFS share for your project
+In case you need a NFS share to store big amounts of data and share it within
+your project, you can use OpenStack to create and manage the share.
 
-    ssh USERNAME@appl2.bioquant.uni-heidelberg.de
+#### Create a NFS share
+To create a NFS share choose the section **Shares** and click on **Create 
+Share**. In the popup you have to provide the following information:
+
+  **Share Name:**
+  - Provide a share name.
+  
+  **Share Protocol:**
+  - Please use the preselected "NFS" as protocol.
+  
+  **Size (GiB):**
+  - Provide the size of the share. Info: You have an overall quota for NFS 
+  shares on your project. Please make sure that you set the size below the 
+  project quota.
+
+  **Share Type:**
+  - Please select "default".
+  
+  **Availability Zone:**
+  - Please select "nova".
+
+#### Manage access rules for your NFS share
+After the creation of a NFS share, the share will not be accessible by anyone
+. To grant your VMs access to the share you have to configure the access rules.
+
+**Important: Please make sure to keep the access rule list of your NFS share up
+ to date**, so that only your VMs can access the share.
+
+To manage the access rules click on the **arrow** on the right side of your 
+newly created NFS share and choose **Manage rules**. Now you have to choose 
+**Add rule**. In the popup you have to provide the following information:
+
+  **Access Type:**
+  - Select ip to allow a certain VM access to the share.
+  
+  **Access Level:**
+  - Choose **read-write** or **read-only** appropriate to your needs. In some
+   cases it may make sense that specific VMs just get read-only permissions.
+  
+  **Access to**
+  - Please fill in the ip address of your VM you want to grant access to the 
+  NFS share.
+  
+#### Access your NFS share
+In order to use your created NFS share you have to mount it to your VMs. 
+Click on the created share in the **Shares** section of the OpenStack 
+dashboard to get information about the complete mount path. Under the 
+**Export locations** section, please choose the first **Path**. It usually has
+a format like:
+     
+     isiloncl1-487.denbi.bioquant.uni-heidelberg.de:/ifs/denbi/manila/share-123456789
+
+You can mount the share with the following command:
+
+    sudo mount -o vers=4.0 isiloncl1-487.denbi.bioquant.uni-heidelberg.de:/ifs/denbi/manila/YOUR-SHARE /mnt/
     
-On appl2 you can change the password using "passwd".
-
-### Access your NFS-Share
-In case you have requested a NFS-Share for your project you have to mount it 
-to your VMs:
-
-    sudo mount -o vers=4.0 isiloncl1-487.denbi.bioquant.uni-heidelberg.de:/ifs/denbi/YOUR-SHARE /mnt/
-    
-Or add the mount-point to the "/etc/fstab". Make sure that you use NFS 
-version 4. This share is accessible for all members of your project and 
-should be used for project data and for sharing big data sets between your VMs.
+Alternatively you can add the mount path to the "/etc/fstab". Make sure that 
+you use NFS version 4.0.
 
 ### Distribution logins
 Please take care, as for now, that our images are shipped with the standard 
@@ -122,7 +162,7 @@ standard users for some common distributions:
 
 ## File transfer into the de.NBI cloud
 In case you need to transfer data into the cloud we use a transfer host which
-is connected to your NFS-Share. Please contact us if you want to transfer big
+is connected to your NFS share. Please contact us if you want to transfer big
 amounts of data.
 
 ## Advanced Section
