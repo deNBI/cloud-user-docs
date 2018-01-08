@@ -5,7 +5,7 @@ to give you a quick introduction how to use our cloud site.
 Please note, you are responsible for everything that happens with the virtual
 machines (VMs) you deploy! We as resource provider are not liable for 
 anything and do not give any guarantees. It is anticipated to have a more 
-sophisticated user agreement available at the beginning of 2018.
+sophisticated user agreement in 2018.
 
 ## How to get in contact with us
 In case you have questions or want to give us any kind of feedback, please 
@@ -168,6 +168,44 @@ amounts of data.
 ## Advanced Section
 This section includes some more advanced topics and configurations.
 
+### Setting up a SOCKS proxy
+To make it easier to connect to your VMs you can set up an SOCKS proxy with 
+AgentForwarding. As long as you have an open SOCKS connection to the 
+jumphost you can directly connect to your VMs without the need to login to 
+the jumphost each time. In the following example socat is used. Add the 
+following lines to your **local ~/.ssh/config**:
+
+    # Access to the de.NBI jumphost
+    Host denbi-jumphost-01.bioquant.uni-heidelberg.de
+      # Use your Elixir login name
+      User ELIXIR_USERNAME
+      # Use your ssh key for agent forwarding
+      IdentityFile YOUR-KEY-FILE
+      # Open a SOCKS proxy locally to tunnel traffic into the cloud environment
+      DynamicForward localhost:7777
+      # Forward locally managed keys to the VMs which are behind the jumphosts
+      ForwardAgent yes
+      # Send a keep-alive packet to prevent the connection from terminating
+      ServerAliveInterval 120
+      
+    # Access to de.NBI cloud floating IP network 172.16.72.0/22 via SOCKS Proxy
+    Host 172.16.7*
+      # Tunnel all requests through dynamic SOCKS proxy
+      ProxyCommand /usr/bin/socat - socks4:localhost:%h:%p,socksport=7777
+      # Use your ssh key for agent forwarding
+      IdentityFile YOUR-KEY-FILE
+      # Forward locally managed keys
+      ForwardAgent yes
+      # Send a keep-alive packet to prevent the connection from terminating
+      ServerAliveInterval 120
+
+Now you can connect to the jumphost the same way you usually do. As 
+long as you have this connection open you can directly connect to one of your 
+VMs from another terminal by specifying the username and ip address without 
+the need to first connect to the jumphost:
+
+    ssh centos@172.16.7x.xxx 
+
 ### Adding multiple SSH-Keys
 To access your VM you have to provide a public ssh-key. In the deployment 
 step of your VM you can choose which public ssh-key you want to use for your 
@@ -210,6 +248,27 @@ After this step you can mount the filesystem to your VM and start using it:
 
     sudo mount /dev/vdb /mnt
 
+### MTU fix for docker build problem
+In case you use docker containers in your VM it may happen that the building 
+process of the containers will fail, because docker can not connect to the 
+internet. The problem is caused by different mtu values for the host and the 
+docker container. To fix the problem you have to add the correct mtu value to 
+the following file:
+
+     /lib/systemd/system/docker.service
+
+Add **--mtu=1440** to the end of the **ExecStart** line in the [Service] 
+section, like shown below:
+
+    ExecStart=/usr/bin/docker daemon -H fd:// --mtu=1440
+    
+In a last step you have to reload the daemon and restart docker:
+
+    sudo systemctl daemon-reload
+    sudo service docker restart
+
+Now the docker build process should be successful.
+
 ### Upload your own Linux images
 If you need an extra Linux image we do not provide, you also can upload your 
 own images via **Project - Compute - Images**. Select **Create Image** and 
@@ -217,4 +276,4 @@ choose a name and the path for the image and also make sure that you choose
 the correct format (typically qcow2). If there are special requirements to 
 your image, you can specific the minimum Disk size and also the minimum 
 amount of RAM. After the successful upload only the members of your project 
-cane use the image.
+can use the image.
