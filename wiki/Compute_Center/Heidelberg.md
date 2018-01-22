@@ -142,11 +142,11 @@ dashboard to get information about the complete mount path. Under the
 **Export locations** section, please choose the first **Path**. It usually has
 a format like:
      
-     isiloncl1-487.denbi.bioquant.uni-heidelberg.de:/ifs/denbi/manila/share-123456789
+     isiloncl1-487.denbi.bioquant.uni-heidelberg.de:/ifs/denbi/manila-prod/share-123456789
 
 You can mount the share with the following command:
 
-    sudo mount -o vers=4.0 isiloncl1-487.denbi.bioquant.uni-heidelberg.de:/ifs/denbi/manila/YOUR-SHARE /mnt/
+    sudo mount -o vers=4.0 isiloncl1-487.denbi.bioquant.uni-heidelberg.de:/ifs/denbi/manila-prod/YOUR-SHARE /mnt/
     
 Alternatively you can add the mount path to the "/etc/fstab". Make sure that 
 you use NFS version 4.0.
