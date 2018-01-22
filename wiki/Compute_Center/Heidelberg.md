@@ -151,6 +151,14 @@ You can mount the share with the following command:
 Alternatively you can add the mount path to the "/etc/fstab". Make sure that 
 you use NFS version 4.0.
 
+Please make sure that your user (depending on the used distribution: centos, 
+debian, ubuntu) is the owner of the NFS share. Therefore run the following 
+command to set the user as owner of the NFS share:
+
+    sudo chown centos:centos /mnt/
+    
+**Hint** This example is for a Centos based image.
+
 ### Distribution logins
 Please take care, as for now, that our images are shipped with the standard 
 users for the respective Linux distribution. Here you can see a list of 
