@@ -196,10 +196,10 @@ following lines to your **local ~/.ssh/config**:
       # Send a keep-alive packet to prevent the connection from terminating
       ServerAliveInterval 120
       
-    # Access to de.NBI cloud floating IP network 172.16.72.0/22 via SOCKS Proxy
-    Host 172.16.7*
+    # Access to de.NBI cloud floating IP networks via SOCKS Proxy
+    Host 172.16.6* 172.16.7*
       # Tunnel all requests through dynamic SOCKS proxy
-      ProxyCommand /usr/bin/socat - socks4:localhost:%h:%p,socksport=7777
+      ProxyCommand /usr/bin/socat - socks4a:localhost:%h:%p,socksport=7777
       # Use your ssh key for agent forwarding
       IdentityFile YOUR-KEY-FILE
       # Forward locally managed keys
