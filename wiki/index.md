@@ -4,13 +4,13 @@ de.NBI Cloud Wiki Description
 
 ## Overview                                     
 
-* [Quickstart](Quickstart.md)                               
+* [Quickstart](User/quickstart.md)                               
 
 * [Login with Elixir](Elixir_Login.md)
 
 * [de.NBI Cloud Portal](Portal.md)
 
-* [Reference](Reference.md)
+* [Cloud concept overview](User/concepts.md)
 
 * [Compute Center Specific](Compute_Center)
 
