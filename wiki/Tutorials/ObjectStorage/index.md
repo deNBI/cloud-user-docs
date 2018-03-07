@@ -93,7 +93,7 @@ If you need access to different project, you can create multiple configuration f
 
 #### Configuration of the minio client
 
-Another nice command line client is [https://docs.minio.io/docs/minio-client-quickstart-guide](minio), 
+Another nice command line client is [minio](https://docs.minio.io/docs/minio-client-quickstart-guide), 
 providing an alternative to UNIX commands like ls, cat, cp, mirror, 
 diff, find etc. It supports filesystems and Amazon S3 compatible cloud storage service (AWS Signature v2 and v4).
 
@@ -101,14 +101,16 @@ Under Linux, you can just download the client:
 
 ```wget https://dl.minio.io/client/mc/release/linux-amd64/mc
 chmod +x mc
-./mc --help```
+./mc --help
+```
 
 To add one or more Amazon S3 compatible hosts, follow the instructions below ''mc'' stores all its 
 configuration information in ''~/.mc/config.json'' file.
 
-```mc config host add <ALIAS> <YOUR-S3-ENDPOINT> <YOUR-ACCESS-KEY> <YOUR-SECRET-KEY>```
+```mc config host add <ALIAS> <YOUR-S3-ENDPOINT> <YOUR-ACCESS-KEY> <YOUR-SECRET-KEY>
+```
 
-For details check out the [https://docs.minio.io/](Minio webpage).
+For details check out the [Minio webpage](https://docs.minio.io/).
 
 
 ### Limitations of Ceph RadosGW
