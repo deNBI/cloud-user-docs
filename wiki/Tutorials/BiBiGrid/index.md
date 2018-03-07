@@ -1,4 +1,4 @@
-# Setup BiBiGrid (Workshop 8.3.2018)
+#  BiBiGrid beginners tutorial 
 
 ### Prerequisites
 
@@ -11,23 +11,29 @@
 - Clone GitHub repository `https://github.com/bibiserv/bibigrid`
 - Change into project dir `cd bibigrid`
 - Switch to development branch `git checkout development`
-- build Java executable for Openstack `mvn -P openstack clean package`
+- Build Java executable for Openstack `mvn -P openstack clean package`
 - Call `java -jar bibigrid-main/target/bibigrid-openstack-2.0.jar -h` to get help messages and check if executable works
 
 
 ## Download Binary
 
 If you don't want build the client from sources you can use a prebuilt binary. 
-[BiBiGrid Openstack Java executable]()
+[BiBiGrid Openstack Java executable](https://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid/bibigrid-openstack-2.0.jar)
 
 
 # Getting started
 
-Check the [GitHub repository](https://github.com/BiBiServ/bibigrid/tree/development) for detailed information about BiBiGrid. Be sure that you are on the development branch.
+*Check the [GitHub repository](https://github.com/BiBiServ/bibigrid/tree/development) for detailed information about BiBiGrid. For the workshop in Bielefeld (8.3.2018) be sure that you are on the development branch.*
+
+BiBiGrid is a tool for an easy cluster setup inside a cloud environment. BiBigrid is cloud provider independend, there exist currently backend implementation for Amazon (AWS), Google (Google Compute), Microsoft (Azure) and Openstack.
+
+<image>
+
+
 
 ## Configuration
 
-The goal of this session is to setup a small HPC cluster consisting of 5 nodes  (1 master, 4 slaves)  using BiBiGrid. The template below do the job, you have to replace all XXX's. 
+The goal of this session is to setup a small HPC cluster consisting of 5 nodes  (1 master, 4 slaves)  using BiBiGrid. The template below do the job, you have to replace all XXX's with
 
 ### Template
 
@@ -77,16 +83,21 @@ cloud9: yes
 
 ```
 
+You can simply check your configuration using :
+
+`java -jar bibigrid-openstack-2.0.jar -ch -o bibigrid.yml`
+
 ## Start the Cluster
 
-`java -jar bibigrid-main/target/bibigrid-openstack-2.0.jar -c`
+`java -jar bibigrid-openstack-2.0.jar -c -o bibigrid.yml`
 
 or more verbose:
 
-`java -jar bibigrid-main/target/bibigrid-openstack-2.0.jar -c -v`
+`java -jar bibigrid-openstack-2.0.jar -c -v -o bibigrid.yml`
 
 Starting with blank Ubuntu 16.04 images takes up to 20 minutes to finish.
 Using preinstalled images is much faster (about 5 minutes).
+
 
 
 ## Login into the Cluster
@@ -109,12 +120,31 @@ However, we use ssh to tunnel the default cloud9 port (8181)  to our local machi
 
 3. cloud9 IDE is then available at `http://localhost:8181`
 
-4. at first start, cloud9 needs to install some additional software, follow the instructions
+4. at first start, cloud9 needs to install some additional software, follow the on-screen instructions
+
+
+
+## Hello World BiBiGrid!
+
+After successful starting a cluster in the cloud, let's start with a small example : *Hello World*
+
 
 
 
 
 ## List running cluster
 
+Since it is possible to start more than cluster at once, it possible to list all running clusters: 
+
+`java -jar bibigrid-openstack-2.0.jar -l`
+
+The command returns a informative list about your running clusters.
+
 
 ## Terminate a cluster
+
+Terminating a running cluster is quite simple :
+
+`java -jar bibigrid-openstack-2.0.jar -t <ID>`
+
+
