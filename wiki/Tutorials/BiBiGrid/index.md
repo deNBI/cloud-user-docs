@@ -1,4 +1,4 @@
-#  BiBiGrid beginners tutorial 
+#  BiBiGrid tutorial 
 
 ### Prerequisites
 
@@ -17,24 +17,32 @@
 
 ## Download Binary
 
-If you don't want build the client from sources you can use a prebuilt binary. 
-[BiBiGrid Openstack Java executable](http://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid/bibigrid-openstack-2.0.jar)
+If you don't want build the client from sources you can use a prebuilt binary ([BiBiGrid Openstack Java executable](http://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid/bibigrid-openstack-2.0.jar))
 
 
 
 # Getting started
 
-*Check the [GitHub repository](https://github.com/BiBiServ/bibigrid/tree/development) for detailed information about BiBiGrid. For the workshop in Bielefeld (8.3.2018) be sure that you are on the development branch.*
+*Check the [GitHub repository](https://github.com/BiBiServ/bibigrid/tree/development) for detailed information about BiBiGrid.*
 
-BiBiGrid is a tool for an easy cluster setup inside a cloud environment. BiBigrid is cloud provider independend, there exist currently backend implementation for Amazon (AWS), Google (Google Compute), Microsoft (Azure) and Openstack.
+*For the cloud workshop in Bielefeld (8.3.2018): Be sure that you are on the development branch. For some reasons the exlixir based acounts do not work for moment. Please use the workshop accounts for this tutorial.* 
 
-<image>
+BiBiGrid is an open source tool hosted at github  for an easy cluster setup inside a cloud environment. BiBigrid is operating system  and cloud provider independend, there exist currently backend implementations for Amazon (AWS), Google (Google Compute), Microsoft (Azure) and Openstack. It provides a HPC like environment providing a shared FS between all nodes and Grid Batch Scheduler.
 
+![BiBigrid Overview](images/overview.png)
+
+###BiBiGrid configures a classic master / slaves cluster.
+
+1. One master and one or more slave nodes. The used images could be blank images or could come with preinstalled software. BiBiGrid uses [Ansible](https://www.ansible.com) to install and configure the instances.
+2. All instances run in the same security group with default ssh access. Additional ports could be easily configured. 
+3. Local disk space of master is provided as a shared spool disk space between master and the slaves. Local storage of the slaves is configured as temporary scratch space.
+4. Volumes provided by Cinder can be mounted to master node and optional distributed to all slaves (as NFS shars).
+5. Object Store is available to all nodes
 
 
 ## Configuration
 
-The goal of this session is to setup a small HPC cluster consisting of 5 nodes  (1 master, 4 slaves)  using BiBiGrid. The template below do the job, you have to replace all XXX's with
+The goal of this session is to setup a small HPC cluster consisting of 5 nodes  (1 master, 4 slaves)  using BiBiGrid. The template below do the job, you have to replace all XXX's with your environment.
 
 ### Template
 
@@ -100,6 +108,11 @@ Starting with blank Ubuntu 16.04 images takes up to 20 minutes to finish.
 Using preinstalled images is much faster (about 5 minutes).
 
 
+## Good to know
+
+- `/vol/spool` -> shared filesystem between all nodes.
+- `/vol/scratch` -> local diskspace (ephemeral disk, if provided)
+
 
 ## Login into the Cluster
 
@@ -127,11 +140,21 @@ However, we use ssh to tunnel the default cloud9 port (8181)  to our local machi
 
 ## Hello World BiBiGrid!
 
-After successful starting a cluster in the cloud, let's start with a small example : *Hello World*
+After successful starting a cluster in the cloud, start with a typically  example : *Hello World !*
 
+- Login into master and change to the spooldir 
+`cd /vol/spool`
+- Create a new shell script `helloworld.sh` containing a "hello world" :
 
+```
+#!/bin/bash
+echo Hello from $(hostname) !
+sleep 10
+```
 
-
+- Submit this script to each node: ` qsub -cwd -t 1-4 -pe multislot 2 helloworld.sh`
+- See the status of our cluster: `qhost`
+- See the output: `cat helloworld.sh.o.*`
 
 ## List running cluster
 
@@ -140,7 +163,6 @@ Since it is possible to start more than cluster at once, it possible to list all
 `java -jar bibigrid-openstack-2.0.jar -l`
 
 The command returns a informative list about your running clusters.
-
 
 ## Terminate a cluster
 
