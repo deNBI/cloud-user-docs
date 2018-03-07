@@ -73,7 +73,7 @@ openstack --os-identity-api-version 3 ec2 credentials create
 
 #### Configuration of S3 clients
 
-Using the ''s3cmd'' command line utility, this section demonstrates how to access the BCF S3 object storage. The setup should be similar for other tools, libraries or applications.
+Using the ''s3cmd'' command line utility, this section demonstrates how to access the S3 object storage. The setup should be similar for other tools, libraries or applications.
 
 
 
@@ -81,7 +81,7 @@ Using the ''s3cmd'' command line utility, this section demonstrates how to acces
 *  Enter the access and secret key
 *  Do not change the default region
 *  Setup encryption if necessary, or press enter to skip it
-*  Use HTTPS protocol (S3 at BCF is **NOT** available via HTTP)
+*  Use HTTPS protocol (S3 at de.NBI Cloud is **NOT** available via HTTP)
 *  Enter proxy details if necessary
 *  Skip test access since s3cmd contacts the amazon servers by default
 *  Save settings
