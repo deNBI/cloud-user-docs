@@ -18,7 +18,8 @@
 ## Download Binary
 
 If you don't want build the client from sources you can use a prebuilt binary. 
-[BiBiGrid Openstack Java executable](https://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid/bibigrid-openstack-2.0.jar)
+[BiBiGrid Openstack Java executable](http://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid/bibigrid-openstack-2.0.jar)
+
 
 
 # Getting started
