@@ -30,7 +30,7 @@ The OpenStack dashboard provides an easy way to manage the object storage in the
 
 By clicking on **Containers**, the object storage buckets available to the current project are displayed:
 
-![object storage 2](imgages/os_2.png)
+![object storage 2](images/os_2.png)
 
 This basic interface allows the definition of containers and upload/download of files.
 
