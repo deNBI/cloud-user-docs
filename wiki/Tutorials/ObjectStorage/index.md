@@ -71,7 +71,7 @@ openstack --os-identity-api-version 3 ec2 credentials create
 
 *  The ''access'' and ''secret'' values are the credentials for accessing the S3 buckets of the project.
 
-#### Configuration of S3 clients
+#### Configuration of the s3cmd client
 
 Using the ''s3cmd'' command line utility, this section demonstrates how to access the S3 object storage. The setup should be similar for other tools, libraries or applications.
 
@@ -90,6 +90,26 @@ Using the ''s3cmd'' command line utility, this section demonstrates how to acces
 *  Test the configuration, e.g. by invoking ''s3cmd ls'' to list all buckets. The output should print one line containing ''s3://`<bucket name>`'' for all buckets in the project
 
 If you need access to different project, you can create multiple configuration files with s3cmd.
+
+#### Configuration of the minio client
+
+Another nice command line client is [https://docs.minio.io/docs/minio-client-quickstart-guide](minio), 
+providing an alternative to UNIX commands like ls, cat, cp, mirror, 
+diff, find etc. It supports filesystems and Amazon S3 compatible cloud storage service (AWS Signature v2 and v4).
+
+Under Linux, you can just download the client:
+
+```wget https://dl.minio.io/client/mc/release/linux-amd64/mc
+chmod +x mc
+./mc --help```
+
+To add one or more Amazon S3 compatible hosts, follow the instructions below ''mc'' stores all its 
+configuration information in ''~/.mc/config.json'' file.
+
+```mc config host add <ALIAS> <YOUR-S3-ENDPOINT> <YOUR-ACCESS-KEY> <YOUR-SECRET-KEY>```
+
+For details check out the [https://docs.minio.io/](Minio webpage).
+
 
 ### Limitations of Ceph RadosGW
 
