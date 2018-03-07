@@ -99,7 +99,8 @@ diff, find etc. It supports filesystems and Amazon S3 compatible cloud storage s
 
 Under Linux, you can just download the client:
 
-```wget https://dl.minio.io/client/mc/release/linux-amd64/mc
+```bash
+wget https://dl.minio.io/client/mc/release/linux-amd64/mc
 chmod +x mc
 ./mc --help
 ```
@@ -107,7 +108,8 @@ chmod +x mc
 To add one or more Amazon S3 compatible hosts, follow the instructions below ''mc'' stores all its 
 configuration information in ''~/.mc/config.json'' file.
 
-```mc config host add <ALIAS> <YOUR-S3-ENDPOINT> <YOUR-ACCESS-KEY> <YOUR-SECRET-KEY>
+```bash
+mc config host add <ALIAS> <YOUR-S3-ENDPOINT> <YOUR-ACCESS-KEY> <YOUR-SECRET-KEY>
 ```
 
 For details check out the [Minio webpage](https://docs.minio.io/).
