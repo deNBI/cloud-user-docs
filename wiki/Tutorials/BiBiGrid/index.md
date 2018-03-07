@@ -31,7 +31,7 @@ BiBiGrid is an open source tool hosted at github  for an easy cluster setup insi
 
 ![BiBigrid Overview](images/overview.png)
 
-###BiBiGrid configures a classic master / slaves cluster.
+### BiBiGrid configures a classic master / slaves cluster.
 
 1. One master and one or more slave nodes. The used images could be blank images or could come with preinstalled software. BiBiGrid uses [Ansible](https://www.ansible.com) to install and configure the instances.
 2. All instances run in the same security group with default ssh access. Additional ports could be easily configured. 
