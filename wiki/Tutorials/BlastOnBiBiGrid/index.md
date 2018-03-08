@@ -4,9 +4,9 @@
 
 The Bielefeld de.NBI Cloud hosts a public bucket called `biodata` which mirrors some
 databases from public repositories. To check out which databases are available,
-list the bucket using your favorite command line client
+list the bucket using your favorite command line client.
 
-Download minio:
+Download Linux version of minio:
 
 ```bash
 cd ~
@@ -16,20 +16,21 @@ chmod +x mc
 ~/mc config host add s3-bi https://openstack.cebitec.uni-bielefeld.de:8080 <YOUR-ACCESS-KEY> <YOUR-SECRET-KEY>
 ```
 
-This will list all BLAST databases in the ''biodata'' bucket.
+The following command will list all BLAST databases in the ''biodata'' bucket:
 
-```
-blast/swissprot.00.phr
-blast/swissprot.00.pin
-blast/swissprot.00.pnd
-blast/swissprot.00.pni
-blast/swissprot.00.pog
-blast/swissprot.00.ppd
-blast/swissprot.00.ppi
-blast/swissprot.00.psd
-blast/swissprot.00.psi
-blast/swissprot.00.psq
-blast/swissprot.pal
+```bash
+~/mc ls s3-bi/biodata/blast/
+[2018-03-07 13:42:34 UTC] 118MiB swissprot.00.phr
+[2018-03-07 13:42:30 UTC] 3.6MiB swissprot.00.pin
+[2018-03-07 13:42:31 UTC] 4.2MiB swissprot.00.pnd
+[2018-03-07 13:42:31 UTC]  17KiB swissprot.00.pni
+[2018-03-07 13:42:30 UTC] 1.8MiB swissprot.00.pog
+[2018-03-07 13:42:30 UTC] 3.6MiB swissprot.00.ppd
+[2018-03-07 13:42:30 UTC]  14KiB swissprot.00.ppi
+[2018-03-07 13:42:31 UTC]  25MiB swissprot.00.psd
+[2018-03-07 13:42:30 UTC] 603KiB swissprot.00.psi
+[2018-03-07 13:42:36 UTC] 169MiB swissprot.00.psq
+[2018-03-07 13:42:30 UTC]    31B swissprot.pal
 ```
 
 For this tutorial we will use the SwissProt database to run some BLAST searches
@@ -78,7 +79,7 @@ Submit your jobs to the SGE:
 ```bash
 for i in *.[0-9][0-9].faa
 do
-qsub -cwd -b y /usr/bin/blastp -db swissprot -query $i
+qsub -cwd -b y /usr/bin/blastp -db swissprot -query $i -out $i.blast.out
 done
 ```
 
