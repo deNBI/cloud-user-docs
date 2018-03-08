@@ -23,15 +23,14 @@ If you don't want build the client from sources you can use a prebuilt binary ([
 
 # Getting started
 
-*Check the [GitHub repository](https://github.com/BiBiServ/bibigrid/tree/development) for detailed information about BiBiGrid.*
-
-*For the cloud workshop in Bielefeld (8.3.2018): Be sure that you are on the development branch. For some reasons the exlixir based acounts do not work for moment. Please use the workshop accounts for this tutorial.* 
+*Check the [GitHub repository](https://github.com/BiBiServ/bibigrid/tree/development) for detailed information about BiBiGrid. For the cloud workshop in Bielefeld (8.3.2018): Be sure that you are on the development branch.* 
 
 BiBiGrid is an open source tool hosted at github  for an easy cluster setup inside a cloud environment. BiBigrid is operating system  and cloud provider independend, there exist currently backend implementations for Amazon (AWS), Google (Google Compute), Microsoft (Azure) and Openstack. It provides a HPC like environment providing a shared FS between all nodes and Grid Batch Scheduler.
 
+### BiBiGrid configures a classic master / slaves cluster.
+
 ![BiBigrid Overview](images/overview.png)
 
-### BiBiGrid configures a classic master / slaves cluster.
 
 1. One master and one or more slave nodes. The used images could be blank images or could come with preinstalled software. BiBiGrid uses [Ansible](https://www.ansible.com) to install and configure the instances.
 2. All instances run in the same security group with default ssh access. Additional ports could be easily configured. 
@@ -91,6 +90,11 @@ oge: yes
 cloud9: yes
 
 ```
+
+*The openstack credentials requires the **name** not the **id**.*
+
+*The image is referenced as **id** not by **name**.*
+
 
 You can simply check your configuration using :
 
@@ -168,6 +172,6 @@ The command returns a informative list about your running clusters.
 
 Terminating a running cluster is quite simple :
 
-`java -jar bibigrid-openstack-2.0.jar -t <ID>`
+`java -jar bibigrid-openstack-2.0.jar -t <clusterid>`
 
 
