@@ -12,7 +12,7 @@ New instances need to be configured somehow. You normally start with blank (unco
 - network setup depending on project
 - different *hardware* , e.g. additional ephemeral disks
 
-In every situation you want to have an instance ready to use right after launching. Openstack (and nearly all other clouds) solve this problem providing meta data to the started instances. Meta data can be provided as instance-specific webservice (http://169.254.269.254) or as a separate config drive, both possibilities are supported by OpenStack. The way how to propagate meta data is currently a de facto standard established by Amazon Web Services. There exist different releases. Openstack supports all of them.
+In every situation you want to have an instance ready to use right after launching. Openstack (and nearly all other clouds) solve this problem providing meta data to the started instances. Meta data can be provided as instance-specific webservice (http://169.254.169.254) or as a separate config drive, both possibilities are supported by OpenStack. The way how to propagate meta data is currently a de facto standard established by Amazon Web Services. There exist different releases. Openstack supports all of them.
 
 The meta data contains all the information about the instance needed to configure it:
 
