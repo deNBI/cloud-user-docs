@@ -1,4 +1,22 @@
-site_name: "de.NBI Cloud User Wiki"                         
+site_name: "de.NBI Cloud Wiki"                         
 docs_dir: /srv_root/docs/wiki
 site_dir: /var/www/html/wiki
 theme: bootstrap
+pages:
+  - 'Home' : index.md
+  - 'Portal' : Portal.md
+  - 'Quickstart' : Quickstart.md
+  - 'Concept' : 
+    - 'OpenStack Basics' : Concept/concepts.md
+  - 'Tutorials' :
+    - 'Bibigrid' : Tutorials/BiBiGrid/index.md
+    - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
+    - 'Object Storage' : Tutorials/ObjectStorage/index.md
+    - 'UserData' : Tutorials/UserData/index.md
+  - 'FAQ' : 'FAQ.md'
+  - 'Compute Center Specific' :
+    - 'Giessen' : Compute_Center/Giessen.md
+    - 'Bielefeld' : Compute_Center/Bielefeld.md
+    - 'Heidelberg' : Compute_Center/Heidelberg.md
+    - 'Tuebingen' : Compute_Center/Tuebingen.md
+    - 'Freiburg' : Compute_Center/Freiburg.md
