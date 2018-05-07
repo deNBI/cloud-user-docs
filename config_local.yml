@@ -7,6 +7,7 @@ pages:
   - 'Quickstart' : 'Quickstart.md'
   - 'Concept' : 
     - 'OpenStack Basics' : Concept/concepts.md
+    - 'Security' : Concept/security.md
   - 'Tutorials' :
     - 'Bibigrid' : Tutorials/BiBiGrid/index.md
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
