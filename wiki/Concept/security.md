@@ -4,7 +4,7 @@ One important change triggered by the rise of clouds is a shift in responsibilit
 
 With clouds, this has changed. The system administrator is still responsible for the servers, but is focusing on the cloud setup itself. An inspection of running instances is technically difficult (if not infeasible), and in case of extern users' instance legally forbidden. Monitoring is restricted to transfer points like network interfaces, and may allow the administrator to detect abuse or suspicious actions.
 
-As a result, the user or group starting and managing their instances are responsible for them. It's up to them to ensure that the systems are updated in a properly manner, and set up in a secure way to prevent abuse or "being hacked".
+As a result, the user or group starting and managing their instances are responsible for them. It's up to them to ensure that the systems are updated in a properly manner, and set up in a secure way to prevent abuse or instances being compromised.
 
 This page hosts a list of recommendations every cloud user should follow. This list is neither complete nor comprehensive, and will be extended over time:
 
