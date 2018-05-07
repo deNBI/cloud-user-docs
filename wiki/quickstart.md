@@ -1,4 +1,4 @@
-This is the **quickstart** to start your own running virtual maschine in the de.NBI cloud. To start this guide you should have an individual account and be a member of an existing project. If you do not have an account, please visit [this page](https://portal.denbi.de) and follow the instructions.
+This is the **Quickstart** to start your own running virtual maschine in the de.NBI cloud. To start this guide you should have an individual account and be a member of an existing project. If you do not have an account, please visit [this page](https://cloud.denbi.de) and follow the instructions.
 
 Throughout this guide, we will achive following goals:
 
@@ -13,18 +13,13 @@ Throughout this guide, we will achive following goals:
 
 # First Login
 
-_This guide is based on the de.NBI cloud setup in Giessen. It should also be applicable to other de.NBI cloud sites, but detail like URLs or the theme used on web pages may differ._
-
+**This guide is based on the de.NBI cloud setup in Giessen. It should also be applicable to other de.NBI cloud sites. Please check the correct URL of your site in the _Compute Center Specific_ section.**
 
 First of all, visit [de.NBI cloud Giessen login page](https://cloud.computational.bio.uni-giessen.de/). You should see the following login page:
 
-----
-
 ![de.NBI cloud Giessen login](/img/User/login.png)
 
-----
-
-Enter "de.NBI" in the [Domain](concepts.md#domain) field (without quotes), your user credentials in the corresponding areas and click on the **Connect** button. You should be redirected to the [Openstack Dashboard](quickstart.md#openstack-dashboard-overview). If you have any problems or need help logging in, please do not hesitate to contact the de.NBI JLU cloud administration (`<cloud@computational.bio.uni-giessen.de>`).
+Please choose in the **Authenticate using** field, the **ELIXIR AAI** tag and click on the **Connect** button. You should be redirected to the [Openstack Dashboard](quickstart.md#openstack-dashboard-overview). If you have any problems or need help logging in, please do not hesitate to contact the Cloud Support of your site. You can find the corresponding support site in the _Compute Center Specific_ section.
 
 # OpenStack Dashboard Overview
 
@@ -36,15 +31,15 @@ If the login was successful, you should see the overview page of the OpenStack d
 
 ----
 
-At the top left you should see your current [project ](concepts.md#project) in the **de.NBI** [Domain](concepts.md#domain) (green box). If you have more than one project, you can switch into another one here (click on the arrow down button).
+At the top left you should see your current [project ](Concept/project.md) in the **de.NBI** [Domain](Concept/domain.md) (green box). If you have more than one project, you can switch into another one here (click on the arrow down button).
 
-At the top right you see your [user](concepts.md#user)name (pink box). When you click on that arrow, you get a dropdown menu. Here, you can get to your user specific settings (changing dashboard settings and appearance and your password), get to the official user documentation by OpenStack, change your theme or log out.
+At the top right you see your [user](Concept/user.md)name (pink box). When you click on that arrow, you get a dropdown menu. Here, you can get to your user specific settings (changing dashboard settings and appearance and your password), get to the official user documentation by OpenStack, change your theme or log out.
 
 On the left is the **control menu** (blue box) to navigate you through your project. The current page is highlighted in blue (In our case Project -> Compute -> Overview). This information can also be found in the yellow box. This could help you navigate to the right page, in the case you have trouble to find the current page we are operating on.
 
 The overview page summarizes the resource allocation within the current project (center of the page):
 
-*  Launched [instances](concepts#instance)
+*  Launched [instances](Concept/instance.md)
 
 *  Used VCPUs
 
@@ -192,8 +187,6 @@ A flavor defines a virtual machine setup by defining parameters like hard disk s
 ![network with instance](/img/User/launch_instance_network.png)
 
 ----
-
-Great!!!8-)
 
 
 # Getting Access to the Instance
