@@ -1,10 +1,36 @@
 site_name: "de.NBI Cloud Wiki"                         
 docs_dir: wiki
-theme: bootstrap
+theme:
+  name: material
+  palette:
+    primary: 'light blue'
+    accent: 'light blue'
+repo_name: 'deNBI/cloud-user-docs'
+repo_url: 'https://github.com/deNBI/cloud-user-docs' 
+edit_uri: blob/master/wiki/
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
 pages:
-  - 'Home' : 'index.md'
-  - 'Portal' : 'Portal.md'
-  - 'Quickstart' : 'Quickstart.md'
+  - 'Home' : index.md
+  - 'Portal' : Portal.md
+  - 'Quickstart' : Quickstart.md
   - 'Concept' : 
     - 'OpenStack Basics' : Concept/concepts.md
   - 'Tutorials' :
