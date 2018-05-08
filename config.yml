@@ -6,6 +6,8 @@ theme:
   palette:
     primary: 'light blue'
     accent: 'light blue'
+  logo: 'img/denbi.svg'
+  favicon: 'img/denbi.svg'
 repo_name: 'deNBI/cloud-user-docs'
 repo_url: 'https://github.com/deNBI/cloud-user-docs' 
 edit_uri: blob/master/wiki/
