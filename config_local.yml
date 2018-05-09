@@ -30,11 +30,12 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tilde
 pages:
-  - 'Home' : index.md
-  - 'Portal' : Portal.md
-  - 'Quickstart' : Quickstart.md
+  - 'Home' : 'index.md'
+  - 'Portal' : 'Portal.md'
+  - 'Quickstart' : 'quickstart.md'
   - 'Concept' : 
     - 'OpenStack Basics' : Concept/concepts.md
+    - 'Security' : Concept/security.md
   - 'Tutorials' :
     - 'Bibigrid' : Tutorials/BiBiGrid/index.md
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
