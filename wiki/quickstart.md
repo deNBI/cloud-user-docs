@@ -1,4 +1,4 @@
-This is the **quickstart** to start your own running virtual maschine in the de.NBI cloud. To start this guide you should have an individual account and be a member of an existing project. If you do not have an account, please visit [this page](https://portal.denbi.de) and follow the instructions.
+This is the **Quickstart** to start your own running virtual machine in the de.NBI cloud. To start this guide you should have an individual account and be a member of an existing project. If you do not have an account, please visit [this page](https://cloud.denbi.de) and follow the instructions.
 
 Throughout this guide, we will achive following goals:
 
@@ -13,18 +13,13 @@ Throughout this guide, we will achive following goals:
 
 # First Login
 
-_This guide is based on the de.NBI cloud setup in Giessen. It should also be applicable to other de.NBI cloud sites, but detail like URLs or the theme used on web pages may differ._
-
+**This guide is based on the de.NBI cloud setup in Giessen. It should also be applicable to other de.NBI cloud sites. Please check the correct URL of your site in the _Compute Center Specific_ section.**
 
 First of all, visit [de.NBI cloud Giessen login page](https://cloud.computational.bio.uni-giessen.de/). You should see the following login page:
 
-----
-
 ![de.NBI cloud Giessen login](/img/User/login.png)
 
-----
-
-Enter "de.NBI" in the [Domain](concepts.md#domain) field (without quotes), your user credentials in the corresponding areas and click on the **Connect** button. You should be redirected to the [Openstack Dashboard](quickstart.md#openstack-dashboard-overview). If you have any problems or need help logging in, please do not hesitate to contact the de.NBI JLU cloud administration (`<cloud@computational.bio.uni-giessen.de>`).
+Please choose in the **Authenticate using** field, the **ELIXIR AAI** tag and click on the **Connect** button. You should be redirected to the [Openstack Dashboard](quickstart.md#openstack-dashboard-overview). If you have any problems or need help logging in, please do not hesitate to contact the Cloud Support of your site. You can find the corresponding support site in the _Compute Center Specific_ section.
 
 # OpenStack Dashboard Overview
 
@@ -36,15 +31,15 @@ If the login was successful, you should see the overview page of the OpenStack d
 
 ----
 
-At the top left you should see your current [project ](concepts.md#project) in the **de.NBI** [Domain](concepts.md#domain) (green box). If you have more than one project, you can switch into another one here (click on the arrow down button).
+At the top left you should see your current [project ](Concept/project.md) in the **de.NBI** [Domain](Concept/domain.md) (green box). If you have more than one project, you can switch into another one here (click on the arrow down button).
 
-At the top right you see your [user](concepts.md#user)name (pink box). When you click on that arrow, you get a dropdown menu. Here, you can get to your user specific settings (changing dashboard settings and appearance and your password), get to the official user documentation by OpenStack, change your theme or log out.
+At the top right you can see your [user](Concept/user.md)name (pink box). When you click on that arrow, you will get a dropdown menu. Here, you can get to your user specific settings (changing dashboard settings and appearance and your password), get to the official user documentation by OpenStack, change your theme or log out.
 
 On the left is the **control menu** (blue box) to navigate you through your project. The current page is highlighted in blue (In our case Project -> Compute -> Overview). This information can also be found in the yellow box. This could help you navigate to the right page, in the case you have trouble to find the current page we are operating on.
 
 The overview page summarizes the resource allocation within the current project (center of the page):
 
-*  Launched [instances](concepts#instance)
+*  Launched [instances](Concept/instance.md)
 
 *  Used VCPUs
 
@@ -65,9 +60,26 @@ Next, we have to setup SSH to login to our instances after they are launched. Go
 ![access_security](/img/User/access_and_security_0_keys.png)
 
 ----
-If you do not have an SSH key or you are not sure whether you have one, please visit [ this nice instruction from Atlassian](https://confluence.atlassian.com/bitbucketserver/creating-ssh-keys-776639788.html).
+If you do not have an SSH key or you are not sure whether you have one, please generate one by following the instructions based on your operating system (**Windows**/**Linux**) in the next [Generate SSH-Keys](quickstart.md#Generate-SSH-Keys) section. You can import your SSH Key by clicking on **Import Key Pair** (right button in the yellow box)(e.g.: .pub in Linux or .key in Windows). 
+Afterwards, your key should be listed on the key overview page. In chapter [ Getting Access to the Instance](quickstart.md#getting-access-to-the-instance) we will use this key. 
 
-Now, you can click on **Import Key Pair** (right button in the yellow box) and import your SSH key. Afterwards, your key should be listed on the key overview page. In chapter [ Getting Access to the Instance](quickstart.md#getting-access-to-the-instance) we will use this key. 
+## Generate SSH-Keys
+
+**Linux**
+
+On all UNIX based operating systems ‘keygen’ may be used to create a key pair. A Linux command example is given below:
+
+~~~BASH
+ssh-keygen –t rsa -f new_id
+~~~
+
+which will produce the files new_id and new_id.pub.
+
+**Windows**
+
+Start ‘puttygen’ and click on generate. You need to move your mouse cursor above the grey field to create enough entropy. Enter a passphrase and confirm the input.
+Save your private and public key into separate files e.g, new_id.ppk and new_id.key
+
 
 # Creating a Router and a Network
 
@@ -193,8 +205,6 @@ A flavor defines a virtual machine setup by defining parameters like hard disk s
 
 ----
 
-Great!!!8-)
-
 
 # Getting Access to the Instance
 
@@ -279,10 +289,90 @@ In the **Rule** field, select **SSH** (maybe you have to scroll a little bit dow
 
 ## Login
 
-Now you can login (in our case as the ubuntu user):
-''ssh -i ~/.ssh/my_cloud_key_name.pem ubuntu@`<yourFloatingIp>`
+For Linux and MacOS just use ssh, specifying the correct IP, the right key and the username of the OS you have chosen for example ‘ubuntu’. For Windows, start ‘Putty’ and enter the IP address of your VM under Hostname (or IP address).
+It can be found within the Horizon dashboard under Instances. An example of a Linux command is given below:
 
+~~~BASH
+ssh –i /path/to/private/key @
+~~~
+
+An example for a CentOS machine with the floating IP 1.2.3.4 would be:
+
+~~~BASH
+ssh –i /path/to/private/key ubuntu@1.2.3.4
+~~~
+
+If you need X-Forwarding for graphical user interfaces don’t forget to set the –X flag and check if the xauth package is installed on the host and the server and the X-Forwarding settings are correct. 
+For Windows user we suggest to use xming (https://sourceforge.net/projects/xming/).
+
+For Windows using Putty you have to navigate in Putty to Connection / Data and enter ‘ubuntu’ as Auto-login username. The user name may be different for different Boot Sources, but here we have a CentOS based image.
+Under Connection / SSH / Auth select the file containing your private key matching the public one you have used during the creation of your VM. Enable X11 forwarding under Connection / SSH / X11.
+Go back to Session and save the settings for later reuse. Click on Open to connect to your VM via SSH. When connecting for the first time a warning related to server host keys may appear. Confirm with yes.
+Enter the passphrase you have set during the creation of your key pair. You now should have a prompt on your VM. Please note, each time you are shutting down and deleting the VM or redeploy the VM, the IP address will change.
+So first check if you have the correct IP address if problems occur. If you are just logging out of the VM via the exit command, the IP address will not change.
 
 Great! You have started your first instance in the de.NBI cloud 8-)
 
+## Using Cinder Volumes
 
+Cinder Volumes are nothing else than block devices like a hard drive connected to your computer but in this case virtual. You can mount format and unmount it like a normal block device. In the following it is explained how to create a Cinder Volume and how to use it in your VM. But before some remarks. It is only possible to attach a Cinder Volume to exactly one VM. So you can not share one Volume with other VMs. A more cheerful remark is that the data saved on a Cinder Volume is persistent. As long you do not delete the Volume in the Dashboard (Horizon) your data will not get lost by deleting the VM.  
+
+In the Dashboard (Horizon) you will navigate to the `Compute` section and then to the `Volume` section.
+Here you can create a new volume entering the following parameters
+
+
+* **Volume name:** Type in any name you want to
+
+* **Description:** Describe for which purpose you will use the volume (optional) 
+
+* **Volume Source:** Set it to `No source, empty Volume` to get an empty block device
+
+* **Size (GiB):** Select the desired size in Gigabytes
+
+* **Availability zone:** nova
+
+Then click `create volume` and your volume will appear in the list of volumes with the status **Available**.
+Now you have to attach the just created volume to your VM. This is done by changing to the `instance`section under the `compute` section and clicking on the arrow on the right side belonging to your VM.
+Choose `Attach Volume` and choose the just created volume. Now your volume is connected to your VM similar to connecting a hard drive via USB with your computer.
+Now you have to login into your VM, format and mount the volume. You will find your volume with the command
+
+~~~BASH
+lsblk
+~~~
+
+This command will list all your block devices connected to your VM.
+Chose the correct device (mostly the name will be the second entry, you can orientate oneself on the SIZE parameter) and format it with a filesystem if you are using this volume for the first time. Common filesystems are ext4 or xfs.
+
+~~~BASH
+mkfs.ext4 /dev/device_name
+~~~
+
+After the formating you have to create a mountpoint
+
+~~~BASH
+mkdir -p /mnt/volume
+~~~
+
+Check that you have the correct permissions for this directory, otherwise set them with the follwoing command
+
+~~~BASH
+chmod 777 /mnt/volume/
+~~~
+
+And mount the Cinder Volume under the created directory
+
+~~~
+mount /dev/device_name /mnt/volume
+~~~
+
+Now you should see your device by executing the command
+
+~~~
+df -h
+~~~
+
+If you do not need you Cinder Volume you can also unmount it with
+
+~~~
+umount /dev/device_name
+~~~

@@ -4,7 +4,7 @@ theme: bootstrap
 pages:
   - 'Home' : 'index.md'
   - 'Portal' : 'Portal.md'
-  - 'Quickstart' : 'Quickstart.md'
+  - 'Quickstart' : 'quickstart.md'
   - 'Concept' : 
     - 'OpenStack Basics' : Concept/concepts.md
     - 'Security' : Concept/security.md
