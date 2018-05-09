@@ -35,7 +35,7 @@ pages:
   - 'Portal' : Portal.md
   - 'Quickstart' : quickstart.md
   - 'Concept' : 
-    - 'OpenStack Basics' : Concept/concepts.md
+    - 'OpenStack Basics' : Concept/basics.md
     - 'Security' : Concept/security.md
   - 'Tutorials' :
     - 'Bibigrid' : Tutorials/BiBiGrid/index.md
