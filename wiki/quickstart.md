@@ -60,9 +60,10 @@ Next, we have to setup SSH to login to our instances after they are launched. Go
 ![access_security](/img/User/access_and_security_0_keys.png)
 
 ----
-If you do not have an SSH key or you are not sure whether you have one, please generate one, following the instructions based on **Windows** or **Linux**:
+If you do not have an SSH key or you are not sure whether you have one, please generate one, following the instructions based on **Windows** or **Linux** in the next [Generate SSH-Keys](quickstart.md#Generate-SSH-Keys) section. You can import your SSH Key by clicking on **Import Key Pair** (right button in the yellow box)(e.g.: .pub in Linux or .key in Windows). 
+Afterwards, your key should be listed on the key overview page. In chapter [ Getting Access to the Instance](quickstart.md#getting-access-to-the-instance) we will use this key. 
 
----------
+## Generate SSH-Keys
 
 **Linux**
 
@@ -79,10 +80,6 @@ which will produce the files new_id and new_id.pub.
 Start ‘puttygen’ and click on generate. You need to move your mouse cursor above the grey field to create enough entropy. Enter a passphrase, twice.
 Save your private and public key into separate files e.g, new_id.ppk and new_id.key
 
-----------
-
-Now, you can click on **Import Key Pair** (right button in the yellow box) and import your SSH key (e.g.: new_id.pub in Linux or new_id.key in Windows). 
-Afterwards, your key should be listed on the key overview page. In chapter [ Getting Access to the Instance](quickstart.md#getting-access-to-the-instance) we will use this key. 
 
 # Creating a Router and a Network
 
