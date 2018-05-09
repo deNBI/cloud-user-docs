@@ -1,4 +1,4 @@
-This is the **Quickstart** to start your own running virtual maschine in the de.NBI cloud. To start this guide you should have an individual account and be a member of an existing project. If you do not have an account, please visit [this page](https://cloud.denbi.de) and follow the instructions.
+This is the **Quickstart** to start your own running virtual machine in the de.NBI cloud. To start this guide you should have an individual account and be a member of an existing project. If you do not have an account, please visit [this page](https://cloud.denbi.de) and follow the instructions.
 
 Throughout this guide, we will achive following goals:
 
@@ -33,7 +33,7 @@ If the login was successful, you should see the overview page of the OpenStack d
 
 At the top left you should see your current [project ](Concept/project.md) in the **de.NBI** [Domain](Concept/domain.md) (green box). If you have more than one project, you can switch into another one here (click on the arrow down button).
 
-At the top right you see your [user](Concept/user.md)name (pink box). When you click on that arrow, you get a dropdown menu. Here, you can get to your user specific settings (changing dashboard settings and appearance and your password), get to the official user documentation by OpenStack, change your theme or log out.
+At the top right you can see your [user](Concept/user.md)name (pink box). When you click on that arrow, you will get a dropdown menu. Here, you can get to your user specific settings (changing dashboard settings and appearance and your password), get to the official user documentation by OpenStack, change your theme or log out.
 
 On the left is the **control menu** (blue box) to navigate you through your project. The current page is highlighted in blue (In our case Project -> Compute -> Overview). This information can also be found in the yellow box. This could help you navigate to the right page, in the case you have trouble to find the current page we are operating on.
 
@@ -60,7 +60,7 @@ Next, we have to setup SSH to login to our instances after they are launched. Go
 ![access_security](/img/User/access_and_security_0_keys.png)
 
 ----
-If you do not have an SSH key or you are not sure whether you have one, please generate one, following the instructions based on **Windows** or **Linux** in the next [Generate SSH-Keys](quickstart.md#Generate-SSH-Keys) section. You can import your SSH Key by clicking on **Import Key Pair** (right button in the yellow box)(e.g.: .pub in Linux or .key in Windows). 
+If you do not have an SSH key or you are not sure whether you have one, please generate one by following the instructions based on your operating system (**Windows**/**Linux**) in the next [Generate SSH-Keys](quickstart.md#Generate-SSH-Keys) section. You can import your SSH Key by clicking on **Import Key Pair** (right button in the yellow box)(e.g.: .pub in Linux or .key in Windows). 
 Afterwards, your key should be listed on the key overview page. In chapter [ Getting Access to the Instance](quickstart.md#getting-access-to-the-instance) we will use this key. 
 
 ## Generate SSH-Keys
@@ -77,7 +77,7 @@ which will produce the files new_id and new_id.pub.
 
 **Windows**
 
-Start ‘puttygen’ and click on generate. You need to move your mouse cursor above the grey field to create enough entropy. Enter a passphrase, twice.
+Start ‘puttygen’ and click on generate. You need to move your mouse cursor above the grey field to create enough entropy. Enter a passphrase and confirm the input.
 Save your private and public key into separate files e.g, new_id.ppk and new_id.key
 
 
@@ -296,26 +296,26 @@ It can be found within the Horizon dashboard under Instances. An example of a Li
 ssh –i /path/to/private/key @
 ~~~
 
-An example for a centos machine with the floating IP 1.2.3.4 would be:
+An example for a CentOS machine with the floating IP 1.2.3.4 would be:
 
 ~~~BASH
 ssh –i /path/to/private/key ubuntu@1.2.3.4
 ~~~
 
-If you need x-forwarding for graphical user interfaces don’t forget to set the –X flag and check if the xauth package is installed on the host and the server and the x-forwarding settings are correct. 
+If you need X-Forwarding for graphical user interfaces don’t forget to set the –X flag and check if the xauth package is installed on the host and the server and the X-Forwarding settings are correct. 
 For Windows user we suggest to use xming (https://sourceforge.net/projects/xming/).
 
 For Windows using Putty you have to navigate in Putty to Connection / Data and enter ‘ubuntu’ as Auto-login username. The user name may be different for different Boot Sources, but here we have a CentOS based image.
 Under Connection / SSH / Auth select the file containing your private key matching the public one you have used during the creation of your VM. Enable X11 forwarding under Connection / SSH / X11.
 Go back to Session and save the settings for later reuse. Click on Open to connect to your VM via SSH. When connecting for the first time a warning related to server host keys may appear. Confirm with yes.
-Enter the passphrase you have set during the creation of your key pair. You now should have a prompt on your VM. Please note, each time you are shutting down and deleting the VM or redeploy the VM the IP address will change.
-So first check if you have the correct IP address if problems occur. If are just logging out of the VM via the exit command, the IP address will not change.
+Enter the passphrase you have set during the creation of your key pair. You now should have a prompt on your VM. Please note, each time you are shutting down and deleting the VM or redeploy the VM, the IP address will change.
+So first check if you have the correct IP address if problems occur. If you are just logging out of the VM via the exit command, the IP address will not change.
 
 Great! You have started your first instance in the de.NBI cloud 8-)
 
 ## Using Cinder Volumes
 
-Cinder Volumes are nothing else than block devices like a hard drive connected to your computer but in this case virtual. You can mount format and unmount it like a normal block device. In the following it is explained how to create a Cinder Volume and how to use it in your VM. But before some remaks. It is only possible to attach a Cinder Volume to exactly one VM. So you can not share one Volume with other VMs. A more cheerful remark is that the data saved on a Cinder Volume is persistent. As long you do not delete the Volume in the Dashboard (Horizon) your data will not get lost by deleting the VM or anything else happening with the VM.  
+Cinder Volumes are nothing else than block devices like a hard drive connected to your computer but in this case virtual. You can mount format and unmount it like a normal block device. In the following it is explained how to create a Cinder Volume and how to use it in your VM. But before some remarks. It is only possible to attach a Cinder Volume to exactly one VM. So you can not share one Volume with other VMs. A more cheerful remark is that the data saved on a Cinder Volume is persistent. As long you do not delete the Volume in the Dashboard (Horizon) your data will not get lost by deleting the VM.  
 
 In the Dashboard (Horizon) you will navigate to the `Compute` section and then to the `Volume` section.
 Here you can create a new volume entering the following parameters
@@ -333,7 +333,7 @@ Here you can create a new volume entering the following parameters
 
 Then click `create volume` and your volume will appear in the list of volumes with the status **Available**.
 Now you have to attach the just created volume to your VM. This is done by changing to the `instance`section under the `compute` section and clicking on the arrow on the right side belonging to your VM.
-Choose `Attach Volume` and choose the just created volume. Now your volume is connected to your VM like if connect a hard drive via USB with your computer.
+Choose `Attach Volume` and choose the just created volume. Now your volume is connected to your VM similar to connecting a hard drive via USB with your computer.
 Now you have to login into your VM, format and mount the volume. You will find your volume with the command
 
 ~~~BASH
