@@ -39,7 +39,7 @@ juju add-cloud cebitec -f ./cebitec.yaml
 To spawn VMs, juju must be able to login to OpenStack.
 So add your credentials in a config file `cebitec-creds.yaml` like this
 
-```
+```yaml
 credentials:
   cebitec:
     <credential name (e.g. username)>:
