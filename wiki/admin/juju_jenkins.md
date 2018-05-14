@@ -124,6 +124,13 @@ relations:
 
 !!! Note
     Do not forget to set a passwort in the options section of jenkins
+    
+To deploy jenkins and haproxy you have to execute the following command:
+
+```BASH
+juju deploy model.yaml
+```
+
 
 The second file configures our deployed haproxy. It sets exposed port of our setup to 443.
 
@@ -137,6 +144,11 @@ The second file configures our deployed haproxy. It sets exposed port of our set
       - reqadd X-Forwarded-Proto:\ https
   server_options: maxconn 100 cookie S{i} check
 ``` 
+to apply this configuration you need to run 
+
+```BASH
+juju config haproxy services=@haproxy_config.yaml
+```
 
 All possible options can be found at the charm websites under configuration [haproxy-charm](https://jujucharms.com/haproxy/).
 Now you can deploy the juju model and configurations with the following command.
