@@ -2,7 +2,7 @@
 
 The following instructions have been used to setup jenkins using [JuJu](https://jujucharms.com) in the de.NBI Cloud.
 
-## Setup jujuj client 
+## Setup juju client 
 
 First we have to set up the juju client in a VM in OpenStack, so it has full network access to
 newly spawned VMs without assigning a floating IP.
@@ -96,7 +96,7 @@ After deploying a juju controller it is possible to define a juju model in two y
 
 - The first file describes the construction of the juju model 
 
-- This model.yaml file creates 1 jenkins machine and 1 haproxy machine.
+- This model.yaml file creates 1 jenkins machine with docker installed and 1 haproxy machine.
 
 - It also configures ssl termination with the files `ssl.key` and `ssl.crt`. 
 
@@ -107,6 +107,9 @@ services:
     num_units: 1
     options:
       password: <passwort>
+      install_keys: 0EBFCD88
+      install_sources: https://download.docker.com/linux/ubuntu xenial stable 
+      extra_packages: docker-ce
   haproxy:
     charm: "cs:haproxy"
     num_units: 1
