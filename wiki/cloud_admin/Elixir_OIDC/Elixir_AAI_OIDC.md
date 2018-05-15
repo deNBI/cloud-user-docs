@@ -20,7 +20,7 @@ This guide was testet against OpenStack Newton on top of Ubuntu 16.04 LTS, but s
 
 Since OpenID Connect is handled via an Apache module, we have to make sure that the neccessary Apache module is installed and enabled.
 
-```~bash
+```bash
 $ apt install libapache2-mod-auth-openidc
 $ a2endmod auth_openidc
 ```
@@ -113,6 +113,7 @@ WEBSSO_INITIAL_CHOICE="oidc"
 ```
 
 ### Running Dashboard behind a HA-Proxy
+
 If you run OpenStack in a HA setup behind a HA-Proxy you have to make sure that you configure the keystone public url and that this url can be reached by all OpenStack controllers. Otherwise the redirect from Elixir back to Keystone will not work.
 
 ```
@@ -125,7 +126,7 @@ OPENSTACK_ENDPOINT_TYPE = "publicURL"
 
 If your controller uses a http[s] proxy to connect to external addresses you have to configure the Apache to make use of it. The environment can be set in `/etc/apache2/envvars`. Don't forget to configure `no_proxy` if your proxy only proxies external addresses.
 
-```~bash
+```bash
 export http_proxy=
 export https_proxy=
 export no_proxy=
@@ -140,7 +141,7 @@ In this section we create all necessary federated resources.
 
 First create a domain *elixir* for federated usage.
 
-```~bash
+```bash
 $ /usr/bin/openstack domain create --description 'The Elixir domain' --enable elixir
 
 ```
@@ -150,7 +151,7 @@ $ /usr/bin/openstack domain create --description 'The Elixir domain' --enable el
 Then we have to create a new indentity provider https://login.elixir-czech.org/oidc/ named *elxir_oidc*
 
 
-```~
+```
 $ /usr/bin/openstack identity provider create --remote-id https://login.elixir-czech.org/oidc/ elixir_oidc
 ```
 
@@ -159,7 +160,7 @@ $ /usr/bin/openstack identity provider create --remote-id https://login.elixir-c
 The mapping describes how the attributes provided by the OIDC services are mapped to Keystone. In our case 
 we map the *Elixir ID*  (HTTP_OIDC_SUB) to the users name. The mapping is described in a JSON:
 
-```~json
+```json
 [{
   "local": [
     { "user": { "name": "{0}", "type": "local", "domain": {"name": "elixir"} } }
@@ -170,7 +171,7 @@ we map the *Elixir ID*  (HTTP_OIDC_SUB) to the users name. The mapping is descri
 ```
 save it as (`/tmp/elixir_oidc_mapping_rules.json`) and import it into OpenStack Keystone with
 
-```~bash
+```bash
 $ /usr/bin/openstack mapping create --rules /tmp/elixir_oidc_mapping_rules.json elixir_oidc_mapping
 ```
 
@@ -178,7 +179,7 @@ $ /usr/bin/openstack mapping create --rules /tmp/elixir_oidc_mapping_rules.json 
 
 At last we have to create a federation protocol that connects the imported mapping with the created indentity-provider
 
-```~bash
+```bash
 $ /usr/bin/openstack federation protocol create oidc --mapping elixir_oidc_mapping --identity-provider elixir_oidc
 ```
 
@@ -196,14 +197,14 @@ Log in to Perun. On the menu on the left-hand side select User → Authenticatio
 
 Now, create a demo project and a local entry for your user:
 
-```~bash
+```bash
 $ openstack project create elixir-demo --domain elixir
 $ openstack user create <your_elixir_id> --domain elixir
 ```
 
 Next, add your user as a member of the demo project:
 
-```~bash
+```bash
 openstack role add --user <your_elixir_id> --user-domain elixir --project elixir-demo _member_
 ```
 
@@ -226,7 +227,7 @@ After a successfull authentication an active OIDC token can be used to obtain a 
 
 - Use the OpenStack cmdline tools to create an OpenStack token for further processing.
 
-```~bash
+```bash
 openstack --os-auth-type v3oidcaccesstoken --os-access-token ${iam_at} \
 --os-auth-url https://openstack-dev.cebitec.uni-bielefeld.de:5000/v3 --os-protocol oidc \
 --os-identity-provider elixir_oidc --os-identity-api-version 3 \
