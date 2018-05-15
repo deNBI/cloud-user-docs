@@ -132,7 +132,7 @@ juju deploy model.yaml
 ```
 
 
-The second file configures our deployed haproxy. It sets exposed port of our setup to 443.
+The second file configures our already deployed haproxy. It sets the exposed port of our setup to 443.
 
 ```yaml
 - service_name: jenkins
@@ -147,18 +147,17 @@ The second file configures our deployed haproxy. It sets exposed port of our set
 to apply this configuration you need to run 
 
 ```BASH
-juju config haproxy services=@haproxy_config.yaml
+juju config haproxy services=@hconfig.yaml
 ```
 
 All possible options can be found at the charm websites under configuration [haproxy-charm](https://jujucharms.com/haproxy/).
-Now you can deploy the juju model and configurations with the following command.
 
 ## Run custom commands
 
-It is possible to run custom commands with juju 
+It is possible to run custom commands with juju, using the run command:
 
 ```BASH
-juju config haproxy services=@haproxy_config.yaml
+juju run  "<command>"  --machine <machine number>
 ```
 
 ## Further Reading
