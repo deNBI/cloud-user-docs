@@ -3,20 +3,21 @@
 
 ## Introduction
 
-This document describes how to authenticate in Openstack via Elixir AAI using OpenID Connect (OIDC). 
+This document describes how to authenticate in OpenStack via Elixir AAI using OpenID Connect (OIDC). 
 
 ### Prerequites
 
-This guide was testet against Openstack Newton on top of Ubuntu 16.04 LTS, but should also work with later Openstack versions and other operating systems (maybe with slightly modifications).
+This guide was testet against OpenStack Newton on top of Ubuntu 16.04 LTS, but should also work with later Openstack versions and other operating systems (maybe with slightly modifications).
 
 - Openstack
 	- Keystone API 3 
 	- Authorization must be done in a separate step, users will not be added to a default project.
 
 - Elixir
-	- The Openstack Keystone endpoint is registered as service provider within Elixir AAI.
+	- The OpenStack Keystone endpoint is registered as service provider within Elixir AAI.
 
 ## OpenID Connect
+
 Since OpenID Connect is handled via an Apache module, we have to make sure that the neccessary Apache module is installed and enabled.
 
 ```~bash
@@ -38,7 +39,7 @@ LoadModule auth_openidc_module /usr/lib/apache2/modules/mod_auth_openidc.so
 ...
 ```
 
-In the virtual host section for the public keystone url we have to configure the OIDC access. The *oidc.provider_url* is in our case the Elixir oidc provivder (https://login.elixir-czech.org/oidc/). Replace *oidc.client_id* and *oidc.client_secret* with the values you got when register your Openstack(Keystone) instance as Elixir OIDC endpoint. 
+In the virtual host section for the public keystone url we have to configure the OIDC access. The *oidc.provider_url* is in our case the Elixir oidc provider (https://login.elixir-czech.org/oidc/). Replace *oidc.client_id* and *oidc.client_secret* with the values you got when you register your Openstack(Keystone) instance as Elixir OIDC endpoint. 
 The *oidc.crypto_passphrase* can be freely chosen, however it must be set.
 
 ```
@@ -74,7 +75,8 @@ The *oidc.crypto_passphrase* can be freely chosen, however it must be set.
 ```
 
 ### Keystone configuration
-Configure your keystone.conf to include in the [auth] section oidc in the list of authentication methods and the keystone.auth.plugins.mapped.Mapped class for its implementation: 
+
+Configure the [auth] section of your keystone.conf to include `oidc` in the list of authentication methods. You also have to specify the class implementing oidc in the same section (`keystone.auth.plugins.mapped.Mapped`): 
 
 ```
 [auth]
@@ -82,7 +84,7 @@ methods = password,token,oidc
 oidc = keystone.auth.plugins.mapped.Mapped
 ```
 
-Add your horizon host as trusted dashboard to the [federation] section and configure the SSO callback template.
+Add your Horizon host as trusted dashboard to the [federation] section and configure the SSO callback template.
 ```
 [federation]
 trusted_dashboard=https://{{ oidc.endpoint }}/horizon/auth/websso/
@@ -98,7 +100,7 @@ remote_id_attribute = HTTP_OIDC_ISS
 
 ## Dashboard (Horizon)
 
-After setup Keystone to be OIDC aware, we have to a enable SSO (single sign on) in Openstack horizon and add Elixir_OIDC as choice in the list of providers via mapped drivers.
+After setting up Keystone to be OIDC aware, we have to a enable SSO (single sign on) in OpenStack horizon and add Elixir_OIDC as choice in the list of providers via mapped drivers.
 
 ```
 WEBSSO_ENABLED = True
@@ -111,7 +113,7 @@ WEBSSO_INITIAL_CHOICE="oidc"
 ```
 
 ### Running Dashboard behind a HA-Proxy
-If you run Openstack in a HA setup behind a HA-Proxy you have to make sure that you configure the keystone public url and that this url can be reached by all Openstack controller. Otherwise the redirect from Elixir back to Keystone will not work.
+If you run OpenStack in a HA setup behind a HA-Proxy you have to make sure that you configure the keystone public url and that this url can be reached by all OpenStack controllers. Otherwise the redirect from Elixir back to Keystone will not work.
 
 ```
 OPENSTACK_HOST = "{{ controller.public_hostname }}"
@@ -121,16 +123,15 @@ OPENSTACK_ENDPOINT_TYPE = "publicURL"
 
 ### Running Dashboard behind a Proxy
 
-If your controller uses a http[s] proxy to connect to external addresses you have to configure the apache to make use of it. The environment can be set in `/etc/apache2/envvars`. Don't forget to configure `no_proxy` if your proxy only proxies external addresses.
+If your controller uses a http[s] proxy to connect to external addresses you have to configure the Apache to make use of it. The environment can be set in `/etc/apache2/envvars`. Don't forget to configure `no_proxy` if your proxy only proxies external addresses.
 
 ```~bash
 export http_proxy=
 export https_proxy=
 export no_proxy=
 ```
-
-*Be sure to restart the Webserver. A reload won't load in any changes made to the envvars file.*
-
+!!! warning
+    Be sure to restart the Webserver. A reload won't load in any changes made to the envvars file.
 
 ## Create Federated Resources
 In this section we create all necessary federated resources.
@@ -145,6 +146,7 @@ $ /usr/bin/openstack domain create --description 'The Elixir domain' --enable el
 ```
 
 ### Identity provider
+
 Then we have to create a new indentity provider https://login.elixir-czech.org/oidc/ named *elxir_oidc*
 
 
@@ -155,7 +157,7 @@ $ /usr/bin/openstack identity provider create --remote-id https://login.elixir-c
 ### Mapping rules
 
 The mapping describes how the attributes provided by the OIDC services are mapped to Keystone. In our case 
-we map the *Elixir ID*  (HTTP_OIDC_SUB) to the Users name. The mapping is described in a JSON  ...
+we map the *Elixir ID*  (HTTP_OIDC_SUB) to the users name. The mapping is described in a JSON:
 
 ```~json
 [{
@@ -166,7 +168,7 @@ we map the *Elixir ID*  (HTTP_OIDC_SUB) to the Users name. The mapping is descri
 }]
 
 ```
-... saved (`/tmp/elixir_oidc_mapping_rules.json`) and imported into Openstack Keystone.
+save it as (`/tmp/elixir_oidc_mapping_rules.json`) and import it into OpenStack Keystone with
 
 ```~bash
 $ /usr/bin/openstack mapping create --rules /tmp/elixir_oidc_mapping_rules.json elixir_oidc_mapping
@@ -185,11 +187,13 @@ $ /usr/bin/openstack federation protocol create oidc --mapping elixir_oidc_mappi
 For a first test we have to add a demo user, a demo project and associate the user to an Elixir ID.
 
 ### Get your ELIXIR ID
+
 First, you need to determine your (persistent) ELIXIR ID.
 
 Log in to Perun. On the menu on the left-hand side select User → Authentication. Your ELIXIR ID can be found in the field "Login in ELIXIR-PERSISTENT".
 
 ### Create a demo user/project
+
 Now, create a demo project and a local entry for your user:
 
 ```~bash
@@ -205,10 +209,9 @@ openstack role add --user <your_elixir_id> --user-domain elixir --project elixir
 
 That's all. Login into Openstack using Elixir OIDC in the demo project should now be possible.
 
+## OpenStack CLI
 
-## Openstack CLI
-
-After a successfull authentication an active OIDC token can be used to obtain a keystone token using the Openstack cmdline tools. 
+After a successfull authentication an active OIDC token can be used to obtain a keystone token using the OpenStack cmdline tools. 
 
 - Login into [https://login.elixir-czech.org/oidc/]()
 
@@ -216,9 +219,12 @@ After a successfull authentication an active OIDC token can be used to obtain a 
 
 
 - Select *Manage Active Tokens* on the left side
-- In **Access Tokens** you see tokens from all registered clients. In our screenshot there is only one active token from the "Bielefeld Openstack Development"  client 
-- Copy/paste the token it: `export iam_at={{ ACCESS.TOKEN }}`
-- Use the openstack cmdline tools to create an openstack token for further processing.
+
+- In **Access Tokens** you see tokens from all registered clients. In our screenshot there is only one active token from the "Bielefeld OpenStack Development"  client 
+
+- Copy the token and export it: `export iam_at={{ ACCESS.TOKEN }}`
+
+- Use the OpenStack cmdline tools to create an OpenStack token for further processing.
 
 ```~bash
 openstack --os-auth-type v3oidcaccesstoken --os-access-token ${iam_at} \
@@ -227,8 +233,5 @@ openstack --os-auth-type v3oidcaccesstoken --os-access-token ${iam_at} \
 token issue
 ```
 
-**Attention: At the time of writing this tutorial retrieving a keystone token using using OIDC token ends in a 401 Error (not authorized). This might be a problem of an outdated Openstack version (Newton)**
-
-
-
-
+!!! warning
+    At the time of writing this tutorial retrieving a keystone token using using OIDC token ends in a 401 Error (not authorized). This might be a problem of an outdated OpenStack version (Newton)**
