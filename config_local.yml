@@ -48,3 +48,5 @@ pages:
     - 'Heidelberg' : Compute_Center/Heidelberg.md
     - 'Tuebingen' : Compute_Center/Tuebingen.md
     - 'Freiburg' : Compute_Center/Freiburg.md
+  - 'Cloud Admin': 
+    - 'Jenkins + Haproxy with JuJu': cloud_admin/juju_jenkins.md
