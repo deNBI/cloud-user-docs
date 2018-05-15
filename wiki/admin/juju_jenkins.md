@@ -160,6 +160,12 @@ It is possible to run custom commands with juju, using the run command:
 juju run  "<command>"  --machine <machine number>
 ```
 
+The command below sets the docker group on machine 34:
+
+```BASH
+juju run "sudo usermod -aG docker $USER "  --machine  34
+```
+
 ## Further Reading
 
 * [Juju haproxy](https://jujucharms.com/haproxy/)
