@@ -39,7 +39,7 @@ LoadModule auth_openidc_module /usr/lib/apache2/modules/mod_auth_openidc.so
 ```
 
 In the virtual host section for the public keystone url we have to configure the OIDC access. The *oidc.provider_url* is in our case the Elixir oidc provivder (https://login.elixir-czech.org/oidc/). Replace *oidc.client_id* and *oidc.client_secret* with the values you got when register your Openstack(Keystone) instance as Elixir OIDC endpoint. 
-The *oidc.crypto_passphrase* can be freely chosen.
+The *oidc.crypto_passphrase* can be freely chosen, however it must be set.
 
 ```
 # public keystone url
@@ -129,6 +129,8 @@ export https_proxy=
 export no_proxy=
 ```
 
+*Be sure to restart the Webserver. A reload won't load in any changes made to the envvars file.*
+
 
 ## Create Federated Resources
 In this section we create all necessary federated resources.
@@ -206,16 +208,17 @@ That's all. Login into Openstack using Elixir OIDC in the demo project should no
 
 ## Openstack CLI
 
-  
+After a successfull authentication an active OIDC token can be used to obtain a keystone token using the Openstack cmdline tools. 
 
-After a successfull authentication an active OIDC token can be used to obtain a keystone token using the Openstack cmdline tools. The keystone token can then be used to
+- Login into [https://login.elixir-czech.org/oidc/]()
+
+![Screenshot Elixir AAI - Perun OpenID Connect](images/elixir_aai_oidc.png)
 
 
-- Go to: [https://login.elixir-czech.org/oidc/]()
-- Select: *Manage Active Tokens*
-- In access tokens you have the client - in this case "Bielefeld Openstack Development" and the access token
-- Copy/paste it into a file on the client machine or: `export iam_at={{ ACCESS.TOKEN }}`
-- Use the access token to create an openstack token
+- Select *Manage Active Tokens* on the left side
+- In **Access Tokens** you see tokens from all registered clients. In our screenshot there is only one active token from the "Bielefeld Openstack Development"  client 
+- Copy/paste the token it: `export iam_at={{ ACCESS.TOKEN }}`
+- Use the openstack cmdline tools to create an openstack token for further processing.
 
 ```~bash
 openstack --os-auth-type v3oidcaccesstoken --os-access-token ${iam_at} \
