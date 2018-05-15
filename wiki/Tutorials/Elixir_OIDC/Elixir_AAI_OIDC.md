@@ -85,6 +85,7 @@ oidc = keystone.auth.plugins.mapped.Mapped
 ```
 
 Add your Horizon host as trusted dashboard to the [federation] section and configure the SSO callback template.
+
 ```
 [federation]
 trusted_dashboard=https://{{ oidc.endpoint }}/horizon/auth/websso/
@@ -92,6 +93,7 @@ sso_callback_template = /etc/keystone/sso_callback_template.html
 ```
 
 Define the identity provider in the [oidc] section using the HTTP_OIDC_ISS attribute
+
 ```
 [oidc]
 remote_id_attribute = HTTP_OIDC_ISS
@@ -234,4 +236,4 @@ token issue
 ```
 
 !!! warning
-    At the time of writing this tutorial retrieving a keystone token using using OIDC token ends in a 401 Error (not authorized). This might be a problem of an outdated OpenStack version (Newton)**
+    At the time of writing this tutorial retrieving a keystone token using using OIDC token ends in a 401 Error (not authorized). This might be a problem of an outdated OpenStack version (Newton)
