@@ -105,13 +105,10 @@ After deploying a juju controller it is possible to define a juju model in two y
 ```yaml
 services:
   jenkins:
-    charm: "cs:jenkins"
+    charm: "cs:~sgiller/jenkins-0"
     num_units: 1
     options:
       password: <passwort>
-      install_keys: 0EBFCD88
-      install_sources: https://download.docker.com/linux/ubuntu xenial stable 
-      extra_packages: docker-ce
   haproxy:
     charm: "cs:haproxy"
     num_units: 1
