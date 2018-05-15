@@ -48,3 +48,6 @@ pages:
     - 'Heidelberg' : Compute_Center/Heidelberg.md
     - 'Tuebingen' : Compute_Center/Tuebingen.md
     - 'Freiburg' : Compute_Center/Freiburg.md
+  - 'Cloud Admin': 
+    - 'Jenkins + Haproxy with JuJu': cloud_admin/juju_jenkins.md
+    - 'Configure OpenStack to use Elixir AAI via OpenID Connect': cloud_admin/Elixir_OIDC/Elixir_AAI_OIDC.md 
