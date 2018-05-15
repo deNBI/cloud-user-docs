@@ -1,5 +1,5 @@
 
-# Configure Openstack (Keystone) to use Elixir AAI via OpenID Connect
+# Configure OpenStack (Keystone) to use Elixir AAI via OpenID Connect
 
 ## Introduction
 
