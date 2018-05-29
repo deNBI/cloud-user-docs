@@ -233,9 +233,9 @@ Now you can deploy your charm by using the charm url in your model.yaml
 ## Adding jenkins user to dockergroup
 
 
-To add the jenkins user by default to the docker group add the import:
- `from subprocess import check_call `
-at the top and the command
- `check_call(['usermod', '-aG', 'docker', 'jenkins'])`
+To add the jenkins user by default to the docker group add the import: <br/>
+ `from subprocess import check_call `<br/>
+at the top and the command: <br/>
+ `check_call(['usermod', '-aG', 'docker', 'jenkins'])`<br/>
 below the line: users = Users() in the <charm>/reactive/jenkins.py file
 
