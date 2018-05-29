@@ -105,10 +105,13 @@ After deploying a juju controller it is possible to define a juju model in two y
 ```yaml
 services:
   jenkins:
-    charm: "cs:~sgiller/jenkins-0"
+    charm: "cs:jenkins"
     num_units: 1
     options:
       password: <passwort>
+      install_keys: 0EBFCD88
+      install_sources: https://download.docker.com/linux/ubuntu xenial stable
+      extra_packages: docker-ce
   haproxy:
     charm: "cs:haproxy"
     num_units: 1
@@ -171,9 +174,11 @@ juju run "sudo usermod -aG docker $USER "  --machine  34
 
 * [Juju jenkins](https://jujucharms.com/jenkins/)
  
-## Optional steps
+# Optional steps
 
 ## Edit and push existing juju charm
+This will describe how to push a charm to your repository and add layers to it.
+
 
 ## Prerequisite
 An [ubuntu one](https://login.ubuntu.com) account is needed to upload your own charm.
@@ -191,6 +196,10 @@ Now extract the zip file and open a terminal in the charm folder.
 ## Edit charm
 If you want to add layers (for example [docker-layer](https://jujucharms.com/new/u/lazypower/docker)) to the charm you have to add
 ```includes: ['layer:docker']```  to the layer.yaml file. This will install docker+docker-compose to your charm.
+
+!!! Note
+    If you add the dockerlayer to your charm you dont need to add the docker-ce installation in your model.yaml
+
 
 By editing the config.yaml you can adapt the charm description.
 
@@ -224,7 +233,7 @@ Now you can deploy your charm by using the charm url
 ## Adding jenkins user to dockergroup
 
 
-To add the jenkins user to the docker group add the import:
+To add the jenkins user by default to the docker group add the import:
  `from subprocess import check_call `
 at the top and the command
  `check_call(['usermod', '-aG', 'docker', 'jenkins'])`
