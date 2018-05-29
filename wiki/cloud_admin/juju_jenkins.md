@@ -228,7 +228,7 @@ charm grant <charm url> everyone
 ```
 To make the charm accessible to all users.
 
-Now you can deploy your charm by using the charm url
+Now you can deploy your charm by using the charm url in your model.yaml
 
 ## Adding jenkins user to dockergroup
 
