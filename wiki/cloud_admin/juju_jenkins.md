@@ -170,3 +170,63 @@ juju run "sudo usermod -aG docker $USER "  --machine  34
 * [Juju haproxy](https://jujucharms.com/haproxy/)
 
 * [Juju jenkins](https://jujucharms.com/jenkins/)
+ 
+## Optional steps
+
+## Edit and push existing juju charm
+
+## Prerequisite
+An [ubuntu one](https://login.ubuntu.com) account is needed to upload your own charm.
+```
+sudo apt-get install charm
+``` 
+to install the charm software
+
+## Download charm
+
+Download the charm you want to edit from the charmstore by pressing Download .zip.
+
+Now extract the zip file and open a terminal in the charm folder.
+
+## Edit charm
+If you want to add layers (for example [docker-layer](https://jujucharms.com/new/u/lazypower/docker)) to the charm you have to add
+```includes: ['layer:docker']```  to the layer.yaml file. This will install docker+docker-compose to your charm.
+
+By editing the config.yaml you can adapt the charm description.
+
+## Build charm
+use:
+```
+charm build
+cd builds/<charm-name> 
+```
+to generate code for the new layer and go into the ```builds/<charm name>``` folder with the terminal.
+
+## Push charm and grant rights
+
+You can now edit the files as needed and deploy the charm lokally with:
+```
+juju deploy <path to local charm>
+```
+and
+```
+charm push <path to local charm> 
+```
+to push it into your juju repository.
+
+```
+charm grant <charm url> everyone 
+```
+To make the charm accessible to all users.
+
+Now you can deploy your charm by using the charm url
+
+## Adding jenkins user to dockergroup
+
+
+To add the jenkins user to the docker group add the import:
+ `from subprocess import check_call `
+at the top and the command
+ `check_call(['usermod', '-aG', 'docker', 'jenkins'])`
+below the line: users = Users() in the <charm>/reactive/jenkins.py file
+
