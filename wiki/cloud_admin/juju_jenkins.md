@@ -169,12 +169,6 @@ The command below sets the docker group on machine 34:
 juju run "sudo usermod -aG docker $USER "  --machine  34
 ```
 
-## Further Reading
-
-* [Juju haproxy](https://jujucharms.com/haproxy/)
-
-* [Juju jenkins](https://jujucharms.com/jenkins/)
- 
 # Optional steps
 
 ## Edit and push existing juju charm
@@ -220,7 +214,7 @@ at the top and the command: <br/>
  `check_call(['usermod', '-aG', 'docker', 'jenkins'])`<br/>
 below the line: users = Users() in the <path to charm>/reactive/jenkins.py file
 
-The charm can be tested by deploying it lokally with 
+The charm can be tested by deploying it locally with 
 ```
 juju deploy <path to local charm>
 ```
@@ -242,3 +236,8 @@ To make the charm accessible to all users.
 
 Now you can deploy your charm by using the charm url in your model.yaml
 
+## Further Reading
+
+* [Juju haproxy](https://jujucharms.com/haproxy/)
+
+* [Juju jenkins](https://jujucharms.com/jenkins/)
