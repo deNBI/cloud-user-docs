@@ -110,7 +110,7 @@ services:
     options:
       password: <passwort>
       install_keys: 0EBFCD88
-      install_sources: https://download.docker.com/linux/ubuntu xenial stable 
+      install_sources: https://download.docker.com/linux/ubuntu xenial stable
       extra_packages: docker-ce
   haproxy:
     charm: "cs:haproxy"
@@ -125,7 +125,13 @@ relations:
 ``` 
 
 !!! Note
-    Do not forget to set a passwort in the options section of jenkins
+    You can use the charm: ```"cs:~sgiller/jenkins-1"``` (jenkins charm + optional steps)
+    if you want to deploy a jenkins charm with docker preinstalled and skip the optional steps.
+
+
+!!! Note
+    Do not forget to set a passwort in the options section of jenkins.<br/>
+    Do the Optional steps if you want to use your own charm.
     
 To deploy jenkins and haproxy you have to execute the following command:
 
@@ -167,6 +173,73 @@ The command below sets the docker group on machine 34:
 ```BASH
 juju run "sudo usermod -aG docker $USER "  --machine  34
 ```
+
+## Optional steps
+
+### Edit and push existing juju charm
+The following chapters will describe how to push a charm to your repository add layers and add the jenkins user to the docker group by default.
+
+### Prerequisite
+An [ubuntu one](https://login.ubuntu.com) account is needed to upload your own charm.
+```
+sudo apt-get install charm
+``` 
+to install the charm software
+
+### Download charm
+
+Download the charm you want to edit from the charmstore by pressing Download .zip.
+
+Now extract the zip file and open a terminal in the charm folder.
+
+### Edit charm
+If you want to add layers (for example [docker-layer](https://jujucharms.com/new/u/lazypower/docker)) to the charm you have to add
+```includes: ['layer:docker']```  to the other layers in the layer.yaml file. This will install docker+docker-compose to your charm.
+
+!!! Note
+    If you add the dockerlayer to your charm you dont need to add the docker-ce installation in your model.yaml
+
+
+By editing the config.yaml you can adapt the charm description.
+
+### Build charm
+After adding a layer to your charm you have to rebuild the charm.
+
+use:
+```
+charm build
+cd builds/<charm-name> 
+```
+to generate code for the new layer and go into the ```builds/<charm name>``` folder with the terminal.
+
+### Adding jenkins user to dockergroup and test charm
+To add the jenkins user by default to the docker group add the import: <br/>
+ `from subprocess import check_call `<br/>
+at the top and the command: <br/>
+ `check_call(['usermod', '-aG', 'docker', 'jenkins'])`<br/>
+below the line: users = Users() in the <path to charm>/reactive/jenkins.py file
+
+The charm can be tested by deploying it locally with 
+```
+juju deploy <path to local charm>
+```
+
+### Push charm and grant rights
+
+
+To push the charm to your repository use:
+```
+charm push <path to local charm> 
+```
+It will ask you for your ubuntu one login.
+
+Use:
+```
+charm grant <charm url> everyone 
+```
+To make the charm accessible to all users.
+
+Now you can deploy your charm by using the charm url in your model.yaml
 
 ## Further Reading
 
