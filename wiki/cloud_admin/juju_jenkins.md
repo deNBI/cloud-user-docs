@@ -125,6 +125,11 @@ relations:
 ``` 
 
 !!! Note
+    You can use the charm: ```"cs:~sgiller/jenkins-1"``` (jenkins charm + optional steps)
+    if you want to deploy a jenkins charm with docker preinstalled and skip the optional steps.
+
+
+!!! Note
     Do not forget to set a passwort in the options section of jenkins.<br/>
     Do the Optional steps if you want to use your own charm.
     
@@ -169,25 +174,25 @@ The command below sets the docker group on machine 34:
 juju run "sudo usermod -aG docker $USER "  --machine  34
 ```
 
-# Optional steps
+## Optional steps
 
-## Edit and push existing juju charm
+### Edit and push existing juju charm
 The following chapters will describe how to push a charm to your repository add layers and add the jenkins user to the docker group by default.
 
-## Prerequisite
+### Prerequisite
 An [ubuntu one](https://login.ubuntu.com) account is needed to upload your own charm.
 ```
 sudo apt-get install charm
 ``` 
 to install the charm software
 
-## Download charm
+### Download charm
 
 Download the charm you want to edit from the charmstore by pressing Download .zip.
 
 Now extract the zip file and open a terminal in the charm folder.
 
-## Edit charm
+### Edit charm
 If you want to add layers (for example [docker-layer](https://jujucharms.com/new/u/lazypower/docker)) to the charm you have to add
 ```includes: ['layer:docker']```  to the other layers in the layer.yaml file. This will install docker+docker-compose to your charm.
 
@@ -197,7 +202,7 @@ If you want to add layers (for example [docker-layer](https://jujucharms.com/new
 
 By editing the config.yaml you can adapt the charm description.
 
-## Build charm
+### Build charm
 After adding a layer to your charm you have to rebuild the charm.
 
 use:
@@ -207,7 +212,7 @@ cd builds/<charm-name>
 ```
 to generate code for the new layer and go into the ```builds/<charm name>``` folder with the terminal.
 
-## Adding jenkins user to dockergroup and test charm
+### Adding jenkins user to dockergroup and test charm
 To add the jenkins user by default to the docker group add the import: <br/>
  `from subprocess import check_call `<br/>
 at the top and the command: <br/>
@@ -219,7 +224,7 @@ The charm can be tested by deploying it locally with
 juju deploy <path to local charm>
 ```
 
-## Push charm and grant rights
+### Push charm and grant rights
 
 
 To push the charm to your repository use:
