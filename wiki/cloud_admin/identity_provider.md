@@ -2,8 +2,6 @@
 
 ## Introduction
 
---> benefits of integrating with Elixir AAI
-
 This document is intended for system administrators who would like to register their identity provider for Elixir AAI.
 AAI delegates the process of registration, authentication and the defining of access rules to different parties:
 Universities as an example are responsible for registration and authentication of members and services like e-Learning
