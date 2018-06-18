@@ -51,3 +51,9 @@ For a **Cloud Project** you have to specify the following parameters:
 * Object Storage
 
 * Special Hardware (GPU/FPGA)
+
+#### Citation Information
+The development and support of the cloud is possible above all through the funding of the cloud infrastructure by the Federal Ministry of Education and Research (BMBF)! We would highly appreciate the following citation in your next publication(s):
+
+!!! note "" 
+    ‘This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A537B, 031A533A, 031A538A, 031A533B, 031A535A, 031A537C, 031A534A, 031A532B).  
