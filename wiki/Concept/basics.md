@@ -11,7 +11,7 @@ The domain concept also allows the creation of additional domains, e.g. for runn
 ##### User
 
 A *user* is an entity within a domain in OpenStack.
-User authentication and authorization in denBI is done via [Openid-Connect]([[http://openid.net/connect/). Openid-Connect (oidc) is "single sign-on" authentication protocol, which provides access to all denBI-Cloud locations. Oidc is implemented by [ELIXIR]([[https://www.elixir-europe.org/), which provides the denBI-Cloud a global authentication/authorization endpoint.
+User authentication and authorization in denBI is done via [Openid-Connect](http://openid.net/connect/). Openid-Connect (oidc) is "single sign-on" authentication protocol, which provides access to all denBI-Cloud locations. Oidc is implemented by [ELIXIR](https://www.elixir-europe.org/), which provides the denBI-Cloud a global authentication/authorization endpoint.
 
 
 ##### Project
