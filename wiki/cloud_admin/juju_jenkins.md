@@ -241,6 +241,26 @@ To make the charm accessible to all users.
 
 Now you can deploy your charm by using the charm url in your model.yaml
 
+### Change MTU for docker
+
+To change the MTU(Maximum Transmission Unit) for docker you have to login on your jenkins Machine with the command (use juju status to get the machine number):
+
+```bash
+juju ssh <machine number>
+```
+
+and then change the docker MTU with the following command:
+
+
+```bash
+sudo ifconfig docker0 mtu 1440
+```
+
+finally use
+```bash
+exit
+```
+to log off the machine.
 ## Further Reading
 
 * [Juju haproxy](https://jujucharms.com/haproxy/)
