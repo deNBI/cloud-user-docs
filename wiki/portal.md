@@ -79,8 +79,10 @@ If you are an admin you can:
     - appoint another member to admin.
     - remove admin state.
     - remove a member from this project.
-
-With the action "Add Member": an admin can search for a user and add him to the project by inserting first and/or lastname and pressing add member. 
+    
+* Add Member: add another user to this project
+    -  add a new user to the project by inserting first and/or lastname and pressing add member.
+   
 ![Members](img/add_members.png)
 
 
