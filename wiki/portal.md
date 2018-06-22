@@ -64,7 +64,7 @@ If a project is written in black text your lifetime limit isnt reached.
 
 If a project is written in red text your lifetime limit has been exceeded.
 
-Actions are only visible by an admin
+Actions are only visible to an admin
 
 The following actions are possible:
 
@@ -80,7 +80,7 @@ If you are an admin you can:
     - remove admin state.
     - remove a member from this project.
 
-With the action Add Member: an admin can search for a user and add him to the project by inserting first and/or lastname and pressing add member. 
+With the action "Add Member": an admin can search for a user and add him to the project by inserting first and/or lastname and pressing add member. 
 ![Members](img/add_members.png)
 
 
