@@ -52,6 +52,33 @@ For a **Cloud Project** you have to specify the following parameters:
 
 * Special Hardware (GPU/FPGA)
 
+## Project Overview
+
+In the Project Overview tab you get a list of all your running projects:
+
+![Project Overview Tab](img/overview_tab.png)
+![Project Overview](img/overview.png)
+
+
+The color of the text indicates whether the lifetime of your project is reached or not. Red means that the project lifetime
+is has beed exceeded.
+
+The following actions are only available for a project manager:
+
+* Show members: Shows all members of this project. Project managers are colored in blue.
+    
+![Members](img/members.png)
+
+* Appoint another member as admin (project manager).
+
+* Remove the admin (project manager) state.
+
+* Remove a member from this project.
+    
+* Add another user to this project by inserting first and/or lastname and clicking on `add member`.
+   
+![Members](img/add_members.png)
+
 #### Citation Information
 The development and support of the cloud is possible above all through the funding of the cloud infrastructure by the Federal Ministry of Education and Research (BMBF)! We would highly appreciate the following citation in your next publication(s):
 
