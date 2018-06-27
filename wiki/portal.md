@@ -54,39 +54,30 @@ For a **Cloud Project** you have to specify the following parameters:
 
 ## Project Overview
 
-In the Project Overview tab you get a list of all your projects with details:
+In the Project Overview tab you get a list of all your running projects:
 
 ![Project Overview Tab](img/overview_tab.png)
 ![Project Overview](img/overview.png)
 
 
-If a project is written in black text your lifetime limit isnt reached.
+The color of the text indicates whether the lifetime of your project is reached or not. Red means that the project lifetime
+is has beed exceeded.
 
-If a project is written in red text your lifetime limit has been exceeded.
+The following actions are only available for a project manager:
 
-Actions are only visible to an admin
-
-The following actions are possible:
-
-* Show Members: shows all members of this project
-    - admins are written in blue text
-    - members are written in black text
+* Show members: Shows all members of this project. Project managers are colored in blue.
     
 ![Members](img/members.png)
 
-If you are an admin you can:
+* Appoint another member as admin (project manager).
 
-    - appoint another member to admin.
-    - remove admin state.
-    - remove a member from this project.
+* Remove the admin (project manager) state.
+
+* Remove a member from this project.
     
-* Add Member: add another user to this project
-    -  add a new user to the project by inserting first and/or lastname and pressing add member.
+* Add another user to this project by inserting first and/or lastname and clicking on `add member`.
    
 ![Members](img/add_members.png)
-
-
-
 
 #### Citation Information
 The development and support of the cloud is possible above all through the funding of the cloud infrastructure by the Federal Ministry of Education and Research (BMBF)! We would highly appreciate the following citation in your next publication(s):
