@@ -19,9 +19,9 @@ independing on the project type you choose:
 
  * In a **Cloud Project**  you will have your own OpenStack project and you are free to configure your network, virtual machines and storage setup.
 
-### Single VM
+### Simple VM
 
-In a **Single VM** project you just have to provide the number of virtual machines you would like to run in parallel in your project.
+In a **Simple VM** project you just have to provide the number of virtual machines you would like to run in parallel in your project.
 Once your application is approved you can choose between the following flavors for every virtual machine:
 
 * de.NBI Large (CPUs:32, RAM:64 GB)
@@ -84,3 +84,21 @@ The development and support of the cloud is possible above all through the fundi
 
 !!! note "" 
     ‘This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A537B, 031A533A, 031A538A, 031A533B, 031A535A, 031A537C, 031A534A, 031A532B).  
+
+## Simple VM Project
+
+### Images
+
+#### X2Go Image
+
+You can start an X2Go image when you select an image starting with the X2Go label e.g `X2Go_xfce`.
+Once your image started,yYou will see a message similiar to the following one:
+
+![X2Go Command](img/x2go_command.png)
+
+Provide the data in the red rectangle in the settings of your x2go client:
+
+![X2Go Client](img/x2go_client.png)
+
+You also have to select the session type and the private key of your public ssh key that you provided in the user information tab. 
+Please select also theelect the session 
