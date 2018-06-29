@@ -100,5 +100,4 @@ Provide the data in the red rectangle in the settings of your x2go client:
 
 ![X2Go Client](img/x2go_client.png)
 
-You also have to select the session type and the private key of your public ssh key that you provided in the user information tab. 
-Please select also theelect the session 
+You also have to select the session type and the private key of your public ssh key that you provided in the user information tab.
