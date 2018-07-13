@@ -49,7 +49,10 @@ The external network is a public available network. There are no limitations fro
 
 ### external-service
 
-The external-service network is a public network that is restricted to ssh, http and https. It should only be used for (web-)services running in the cloud. Each IP address must be activated before usage. **In general this network shouldn't be used, ask cloud support if unsure.**
+The external-service network is a public network that is restricted to ssh, http and https. It should only be used for (web-)services running in the cloud. Each IP address must be activated before usage.
+
+!!! warning "Warning"
+    In general this network shouldn't be used, ask cloud support if unsure.
 
 ### cebitec
 
@@ -62,7 +65,9 @@ export ftp_proxy=proxy.cebitec.uni-bielefeld.de:3128
 ```
 
 If you use our official images, the CeBiTec network will be detected automatically and the proxy settings will be set by an systemd service.
-(**It  takes up to one minute after a VM is running to detect the network and set the proxy settings**.)
+
+!!! note "Note" 
+    It takes up to one minute after a VM is running to detect the network and set the proxy settings.
 
 ## Images
 We provide some preconfigured Cloud images on top of the Ubuntu LTS releases (16.04 and 18.04). This images are patched to set the proxy settings if an  cebitec network is detected. These image run without any further modifications on other cloud sites aswell.
