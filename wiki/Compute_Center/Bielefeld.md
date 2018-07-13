@@ -1,9 +1,9 @@
 # de.NBI cloud at Bielefeld University
 
-The Bielefeld cloud site currently have Openstack Queens installed. That means that the general descriptions or screenshots based on Openstack Newton differs from our installation. 
+The Bielefeld cloud site currently has Openstack Queens installed. That means that the general descriptions or screenshots based on Openstack Newton differs from our installation. 
 
 ## Contact
-The de.NBI cloud team in Bielefeld can contacted via email: os-service(at)cebitec.uni-bielefeld.de
+The de.NBI cloud team in Bielefeld can be contacted via email: os-service(at)cebitec.uni-bielefeld.de
 
 
 ## Entrypoint
@@ -25,7 +25,7 @@ The entry point of the Bielefeld location of the de.NBI cloud  - the Openstack d
 
 (July 2018)
 
-However an up to date list of endpoints are available within the dashboard or can be fetched using the Openstack commandline tools.
+An up to date list of endpoints are available within the dashboard or can be fetched using the Openstack commandline tools.
 
 ```
 > openstack endpoint list
@@ -37,7 +37,7 @@ The Bielefeld cloud site supports login using Elixir AAI via OpenID Connect or d
 
 ## Network
 
-The Bielefeld cloud currently have 3 different _external_ networks available.
+The Bielefeld cloud currently has 3 different _external_ networks available.
 
 - external
 - external-service
@@ -45,15 +45,15 @@ The Bielefeld cloud currently have 3 different _external_ networks available.
 
 ### external
 
-The external network is a public available network. There are no limitations from our side and it is the preferred network if do not have access to the Bielefeld university LAN. 
+The external network is a public available network. There are no limitations from our side and it is the preferred network if you don't have access to the Bielefeld university LAN. 
 
 ### external-service
 
-The external-service network is a public network that is restricted to ssh, http and https. It should only used for (web-)services running in the cloud. Each IP address must be activated before usage. **In general this network shouldn't be used, ask cloud support if unsure.**
+The external-service network is a public network that is restricted to ssh, http and https. It should only be used for (web-)services running in the cloud. Each IP address must be activated before usage. **In general this network shouldn't be used, ask cloud support if unsure.**
 
 ### cebitec
 
-The cebitec network is a non-public _external_ network, that can only be used from the Bielefeld university LAN. However, since this network represents a non-public ip address range it is possible to have more than one in use at the same time. The access is limited to ssh, http and https. Access to the world is only possible using the CeBiTec Proxy and only for http, https, and ftp.
+The cebitec network is a non-public _external_ network, that can only be used from the Bielefeld university LAN. However, since this network represents a non-public ip address range, it is possible to have more than one in use at the same time. The access is limited to ssh, http and https. Access to the world is only possible using the CeBiTec Proxy and only for http, https, and ftp.
 
 ```
 export http_proxy=proxy.cebitec.uni-bielefeld.de:3128
@@ -65,14 +65,14 @@ If you use our official images, the CeBiTec network will be detected automatical
 (**It  takes up to one minute after a VM is running to detect the network and set the proxy settings**.)
 
 ## Images
-We provide some preconfigured Cloud images on top of the Ubuntu LTS releases (16.04 and 18.04). This images are patched to set the proxy settings if an  cebitec network is detected. These image run without any further modifications on other cloud sites, too.
+We provide some preconfigured Cloud images on top of the Ubuntu LTS releases (16.04 and 18.04). This images are patched to set the proxy settings if an  cebitec network is detected. These image run without any further modifications on other cloud sites aswell.
 
 ## Object storage
-The storage backend used by Bielefeld cloud site is powered by [https://www.ceph.com](Ceph). The Object storage endpoint provides API access via SWIFT and S3. The later should be preferred due to better performance.
+The storage backend used by Bielefeld cloud site is powered by [https://www.ceph.com](Ceph). The Object storage endpoint provides API access via SWIFT and S3. The latter should be preferred due to better performance.
 
 ## Known Problems
 
-Our current setup have some known problems.
+Our current setup has some known problems.
 
 - Login sometimes fails. The workaround is to create a new private browser window and login again.
 - Create a router fails for non-admins, if a gateway is set. The workaround for this problem is to create a router without setting a gateway and  set the gateway and network bindings afterwards
