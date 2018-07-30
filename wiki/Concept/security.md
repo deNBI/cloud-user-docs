@@ -8,19 +8,19 @@ As a result, the user or group starting and managing their instances are respons
 
 This page hosts a list of recommendations every cloud user should follow. This list is neither complete nor comprehensive, and will be extended over time:
 
-*  Do not use password based logins, always use SSH with key only
+*  Do not use password based logins, always use SSH with key only.
 
-*  Keep the operation system and installed packages in each instance up to date, especially in long running ones
+*  Keep the operation system and installed packages in each instance up to date, especially in long running ones.
 
-*  Update images to contain the latest patches (and ask the site administrators to update images provided by them)
+*  Update images to contain the latest patches (and ask the site administrators to update images provided by them).
 
-*  Use security groups and a white list of allowed ports to control access to your instances
+*  Use security groups and a white list of allowed ports to control access to your instances.
 
-*  Restrict access even further if possible, e.g. by restricting to certain IP networks
+*  Restrict access even further if possible, e.g. by restricting to certain IP networks.
 
-*  **ALWAYS** change the default credentials of services, these credentials are well known and will be probed if the service is exposed to the internet
+*  **ALWAYS** change the default credentials of services, these credentials are well known and will be probed if the service is exposed to the internet.
 
-*  Configure the firewall of the instance in addition to the security groups, every additional layer will help
+*  Configure the firewall of the instance in addition to the security groups, every additional layer will help.
 
 *  Do not rely on a cloud site firewall, its configuration might change without prior notice. If in doubt, ask the site administrators!
 
