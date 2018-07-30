@@ -34,7 +34,7 @@ OpenStack Block Storage (Cinder) provides persistent block-level storage devices
 
 ### Identity (Keystone)
 
-OpenStack Identity (Keystone) provides a central directory of users mapped to the OpenStack services they can access. It acts as a common authentication system across the cloud operating system and can integrate with existing backend directory services like LDAP. It supports multiple forms of authentication including standard username and password credentials, token-based systems and AWS-style (i.e. Amazon Web Services) logins. Additionally, the catalog provides a queryable list of all of the services deployed in an OpenStack cloud in a single registry. Users and third-party tools can programmatically determine which resources they can access.
+OpenStack Identity (Keystone) provides a central directory of users mapped to the OpenStack services they can access. It acts as a common authentication system across the cloud operating system and can integrate with existing backend directory services like LDAP. It supports multiple forms of authentication, including standard username and password credentials, token-based systems and AWS-style (i.e. Amazon Web Services) logins. Additionally, the catalog provides a queryable list of all of the services deployed in an OpenStack cloud in a single registry. Users and third-party tools can programmatically determine which resources they can access.
 
 ### Image (Glance)
 
@@ -42,7 +42,7 @@ OpenStack Image (Glance) provides discovery, registration, and delivery services
 
 Glance adds many enhancements to existing legacy infrastructures. For example, if integrated with VMware, Glance introduces advanced features to the vSphere family such as vMotion, high availability and dynamic resource scheduling (DRS). vMotion is the live migration of a running VM, from one physical server to another, without service interruption. Thus, it enables a dynamic and automated self-optimizing datacenter, allowing hardware maintenance for the underperforming servers without downtimes.
 
-Other OpenStack modules that need to interact with Images, for example Heat, must communicate with the images metadata through Glance. Also, Nova can present information about the images, and configure a variation on an image to produce an instance. However, Glance is the only module that can add, delete, share, or duplicate images.[53]
+Other OpenStack modules that need to interact with Images, for example Heat, must communicate with the images metadata through Glance. Also, Nova can present information about the images, and configure a variation on an image to produce an instance. However, Glance is the only module that can add, delete, share, or duplicate images.
 
 ### Object Storage (Swift)
 
@@ -63,11 +63,3 @@ Heat is a service to orchestrate multiple composite cloud applications using tem
 OpenStack Telemetry (Ceilometer) provides a Single Point Of Contact for billing systems, providing all the counters they need to establish customer billing, across all current and future OpenStack components. The delivery of counters is traceable and auditable, the counters must be easily extensible to support new projects, and agents doing data collections should be independent of the overall system.
 
 
-
-
-
-
-
-
-
-Content of this page is largely based on [Wikipedia OpenStack](https://en.wikipedia.org/wiki/OpenStack) descriptions. Feel free to modify and extend these contents here as appropriate.''
