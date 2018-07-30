@@ -34,7 +34,7 @@ Images may be associated to a project, or made publicly available for all projec
 
 A *flavor* defines a virtual machine setup by defining parameters like hard disk size, available memory and CPU core number. The cloud provider can use flavors to optimize virtual machines for the available hardware. A flavor may also be used to restrict virtual machines to certain physical hosts, e.g. by requiring extra local storage or features like a GPU.
 
-Flavors are pre-defined by denBI. 
+Flavors are pre-defined by denBI. For a list of available standard flavors, click [here](./flavors.md).
 
 ##### Network
 
