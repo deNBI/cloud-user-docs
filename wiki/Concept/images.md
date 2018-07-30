@@ -1,7 +1,7 @@
 # Using and managing images
 
 ## Introduction
-To start a virtual machine in Openstack, a virtual machine image (brief: image) is required. Images are files that contain a bootable operating system. Cloud images are available for various operating systems like Ubuntu or CentOS. They are usually separated from the normal installation images. 
+To start a virtual machine in OpenStack, a virtual machine image (brief: image) is required. Images are files that contain a bootable operating system. Cloud images are available for various operating systems like Ubuntu or CentOS. They are usually separated from the normal installation images. 
 A various list of cloud-images can be found here:
 
 * [Ubuntu Cloud Images](https://cloud-images.ubuntu.com/)
@@ -9,7 +9,7 @@ A various list of cloud-images can be found here:
 * [Fedora Cloud Images](https://alt.fedoraproject.org/cloud/)
 * [Windows Cloud Images](https://cloudbase.it/windows-cloud-images/)
  
-Please keep in mind, that our Openstack installation provides default and pre-configured images that are ready to use.
+Please keep in mind, that our OpenStack installation provides default and pre-configured images that are ready to use.
 
 ## Adding images to Openstack
 
@@ -36,7 +36,7 @@ To add an image to Openstack open the Openstack dashboard, go to Compute and the
 
 ![Create Image](/img/User/create_image.png)
 
-The metadata can be left empty. For a more detailed documentation, please refer to the official documentation: [Openstack image documentation](https://docs.openstack.org/image-guide/introduction.html).
+The metadata can be left empty. For a more detailed documentation, please refer to the official documentation: [OpenStack image documentation](https://docs.openstack.org/image-guide/introduction.html).
 To finish image creation, please click on "Create Image".
 After a while, the image should now be visible in the Images list.
 
@@ -62,7 +62,6 @@ If no new volume is created on startup, the ephemeral disk will be used. Otherwi
 ## Images and Flavors
 
 When creating a VM, the user has to select a flavor. This flavor defines the resources a virtual machines has. There are various flavors predefined in Openstack. They vary in the number of available vCPUs, RAM and their disk setup.
-
 
 *  vCPU: Number of CPUs available in the VM.
 

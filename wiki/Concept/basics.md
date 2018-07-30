@@ -1,22 +1,22 @@
 ## Cloud concepts: Domain, User, Project, Role, Image, Flavor, Network, Instance, Volume, Key pairs
 
-Before using the cloud, a user needs to be familiar with certain concepts. Most of these concepts are applicable to almost all clouds (Openstack based private clouds, Amazon EC2, Microsoft Azure....):
+Before using the cloud, a user needs to be familiar with certain concepts. Most of these concepts are applicable to almost all clouds (OpenStack based private clouds, Amazon EC2, Microsoft Azure....):
 
 ##### Domain
 
 The highest management layer in OpenStack are ''domains''. A domain is a collection of users, project, roles, role assignment and common configurations like quotas etc. The domain concept allows cloud providers to grant administrative privileges to certain users and thus enable them to manage their "own" cloud instance.
 
-The domain concept also allows the creation of additional domains, e.g. for running a workshop with dedicated users . These domains can be created on request.
+The domain concept also allows the creation of additional domains, e.g. for running a workshop with dedicated users. These domains can be created on request.
 
 ##### User
 
 A *user* is an entity within a domain in OpenStack.
-User authentication and authorization in denBI is done via [Openid-Connect](http://openid.net/connect/). Openid-Connect (oidc) is "single sign-on" authentication protocol, which provides access to all denBI-Cloud locations. Oidc is implemented by [ELIXIR](https://www.elixir-europe.org/), which provides the denBI-Cloud a global authentication/authorization endpoint.
+User authentication and authorization in deNBI is done via [Openid-Connect](http://openid.net/connect/). Openid-Connect (oidc) is "single sign-on" authentication protocol, which provides access to all denBI-Cloud locations. Oidc is implemented by [ELIXIR](https://www.elixir-europe.org/), which provides the denBI-Cloud a global authentication/authorization endpoint.
 
 
 ##### Project
 
-A *project* is a collection of resources like users, images, volumes etc. It is initially created by the denBI and cloud administrators, where access to the project is granted to individual users. Resources are associated to a project and are subject to quotas on project level (e.g. number of instance or volume space).
+A *project* is a collection of resources like users, images, volumes etc. It is initially created by the deNBI and cloud administrators, where access to the project is granted to individual users. Resources are associated to a project and are subject to quotas on project level (e.g. number of instance or volume space).
 
 ##### Role
 
