@@ -1,10 +1,16 @@
-# OpenStack basics
+# OpenStack components
 
-[OpenStack]([[http://openstack.org) is a free and open-source software platform for cloud computing, mostly deployed as an infrastructure-as-a-service (IaaS). The software platform consists of interrelated components that control diverse, multi-vendor hardware pools of processing, storage, and networking resources throughout a data center. Users either manage it through a web-based dashboard, through command-line tools, or through a RESTful API. OpenStack.org released it under the terms of the Apache License.
+This article covers some of the underlying components of OpenStack. For using the denBI-Cloud, it is not really needed to understand the following topics. However, it could provide some interesting and technical information.
+
+[OpenStack](http://openstack.org) is a free and open-source software platform for cloud computing, mostly deployed as an infrastructure-as-a-service (IaaS). The software platform consists of interrelated components that control diverse, multi-vendor hardware pools of processing, storage, and networking resources throughout a data center. Users either manage it through a web-based dashboard, through command-line tools, or through a RESTful API. OpenStack.org released it under the terms of the Apache License.
 
 ## OpenStack components
 
 OpenStack has a modular architecture with various code names for its components.
+The following image shows a very basic overview of the OpenStack architecture:
+
+![Openstack_Overview](/img/User/openstackarchi.png)
+
 
 ### Compute (Nova)
 
