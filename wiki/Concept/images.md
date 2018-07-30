@@ -16,7 +16,7 @@ Please keep in mind, that our Openstack installation provides default and pre-co
 To add an image to Openstack open the Openstack dashboard, go to Compute and then Images. In the upper right corner click "Create Image".
 ![Glance image overview](/img/User/images_overview.png)
 
- Fill in the fields in the opened form. For informations to single fields, please refer to the following list. All fields not mentioned here are neither required by Openstack nor suggested to be used by normal users.
+ Fill in the fields in the opened form. For information to single fields, please refer to the following list. All fields not mentioned here are neither required by Openstack nor suggested to be used by normal users.
 
 *  **Image Name**: Name of the image that is displayed in the image list. Please use a self describing name (e.g. Ubuntu_17.04).
 
