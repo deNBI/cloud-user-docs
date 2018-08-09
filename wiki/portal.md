@@ -102,14 +102,7 @@ Provide the data in the red rectangle in the settings of your x2go client:
 
 You also have to select the session type and the private key of your public ssh key that you provided in the user information tab.
 
-
-# Portal
-
-## Single VM Project
-
-If you applied for a volume in your single vm project type, you can mount a volume by following the instructions in the next section.
-
-### Mount a volume
+## Mount a volume
 
 In order to mount a volume connect via ssh to your machine.
 You will find your volume with the command
