@@ -41,6 +41,7 @@ pages:
     - 'Images' : Concept/images.md
     - 'Security' : Concept/security.md
   - 'Tutorials' :
+    - 'Access de.NBI Virtual Machines from Windows 10' : Tutorials/Win10_SSH/index.md
     - 'Bibigrid' : Tutorials/BiBiGrid/index.md
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
