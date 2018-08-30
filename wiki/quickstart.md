@@ -289,6 +289,8 @@ In the **Rule** field, select **SSH** (maybe you have to scroll a little bit dow
 
 ## Login
 
+### Linux and MacOS
+
 For Linux and MacOS just use ssh, specifying the correct IP, the right key and the username of the OS you have chosen for example ‘ubuntu’. For Windows, start ‘Putty’ and enter the IP address of your VM under Hostname (or IP address).
 It can be found within the Horizon dashboard under Instances. An example of a Linux command is given below:
 
@@ -304,6 +306,11 @@ ssh –i /path/to/private/key ubuntu@1.2.3.4
 
 If you need X-Forwarding for graphical user interfaces don’t forget to set the –X flag and check if the xauth package is installed on the host and the server and the X-Forwarding settings are correct. 
 For Windows user we suggest to use xming (https://sourceforge.net/projects/xming/).
+
+### Windows
+
+!!! note
+    Please note we offer a more detailed [tutorial](Tutorials/Win10_SSH/index.md) for accessing VMs from Windows 10.
 
 For Windows using Putty you have to navigate in Putty to Connection / Data and enter ‘ubuntu’ as Auto-login username. The user name may be different for different Boot Sources, but here we have a CentOS based image.
 Under Connection / SSH / Auth select the file containing your private key matching the public one you have used during the creation of your VM. Enable X11 forwarding under Connection / SSH / X11.
