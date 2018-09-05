@@ -155,15 +155,11 @@ A snapshot is an exact copy of your virtual machine. A snapshot of an instance c
 
 ### Create Snapshot
 
-After starting a machine you can go to instance overview and press create snapshot.
-<img src="../../../../Desktop/createsnap.png" alt="createsnap" title="createsnap" width="1180" height="428" />
+After starting a machine you can go to instance overview and press create snapshot ![create snapshot](img/createsnap).
 
-Now you can enter a name for your snapshot and confirm it with pressing Create Snapshot.
-<img src="../../../../Desktop/createsnap2.png" alt="createsnap2" title="createsnap2" width="500" height="318" />
+Now you can enter a name for your snapshot and confirm it with pressing Create Snapshot ![create snapshot](img/createsnap2).
 
 ### Start Snapshot
 
-After the snapshot is successfully created you can go to the "New Instance" tab and choose the created snapshot as image to start a vm.
-
-<img src="../../../../Desktop/startsnap.png" alt="startsnap" title="startsnap" width="1180" height="368" />
+After the snapshot is successfully created you can go to the "New Instance" tab and choose the created snapshot as image to start a vm ![startvm](img/startsnap).
 
