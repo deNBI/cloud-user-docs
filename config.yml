@@ -33,7 +33,7 @@ markdown_extensions:
 pages:
   - 'Home' : index.md
   - 'Portal' : portal.md
-  - 'Quickstart' : quickstart.md
+  - 'OpenStack Quickstart' : quickstart.md
   - 'Concept' : 
     - 'OpenStack Basics' : Concept/basics.md
     - 'OpenStack Components' : Concept/openstack.md
