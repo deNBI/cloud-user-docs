@@ -99,7 +99,7 @@ To connect to a machine with X2GO you have to export your private key in openssh
 
 Then click Conversions and choose Export OpenSSH Key. Afterwards save this file on your computer. This file will be needed when you want to establish a connection to a machine with the X2GO client.
 
-![SSH_export](images/putty_export.png)
+![SSH_export](img/putty_export.png)
 
 ## Connect to X2GO machine
 
