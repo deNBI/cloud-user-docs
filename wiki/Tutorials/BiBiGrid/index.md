@@ -42,20 +42,15 @@ BiBiGrid is an open source tool hosted at github  for an easy cluster setup insi
 
 The goal of this session is to setup a small HPC cluster consisting of 4 nodes  (1 master, 3 slaves) using BiBiGrid. The template below does the job, you have to replace all XXX's with your environment.
 
-### Template
+### Templates
+
+**bibigrid.yml:**
 
 ```
 #use openstack
 mode: openstack
 
-openstackCredentials:
-  username: XXX
-  tenantName: XXX
-  domain: elixir
-  tenantDomain: elixir
-  endpoint: https://openstack.cebitec.uni-bielefeld.de:5000/v3/
-  password: XXX
-
+credentialsFile: /path/to/your/credentials.yml
 
 #Access
 identityFile: XXX
@@ -69,14 +64,16 @@ subnet: XXX
 
 #BiBiGrid-Master
 masterInstance:
-  type: unibi.micro
-  image: febceb9a-fb0f-4f1c-ad06-8caf6340de64
+  type: de.NBI.small+ephemeral
+  #ubuntu 16.04
+  image: c1ac4343-cc53-4827-a3bf-9fdde2a67c8c
 
 #BiBiGrid-Slave
 slaveInstances:
-  - type: unibi.micro
-    count: 4
-    image: febceb9a-fb0f-4f1c-ad06-8caf6340de64
+  - type: de.NBI.small+ephemeral
+    count: 3
+    #ubuntu 16.04
+    image: c1ac4343-cc53-4827-a3bf-9fdde2a67c8c
 
 #Firewall/Security Group
 ports:
@@ -84,13 +81,25 @@ ports:
     number: 80
 
 #services
+useMasterAsCompute: yes
 nfs: yes
 oge: yes
 cloud9: yes
 
 ```
 
-*The openstack credentials requires the **name** not the **id**.*
+**credentials.yml:**
+
+```
+tenantName: XXX
+username: ELIXIRID@elixir-europe.org
+password: PASSWORD
+endpoint: https://openstack.cebitec.uni-bielefeld.de:5000/v3/
+domain: elixir
+tenantDomain: elixir
+```
+
+*The openstack credentials requires the **name** not the **id** .*
 
 *The image is referenced as **id** not by **name**.*
 
@@ -119,29 +128,46 @@ Using preinstalled images is much faster (about 5 minutes).
 
 ## Login into the Cluster
 
-After a successful setup you can login into the master node. Run `qhost` 
+After a successful setup ... 
+
+```
+SUCCESS: Master instance has been configured. 
+Ok : 
+ You might want to set the following environment variable:
+
+export BIBIGRID_MASTER=XXX.XXX.XXX.XXX
+
+You can then log on the master node with:
+
+ssh -i /path/to/private/ssh-key ubuntu@$BIBIGRID_MASTER
+
+The cluster id of your started cluster is: vnqtbvufr3uovci
+
+You can easily terminate the cluster at any time with:
+./bibigrid -t XXX 
+
+```
+you can login into the master node. Run `qhost` 
 to check if there are 4 execution nodes available.
 
 
 ### Cloud9
 
-Cloud9 is Web IDE that allows a more comfortable way to work with your cloud instances. Although cloud9 is an alpha state, it is stable enough to use for an environment like ours. Let's see how this works together with BiBiGrid. 
-For security reasons cloud9 is not started during startup. We need a valid certificate and some kind of authentication to create a safe connection, which is not that easy in a dynamic cloud environment. 
+[Cloud9](https://github.com/c9/core) is a Web IDE that allows a more comfortable way to work with your cloud instances. Although cloud9 is in an alpha state, it is stable enough to use for an environment like ours. Let's see how this works together with BiBiGrid. 
 
-However, we use ssh to tunnel the default cloud9 port (8181)  to our local machine and start cloud9 listening only on localhost.
+![Cloud9](images/cloud9.png)
 
+If the cloud9 option enabled in the configuration cloud9 is run as systemd service on localhost. For security reasons cloud9 is not bind to standard network device. A valid certificate and some kind of authentication is needed to create a safe connection, which is not that easy in a dynamic cloud environment. 
 
-1. create ssh tunnel : `ssh -L 8181:localhost:8181 129.70.51.20`.
+However, Bibigrid has the possibility to open a ssh tunnel from the local machine to bibigrids master instance  and open a browser running cloud9 web ide. 
 
-2. start cloud9 listening at localhost and using `~/playbook` as workspace: `cloud9 --listen localhost -w ~/playbook`
+`java -jar bibigrid-openstack-2.0.jar --cloud9 <clusterid>`
 
-3. cloud9 IDE is then available at `http://localhost:8181`
-
-4. at first start, cloud9 needs to install some additional software, follow the on-screen instructions
+**At first start, cloud9 needs to install some additional software, follow the on-screen instructions.**
 
 
 
-## Hello World BiBiGrid!
+## Hello World, Hello BiBiGrid!
 
 After successful starting a cluster in the cloud, start with a typically  example : *Hello World !*
 
@@ -155,7 +181,7 @@ echo Hello from $(hostname) !
 sleep 10
 ```
 
-- Submit this script to each node: ` qsub -cwd -t 1-4 -pe multislot 2 helloworld.sh`
+- Submit this script to each node: ` qsub -cwd -t 1-4 -pe multislot 8 helloworld.sh`
 - See the status of our cluster: `qhost`
 - See the output: `cat helloworld.sh.o.*`
 
