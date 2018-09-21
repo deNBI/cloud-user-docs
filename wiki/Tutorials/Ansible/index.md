@@ -2,7 +2,7 @@
 
 ### Quick Introduction
 [Ansible](https://www.ansible.com) is an open source application for orchestrating, deploying and automation of multiple hosts, VMs or cloud instances.
-For this, it uses a simple instruction language (YAML) and basic tools like SSH.
+For this, it uses a simple instruction language ([YAML](http://yaml.org)) and basic tools like SSH.
 Ansible itself does not need to be installed on the targeted hosts. Only one "Ansible-agent" with allowed SSH-connection to all hosts is required.
 
 ### Requirements
@@ -61,7 +61,18 @@ We take a quick look on those two important components.
  A standard inventory file is located in ``/etc/ansible/hosts``. It is usually loaded by Ansible when no other inventory file is passed to it.
  An example of an inventory can look like this:
 
-  ![Inventory](img/inventory.png)
+  
+```
+[web]
+192.168.10.12
+192.168.10.13
+192.168.10.14
+  
+[cassandra_db]
+192.168.10.27
+192.168.10.28
+192.168.10.29
+```
   
  In this example, we have two groups: web and cassandra_db.
  These groups have each 3 different Hosts assigned by their IP-Address.
@@ -214,9 +225,24 @@ Especially if you are setting up multiple seperate entities like a webserver, da
 Maybe you want to seperate those entities in different parts.
 For this desire, Ansible provides Roles.
 A role has a distinct directory structure containing multiple folders:
-  
-  
-![tree](img/tree.png)
+
+
+```
+Ansible/
++- play.yml
++- roles
+   +- nginx
+      +- files
+      |  |- index.html
+      |  |- index.php
+      +- handlers  
+      |  |- main.yml
+      +- meta
+      +- tasks
+      |  |- main.yml
+      +- templates
+      +- vars		   	
+```
   
 This example "nginx" role has the following directorys included:
 
