@@ -8,9 +8,8 @@
 
 ## Build from sources
 
-- Clone GitHub repository `https://github.com/bibiserv/bibigrid`
-- Change into project dir `cd bibigrid`
-- Switch to development branch `git checkout development`
+- Clone GitHub repository: `git clone https://github.com/BiBiServ/bibigrid.git`
+- Change into project dir: `cd bibigrid`
 - Build Java executable for Openstack `mvn -P openstack clean package`
 - Call `java -jar bibigrid-main/target/bibigrid-openstack-2.0.jar -h` to get help messages and check if executable works
 
@@ -23,7 +22,7 @@ If you don't want build the client from sources you can use a prebuilt binary ([
 
 # Getting started
 
-*Check the [GitHub repository](https://github.com/BiBiServ/bibigrid/tree/development) for detailed information about BiBiGrid. For the cloud workshop in Bielefeld (8.3.2018): Be sure that you are on the development branch.* 
+*Check the [GitHub repository](https://github.com/BiBiServ/bibigrid/tree/development) for detailed information about BiBiGrid.* 
 
 BiBiGrid is an open source tool hosted at github  for an easy cluster setup inside a cloud environment. BiBigrid is operating system  and cloud provider independend, there exist currently backend implementations for Amazon (AWS), Google (Google Compute), Microsoft (Azure) and Openstack. It provides a HPC like environment providing a shared FS between all nodes and Grid Batch Scheduler.
 
@@ -32,16 +31,16 @@ BiBiGrid is an open source tool hosted at github  for an easy cluster setup insi
 ![BiBigrid Overview](images/overview.png)
 
 
-1. One master and one or more slave nodes. The used images could be blank images or could come with preinstalled software. BiBiGrid uses [Ansible](https://www.ansible.com) to install and configure the instances.
+1. One master and one or more slave nodes. The used images could be blank Ubuntu 16.04 images or could come with preinstalled software. BiBiGrid uses [Ansible](https://www.ansible.com) to install and configure the instances.
 2. All instances run in the same security group with default ssh access. Additional ports could be easily configured. 
-3. Local disk space of master is provided as a shared spool disk space between master and the slaves. Local storage of the slaves is configured as temporary scratch space.
-4. Volumes provided by Cinder can be mounted to master node and optional distributed to all slaves (as NFS shars).
+3. Local disk space of the master node is provided as a shared spool disk (/vol/spool) space between master and all slaves. Local storage of the slaves is configured as temporary scratch space.
+4. Volumes provided by Cinder can be mounted to the master node and optionally distributed to all slaves (as NFS shares).
 5. Object Store is available to all nodes
 
 
 ## Configuration
 
-The goal of this session is to setup a small HPC cluster consisting of 5 nodes  (1 master, 4 slaves)  using BiBiGrid. The template below do the job, you have to replace all XXX's with your environment.
+The goal of this session is to setup a small HPC cluster consisting of 4 nodes  (1 master, 3 slaves) using BiBiGrid. The template below does the job, you have to replace all XXX's with your environment.
 
 ### Template
 
