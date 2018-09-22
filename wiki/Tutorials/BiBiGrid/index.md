@@ -24,18 +24,18 @@ If you don't want build the client from sources you can use a prebuilt binary ([
 
 *Check the [GitHub repository](https://github.com/BiBiServ/bibigrid/tree/development) for detailed information about BiBiGrid.* 
 
-BiBiGrid is an open source tool hosted at github  for an easy cluster setup inside a cloud environment. BiBigrid is operating system  and cloud provider independend, there exist currently backend implementations for Amazon (AWS), Google (Google Compute), Microsoft (Azure) and Openstack. It provides a HPC like environment providing a shared FS between all nodes and Grid Batch Scheduler.
+BiBiGrid is an open source tool hosted at github for an easy cluster setup inside a cloud environment. BiBigrid is operating system and cloud provider independent, currently there are existing backend implementations for Amazon (AWS), Google (Google Compute), Microsoft (Azure) and OpenStack. It provides a HPC like environment, providing a shared filesystem between all nodes and a Grid Batch Scheduler.
 
 ### BiBiGrid configures a classic master / slaves cluster.
 
 ![BiBigrid Overview](images/overview.png)
 
 
-1. One master and one or more slave nodes. The used images could be blank Ubuntu 16.04 images or could come with preinstalled software. BiBiGrid uses [Ansible](https://www.ansible.com) to install and configure the instances.
-2. All instances run in the same security group with default ssh access. Additional ports could be easily configured. 
-3. Local disk space of the master node is provided as a shared spool disk (/vol/spool) space between master and all slaves. Local storage of the slaves is configured as temporary scratch space.
+1. One master and one (or more) slave nodes. The used images could be blank Ubuntu 16.04 images or could come with pre-installed software. BiBiGrid uses [Ansible](https://www.ansible.com) to install and configure all instances.
+2. All instances run in the same security group with default ssh access. Additional ports can easily be configured. 
+3. Local disk space of the master node is provided as a shared spool-disk space (/vol/spool) between master and all slaves. Local storage of the slaves is configured as temporary scratch space.
 4. Volumes provided by Cinder can be mounted to the master node and optionally distributed to all slaves (as NFS shares).
-5. Object Store is available to all nodes
+5. Object Store is available to all nodes.
 
 
 ## Configuration
@@ -117,7 +117,7 @@ or more verbose:
 `java -jar bibigrid-openstack-2.0.jar -c -v -o bibigrid.yml`
 
 Starting with blank Ubuntu 16.04 images takes up to 20 minutes to finish.
-Using preinstalled images is much faster (about 5 minutes).
+Using pre-installed images is much faster (about 5 minutes).
 
 
 ## Good to know
@@ -153,13 +153,13 @@ to check if there are 4 execution nodes available.
 
 ### Cloud9
 
-[Cloud9](https://github.com/c9/core) is a Web IDE that allows a more comfortable way to work with your cloud instances. Although cloud9 is in an alpha state, it is stable enough to use for an environment like ours. Let's see how this works together with BiBiGrid. 
+[Cloud9](https://github.com/c9/core) is a Web-IDE that allows a more comfortable way to work with your cloud instances. Although cloud9 is in an alpha state, it is stable enough to be used for an environment like ours. Let's see how this works together with BiBiGrid. 
 
 ![Cloud9](images/cloud9.png)
 
-If the cloud9 option enabled in the configuration cloud9 is run as systemd service on localhost. For security reasons cloud9 is not bind to standard network device. A valid certificate and some kind of authentication is needed to create a safe connection, which is not that easy in a dynamic cloud environment. 
+If the cloud9 option is enabled in the configuration, cloud9 will be run as systemd service on localhost. For security reasons, cloud9 is not binding to a standard network device. A valid certificate and some kind of authentication is needed to create a safe connection, which is not that easy in a dynamic cloud environment. 
 
-However, Bibigrid has the possibility to open a ssh tunnel from the local machine to bibigrids master instance  and open a browser running cloud9 web ide. 
+However, Bibigrid has the possibility to open a ssh tunnel from the local machine to bibigrids master instance and open up a browser running cloud9 web ide. 
 
 `java -jar bibigrid-openstack-2.0.jar --cloud9 <clusterid>`
 
@@ -169,9 +169,9 @@ However, Bibigrid has the possibility to open a ssh tunnel from the local machin
 
 ## Hello World, Hello BiBiGrid!
 
-After successful starting a cluster in the cloud, start with a typically  example : *Hello World !*
+After successful starting a cluster in the cloud, start with a typical example : *Hello World !*
 
-- Login into master and change to the spooldir 
+- Login into your master node and change to the spool directory. 
 `cd /vol/spool`
 - Create a new shell script `helloworld.sh` containing a "hello world" :
 
@@ -191,7 +191,7 @@ Since it is possible to start more than cluster at once, it possible to list all
 
 `java -jar bibigrid-openstack-2.0.jar -l`
 
-The command returns a informative list about your running clusters.
+The command returns a informative list about all your running clusters.
 
 ## Terminate a cluster
 
