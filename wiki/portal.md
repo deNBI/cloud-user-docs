@@ -91,8 +91,23 @@ The development and support of the cloud is possible above all through the fundi
 
 #### X2Go Image
 
+X2Go Images allow you to start your own desktop in the de.NBI Cloud which you can access from
+any operating system (Windows, Linux, MacOS).
+
+## (Windows only) Export key in OpenSSH format for X2GO
+
+To connect to a machine with X2GO you have to export your private key in openssh format. To achieve this first load your private key into puttygen.
+
+![X2Go Client](img/putty_private.png)
+
+Then click Conversions and choose Export OpenSSH Key. Afterwards save this file on your computer. This file will be needed when you want to establish a connection to a machine with the X2GO client.
+
+![SSH_export](img/putty_export.png)
+
+## Connect to X2GO machine
+
 You can start an X2Go image when you select an image starting with the X2Go label e.g `X2Go_xfce`.
-Once your image started,yYou will see a message similiar to the following one:
+Once your image started, you will see a message similar to the following one:
 
 ![X2Go Command](img/x2go_command.png)
 
