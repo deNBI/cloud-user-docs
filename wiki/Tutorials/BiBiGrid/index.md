@@ -64,13 +64,13 @@ subnet: XXX
 
 #BiBiGrid-Master
 masterInstance:
-  type: de.NBI.small+ephemeral
+  type: de.NBI.medium+ephemeral
   #ubuntu 16.04
   image: c1ac4343-cc53-4827-a3bf-9fdde2a67c8c
 
 #BiBiGrid-Slave
 slaveInstances:
-  - type: de.NBI.small+ephemeral
+  - type: de.NBI.medium+ephemeral
     count: 3
     #ubuntu 16.04
     image: c1ac4343-cc53-4827-a3bf-9fdde2a67c8c
