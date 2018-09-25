@@ -18,9 +18,10 @@ The s3 and swift APIs in the de.NBI cloud is based on radosgw, a part of the cep
 
 Both APIs have command line clients as well as graphical user interfaces.
 
-URLs of de.NBI Cloud s3/swift servers: 
-* Bielefeld: [https://openstack.cebitec.uni-bielefeld.de:8080](https://openstack.cebitec.uni-bielefeld.de:8080)
-* Giessen: [https://s3.computational.bio.uni-giessen.de](https://s3.computational.bio.uni-giessen.de)
+URLs of de.NBI Cloud s3/swift servers:
+
+*  Bielefeld: [https://openstack.cebitec.uni-bielefeld.de:8080](https://openstack.cebitec.uni-bielefeld.de:8080)
+*  Giessen: [https://s3.computational.bio.uni-giessen.de](https://s3.computational.bio.uni-giessen.de)
 
 ### Access via website
 
