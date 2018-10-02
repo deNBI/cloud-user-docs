@@ -4,9 +4,9 @@
 
 This document is intended for system administrators who would like to register their identity provider for Elixir AAI.
 AAI delegates the process of registration, authentication and the defining of access rules to different parties:
-Universities as an example are responsible for registration and authentication of members and services like e-Learning
+Universities as an example are responsible for registration and authentication of members. Services like e-Learning
 systems provide the rules for accessing the service. This federated concept shows multiple benefits to services and identity
-providers such as 
+providers such as
 
 * Services do not have to provide or implement an authentication and authorization system on its own.
 
@@ -35,11 +35,12 @@ From a technical perspective eduGAIN aggregates the data of participating federa
 By participating in the DFN you are free to decide whether your identity provider should be also referenced by eduGAIN.
 Any conditions that must be met by the provider are listed on the [dfn eduGAIN page](https://wiki.aai.dfn.de/de:edugain#edugain_interfederation)
 
-## Step 3:
+## Step 3: Elixir
 
 ELIXIR unites Europe`s leading life science organisations and offers for services and identity providers an authentification and authorisation infrastructure (Elixir-AAI).
-The infrastructure offers participating services and identity providers additional functionality like group management or a dataset authorisation system.
-The de.NBI Cloud is fully integrated with Elixir AAI. A user can use his university account to access the cloud and any other service provided by de.NBI Cloud. 
+The infrastructure offers participating services and identity providers additional functionality like group management or a dataset authorisation system. 
+The de.NBI Cloud is fully integrated with Elixir AAI. A user can use his university account to access the cloud and any other service provided by de.NBI Cloud.
+Elixir lists all idenity providers on a [test page](https://perun.elixir-czech.cz/attribute-check/). If your identity provider is not listed you can contact Elixir AAI support (aai-contact@elixir-europe.org).
 
 ## Further Reading
 
