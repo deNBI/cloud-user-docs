@@ -61,6 +61,14 @@ juju add-credential cebitec -f ./cebitec-creds.yaml
 
 ### Add image metadata
 
+Before creating an image you have to
+
+```
+juju bootstrap
+
+```
+and choose localhost. Otherwise there will be an error when creating the metadata image.
+
 In order to use an image, juju needs to create some metadata for it first.
 In this example we add the current xenial image.
 
@@ -71,6 +79,8 @@ mkdir -p ~/juju/images
 ```
 
 Now we add metadata for the xenial image
+
+look at this link: https://docs.jujucharms.com/2.1/en/howto-privatecloud to see how to generate a metadata image.
 
 ```
 juju metadata generate-image -d ~/juju -i febceb9a-fb0f-4f1c-ad06-8caf6340de64 -s xenial -r Bielefeld -u https://openstack.cebitec.uni-bielefeld.de:5000/v3/
@@ -90,8 +100,8 @@ juju bootstrap --metadata-source ~/juju cebitec
 ```
 
 If there are multiple networks available for your project, choose the right one
-with the `--config network=<network id>` parameter.
-
+with the `--config network=<network id>` parameter. If you need a specific series add  
+`--bootstrap-series=<series>` as parameter (juju will think it is bionic as standard).
 ## Deploy jenkins and haproxy
 
 After deploying a juju controller it is possible to define a juju model in two yaml files.
@@ -114,6 +124,7 @@ services:
       extra_packages: docker-ce
   haproxy:
     charm: "cs:haproxy"
+    series: "xenial"
     num_units: 1
     expose: true
     options:
@@ -123,10 +134,6 @@ relations:
   - - "jenkins:website"
     - "haproxy:reverseproxy"
 ``` 
-
-!!! Note
-    You can use the charm: ```"cs:~sgiller/jenkins-1"``` (jenkins charm + optional steps)
-    if you want to deploy a jenkins charm with docker preinstalled and skip the optional steps.
 
 
 !!! Note
@@ -155,7 +162,7 @@ The second file configures our already deployed haproxy. It sets the exposed por
 to apply this configuration you need to run 
 
 ```BASH
-juju config haproxy services=@hconfig.yaml
+juju config haproxy services=@config.yaml
 ```
 
 All possible options can be found at the charm websites under configuration [haproxy-charm](https://jujucharms.com/haproxy/).
