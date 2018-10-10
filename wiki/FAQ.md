@@ -1,4 +1,8 @@
-### MTU fix for docker
+### How much do I have to pay for a de.NBI Cloud project?
+
+The de.NBI Cloud is fully funded by the federal ministry of education and research. It is free for all academic life science research projects.
+
+### I can not build docker images and can not download packages from inside of the container.
 
 In case you use docker containers in your VM it may happen that the building 
 process of the containers will fail or you can not download packages. The reason is that docker can not connect to the 
@@ -19,3 +23,4 @@ In a last step you have to reload the daemon and restart docker:
     sudo systemctl docker restart
 
 Now the docker build process should be successful.
+
