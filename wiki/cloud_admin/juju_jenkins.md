@@ -81,6 +81,7 @@ mkdir -p ~/juju/images
 Now we add metadata for the xenial image
 
 look at this link: https://docs.jujucharms.com/2.1/en/howto-privatecloud to see how to generate a metadata image.
+The command should look like the following example.
 
 ```
 juju metadata generate-image -d ~/juju -i febceb9a-fb0f-4f1c-ad06-8caf6340de64 -s xenial -r Bielefeld -u https://openstack.cebitec.uni-bielefeld.de:5000/v3/
@@ -115,7 +116,9 @@ After deploying a juju controller it is possible to define a juju model in two y
 ```yaml
 services:
   jenkins:
-    charm: "cs:jenkins"
+    constraints: "mem=14500M cpu-cores=4 root-disk=100G"
+    charm: "cs:xenial/jenkins"
+    release: http://pkg.jenkins-ci.org/debian/binary/jenkins_2.128_all.deb
     num_units: 1
     options:
       password: <passwort>
@@ -166,6 +169,33 @@ juju config haproxy services=@config.yaml
 ```
 
 All possible options can be found at the charm websites under configuration [haproxy-charm](https://jujucharms.com/haproxy/).
+
+## Update jenkins
+
+Before updating make sure no jenkins instances are running.
+
+To update Jenkins to the newest version you need to download the latest jenkins.war file [here](https://updates.jenkins-ci.org/download/war/) and fulfill the following steps.
+
+1. log into the jenkins machine and stop the jenkins service with:
+
+```BASH
+juju run "sudo service jenkins stop" --machine <machine_number>
+```
+2. Remove the old jenkins.war file with:
+```BASH
+juju run "sudo rm /usr/share/jenkins/jenkins.war" --machine <machine_number>
+```
+
+3. Place the new jenkins.war file in the /usr/share/jenkins folder with:
+```BASH
+juju scp <path_to_jenkins.war> <machine_number>:/usr/share/jenkins/jenkins.war
+```
+
+4. Start jenkins service again with:
+```BASH
+juju run "sudo service jenkins start" --machine <machine_number>
+```
+Jenkins should be accessable and updated now.
 
 ## Run custom commands
 
