@@ -117,9 +117,9 @@ After deploying a juju controller it is possible to define a juju model in two y
 services:
   jenkins:
     charm: "cs:xenial/jenkins"
-    release: http://pkg.jenkins-ci.org/debian/binary/jenkins_2.128_all.deb
     num_units: 1
     options:
+      release: http://pkg.jenkins-ci.org/debian/binary/jenkins_2.128_all.deb
       password: <passwort>
       install_keys: 0EBFCD88
       install_sources: https://download.docker.com/linux/ubuntu xenial stable
