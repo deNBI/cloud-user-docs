@@ -57,3 +57,4 @@ pages:
   - 'Cloud Admin':
     - 'Jenkins + Haproxy with JuJu': cloud_admin/juju_jenkins.md
     - 'Configure OpenStack to use Elixir AAI via OpenID Connect': cloud_admin/elixir_OIDC.md 
+    - 'Register your identity provider for ELIXIR': cloud_admin/identity_provider.md
