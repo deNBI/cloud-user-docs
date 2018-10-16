@@ -118,13 +118,14 @@ services:
   jenkins:
     charm: "cs:xenial/jenkins"
     num_units: 1
-    constraints: "cpu-cores=8 mem=16G"
+    constraints: "cores=8 mem=16G"
     options:
       release: http://pkg.jenkins-ci.org/debian/binary/jenkins_2.128_all.deb
       password: <passwort>
       install_keys: 0EBFCD88
       install_sources: https://download.docker.com/linux/ubuntu xenial stable
       extra_packages: docker-ce
+      plugins: oic-auth github-branch-source workflow-aggregator role-strategy
   haproxy:
     charm: "cs:haproxy"
     series: "xenial"
