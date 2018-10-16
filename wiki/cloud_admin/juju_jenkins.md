@@ -118,6 +118,7 @@ services:
   jenkins:
     charm: "cs:xenial/jenkins"
     num_units: 1
+    constraints: "cpu-cores=8 mem=16G"
     options:
       release: http://pkg.jenkins-ci.org/debian/binary/jenkins_2.128_all.deb
       password: <passwort>
