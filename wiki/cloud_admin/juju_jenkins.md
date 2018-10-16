@@ -116,7 +116,6 @@ After deploying a juju controller it is possible to define a juju model in two y
 ```yaml
 services:
   jenkins:
-    constraints: "mem=14500M cpu-cores=4 root-disk=100G"
     charm: "cs:xenial/jenkins"
     release: http://pkg.jenkins-ci.org/debian/binary/jenkins_2.128_all.deb
     num_units: 1
@@ -176,6 +175,11 @@ Before updating make sure no jenkins instances are running.
 
 To update Jenkins to the newest version you need to download the latest jenkins.war file [here](https://updates.jenkins-ci.org/download/war/) and fulfill the following steps.
 
+Or download it with the following command:
+
+```BASH
+sudo wget https://updates.jenkins-ci.org/latest/jenkins.war
+```
 1. log into the jenkins machine and stop the jenkins service with:
 
 ```BASH
