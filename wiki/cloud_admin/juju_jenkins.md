@@ -75,6 +75,7 @@ if juju bootstrap doesnt work use:
 ```
 dpkg-reconfigure -p medium lxd
 ```
+
 and approve the steps till ipv6 configuration (decline this).
 
 In order to use an image, juju needs to create some metadata for it first.
@@ -106,7 +107,7 @@ juju destroy-controller localhost-localhost
 
 ## Deploy the juju controller
 
-Basically, this is just `juju bootstrap`. Because we use private cloud, we have
+Basically, this is just `juju bootstrap`. Because we use a private cloud, we have
 to specify the location of the image metadata with `--metadata-source`.
 
 ```
@@ -165,7 +166,7 @@ juju deploy model.yaml
 ```
 
 
-The second file configures our already deployed haproxy. It sets the exposed port of our setup to 443.
+The second file configures our already deployed haproxy. It sets the exposed port of our setup to 443 to use ssl.
 
 ```yaml
 - service_name: jenkins
@@ -183,6 +184,7 @@ to apply this configuration you need to run
 juju config haproxy services=@config.yaml
 ```
 
+After a few minuits Jenkins should be reachable over the haproxy ip via https://<haproxy_ip>.
 All possible options can be found at the charm websites under configuration [haproxy-charm](https://jujucharms.com/haproxy/).
 
 ## Update jenkins
@@ -196,12 +198,12 @@ Or download it with the following command:
 ```BASH
 sudo wget https://updates.jenkins-ci.org/latest/jenkins.war
 ```
-1. log into the jenkins machine and stop the jenkins service with:
+1. log into the jenkins machine and stop the jenkins service:
 
 ```BASH
 juju run "sudo service jenkins stop" --machine <machine_number>
 ```
-2. Remove the old jenkins.war file with:
+2. Remove the old jenkins.war file:
 ```BASH
 juju run "sudo rm /usr/share/jenkins/jenkins.war" --machine <machine_number>
 ```
@@ -211,7 +213,7 @@ juju run "sudo rm /usr/share/jenkins/jenkins.war" --machine <machine_number>
 juju scp <path_to_jenkins.war> <machine_number>:/~
 ```
 
-4. Move the jenkins.war in the correct folder.
+4. Move the jenkins.war file to the correct folder.
 usr/share/jenkins/jenkins.war
 ```BASH
 juju run "sudo mv ~/jenkins.war /usr/share/jenkins/jenkins.war" --machine <machine-number>
@@ -240,7 +242,7 @@ The following jenkins plugins should be installed via Manage Jenkins --> Manage 
 * GitHub Branch Source (is needed for automatic pull request testing).
 
 ### Setup OpenId connect Authentication
-To setup OpenId connect Authentication go to Manage Jenkins --> Configure Global Security and choose Login with Openid Connect checkbox.
+To setup OpenId connect Authentication go to Manage Jenkins --> Configure Global Security and choose the Login with Openid Connect checkbox.
 
 you have to enter the following dates:
 
@@ -268,7 +270,8 @@ now apply the changes.
 
 After reloading the page you should be able to login with your elixir account.
 
-### Setup Role-Based Authorisation
+### Role-Based Authorisation
+
 In order to give different permissions to different user we use the Role-based Authorization Strategy plugin.
 To activate the plugin go to Manage Jenkins --> Configure Global Security and choose Role-Based Strategy.
 
@@ -283,7 +286,7 @@ Now go to Manage Jenkins --> Manage and Assign Roles --> Assign Roles and assign
 
 ![Role2](images/role2.png)
 
-You can add now any role you want and assign a user to it.
+You can now add and assign a role to each user.
 
 ### Assign user to role
 
@@ -293,9 +296,11 @@ To assign a user to a specific role go to Manage Jenkins --> Manage and Assign R
 
 It is also possible to give a user rights to a specific project to do this go to the Manage Roles menu and enter the project-pattern and name of a project.
 
+The Project pattern defines what project the user sees.
+
 ![Role3](images/role3.png)
 
-now assign a user to the project role in the Assign Roles menu and he will have rights in the project with the specific pattern.
+You can assign a user to a project role in the Assign Roles menu and he will have rights in the project with the specific pattern.
 
 ## Create Credentials
 
