@@ -12,6 +12,7 @@ newly spawned VMs without assigning a floating IP.
 ```
 sudo add-apt-repository -yu ppa:juju/stable
 sudo apt install juju
+sudo apt-get install python3-openstackclient
 ```
 
 ### Add cloud config
@@ -29,7 +30,7 @@ clouds:
         endpoint: https://openstack.cebitec.uni-bielefeld.de:5000/v3/
 
 ```
-and run
+and create the cloud with:
 
 ```
 juju add-cloud cebitec -f ./cebitec.yaml
@@ -69,8 +70,14 @@ juju bootstrap
 ```
 and choose localhost. Otherwise there will be an error when creating the metadata image.
 
+if juju bootstrap doesnt work use:
+
+```
+dpkg-reconfigure -p medium lxd
+```
+and approve the steps till ipv6 configuration (decline this).
+
 In order to use an image, juju needs to create some metadata for it first.
-In this example we add the current xenial image.
 
 We create a directory for metadata with the following command:
 
@@ -81,7 +88,7 @@ mkdir -p ~/juju/images
 Now we add metadata for the xenial image
 
 look at this link: https://docs.jujucharms.com/2.1/en/howto-privatecloud to see how to generate a metadata image.
-The command should look like the following example.
+The final command should look like in the following example.
 
 ```
 juju metadata generate-image -d ~/juju -i febceb9a-fb0f-4f1c-ad06-8caf6340de64 -s xenial -r Bielefeld -u https://openstack.cebitec.uni-bielefeld.de:5000/v3/
@@ -89,6 +96,13 @@ juju metadata generate-image -d ~/juju -i febceb9a-fb0f-4f1c-ad06-8caf6340de64 -
 ```
 
 where the image ID in OpenStack has to be specified with the `-i` and the release name (series) with `-s`.
+
+Destroy the local juju controller with:
+
+```
+juju destroy-controller localhost-localhost
+
+```
 
 ## Deploy the juju controller
 
@@ -107,7 +121,7 @@ with the `--config network=<network id>` parameter. If you need a specific serie
 
 After deploying a juju controller it is possible to define a juju model in two yaml files.
 
-- The first file describes the construction of the juju model 
+- The first file describes the construction of the juju model.
 
 - This model.yaml file creates 1 jenkins machine with docker installed and 1 haproxy machine.
 
@@ -125,7 +139,6 @@ services:
       install_keys: 0EBFCD88
       install_sources: https://download.docker.com/linux/ubuntu xenial stable
       extra_packages: docker-ce
-      plugins: oic-auth github-branch-source workflow-aggregator role-strategy
   haproxy:
     charm: "cs:haproxy"
     series: "xenial"
@@ -142,7 +155,8 @@ relations:
 
 !!! Note
     Do not forget to set a passwort in the options section of jenkins.<br/>
-    Do the Optional steps if you want to use your own charm.
+    Do the Optional steps if you want to use your own charm.<br/>
+    The release version can be changed but errors in installation may occure.
     
 To deploy jenkins and haproxy you have to execute the following command:
 
@@ -173,7 +187,7 @@ All possible options can be found at the charm websites under configuration [hap
 
 ## Update jenkins
 
-Before updating make sure no jenkins instances are running.
+Before updating jenkins make sure no build instances are running.
 
 To update Jenkins to the newest version you need to download the latest jenkins.war file [here](https://updates.jenkins-ci.org/download/war/) and fulfill the following steps.
 
@@ -192,16 +206,116 @@ juju run "sudo service jenkins stop" --machine <machine_number>
 juju run "sudo rm /usr/share/jenkins/jenkins.war" --machine <machine_number>
 ```
 
-3. Place the new jenkins.war file in the /usr/share/jenkins folder with:
+3. Place the new jenkins.war file on the machine:
 ```BASH
-juju scp <path_to_jenkins.war> <machine_number>:/usr/share/jenkins/jenkins.war
+juju scp <path_to_jenkins.war> <machine_number>:/~
 ```
 
-4. Start jenkins service again with:
+4. Move the jenkins.war in the correct folder.
+usr/share/jenkins/jenkins.war
+```BASH
+juju run "sudo mv ~/jenkins.war /usr/share/jenkins/jenkins.war" --machine <machine-number>
+```
+
+5. Start jenkins service again with:
 ```BASH
 juju run "sudo service jenkins start" --machine <machine_number>
 ```
 Jenkins should be accessable and updated now.
+
+## Setup Jenkins
+Follow this steps to setup jenkins after its deployed and updated.
+
+### Plugins
+The following jenkins plugins should be installed via Manage Jenkins --> Manage Plugins.
+
+* Role-based Authorization Strategy (to set permissions for users).
+
+* OpenId Connect Authentication (to authenticate with elixir).
+
+* Pipeline (Is needed to create projects).
+
+* Github integration.
+
+* GitHub Branch Source (is needed for automatic pull request testing).
+
+### Setup OpenId connect Authentication
+To setup OpenId connect Authentication go to Manage Jenkins --> Configure Global Security and choose Login with Openid Connect checkbox.
+
+you have to enter the following dates:
+
+* Client id
+
+* CLient secret
+
+* Token server url
+
+* Authorization server url
+
+* Scopes (in our case: openid email profile)
+
+Optional are:
+
+* UserInfo server url
+
+* User name field (in our case: preferred_username)
+
+* FullName field name (in our case: name)
+
+* Email field name (in our case: email)
+
+now apply the changes.
+
+After reloading the page you should be able to login with your elixir account.
+
+### Setup Role-Based Authorisation
+In order to give different permissions to different user we use the Role-based Authorization Strategy plugin.
+To activate the plugin go to Manage Jenkins --> Configure Global Security and choose Role-Based Strategy.
+
+### Manage and assign roles
+To manage existing roles go to Manage Jenkins --> Manage and Assign Roles --> Manage Roles
+
+Add the Role Anonymous (this are all the users who login with elixir) and give this role the needed rights (for example read overall).
+
+############picture role 1 #############
+
+Now go to Manage Jenkins --> Manage and Assign Roles --> Assign Roles and assign the Anonymous role to Anonymous user.
+
+###########picture role 2 ##############
+
+You can add now any role you want.
+
+### Assign user to role
+
+To assign a user to a specific role go to Manage Jenkins --> Manage and Assign Roles --> Assign Roles add the username and check the role you want to give him.
+
+### Project role
+
+It is also possible to give a user rights to a specific project to do this go to the Manage Roles menu and enter the project-pattern and name of a project.
+
+######### pic role 3 #########
+
+now assign a user to the project role in the Assign Roles menu and he will have rights in the project with the specific pattern.
+
+## Create Credentials
+
+In order to use github repositories or deploy a build you have to enter credentials.
+This is possible by going to "credentials" --> "choosing a domain" --> "add credentials"
+
+now you can enter credentials which you can use for projects (if you use a jenkins file you always reference the credential id).
+
+## Create Project for repository
+
+To create a build job in jenkins for a repository select "new item" --> "pipeline" --> "ok"
+
+In Build Triggers selection check: GitHub hook trigger for GITScm polling (so jenkins will automatically build the Jenkinsfile when something is pushed in the branch). 
+
+In Pipeline select "Pipeline script from SCM" --> "git" --> fill credentials repository url and choose a branch.
+
+Choose the name of the Jenkinsfile in the project and save the configuration.
+
+Builds need to be run once before they get notified by a push notification.
+
 
 ## Run custom commands
 
@@ -216,6 +330,7 @@ The command below sets the docker group on machine 34:
 ```BASH
 juju run "sudo usermod -aG docker $USER "  --machine  34
 ```
+Jenkins service needs to be restarted agter setting docker group.
 
 ## Optional steps
 
@@ -304,6 +419,17 @@ finally use
 exit
 ```
 to log off the machine.
+
+## Usefull commands
+Here is a list of usefull juju commands
+
+* juju status: shows status of deployment.
+
+* juju destroy-controller: deletes a full bootstrap configuration(all machines and models).
+
+* juju ssh <machine_number>: connects to machine via ssh.
+
+
 ## Further Reading
 
 * [Juju haproxy](https://jujucharms.com/haproxy/)
