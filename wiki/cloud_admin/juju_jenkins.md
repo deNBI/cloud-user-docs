@@ -277,13 +277,13 @@ To manage existing roles go to Manage Jenkins --> Manage and Assign Roles --> Ma
 
 Add the Role Anonymous (this are all the users who login with elixir) and give this role the needed rights (for example read overall).
 
-############picture role 1 #############
+![Role1](images/role1.png)
 
 Now go to Manage Jenkins --> Manage and Assign Roles --> Assign Roles and assign the Anonymous role to Anonymous user.
 
-###########picture role 2 ##############
+![Role2](images/role2.png)
 
-You can add now any role you want.
+You can add now any role you want and assign a user to it.
 
 ### Assign user to role
 
@@ -293,26 +293,26 @@ To assign a user to a specific role go to Manage Jenkins --> Manage and Assign R
 
 It is also possible to give a user rights to a specific project to do this go to the Manage Roles menu and enter the project-pattern and name of a project.
 
-######### pic role 3 #########
+![Role3](images/role3.png)
 
 now assign a user to the project role in the Assign Roles menu and he will have rights in the project with the specific pattern.
 
 ## Create Credentials
 
-In order to use github repositories or deploy a build you have to enter credentials.
+In order to use github repositories dockerhub or a ssh connection when deploying a build you have to enter credentials.
 This is possible by going to "credentials" --> "choosing a domain" --> "add credentials"
 
 now you can enter credentials which you can use for projects (if you use a jenkins file you always reference the credential id).
 
 ## Create Project for repository
 
-To create a build job in jenkins for a repository select "new item" --> "pipeline" --> "ok"
+To create a build job for a repository in jenkins select "new item" --> "pipeline" --> "enter a name" --> "ok"
 
-In Build Triggers selection check: GitHub hook trigger for GITScm polling (so jenkins will automatically build the Jenkinsfile when something is pushed in the branch). 
+In Build Triggers selection check: GitHub hook trigger for GITScm polling (so jenkins will automatically build the Jenkinsfile when something is pushed into the branch). 
 
 In Pipeline select "Pipeline script from SCM" --> "git" --> fill credentials repository url and choose a branch.
 
-Choose the name of the Jenkinsfile in the project and save the configuration.
+Choose the name of the Jenkinsfile you want to use and save the configuration.
 
 Builds need to be run once before they get notified by a push notification.
 
