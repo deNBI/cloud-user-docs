@@ -241,6 +241,8 @@ The following jenkins plugins should be installed via Manage Jenkins --> Manage 
 
 * GitHub Branch Source (is needed for automatic pull request testing).
 
+* ssh agent (to deploy on another machine):
+
 ### Setup OpenId connect Authentication
 To setup OpenId connect Authentication go to Manage Jenkins --> Configure Global Security and choose the Login with Openid Connect checkbox.
 
