@@ -210,7 +210,7 @@ juju run "sudo rm /usr/share/jenkins/jenkins.war" --machine <machine_number>
 
 3. Place the new jenkins.war file on the machine:
 ```BASH
-juju scp <path_to_jenkins.war> <machine_number>:/~
+juju scp <path_to_jenkins.war> <machine_number>:
 ```
 
 4. Move the jenkins.war file to the correct folder.
