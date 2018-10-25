@@ -70,15 +70,15 @@ juju bootstrap
 ```
 and choose localhost. Otherwise there will be an error when creating the metadata image.
 
-if juju bootstrap doesnt work use:
+if `juju bootstrap` doesnt work use:
 
 ```
 dpkg-reconfigure -p medium lxd
 ```
 
-and approve the steps till ipv6 configuration (decline this).
+and approve the steps till ipv6 configuration (decline this) to create a local controller.
 
-In order to use an image, juju needs to create some metadata for it first.
+In order to use an image, juju needs to create metadata for it first.
 
 We create a directory for metadata with the following command:
 
@@ -88,7 +88,7 @@ mkdir -p ~/juju/images
 
 Now we add metadata for the xenial image
 
-look at this link: https://docs.jujucharms.com/2.1/en/howto-privatecloud to see how to generate a metadata image.
+look at this [link](https://docs.jujucharms.com/2.1/en/howto-privatecloud) to see how to generate a metadata image.
 The final command should look like in the following example.
 
 ```
@@ -118,6 +118,7 @@ juju bootstrap --metadata-source ~/juju cebitec
 If there are multiple networks available for your project, choose the right one
 with the `--config network=<network id>` parameter. If you need a specific series add  
 `--bootstrap-series=<series>` as parameter (juju will think it is bionic as standard).
+
 ## Deploy jenkins and haproxy
 
 After deploying a juju controller it is possible to define a juju model in two yaml files.
@@ -214,7 +215,6 @@ juju scp <path_to_jenkins.war> <machine_number>:
 ```
 
 4. Move the jenkins.war file to the correct folder.
-usr/share/jenkins/jenkins.war
 ```BASH
 juju run "sudo mv ~/jenkins.war /usr/share/jenkins/jenkins.war" --machine <machine-number>
 ```
@@ -235,7 +235,7 @@ The following jenkins plugins should be installed via Manage Jenkins --> Manage 
 
 * OpenId Connect Authentication (to authenticate with elixir).
 
-* Pipeline (Is needed to create projects).
+* Pipeline (is needed to create projects).
 
 * Github integration.
 
