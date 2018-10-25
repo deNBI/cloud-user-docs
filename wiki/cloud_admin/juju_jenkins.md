@@ -323,6 +323,18 @@ Choose the name of the Jenkinsfile you want to use and save the configuration.
 
 Builds need to be run once before they get notified by a push notification.
 
+## Automatic pull request check
+
+To check Pull request with Jenkins go to "new item" --> "github organisation" --> "ok" 
+
+Enter Credentials with admin rights (needed to check pull requests) and the repository owner.
+
+The settings should look like in the following picture. 
+
+![PR](images/PR.png)
+
+There will be an automatic check for every denbi pr as long as an Jenkinsfile exists. If that's the case the jenkinsfile gets executed.
+
 
 ## Run custom commands
 
