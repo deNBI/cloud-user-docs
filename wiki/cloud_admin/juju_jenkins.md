@@ -349,7 +349,7 @@ The command below sets the docker group on machine 34:
 ```BASH
 juju run "sudo usermod -aG docker $USER "  --machine  34
 ```
-Jenkins service needs to be restarted agter setting docker group.
+Jenkins service needs to be restarted after setting docker group.
 
 ## Optional steps
 
