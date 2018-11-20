@@ -75,7 +75,7 @@ The following actions are only available for a project manager:
 
 * Remove a member from this project.
     
-* Add another user to this project by inserting his name, email or even ELIXIR ID and clicking on `add member`.
+* Add another user to this project by inserting their name, email or even ELIXIR ID and clicking on `add member`.
    
 ![Members](img/add_members.png)
 
