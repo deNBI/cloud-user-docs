@@ -31,15 +31,15 @@ If the login was successful, you should see the overview page of the OpenStack d
 
 ----
 
-At the top left you should see your current [project ](Concept/project.md) in the **de.NBI** [Domain](Concept/domain.md) (green box). If you have more than one project, you can switch into another one here (click on the arrow down button).
+At the top left you should see your current [project ](Concept/basics/#project) in the **de.NBI** [Domain](Concept/basics/#domain) (green box). If you have more than one project, you can switch into another one here (click on the arrow down button).
 
-At the top right you can see your [user](Concept/user.md)name (pink box). When you click on that arrow, you will get a dropdown menu. Here, you can get to your user specific settings (changing dashboard settings and appearance and your password), get to the official user documentation by OpenStack, change your theme or log out.
+At the top right you can see your [user](Concept/basics/#user)name (pink box). When you click on that arrow, you will get a dropdown menu. Here, you can get to your user specific settings (changing dashboard settings and appearance and your password), get to the official user documentation by OpenStack, change your theme or log out.
 
 On the left is the **control menu** (blue box) to navigate you through your project. The current page is highlighted in blue (In our case Project -> Compute -> Overview). This information can also be found in the yellow box. This could help you navigate to the right page, in the case you have trouble to find the current page we are operating on.
 
 The overview page summarizes the resource allocation within the current project (center of the page):
 
-*  Launched [instances](Concept/instance.md)
+*  Launched [instances](Concept/basics/#instance)
 
 *  Used VCPUs
 
@@ -163,7 +163,7 @@ Select your **Subnet** and click on the blue **Submit** button. Your topology gr
 
 ----
 
-**For further reading visit our [Networking](network.md) page**
+**For further reading visit our [Networking](Concept/basics/#network) section**
 
 # Launching an Instance
 
@@ -258,7 +258,7 @@ Click on **Associate** to associate your new floating ip to your instance. Now, 
 
 ## Security Groups
 
-First of all, you should read our [Security aspects in clouds](security.md) page!
+First of all, you should read our [Security aspects in clouds](Concept/security/#security-aspects-in-clouds) page!
 You are responsible for a secure setup of your VMs. To allow external access to your instance via SSH, you have to change the security group and allow SSH! Go to Project -> Compute -> Access & Security
 
 ![nav compute](/img/User/nav_project_compute_access_and_security.png)

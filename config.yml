@@ -30,7 +30,7 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
-pages:
+nav:
   - 'Home' : index.md
   - 'Portal' : portal.md
   - 'OpenStack Quickstart' : quickstart.md
