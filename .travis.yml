@@ -4,6 +4,6 @@ services:
   - docker
 script:
   # Internal Link Checks
-  - docker run -it -v "$(pwd)/wiki:/srv_root/docs/wiki" -v "$(pwd)/config.yml:/config.yml" -p "8000:8000"  --entrypoint="mkdocs" denbicloud/mkdocswebhook:1.0.0 serve --strict -f /config.yml --dev-addr 0.0.0.0:8000
+  - docker run -it -v "$(pwd)/wiki:/srv_root/docs/wiki" -v "$(pwd)/config.yml:/config.yml" -p "8000:8000"  --entrypoint="mkdocs" denbicloud/mkdocswebhook:2.0.0 serve --strict -f /config.yml --dev-addr 0.0.0.0:8000
   # External Link Checks
   - docker run -ti --rm -v $PWD:/mnt:ro dkhamsing/awesome_bot --allow-dupe --allow-redirect --skip-save-results `find . -name "*.md"`
