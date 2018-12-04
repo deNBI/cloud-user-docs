@@ -153,14 +153,14 @@ You can find the configuration file for HAProxy in ``/etc/haproxy/haproxy.cfg``.
 
 #### Option 1: Redirect via Ports (safe option)
 
-Similar by using a Gateway, the user can access various resources in a private network bei redirecting traffic from the
+Similar by using a Gateway, the user can access various resources in a private network by redirecting traffic from the
 HAProxy-Node to the internal network via ports.
 
 The following image gives a short overview:
 
 ![Openstack Horizon instances](images/option2.png)
 
-Here the user accesses port `30001` on the HAProxy-node. HAProxy then has a configuration which proxys all traffic from `Webserver-1` back to the user.`
+Here the user accesses port `30001` on the HAProxy-node. HAProxy then has a configuration which proxys all traffic from `Webserver-1` back to the user.
 
 In this example, we add the following lines to our haproxy.cfg:
 
@@ -229,8 +229,8 @@ Reload the service with `sudo systemctl reload haproxy`.
 
 What are we setting here?
 
-* First we add a frontend, which listens to a specified **bind**, here port 80. All further requests on this port land on the frontend.
-* If the request URL contains paths like ``/serv-1/``, then redirect me to a specified backend. This is achieved via `acl`.
+* First we add a frontend, which listens to a specified **bind**, here port 80. All further requests on this port land on this frontend.
+* If the request URL contains paths like ``/serv-1/``, then redirect me to a specified backend. This is achieved via `acl` rules.
 * Each backend has a few options. You can also add more servers to a backend if you wish and balance the load between them.
 * The regular expression in each backend is truncating the request URL to the root web path for the backend. Use with caution as it
 probably can break the functionality of your webpages. See [here](https://stackoverflow.com/questions/41137494/ha-proxy-rule-404-not-found) for more infos.
