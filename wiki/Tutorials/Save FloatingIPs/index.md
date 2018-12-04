@@ -1,7 +1,7 @@
 ## Saving up on FloatingIPs for your Project!”
 
 
-### Overview
+## Overview
 External FloatingIPs are a rare resource and most projects only have 1 - 2 addresses available. This can be quite
 challenging for the user if multiple instances need to be available via the internet.
 Luckily there are some tricks and workarounds for this problem:
@@ -17,7 +17,7 @@ Both options are explained in the following tutorials.
 
 
 
-#### Gateway: Configure a single VM with an external IP address to act as gateway for other VMs only having private IP addresses.
+### Gateway: Configure a single VM with an external IP address to act as gateway for other VMs only having private IP addresses.
 ![Idea](images/gateway.png)
 
 The image above explain the base idea. If I have created three VMs (192.168.0.3, 192.168.0.4 and 192.168.0.100) in my project network (192.168.0.0/24) and I have just have one public ip address (129.70.51.2) available, I can access only one VM at once. I can use of course the public available VM as jump host, but this is not very handy for most situations. The idea is to use unneeded ports of the so called *gateway vm* to access the VMs.
@@ -131,7 +131,7 @@ for ((n=1; n <=254; n++))
         }
 ```
 
-#### HAProxy: An externally available proxy for accessing project-internal web-resources.
+### HAProxy: An externally available proxy for accessing project-internal web-resources.
 
 HAProxy is a popular solution for proxying web-resources with the benefit of high-availability and load balancing.
 For this tutorial, the proxying part is for interest. Also a plus is the optional usage of SSL-Encryption for all resources with
@@ -162,7 +162,8 @@ The following image gives a short overview:
 
 Here the user accesses port `30001` on the HAProxy-node. HAProxy then has a configuration which proxys all traffic from `Webserver-1` back to the user.`
 
-In this example, we add the following lines to our `haproxy.cfg`:
+In this example, we add the following lines to our haproxy.cfg:
+
 ```
 frontend front_web1
         bind *:30001
@@ -203,7 +204,8 @@ requests to a designated resource. The target can be specified via an extended U
 
 
 
-For this current example, we add the lines under the existing `haproxy.cfg:
+For this current example, we add the lines under the existing haproxy.cfg:
+
 ```
 frontend localnodes
         bind *:80
@@ -222,6 +224,7 @@ backend resource_web2
         balance roundrobin
         server web02 192.168.2.12:80
 ```
+
 Reload the service with `sudo systemctl reload haproxy`.
 
 What are we setting here?
