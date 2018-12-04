@@ -2,7 +2,7 @@
 
 
 ## Overview
-External FloatingIPs are a rare resource and most projects only have 1 - 2 addresses available. This can be quite
+External FloatingIPs are a rare resource and most projects only have 1 address available. This can be quite
 challenging for the user if multiple instances need to be available via the internet.
 Luckily there are some tricks and workarounds for this problem:
 
