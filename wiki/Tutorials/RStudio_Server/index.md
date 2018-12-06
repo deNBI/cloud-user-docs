@@ -1,6 +1,7 @@
 # Running RStudio Server in de.NBI Cloud
 Tested with Simple VM Ubuntu 18.04 LTS
-03.12.2018
+
+Version from 03.12.2018
 
 ## 1. Aim
 This beginner tutorial shows you how to install and run RStudio Server to develop and run your R data analysis on the de.NBI Cloud. This tutorial is meant for beginner users working with the Simple VM for creation of new VM instances.
