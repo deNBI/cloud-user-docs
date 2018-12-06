@@ -47,10 +47,10 @@ It’s time to update your software repositories to get the latest R version
 sudo apt-get update
 ```
 
-We are now able to install the latest R release with some dependencies
+We are now able to install the latest R release
 
 ```
-sudo apt-get install r-base libcurl4-openssl-dev libxml2-dev
+sudo apt-get install r-base
 ```
 
 Next, we need to download and install RStudio Server. First install ``gdebi`` as it will allow us to install a deb-file with all dependencies
@@ -151,6 +151,18 @@ localhost:8787
 ```
 
 in the address bar of the new Firefox window.
+
+### 5.3 I get an “installation of package XYZ had non-zero exit status” error when installing R packages
+This is not really in the scope of this tutorial, but we try to help you anyway :-)
+
+The error means, that some software for retreiving packages/data is missing on you Ubuntu VM. Probably your Ubuntu installation is missing one or all of these packages: ``libcurl4-gnutls-dev``, ``libssl-dev``, ``libcurl4-openssl-dev``, ``libxml2-dev``
+
+You can install this packages via your SSH terminal with this command
+
+```
+sudo apt-get install libcurl4-gnutls-dev libssl-dev libcurl4-openssl-dev libxml2-dev
+```
+After the installation of these packages, try to re-install the R packages in RStudio Server. Hopefully the error vanished now!
 
 ## 6. Further Reading
 For more information on RStudio and the RStudio Server please have a look at their documentation at ([https://support.rstudio.com/hc/en-us/categories/200035113-Documentation](https://support.rstudio.com/hc/en-us/categories/200035113-Documentation))
