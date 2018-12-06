@@ -25,7 +25,7 @@ Connect to de.NBI Cloud VM with locally forwarded ports via SSH.
 ssh -i new_id ubuntu@ip-address -p some_number -L 8787:localhost:8787
 ```
 
-Here ``new_id`` is your private key file. The default user is ``ubuntu``. You have to specify the cloud VM’s IP address and port number. The numbers behind the ``@`` symbol are the IP address of your cloud VM. The parameter ``-p some_number`` is the port number of your cloud VM. The parameter ``-L 8787:localhost:8787`` means that the port 8787, which is used by Rstudio Server, will be forwarded to your local machine (localhost) at the port 8787.
+Here ``new_id`` is your private key file. The default user is ``ubuntu``. You have to specify the cloud VM’s IP address and port number. You can look up your IP and port number of your VM in de.NBI Cloud Portal. The numbers behind the ``@`` symbol are the IP address of your cloud VM. The parameter ``-p some_number`` is the port number of your cloud VM. The parameter ``-L 8787:localhost:8787`` means that the port 8787, which will be used by RStudio Server, will be forwarded to your local machine (localhost) at the port 8787.
 
 We are now connected to the VM in the Cloud. Let’s install R (Version 3.5)!
 
