@@ -21,10 +21,10 @@ Basically these are the steps to install and configure your RStudio Server in th
 Connect to de.NBI Cloud VM with locally forwarded ports via SSH. 
 
 ```
-ssh -i new_id ubuntu@129.70.51.6 -p 30120 -L 8787:localhost:8787
+ssh -i new_id ubuntu@ip-address -p some_number -L 8787:localhost:8787
 ```
 
-Here new_id is your private key file. The default user is ubuntu. You have to specify the cloud VM’s IP address and port number. The numbers behind the ``@`` symbol are the IP address of your cloud VM. The parameter ``-p some_number`` is the port number of your cloud VM. The parameter ``-L 8787:localhost:8787`` means that the port 8787, which is used by Rstudio Server, will be forwarded to your local machine (localhost) at the port 8787.
+Here ``new_id`` is your private key file. The default user is ``ubuntu``. You have to specify the cloud VM’s IP address and port number. The numbers behind the ``@`` symbol are the IP address of your cloud VM. The parameter ``-p some_number`` is the port number of your cloud VM. The parameter ``-L 8787:localhost:8787`` means that the port 8787, which is used by Rstudio Server, will be forwarded to your local machine (localhost) at the port 8787.
 
 We are now connected to the VM in the Cloud. Let’s install R (Version 3.5)!
 
@@ -121,7 +121,7 @@ logout
 Reconnect to your cloud VM with X-forwarding enabled by using parameter ``-X``
 
 ```
-ssh -X -i new_id ubuntu@129.70.51.6 -p 30120 -L 8787:localhost:8787
+ssh -X -i new_id ubuntu@ip-address -p some_number -L 8787:localhost:8787
 ```
 
 At your very first connection using the ``-X`` parameter, the X Server will complain that some files (e.g. ``.ICEAuthority``) have not been created yet. They will be created automatically at your second login. So just close the connection again by pressing CTRL+D or type
@@ -133,7 +133,7 @@ logout
 Reconnect again with (just the same command as above)
 
 ```
-ssh -X -i new_id ubuntu@129.70.51.6 -p 30120 -L 8787:localhost:8787
+ssh -X -i new_id ubuntu@ip-address -p some_number -L 8787:localhost:8787
 ```
 
 Now the X Server should work fine. You can now start Firefox by typing 
