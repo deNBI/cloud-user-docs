@@ -229,6 +229,6 @@ What are we setting here?
 
 
 !!! danger
-    The regular expression in each backend is truncating the request URL to the root web path for the backend. Use with caution as it
-probably can break the functionality of your webpages. See [here](https://stackoverflow.com/questions/41137494/ha-proxy-rule-404-not-found) for more infos.
+    The regular expression in each backend is truncating the request URL to the root web path for the backend. Use with caution as it probably can break the functionality of your webpages. 
+    See [here](https://stackoverflow.com/questions/41137494/ha-proxy-rule-404-not-found) for more infos.
     You can also leave out the regular expression but in that case your backend must be able to set a url prefix so that it is able to find the requested resource under the requested path.
