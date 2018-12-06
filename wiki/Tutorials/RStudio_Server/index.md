@@ -155,9 +155,9 @@ in the address bar of the new Firefox window.
 ### 5.3 I get an “installation of package XYZ had non-zero exit status” error when installing R packages
 This is not really in the scope of this tutorial, but we try to help you anyway :-)
 
-The error means, that some software for retreiving packages/data is missing on you Ubuntu VM. Probably your Ubuntu installation is missing one or all of these packages: ``libcurl4-gnutls-dev``, ``libssl-dev``, ``libcurl4-openssl-dev``, ``libxml2-dev``
+The error means, that some development software for retreiving R packages/data is missing on you Ubuntu VM. Probably your Ubuntu installation is missing one or all of these packages: ``libcurl4-gnutls-dev``, ``libssl-dev``, ``libcurl4-openssl-dev``, ``libxml2-dev``
 
-You can install this packages via your SSH terminal with this command
+You can install these packages via your SSH terminal with this command
 
 ```
 sudo apt-get install libcurl4-gnutls-dev libssl-dev libcurl4-openssl-dev libxml2-dev
