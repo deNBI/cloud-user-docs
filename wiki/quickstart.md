@@ -33,7 +33,7 @@ If the login was successful, you should see the overview page of the OpenStack d
 
 At the top left you should see your current [project](Concept/basics/#project) in the **de.NBI** [Domain](Concept/basics/#domain) (green box). If you have more than one project, you can switch into another one here (click on the arrow down button).
 
-At the top right you can see your [user](Concept/basics/#user)name (pink box). When you click on that arrow, you will get a dropdown menu. Here, you can get to your user specific settings (changing dashboard settings and appearance and your password), get to the official user documentation by OpenStack, change your theme or log out.
+At the top right you can see your [username](Concept/basics/#user) (pink box). When you click on that arrow, you will get a dropdown menu. Here, you can get to your user specific settings (changing dashboard settings and appearance and your password), get to the official user documentation by OpenStack, change your theme or log out.
 
 On the left is the **control menu** (blue box) to navigate you through your project. The current page is highlighted in blue (In our case Project -> Compute -> Overview). This information can also be found in the yellow box. This could help you navigate to the right page, in the case you have trouble to find the current page we are operating on.
 
