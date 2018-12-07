@@ -105,6 +105,7 @@ Here you can create a new volume entering the following parameters
 <pre>Volume name: Type in any name you want to
 Description: Describe for which purpose you will use the volume (optional) 
 Volume Source: Set it to `No source, empty Volume` to get an empty block device
+Type: quobyte_hdd
 Size (GiB): Select the desired size in Gigabytes
 Availability zone: nova</pre>
 
