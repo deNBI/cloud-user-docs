@@ -46,6 +46,7 @@ nav:
     - 'Bibigrid' : Tutorials/BiBiGrid/index.md
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
+    - 'Save FloatingIPs' : Tutorials/Save FloatingIPs/index.md
     - 'UserData' : Tutorials/UserData/index.md
   - 'FAQ' : 'FAQ.md'
   - 'Compute Center Specific' :

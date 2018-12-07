@@ -53,7 +53,8 @@ mode: openstack
 credentialsFile: /path/to/your/credentials.yml
 
 #Access
-identityFile: XXX
+sshPrivateKeyFile: path/to/private/key
+sshPublicKeyFile: path/to/public/key
 sshUser: ubuntu
 keypair: XXX
 region: Bielefeld
