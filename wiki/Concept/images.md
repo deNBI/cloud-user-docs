@@ -14,7 +14,7 @@ Please keep in mind, that our OpenStack installation provides default and pre-co
 ## Adding images to Openstack
 
 To add an image to Openstack open the Openstack dashboard, go to Compute and then Images. In the upper right corner click "Create Image".
-![Glance image overview](/img/User/images_overview.png)
+![Glance image overview](img/images_overview.png)
 
  Fill in the fields in the opened form. For information to single fields, please refer to the following list. All fields not mentioned here are neither required by Openstack nor suggested to be used by normal users.
 
@@ -34,7 +34,7 @@ To add an image to Openstack open the Openstack dashboard, go to Compute and the
 
 *  **Protected**: Protects the image from unintended deletion.
 
-![Create Image](/img/User/create_image.png)
+![Create Image](img/create_image.png)
 
 The metadata can be left empty. For a more detailed documentation, please refer to the official documentation: [OpenStack image documentation](https://docs.openstack.org/image-guide/introduction.html).
 To finish image creation, please click on "Create Image".
@@ -49,14 +49,14 @@ The most common formats for images are QCOW2 and RAW. Please beware that files i
 ## Image Management
 
 All uploaded Images can be seen under Project -> Compute -> Images. Images can be created and deleted here.
-![Images Overview](/img/User/images_overview.png)
+![Images Overview](img/images_overview.png)
 
 In addition, it is also possible to launch instances with a specific image. Optionally you can boot from an existing volume.
 
 ## Images on volumes and ephemeral disks
 
 When creating a virtual machine, the machine can either be created on an ephemeral disk using local storage or a volume. The size of the ephemeral disk is determined by the used flavor and the size of the volume chosen by the user. The decision of whether to use ephemeral storage or a volume for the VM can be made in the "Launch Instance" dialog in the Source section.
-![Images Volume Boot](/img/User/images_volumeboot.png) 
+![Images Volume Boot](img/images_volumeboot.png) 
 If no new volume is created on startup, the ephemeral disk will be used. Otherwise, only the volume is used and there will be no ephemeral disk for this instance. When using a volume disk, Openstack currently does not check if the volume has sufficient space for the image but it still checks if the selected flavor has a sufficient amount of ephemeral disk space although the ephemeral disk is not used.
 
 ## Images and Flavors

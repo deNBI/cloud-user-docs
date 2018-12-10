@@ -13,7 +13,7 @@ Openstacks networking component is called Neutron. During the first steps of the
 To connect VMs to each other a network is reqiured. To create such a network in Openstack it is necessary to first create a network and then associate a subnet with that network. The network acts like a VLAN whilst the subnet contains a block of IP adresses along with a certain configuration (e.g. DHCP settings).
 To connect VMs to each other a network has to be created and associated with a subnet. To create a new network go to `Project -> Network -> Networks` and click on `Create Network`.
 
-![Network overview](/img/User/network_start.png)
+![Network overview](img/network_start.png)
 
 Enter some name for the network and click `next`. In the next form the subnet associated with the network is created. The following parts of the form have to be filled to create a basic subnet:
 
@@ -24,7 +24,7 @@ The other options can be left on default.
 Some words on the CIDR notation:
 The CIDR notation defines a certain adress space inside the IPv4 space. Usually an IP block from a private IP subnet is used. In our case we will use the 10.2.0.0/16 net. This means that the IP addresses range from 10.2.0.1 to 10.2.0.254.
 
-![Network first step](/img/User/network_form1.png)
+![Network first step](img/network_form1.png)
 
 After clicking next some details of the subnet can be configured:
 
@@ -36,7 +36,7 @@ After clicking next some details of the subnet can be configured:
 
 *  Host Routes: Routes to other IP subnets.
 
-![Network second step](/img/user/network_form2.png)
+![Network second step](img/network_form2.png)
 
 Usually none of these settings are relevant for a basic network configuration.
 After clicking on create the network is ready for use.

@@ -7,11 +7,11 @@
 
 In the Horizon web interface (OpenStack Dashboard) click on **Volumes** and then on **Create Volume**:
 
-![volumes overview](/img/User/volumes.png)
+![volumes overview](img/volumes.png)
 
 In the new popup, provide a name, a description, a type and the size of the new volume:
 
-![creating volumes](/img/User/create_volume.png)
+![creating volumes](img/create_volume.png)
 
 _The available types may vary between the de.NBI cloud sites!_
 
