@@ -11,6 +11,9 @@ theme:
 repo_name: 'deNBI/cloud-user-docs'
 repo_url: 'https://github.com/deNBI/cloud-user-docs' 
 edit_uri: blob/master/wiki/
+plugins:
+ - search
+ - pdf-export
 markdown_extensions:
   - admonition
   - codehilite
