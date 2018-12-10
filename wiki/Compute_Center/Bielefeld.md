@@ -11,25 +11,17 @@ The entry point of the Bielefeld location of the de.NBI cloud  - the Openstack d
 
 ## Endpoints
 
+You can get an up to date list of API endpoints of the following services using the dashboard or the OpenStack commandline tool (`> openstack endpoint list`).
 
-| Service Name | Service Type |  URL |    
-|--------------|--------------|------|                                                
-| swift        | object-store | https://openstack.cebitec.uni-bielefeld.de:8080/swift/v1 |
-| nova         | compute      | https://openstack.cebitec.uni-bielefeld.de:8774/v2.1/%(tenant_id)s |
-| cinderv2     | volumev2     | https://openstack.cebitec.uni-bielefeld.de:8776/v2/%(tenant_id)s   |
-| keystone     | identity     | https://openstack.cebitec.uni-bielefeld.de:5000/v3/            |
-| glance       | image        | https://openstack.cebitec.uni-bielefeld.de:9292                    |
-| neutron      | network      | https://openstack.cebitec.uni-bielefeld.de:9696                    |
-| cinder       | volume       | https://openstack.cebitec.uni-bielefeld.de:8776/v1/%(tenant_id)s   |
-
-
-(July 2018)
-
-An up to date list of endpoints are available within the dashboard or can be fetched using the Openstack commandline tools.
-
-```
-> openstack endpoint list
-```
+| Service Name | Service Type |
+|--------------|--------------|                                                
+| swift        | object-store |
+| nova         | compute      |
+| cinderv2     | volumev2     |
+| keystone     | identity     |
+| glance       | image        |
+| neutron      | network      |
+| cinder       | volume       |
 
 ## Login
 The Bielefeld cloud site supports login using Elixir AAI via OpenID Connect or default Keystone credentials. Using Elxir AAI is the prefered way for all cloud users and the only way for non cloud users not working at the Bielefeld university. 

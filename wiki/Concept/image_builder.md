@@ -93,7 +93,7 @@ Images can be customized by specifying further arguments. Read the following sec
 Nevertheless, images can be customized either by passing package identifiers or element names.
 Corresponding the OpenStack documentation, elements define "what goes into [the] image and what modifications will be performed". For an bootable image, one should at least provide two Elements, **vm** which "[s]ets up a partitioned disk (rather than building just one filesystem with no partition table)" and a **distribution name** (e.g. Ubuntu, CentOS, OpenSUSE). Whereas we recommend Ubuntu, due to the entire documentation covers Ubuntu examples.
 
-See [ here](https://github.com/openstack/diskimage-builder/tree/master/elements ) for a list of pre-built elements.
+See [ here](https://docs.openstack.org/diskimage-builder/latest/elements.html) for a list of pre-built elements.
 
 Adding more elements to the image during the creation process can simply achieved be append them to the end of the function call:
 
@@ -147,7 +147,7 @@ Additionally, pointing the environment variable ''ELEMENTS_PATH'' to a custom di
 export ELEMENTS_PATH=/home/ubuntu/elements/
 ```
 
-By default, all elements are located in ''/usr/local/share/diskimage-builder/elements''. Have a look [ here]( http://docs.openstack.org/developer/diskimage-builder/elements.html ) or [ here ]( https://github.com/openstack/diskimage-builder/tree/master/elements ) to examine whether a desired element already exists or which elements are available, in general.
+By default, all elements are located in ''/usr/local/share/diskimage-builder/elements''. Have a look [ here](https://docs.openstack.org/diskimage-builder/latest/elements.html) to examine whether a desired element already exists or which elements are available, in general.
 
 **Note:** All executable files without extension are executed, thus removing the executable flag prevents the image builder to execute those files.
 

@@ -30,7 +30,7 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
-pages:
+nav:
   - 'Home' : index.md
   - 'Portal' : portal.md
   - 'OpenStack Quickstart' : quickstart.md
@@ -46,7 +46,7 @@ pages:
     - 'Bibigrid' : Tutorials/BiBiGrid/index.md
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
-    - 'Save FloatingIPs' : Tutorials/Save FloatingIPs/index.md
+    - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
     - 'UserData' : Tutorials/UserData/index.md
   - 'FAQ' : 'FAQ.md'
   - 'Compute Center Specific' :
