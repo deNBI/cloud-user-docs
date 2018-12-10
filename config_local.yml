@@ -42,6 +42,7 @@ nav:
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
     - 'UserData' : Tutorials/UserData/index.md
+    - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
   - 'FAQ' : 'FAQ.md'
   - 'Compute Center Specific' :
     - 'Giessen' : Compute_Center/Giessen.md
