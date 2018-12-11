@@ -9,7 +9,7 @@ This article covers some of the underlying components of OpenStack. For using th
 OpenStack has a modular architecture with various code names for its components.
 The following image shows a very basic overview of the OpenStack architecture:
 
-![Openstack_Overview](/img/User/openstackarchi.png)
+![Openstack_Overview](img/openstackarchi.png)
 
 
 ### Compute (Nova)

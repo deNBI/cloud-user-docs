@@ -17,7 +17,7 @@ Throughout this guide, we will achive following goals:
 
 First of all, visit [de.NBI cloud Giessen login page](https://cloud.computational.bio.uni-giessen.de/). You should see the following login page:
 
-![de.NBI cloud Giessen login](/img/User/login.png)
+![de.NBI cloud Giessen login](img/User/login.png)
 
 Please choose in the **Authenticate using** field, the **ELIXIR AAI** tag and click on the **Connect** button. You should be redirected to the [Openstack Dashboard](quickstart.md#openstack-dashboard-overview). If you have any problems or need help logging in, please do not hesitate to contact the Cloud Support of your site. You can find the corresponding support site in the _Compute Center Specific_ section.
 
@@ -27,7 +27,7 @@ If the login was successful, you should see the overview page of the OpenStack d
 
 ----
 
-![cloud dashboard](/img/User/dashboard.png)
+![cloud dashboard](img/User/dashboard.png)
 
 ----
 
@@ -53,11 +53,11 @@ The overview page summarizes the resource allocation within the current project 
 
 # SSH Setup
 
-Next, we have to setup SSH to login to our instances after they are launched. Go to ![nav compute](/img/User/nav_project_compute_access_and_security.png) and click on **Key Pairs** (green box). You should see this page:
+Next, we have to setup SSH to login to our instances after they are launched. Go to ![nav compute](img/User/nav_project_compute_access_and_security.png) and click on **Key Pairs** (green box). You should see this page:
 
 ----
 
-![access_security](/img/User/access_and_security_0_keys.png)
+![access_security](img/User/access_and_security_0_keys.png)
 
 ----
 If you do not have an SSH key or you are not sure whether you have one, please generate one by following the instructions based on your operating system (**Windows**/**Linux**) in the next [Generate SSH-Keys](quickstart.md#Generate-SSH-Keys) section. You can import your SSH Key by clicking on **Import Key Pair** (right button in the yellow box)(e.g.: .pub in Linux or .key in Windows). 
@@ -83,11 +83,11 @@ Save your private and public key into separate files e.g, new_id.ppk and new_id.
 
 # Creating a Router and a Network
 
-We want to create a network to get access to our in the near future launched instances. First, we get to the Network Topology page: ![nav network topology](/img/User/nav_project_network_network_topology.png). When you click on **Graph** (red box), you should see this page:
+We want to create a network to get access to our in the near future launched instances. First, we get to the Network Topology page: ![nav network topology](img/User/nav_project_network_network_topology.png). When you click on **Graph** (red box), you should see this page:
 
 ----
 
-![network topology](/img/User/network_topology_0.png)
+![network topology](img/User/network_topology_0.png)
 
 ----
 
@@ -106,7 +106,7 @@ Click on the **Create Router** button (green box). A form should appear:
 
 ----
 
-![Creating router](/img/User/router.png)
+![Creating router](img/User/router.png)
 
 ----
 
@@ -114,7 +114,7 @@ Fill in the **Router Name** and select the **external_network** for the **Extern
 
 ----
 
-![Router with external network](/img/User/external_with_router.png)
+![Router with external network](img/User/external_with_router.png)
 
 ----
 
@@ -125,7 +125,7 @@ Now, we need a network. Click on **Create Network** (yellow box). A three-part f
 
 ----
 
-![network first step](/img/User/network1.png)
+![network first step](img/User/network1.png)
 
 ----
 
@@ -133,7 +133,7 @@ In the first part fill in the **Network Name** and then click on the blue **Next
 
 ----
 
-![network second step](/img/User/network2.png)
+![network second step](img/User/network2.png)
 
 ----
 
@@ -143,15 +143,15 @@ Now your topology should include your network:
 
 ----
 
-![network final](/img/User/network.png)
+![network final](img/User/network.png)
 
 ----
 
-We want to connect our **Router** with our new **Network**. Click on your Router !(/img/User/symbol.png). A tooltip should pop up. Click on **Add Interface**. A form will appear:
+We want to connect our **Router** with our new **Network**. Click on your Router !(img/User/symbol.png). A tooltip should pop up. Click on **Add Interface**. A form will appear:
 
 ----
 
-![adding interfaces](/img/User/router_add_interface.png)
+![adding interfaces](img/User/router_add_interface.png)
 
 ----
 
@@ -159,7 +159,7 @@ Select your **Subnet** and click on the blue **Submit** button. Your topology gr
 
 ----
 
-![final network](/img/User/all_connected.png)
+![final network](img/User/all_connected.png)
 
 ----
 
@@ -171,7 +171,7 @@ Finally, we can launch our instances. We are still on network overview page. Cli
 
 ----
 
-![launch first](/img/User/launch_instance_1.png)
+![launch first](img/User/launch_instance_1.png)
 
 ----
 
@@ -181,7 +181,7 @@ On the first page we have to specify an **Instance Name**. After this, click on 
 
 ----
 
-![launch source](/img/User/launch_source.png)
+![launch source](img/User/launch_source.png)
 
 ----
 
@@ -193,7 +193,7 @@ After this, click on the **Next** Button or **Flavor* **.
 
 ----
 
-![launch third](/img/User/launch_instance_3.png)
+![launch third](img/User/launch_instance_3.png)
 
 ----
 
@@ -201,7 +201,7 @@ A flavor defines a virtual machine setup by defining parameters like hard disk s
 
 ----
 
-![network with instance](/img/User/launch_instance_network.png)
+![network with instance](img/User/launch_instance_network.png)
 
 ----
 
@@ -212,7 +212,7 @@ On the Project -> Compute -> Overview page, we can see that we have allocated so
 
 ----
 
-![dashboard](/img/User/dashboard2.png)
+![dashboard](img/User/dashboard2.png)
 
 ----
 
@@ -220,7 +220,7 @@ On Project -> Compute -> Instances we can see our instance and that it is runnin
 
 ----
 
-![instance overview](/img/User/instanceoverview.png)
+![instance overview](img/User/instanceoverview.png)
 
 ----
 
@@ -228,15 +228,15 @@ On Project -> Compute -> Instances we can see our instance and that it is runnin
 
 In order to connect to your virtual machine (= instance), it must be related to a public network address. A private, fixed IP address, used "for communication between instances", will be assigned automatically to the instance. An IP adress "for communication with networks outside the cloud, including the internet" have to associated manually. Within the "Instances" tab, determine the machine for which a floating IP should allocated. To get access to our instance, we need to associate a **Floating IP** to it. Click on the arrow next to **Create Snapshot**. A dropdown menu appears:
 
-![instance dropdown](/img/User/instance_actions.png)
+![instance dropdown](img/User/instance_actions.png)
 
-Click on **Associate Floating IP**: ![associate float](/img/User/floatingip1.png)
+Click on **Associate Floating IP**: ![associate float](img/User/floatingip1.png)
 
 Click on the **+** next to **No floating IP addesses allocated** in the **IP Address** field:
 
 ----
 
-![floating 2](/img/User/floatingip2xcf.png)
+![floating 2](img/User/floatingip2xcf.png)
 
 ----
 
@@ -244,7 +244,7 @@ Select the **external_network** in the pool field (red box) and click on the blu
 
 ----
 
-![floating 3](/img/User/floatingip3.png)
+![floating 3](img/User/floatingip3.png)
 
 ----
 
@@ -252,7 +252,7 @@ Click on **Associate** to associate your new floating ip to your instance. Now, 
 
 ----
 
-![instance overview with float](/img/User/instanceoverview2.png)
+![instance overview with float](img/User/instanceoverview2.png)
 
 ----
 
@@ -261,11 +261,11 @@ Click on **Associate** to associate your new floating ip to your instance. Now, 
 First of all, you should read our [Security aspects in clouds](Concept/security/#security-aspects-in-clouds) page!
 You are responsible for a secure setup of your VMs. To allow external access to your instance via SSH, you have to change the security group and allow SSH! Go to Project -> Compute -> Access & Security
 
-![nav compute](/img/User/nav_project_compute_access_and_security.png)
+![nav compute](img/User/nav_project_compute_access_and_security.png)
 
 ----
 
-![security groups overview](/img/User/secgroupsoverview.png)
+![security groups overview](img/User/secgroupsoverview.png)
 
 ----
 
@@ -273,7 +273,7 @@ Click on the **Security Groups** Tab (red box). You should see one security grou
 
 ----
 
-![rule overview](/img/User/rules.png)
+![rule overview](img/User/rules.png)
 
 ----
 
@@ -281,7 +281,7 @@ Click on **Add Rule** (yellow box)
 
 ----
 
-![adding rule](/img/User/addrule.png)
+![adding rule](img/User/addrule.png)
 
 ----
 

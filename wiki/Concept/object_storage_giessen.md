@@ -24,11 +24,11 @@ URL of s3/swift server: [https://s3.computational.bio.uni-giessen.de](https://s3
 
 The OpenStack dashboard provides an easy way to manage the object storage in the side menu:
 
-![object storage 1](/img/User/os_1.png)
+![object storage 1](img/os_1.png)
 
 By clicking on **Containers**, the object storage buckets available to the current project are displayed:
 
-![object storage 2](/img/User/os_2.png)
+![object storage 2](img/os_2.png)
 
 This basic interface allows the definition of containers and upload/download of files.
 
@@ -47,7 +47,7 @@ Unfortunately the OpenStack dashboard does not provide access to the necessary c
 
 *  Create a OpenStack v3 RC file
 
-![object storage 1](/img/User/os_3.png)
+![object storage 1](img/os_3.png)
 
 Project -> Compute -> Access & Security -> API Access -> Download OpenStack RC File v3
 
