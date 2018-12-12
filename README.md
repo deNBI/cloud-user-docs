@@ -11,6 +11,11 @@ Use the Environment which will also be used in production.
 docker run -it -v "$(pwd)/wiki:/srv_root/docs/wiki" -v "$(pwd)/config.yml:/config.yml" -p "8000:8000"  --entrypoint="mkdocs" denbicloud/mkdocswebhook:2.1.0 serve -f /config.yml --dev-addr 0.0.0.0:8000
 ~~~
 
+#### generate PDF
+
+If you want to generate a PDF you have to set the environment variable `ENABLE_PDF_EXPORT` to 1.
+In docker it would be the above command with the environment variable `-e ENABLE_PDF_EXPORT=1`
+
 ### Local
 
 Please install the libraries used in the production instance:

@@ -7,8 +7,8 @@ Version from 03.12.2018
 This beginner tutorial shows you how to install and run RStudio Server to develop and run your R data analysis on the de.NBI Cloud. This tutorial is meant for beginner users working with the Simple VM for creation of new VM instances.
 
 ## 2. Requirements
-* Member of a project in the de.NBI Cloud. More information how to apply for access can be found here: ([https://www.denbi.de/cloud](https://www.denbi.de/cloud))
-* An already running instance of a virtual machine (VM) in the de.NBI Cloud running Ubuntu 18.04
+* Member of a Simple VM project in the de.NBI Cloud. More information how to apply for access can be found here: ([https://www.denbi.de/cloud](https://www.denbi.de/cloud), [Project allocation](/portal#allocation) )
+* An already running instance of a virtual machine (VM) in the de.NBI Cloud running on Ubuntu 18.04
 * Access to the de.NBI Cloud via SSH
 
 ## 3. Overview
@@ -62,13 +62,13 @@ sudo apt-get install gdebi-core
 In the next step we download the RStudio Server deb-File. To get the latest RStudio version check ([https://www.rstudio.com/products/rstudio/download-server/](https://www.rstudio.com/products/rstudio/download-server/)) as the file might change over time.
 
 ```
-wget https://download2.rstudio.org/rstudio-server-1.1.463-i386.deb
+wget https://download2.rstudio.org/rstudio-server-1.1.463-amd64.deb
 ```
 
 When the download has finished, we install RStudio Server with 
 
 ```
-sudo gdebi rstudio-server-1.1.463-i386.deb
+sudo gdebi rstudio-server-1.1.463-amd64.deb
 ```
 
 So, now your RStudio server is installed and should be running. It should show something like the following after the installation:
