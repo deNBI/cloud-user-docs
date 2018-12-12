@@ -13,7 +13,8 @@ repo_url: 'https://github.com/deNBI/cloud-user-docs'
 edit_uri: blob/master/wiki/
 plugins:
  - search
- - pdf-export
+ - pdf-export:
+     enabled_if_env: ENABLE_PDF_EXPORT
 markdown_extensions:
   - admonition
   - codehilite
@@ -51,6 +52,7 @@ nav:
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
     - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
     - 'UserData' : Tutorials/UserData/index.md
+    - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
   - 'FAQ' : 'FAQ.md'
   - 'Compute Center Specific' :
     - 'Giessen' : Compute_Center/Giessen.md
