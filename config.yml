@@ -36,6 +36,7 @@ markdown_extensions:
   - pymdownx.tilde
 nav:
   - 'Home' : index.md
+  - 'Registration' : registration.md
   - 'Portal' : portal.md
   - 'OpenStack Quickstart' : quickstart.md
   - 'Concept' : 
