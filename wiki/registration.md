@@ -31,7 +31,8 @@ Once you click on the `continue` button (above screenshot) you can also register
 
 ![de.NBI Registration](img/denbi_registration.png)
 
-Finally you are after submitting the form a member of the de.NBI Cloud:
+The data in the input-field should match with the data you have entered during the Elixir registration process.
+After submitting the form you are finally a member of the de.NBI Cloud:
 
 ![de.NBI Registration Success](img/denbi_successful_registration.png)
 
