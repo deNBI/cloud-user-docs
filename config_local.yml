@@ -32,6 +32,7 @@ markdown_extensions:
 nav:
   - 'Home' : 'index.md'
   - 'Portal' : portal.md
+  - 'Registration' : registration.md
   - 'OpenStack Quickstart' : 'quickstart.md'
   - 'Concept' : 
     - 'OpenStack Basics' : Concept/basics.md

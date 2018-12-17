@@ -15,7 +15,7 @@ You can submit an application by login to the [de.NBI Cloud portal](https://clou
 Besides general project information like project name, project description, institution name and project lifetime, you also have to provide the information
 independing on the project type you choose:
  
- * The **Simple VM** Project type allows you to start virtual machines without configuring a project in OpenStack (e.g. network configuration). 
+ * The **Single VM** Project type allows you to start virtual machines without configuring a project in OpenStack (e.g. network configuration). 
 
  * In a **Cloud Project**  you will have your own OpenStack project and you are free to configure your network, virtual machines and storage setup.
 
