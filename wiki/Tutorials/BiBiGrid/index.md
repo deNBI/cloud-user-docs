@@ -16,7 +16,7 @@
 
 ## Download Binary
 
-If you don't want build the client from sources you can use a prebuilt binary ([BiBiGrid Openstack Java executable](http://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid/bibigrid-openstack-2.0.jar))
+If you don't want to build the client from sources you can use a prebuilt binary ([BiBiGrid Openstack Java executable](http://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid/bibigrid-openstack-2.0.jar))
 
 
 
@@ -151,6 +151,14 @@ You can easily terminate the cluster at any time with:
 you can login into the master node. Run `qhost` 
 to check if there are 4 execution nodes available.
 
+## List running Cluster
+
+Since it is possible to start more than one cluster at once, it is possible to list all running clusters: 
+
+`java -jar bibigrid-openstack-2.0.jar -l`
+
+The command returns an informative list about all your running clusters.
+
 
 ### Cloud9
 
@@ -186,13 +194,44 @@ sleep 10
 - See the status of our cluster: `qhost`
 - See the output: `cat helloworld.sh.o.*`
 
-## List running cluster
+## Attaching a volume 
+If you have successfully run a cluster, you may want to attach a volume to an instance. 
+That is quite easily done by using the openstack surface. At first, clicking on "Volumes" > "Volumes" 
+gives you an overview of all volumes created (of course at the beginning the list is empty). 
+Use the "Create Volume" Button to create a volume.
 
-Since it is possible to start more than cluster at once, it possible to list all running clusters: 
+>For training purposes, the first try might be an empty volume with a low size of storage. 
+Later on you have to consider the right specifications according to your requirements.
 
-`java -jar bibigrid-openstack-2.0.jar -l`
+On the right side of the item list you see an "Edit Volume" Button belonging to 'Actions'. 
+Right next to it is an arrow down Button showing a menu with further actions. 
+Go to "Manage Attachments" to attach your volume to an instance. 
 
-The command returns a informative list about all your running clusters.
+![Attach_Volume](images/attach_volume.png)
+
+The command `fdisk -l` lists all partitions on the instance.
+Note that you have to have root access to execute some commands. 
+Use the `sudo` operation prefix before the commands or use `sudo su -` to start a root session. 
+This way you don't have to care about root access, but you have to be aware of what you are doing!
+
+- List all mounted disks: `mount -l` 
+- Create an ext4 filesystem: `mkfs.ext4 /dev/XXX` 
+- Create a mount point (empty directory): `mkdir XXX`
+- Mount volume to directory mount point: `mount /dev/XXX /vol/XXX`
+
+>XXX has to be replaced with the name of the volume you chose 
+(In general vd-, e.g. vda or vdb. A good advice is to take for example vdd to follow the rule).
+>
+>Make sure you are in the right */vol* directory (here you find *lost+found* and *spool*; list directory with the command `ls -a`)!
+
+
+## Share a volume between all nodes
+After attaching a volume, you might want to share it between the nodes. 
+One way of sharing data between host and clients in the BiBiGrid is the *spool* directory. 
+Instead, you have the possibility to share the volume created before with the [Ansible](../Ansible) tool.
+Ansible lets you automatically execute commands on nodes in your cluster.
+
+
 
 ## Terminate a cluster
 
