@@ -22,19 +22,8 @@ independing on the project type you choose:
 ### Simple VM
 
 In a **Simple VM** project you just have to provide the number of virtual machines you would like to run in parallel in your project.
-Once your application is approved you can choose between the following flavors for every virtual machine:
+Once your application is approved you can choose different flavors for every virtual machine.
 
-* de.NBI Large (CPUs:32, RAM:64 GB)
-
-* de.NBI.large+ephemeral (CPUs: 32, RAM: 64GB, Disk: 250 GB)
-
-* de.NBI Medium (CPUs:16, RAM:32 GB, Disk: 50 GB)
-
-* de.NBI.medium+ephemeral (CPUs: 16, RAM: 32 GB, Disk: 150 GB)
-
-* de.NBI Small (CPUs:8, RAM:16 GB)
-
-* de.NBI.small+ephemeral (CPUs: 8, RAM: 16 GB, Disk: 50 GB)
 
 ### Cloud Project
 
