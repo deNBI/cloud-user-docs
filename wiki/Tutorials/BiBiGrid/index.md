@@ -200,7 +200,7 @@ That is quite easily done by using the openstack surface. At first, clicking on 
 gives you an overview of all volumes created (of course at the beginning the list is empty). 
 Use the "Create Volume" Button to create a volume.
 
->For training purposes, the first try might be an empty volume with a low size of storage. 
+>For training purposes, the first try might be an empty volume with a low size of storage.
 Later on you have to consider the right specifications according to your requirements.
 
 On the right side of the item list you see an "Edit Volume" Button belonging to 'Actions'. 
@@ -229,9 +229,20 @@ This way you don't have to care about root access, but you have to be aware of w
 After attaching a volume, you might want to share it between the nodes. 
 One way of sharing data between host and clients in the BiBiGrid is the *spool* directory. 
 Instead, you have the possibility to share the volume created before with the [Ansible](../Ansible) tool.
-Ansible lets you automatically execute commands on nodes in your cluster.
+Ansible lets you automatically execute commands on several nodes in your cluster.
 
+To share a volume (or a file) one has to configure the /etc/exports file. 
+In order to edit the file in the terminal, use `vim /etc/exports`. Vim is a terminal texteditor 
+which is - for beginners - of difficult usage. For these purposes the following commands fulfill the requirements.
 
+- Move cursor to last row: `G` (Capital letter)
+- Create a line below the last: `o` 
+- Write a second line with the same input like above (copy / paste) 
+but instead of */vol/spool* use */vol/XXX* with your volume name.
+- Save the edited */etc/exports* file: `Esc` followed by `:wq`
+
+> If you are confused having edited the file the wrong way, you can undo the last step with `Esc` followed by `u` 
+or leave the editor with unsaved data with `Esc` followed by `:q!`.
 
 ## Terminate a cluster
 
