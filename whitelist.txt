@@ -1,2 +1,3 @@
 http://169.254.169.254
 http://BIBIGRID
+https://fonts.gstatic.com

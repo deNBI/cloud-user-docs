@@ -65,7 +65,7 @@ If you use our official images, the CeBiTec network will be detected automatical
 We provide some preconfigured Cloud images on top of the Ubuntu LTS releases (16.04 and 18.04). This images are patched to set the proxy settings if an  cebitec network is detected. These image run without any further modifications on other cloud sites aswell.
 
 ## Object storage
-The storage backend used by Bielefeld cloud site is powered by [https://www.ceph.com](Ceph). The Object storage endpoint provides API access via SWIFT and S3. The latter should be preferred due to better performance.
+The storage backend used by Bielefeld cloud site is powered by [Ceph](https://www.ceph.com). The Object storage endpoint provides API access via SWIFT and S3. The latter should be preferred due to better performance.
 
 ## Known Problems
 

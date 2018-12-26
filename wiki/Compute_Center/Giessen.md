@@ -21,5 +21,3 @@ In the future other storage options my be added.
 ### Object storage access
 
 Based on the CEPH cluster the Giessen site is also providing object storage, offering both the S3 and Swift protocols. Object storage management is built into the dashboard. Other third party tools like **s3cmd** or the swift command line client can also be used.
-
-For information about the setup is available the the [Giessen object storage](/User/object_storage_giessen).
