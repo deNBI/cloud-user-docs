@@ -45,11 +45,11 @@ The overview page summarizes the resource allocation within the current project 
 
 *  Used RAM
 
-*  Allocated [ floating IPs ](quickstart#floating-ip )
+*  Allocated [ floating IPs ](../quickstart#floating-ip)
 
-*  Used [ security groups ](quickstart#security-groups )
+*  Used [ security groups ](../quickstart#security-groups)
 
-*  Number of [ Volumes ](volumes ) and Volume Storage
+*  Number of [ Volumes ](../quickstart#using-cinder-volumes) and Volume Storage
 
 # SSH Setup
 

@@ -3,7 +3,7 @@ sudo: required
 services:
   - docker
 script:
-  # Internal Link Checks
-  - docker run -it -v "$(pwd)/wiki:/srv_root/docs/wiki" -v "$(pwd)/config.yml:/config.yml" -p "8000:8000"  --entrypoint="mkdocs" denbicloud/mkdocswebhook:2.1.0 build --strict --clean -f /config.yml
-  # External Link Checks
-  - docker run -ti --rm -v $PWD:/mnt:ro dkhamsing/awesome_bot -w $(cat whitelist.txt | tr '\n' ',') --allow-dupe --allow-timeout --allow-redirect --skip-save-results `find . -name "*.md"`
+  # Test for linked documents
+  - docker run -it -v $(pwd)/wiki:/srv_root/docs/wiki -v $(pwd)/html:/var/www/html/wiki -v $(pwd)/config.yml:/config.yml -p "8000:8000"  --entrypoint="mkdocs" denbicloud/mkdocswebhook:2.1.0 build --strict --clean -f /config.yml
+  # External and internal link checks
+  - docker run  -v $(pwd)/whitelist.txt:/whitelist.txt  -v $(pwd)/html:/html 18fgsa/html-proofer  --url-ignore $(cat whitelist.txt | tr '\n' ',')  --empty_alt_ignore   /html
