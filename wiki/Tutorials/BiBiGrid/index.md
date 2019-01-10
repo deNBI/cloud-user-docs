@@ -194,55 +194,55 @@ sleep 10
 - See the status of our cluster: `qhost`
 - See the output: `cat helloworld.sh.o.*`
 
-## Attaching a volume 
+## Attaching a volume to a running cluster
 If you have successfully run a cluster, you may want to attach a volume to an instance. 
-That is quite easily done by using the openstack surface. At first, clicking on "Volumes" > "Volumes" 
-gives you an overview of all volumes created (of course at the beginning the list is empty). 
-Use the "Create Volume" Button to create a volume.
-
->For training purposes, the first try might be an empty volume with a low size of storage.
-Later on you have to consider the right specifications according to your requirements.
-
-On the right side of the item list you see an "Edit Volume" Button belonging to 'Actions'. 
-Right next to it is an arrow down Button showing a menu with further actions. 
-Go to "Manage Attachments" to attach your volume to an instance. 
-
-![Attach_Volume](images/attach_volume.png)
-
-The command `fdisk -l` lists all partitions on the instance.
-Note that you have to have root access to execute some commands. 
-Use the `sudo` operation prefix before the commands or use `sudo su -` to start a root session. 
-This way you don't have to care about root access, but you have to be aware of what you are doing!
-
-- List all mounted disks: `mount -l` 
-- Create an ext4 filesystem: `mkfs.ext4 /dev/XXX` 
-- Create a mount point (empty directory): `mkdir XXX`
-- Mount volume to directory mount point: `mount /dev/XXX /vol/XXX`
-
->XXX has to be replaced with the name of the volume you chose 
-(In general vd-, e.g. vda or vdb. A good advice is to take for example vdd to follow the rule).
->
->Make sure you are in the right */vol* directory (here you find *lost+found* and *spool*; list directory with the command `ls -a`)!
+See [Using Cinder Volumes](https://cloud.denbi.de/wiki/quickstart/#using-cinder-volumes) to get information about how to work with a volume.
 
 
 ## Share a volume between all nodes
-After attaching a volume, you might want to share it between the nodes. 
-One way of sharing data between host and clients in the BiBiGrid is the *spool* directory. 
-Instead, you have the possibility to share the volume created before with the [Ansible](../Ansible) tool.
+After attaching a volume to the master, you might want to share it between all slave nodes. 
+One way of sharing data between master and slaves in the BiBiGrid is the *spool* directory. 
+Instead, you have the possibility to share the volume created before with the [Ansible](https://cloud.denbi.de/wiki/Tutorials/Ansible/) tool.
 Ansible lets you automatically execute commands on several nodes in your cluster.
 
-To share a volume (or a file) one has to configure the /etc/exports file. 
-In order to edit the file in the terminal, use `vim /etc/exports`. Vim is a terminal texteditor 
-which is - for beginners - of difficult usage. For these purposes the following commands fulfill the requirements.
+When you fulfilled the attaching of a volume to the master node (or any other node) you will see,
+that the other nodes in your cluster don't have access to it, neither does the volume exist at all.
 
-- Move cursor to last row: `G` (Capital letter)
-- Create a line below the last: `o` 
-- Write a second line with the same input like above (copy / paste) 
-but instead of */vol/spool* use */vol/XXX* with your volume name.
-- Save the edited */etc/exports* file: `Esc` followed by `:wq`
+- Create mount points
+- Mount NFS shares
 
-> If you are confused having edited the file the wrong way, you can undo the last step with `Esc` followed by `u` 
-or leave the editor with unsaved data with `Esc` followed by `:q!`.
+Instead of letting Ansible execute every single command, you can simply create a playbook.
+
+- Create shareVolume.yml
+- Copy & Paste the following lines into the file - XXX has to be changed like in the tutorial above:
+```
+- hosts: slaves
+  become: yes
+  tasks:      
+    - name: Create mount points
+      file:
+        path: "/vol/XXX"
+        state: directory
+        owner: root
+        group: root
+        mode: 0777
+    
+    - name: Mount shares
+      mount:
+        path: "/vol/XXX"
+        src: "internal.master.ip:/vol/XXX"
+        fstype: nfs4
+        state: mounted
+```
+- Save the changes
+
+Run the playbook: `ansible-playbook -i ansible_hosts shareVolume.yml`
+
+To share a volume (or a file) one has to configure the `/etc/exports` file and add a line as follows: 
+
+`/vol/XXX CIDR.of.subnet(rw,nohide,insecure,no_subtree_check,async)`
+
+E.g.: `/vol/test 192.168.0.0/24(rw,nohide,insecure,no_subtree_check,async)`
 
 ## Terminate a cluster
 
