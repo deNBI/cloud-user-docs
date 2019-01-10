@@ -109,6 +109,25 @@ You can simply check your configuration using :
 
 `java -jar bibigrid-openstack-2.0.jar -ch -o bibigrid.yml`
 
+## Using an existing volume
+To mount and share an available volume to a master and between the slave nodes, add the following lines to the `bibigrid.yml`.
+- Mount volume on master:
+
+**bibigrid.yml**
+```
+masterMounts:
+  - source: *volume-id*
+    target: /vol/xxx
+```
+- Share a volume between the nodes:
+```
+nfsShares:
+  - /vol/xxx
+```
+
+*Replace the **volume-id** and use a name for the volume instead of xxx.*
+
+
 ## Start the Cluster
 
 `java -jar bibigrid-openstack-2.0.jar -c -o bibigrid.yml`
