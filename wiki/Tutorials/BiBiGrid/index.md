@@ -16,7 +16,7 @@
 
 ## Download Binary
 
-If you don't want build the client from sources you can use a prebuilt binary ([BiBiGrid Openstack Java executable](http://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid/bibigrid-openstack-2.0.jar))
+If you don't want to build the client from sources you can use a prebuilt binary ([BiBiGrid Openstack Java executable](http://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid/bibigrid-openstack-2.0.jar))
 
 
 
@@ -151,6 +151,14 @@ You can easily terminate the cluster at any time with:
 you can login into the master node. Run `qhost` 
 to check if there are 4 execution nodes available.
 
+## List running Cluster
+
+Since it is possible to start more than one cluster at once, it is possible to list all running clusters: 
+
+`java -jar bibigrid-openstack-2.0.jar -l`
+
+The command returns an informative list about all your running clusters.
+
 
 ### Cloud9
 
@@ -186,13 +194,55 @@ sleep 10
 - See the status of our cluster: `qhost`
 - See the output: `cat helloworld.sh.o.*`
 
-## List running cluster
+## Attaching a volume to a running cluster
+If you have successfully run a cluster, you may want to attach a volume to an instance. 
+See [Using Cinder Volumes](https://cloud.denbi.de/wiki/quickstart/#using-cinder-volumes) to get information about how to work with a volume.
 
-Since it is possible to start more than cluster at once, it possible to list all running clusters: 
 
-`java -jar bibigrid-openstack-2.0.jar -l`
+## Share a volume between all nodes
+After attaching a volume to the master, you might want to share it between all slave nodes. 
+One way of sharing data between master and slaves in the BiBiGrid is the *spool* directory. 
+Instead, you have the possibility to share the volume created before with the [Ansible](https://cloud.denbi.de/wiki/Tutorials/Ansible/) tool.
+Ansible lets you automatically execute commands on several nodes in your cluster.
 
-The command returns a informative list about all your running clusters.
+When you fulfilled the attaching of a volume to the master node (or any other node) you will see,
+that the other nodes in your cluster don't have access to it, neither does the volume exist at all.
+
+- Create mount points
+- Mount NFS shares
+
+Instead of letting Ansible execute every single command, you can simply create a playbook.
+
+- Create shareVolume.yml
+- Copy & Paste the following lines into the file - XXX has to be changed like in the tutorial above:
+```
+- hosts: slaves
+  become: yes
+  tasks:      
+    - name: Create mount points
+      file:
+        path: "/vol/XXX"
+        state: directory
+        owner: root
+        group: root
+        mode: 0777
+    
+    - name: Mount shares
+      mount:
+        path: "/vol/XXX"
+        src: "internal.master.ip:/vol/XXX"
+        fstype: nfs4
+        state: mounted
+```
+- Save the changes
+
+Run the playbook: `ansible-playbook -i ansible_hosts shareVolume.yml`
+
+To share a volume (or a file) one has to configure the `/etc/exports` file and add a line as follows: 
+
+`/vol/XXX CIDR.of.subnet(rw,nohide,insecure,no_subtree_check,async)`
+
+E.g.: `/vol/test 192.168.0.0/24(rw,nohide,insecure,no_subtree_check,async)`
 
 ## Terminate a cluster
 
