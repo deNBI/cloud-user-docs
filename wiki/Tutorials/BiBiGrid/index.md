@@ -66,15 +66,15 @@ subnet: XXX
 #BiBiGrid-Master
 masterInstance:
   type: de.NBI.medium+ephemeral
-  #ubuntu 16.04
-  image: c1ac4343-cc53-4827-a3bf-9fdde2a67c8c
+  #Ubuntu 16.04 LTS (2019-01-11)
+  image: f33f5e06-95bb-4378-97ce-25e61b2fce03
 
 #BiBiGrid-Slave
 slaveInstances:
   - type: de.NBI.medium+ephemeral
     count: 3
-    #ubuntu 16.04
-    image: c1ac4343-cc53-4827-a3bf-9fdde2a67c8c
+    #Ubuntu 16.04 LTS (2019-01-11)
+    image: f33f5e06-95bb-4378-97ce-25e61b2fce03
 
 #Firewall/Security Group
 ports:
