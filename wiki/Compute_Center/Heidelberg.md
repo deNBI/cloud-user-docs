@@ -212,7 +212,24 @@ long as you have this connection open you can directly connect to one of your
 VMs from another terminal by specifying the username and ip address without 
 the need to first connect to the jumphost:
 
-    ssh centos@172.16.7x.xxx 
+    ssh centos@<floating-ip>
+
+### Using the OpenStack API
+First, you will need to request a password to use the OpenStack API, 
+therefore write a mail to the support team at <denbi-cloud@bioquant
+.uni-heidelberg.de>. Second, the API is not directly accessible from the 
+outside, so the only way to access the API from a local machine is through 
+the jumphost. So make sure you've configured your SOCKS proxy as described 
+before. In addition you will need to configure your environment to use the 
+SOCKS proxy for the API requests. Therefore set your environment variables 
+for the http/https proxy:
+
+    export http_proxy=socks5://localhost:7777
+    export https_proxy=socks5://localhost:7777
+    export no_proxy=localhost,127.0.0.1,::1
+
+Now, if you have an active SOCKS connection to the jumphost, you should be 
+able to use the OpenStack API from your local machine.
 
 ### Adding multiple SSH-Keys
 To access your VM you have to provide a public ssh-key. In the deployment 
