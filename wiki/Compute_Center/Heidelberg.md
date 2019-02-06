@@ -212,7 +212,7 @@ long as you have this connection open you can directly connect to one of your
 VMs from another terminal by specifying the username and ip address without 
 the need to first connect to the jumphost:
 
-    ssh centos@<floating-ip>
+    ssh centos@172.16.7x.xxx
 
 ### Using the OpenStack API
 First, you will need to request a password to use the OpenStack API, 
