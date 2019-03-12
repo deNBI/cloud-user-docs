@@ -15,7 +15,7 @@ You can submit an application by login to the [de.NBI Cloud portal](https://clou
 Besides general project information like project name, project description, institution name and project lifetime, you also have to provide the information
 independing on the project type you choose:
  
- * The **Single VM** Project type allows you to start virtual machines without configuring a project in OpenStack (e.g. network configuration). 
+ * The **Simple VM** Project type allows you to start virtual machines without configuring a project in OpenStack (e.g. network configuration). 
 
  * In a **Cloud Project**  you will have your own OpenStack project and you are free to configure your network, virtual machines and storage setup.
 
@@ -55,13 +55,12 @@ For a **Cloud Project** you have to specify the following parameters:
 ## Modification
 
 If you want to extend a project or adjust various parameters, you can create a modification request.
-You can submit a modification request by selecting the "Application" tab and press the "Request Extension/Modification" button (see below).
+You can submit a modification request by selecting the "Applications" tab and clicking on the "Request Extension/Modification" button (see below).
 
 ![Application Request](img/request_modification.png)
 
-Then a new window opens in which the parameters can be adjusted. 
-On the left side are the old parameters and on the right side all new parameters have to be filled in.
-
+Then a new window opens in which the parameters of your project can be adjusted. 
+On the left side are the current parameters and on the right side are input fields where you can enter new parameters for your project.
 
 ![Request Modal](img/extension_tab.png)
 
