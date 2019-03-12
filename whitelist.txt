@@ -2,3 +2,4 @@ http://169.254.169.254
 http://BIBIGRID
 https://fonts.gstatic.com
 https://denbi-cloud.bioquant.uni-heidelberg.de
+https://cloud.denbi.uni-freiburg.de
