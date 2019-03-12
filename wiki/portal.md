@@ -52,6 +52,20 @@ For a **Cloud Project** you have to specify the following parameters:
 
 * Special Hardware (GPU/FPGA)
 
+## Modification
+
+If you want to extend a project or adjust various parameters, you can create a modification request.
+You can submit a modification request by selecting the "Application" tab and press the "Request Extension/Modification" button (see below).
+
+![Application Request](img/request_modification.png)
+
+Then a new window opens in which the parameters can be adjusted. 
+On the left side are the old parameters and on the right side all new parameters have to be filled in.
+
+
+![Request Modal](img/extension_tab.png)
+
+
 ## Project Overview
 
 In the Project Overview tab you get a list of all your running projects:
