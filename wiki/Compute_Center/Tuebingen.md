@@ -133,6 +133,23 @@ Now you should see your device by executing the command
 If you do not need you Cinder Volume you can also unmount it with
 <pre>umount /dev/device_name</pre>
 
+## Resize a Cinder Volume
+If you find out that you need more space for your Cinder volume and want to increase the volume size, you can do this over the dashboard. Go to the Volumes section on the left side. If the Cinder volume is already attached to a VM please unmount the Cinder volume in the VM and detach it over the dashboard. Only if the Cinder volume is detached you can increase the size. Now choose the “Extend Volume” button after you have clicked on the down showing arrow on the right of the Cinder volume you want to extend. Enter the new size (in Gigabytes) and click on the button “Extend Volume”.
+After this procedure has finished successfully you can attach the extended Cinder volume to your VM. Depending on which filesystem you use on your Cinder volume there are different procedures necessary to make the new capacity available.
+For an xfs formatted filesystem:
+Mount the volume as usual and run the following command
+<pre>sudo xfs_grow -d MOUNTPOINT</pre>
+If you followed the instructions above the `MOUNTPOINT` would be `/mnt/volume` After that you can use the extend volume with the new capacity.
+
+For an ext4 formatted filesystem:
+Do not mount the volume. If you can see it with the lsblk command that is enough. Run the following command to get increase the capacity
+<pre>sudo resize2fs /dev/device_name</pre>
+The `/dev/device_name` is the same you have used in the mount command above.
+Now you can mount and use it as usual and also use the extended capacity.
+
+If you use another filesystem than xfs or ext4 please look up if and how an increase of the capacity is possible.
+
+
 
 
 
