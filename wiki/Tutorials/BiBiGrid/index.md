@@ -16,7 +16,7 @@
 
 ## Download Binary
 
-If you don't want to build the client from sources you can download a prebuilt binary ([BiBiGrid Openstack Java executable](http://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid)). It is recommend to choose the latest one.
+If you don't want to build the client from sources you can [download a prebuilt binary](http://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid). It is recommend to choose the latest one.
 
 
 
