@@ -2,21 +2,21 @@
 
 ### Prerequisites
 
-- Java 8/9
+- Java 8+
 - Openstack API access
-- git & maven 3.3 (or better) to build bibigrid from sources
+- git & maven 3.3+ to build bibigrid from sources
 
 ## Build from sources
 
 - Clone GitHub repository: `git clone https://github.com/BiBiServ/bibigrid.git`
 - Change into project dir: `cd bibigrid`
 - Build Java executable for Openstack `mvn -P openstack clean package`
-- Call `java -jar bibigrid-main/target/bibigrid-openstack-2.0.jar -h` to get help messages and check if executable works
+- Call `java -jar bibigrid-main/target/bibigrid-openstack-<version>.jar -h` to get help messages and check if executable works
 
 
 ## Download Binary
 
-If you don't want to build the client from sources you can use a prebuilt binary ([BiBiGrid Openstack Java executable](http://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid/bibigrid-openstack-2.0.jar))
+If you don't want to build the client from sources you can download a prebuilt binary ([BiBiGrid Openstack Java executable](http://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid)). It is recommend to choose the latest one.
 
 
 
@@ -40,7 +40,7 @@ BiBiGrid is an open source tool hosted at github for an easy cluster setup insid
 
 ## Configuration
 
-The goal of this session is to setup a small HPC cluster consisting of 4 nodes  (1 master, 3 slaves) using BiBiGrid. The template below does the job, you have to replace all XXX's with your environment.
+The goal of this session is to setup a small HPC cluster consisting of 4 nodes  (1 master, 3 slaves) using BiBiGrid. The template below does the job for the de.NBI cloud site in Bielefeld - you have to replace all XXX's with your project environment. When running BiBigrid on other cloud sites than Bielefeld, you have possibly also adjust the region, availabilityZone, instance type(s) and image id(s).
 
 ### Templates
 
@@ -65,13 +65,13 @@ subnet: XXX
 
 #BiBiGrid-Master
 masterInstance:
-  type: de.NBI.medium+ephemeral
+  type: de.NBI.small+ephemeral
   #Ubuntu 16.04 LTS (2019-01-11)
   image: f33f5e06-95bb-4378-97ce-25e61b2fce03
 
 #BiBiGrid-Slave
 slaveInstances:
-  - type: de.NBI.medium+ephemeral
+  - type: de.NBI.default
     count: 3
     #Ubuntu 16.04 LTS (2019-01-11)
     image: f33f5e06-95bb-4378-97ce-25e61b2fce03
@@ -81,12 +81,26 @@ ports:
   - type: TCP
     number: 80
 
-#services
+# -----------------------
+# services
+# ----------------------
 useMasterAsCompute: yes
 nfs: yes
-oge: yes
-cloud9: yes
 
+# Grid batch scheduler
+# GridEngine is deprecated and only supported on Ubuntu 16.04
+oge: yes
+# Slurm is supported on Ubuntu 16.04 and 18.04 
+slurm: no
+
+# Monitoring
+# Ganglia is deprecated and only supported on Ubuntu 16.04
+ganglia: yes
+# Zabbix is supportd on Ubuntu 16.04 and 18.04
+zabbix: no
+
+# Web IDE
+cloud9: yes
 ```
 
 **credentials.yml:**
@@ -102,12 +116,9 @@ tenantDomain: elixir
 
 *The openstack credentials requires the **name** not the **id** .*
 
-*The image is referenced as **id** not by **name**.*
-
-
 You can simply check your configuration using :
 
-`java -jar bibigrid-openstack-2.0.jar -ch -o bibigrid.yml`
+`java -jar bibigrid-openstack-<version>.jar -ch -o bibigrid.yml`
 
 ## Using an existing volume
 To mount and share an available volume to a master and between the slave nodes, add the following lines to the `bibigrid.yml`.
@@ -130,14 +141,13 @@ nfsShares:
 
 ## Start the Cluster
 
-`java -jar bibigrid-openstack-2.0.jar -c -o bibigrid.yml`
+`java -jar bibigrid-openstack-<version>.jar -c -o bibigrid.yml`
 
 or more verbose:
 
-`java -jar bibigrid-openstack-2.0.jar -c -v -o bibigrid.yml`
+`java -jar bibigrid-openstack-<version>.jar -c -v -o bibigrid.yml`
 
-Starting with blank Ubuntu 16.04 images takes up to 20 minutes to finish.
-Using pre-installed images is much faster (about 5 minutes).
+Starting with blank Ubuntu 16.04 images takes up to 20 minutes to finish, depending on the instance performance and bibigrid configuration.
 
 
 ## Good to know
@@ -174,7 +184,7 @@ to check if there are 4 execution nodes available.
 
 Since it is possible to start more than one cluster at once, it is possible to list all running clusters: 
 
-`java -jar bibigrid-openstack-2.0.jar -l`
+`java -jar bibigrid-openstack-<version>.jar -l`
 
 The command returns an informative list about all your running clusters.
 
@@ -189,9 +199,7 @@ If the cloud9 option is enabled in the configuration, cloud9 will be run as syst
 
 However, Bibigrid has the possibility to open a ssh tunnel from the local machine to bibigrids master instance and open up a browser running cloud9 web ide. 
 
-`java -jar bibigrid-openstack-2.0.jar --cloud9 <clusterid>`
-
-**At first start, cloud9 needs to install some additional software, follow the on-screen instructions.**
+`java -jar bibigrid-openstack-<version>.jar --cloud9 <clusterid>`
 
 
 
@@ -209,7 +217,7 @@ echo Hello from $(hostname) !
 sleep 10
 ```
 
-- Submit this script to each node: ` qsub -cwd -t 1-4 -pe multislot 8 helloworld.sh`
+- Submit this script to each node: ` qsub -cwd -t 1-4 -pe multislot 2 helloworld.sh`
 - See the status of our cluster: `qhost`
 - See the output: `cat helloworld.sh.o.*`
 
@@ -267,6 +275,6 @@ E.g.: `/vol/test 192.168.0.0/24(rw,nohide,insecure,no_subtree_check,async)`
 
 Terminating a running cluster is quite simple :
 
-`java -jar bibigrid-openstack-2.0.jar -t <clusterid>`
+`java -jar bibigrid-openstack-<version>.jar -t <clusterid>`
 
 
