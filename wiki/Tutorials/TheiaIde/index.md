@@ -8,9 +8,9 @@ Welcome to a short **de.NBI tutorial** concerning [Theia IDE](www.theia-ide.org)
 
 ![[Theia IDE in action/screenshot ]](images/screenshot.png)
 
-The goal of this tutorial to setup a web IDE (Theia IDE in our case) on a virtual machine running in the de.NBI cloud. The setup can be done manually, provided as userdata during virtual machine startup and as ansible role.
+The goal of this tutorial, is to setup a web IDE (Theia IDE in our case) on a virtual machine running in the de.NBI cloud. The setup can be done manually, provided as userdata during virtual machine startup and as ansible role.
 
-The latter two points based on other de.NBI cloud tutorials ([UserData](../UserData/index.md), [Ansible](../Ansible/index.md)). The tutorial was tested against Ubuntu 18.04 LTS but should work with slightly modifications on most modern cloud images.
+The latter two points are based on other de.NBI cloud tutorials ([UserData](../UserData/index.md), [Ansible](../Ansible/index.md)). The tutorial was tested against Ubuntu 18.04 LTS but should work with slightly modifications on most modern cloud images.
 
 
 ## Configuration
@@ -18,7 +18,7 @@ The latter two points based on other de.NBI cloud tutorials ([UserData](../UserD
 The general build process is quite easy and is well described on the Theia-Ide page ["Build your own IDE"](https://www.theia-ide.org/doc/Composing_Applications.html).  Feel free to follow the step-by-step documentation to build your own shell script or go the easy way and use the prepared [shell script](web-ide.sh).
 
 ### Dependencies
-Depending on your base system building Theia-IDE needs some additional packages installed.
+Depending on your base system,  building Theia-IDE needs some additional packages installed.
 
 #### Ubuntu 16.04/18.04 and Debian 9
 
@@ -42,7 +42,7 @@ Depending on your base system building Theia-IDE needs some additional packages 
 ```
 
 ## Start service 
-After a successful build we can start the IDE. 
+After a successful build, we can start the IDE. 
 
 ```bash
 > yarn theia start ~ --hostname 127.0.0.1 --port 8080
@@ -50,11 +50,11 @@ After a successful build we can start the IDE.
 
 In our example we set the workspace to '~' and bind the process to 127.0.0.1:8080.
 
-**Attention: Is always a bad idea to bind the IDE to an external network device, since there is no encryption (https) or authorization provided by Theia-IDE. **
+**Attention: It is always a bad idea to bind the IDE to an external network device, since there is no encryption (https) or authorization provided by Theia-IDE. **
 
 ## Access Theia-IDE
 
-Since we bind the process to a local network device we have to start a ssh session with port tunneling enabled. The ssh command ...
+Since we bind the process to a local network device, we have to start a ssh session with port tunneling enabled. The ssh command ...
 
 ```bash
                                  A         B                     C
@@ -71,7 +71,7 @@ Since we bind the process to a local network device we have to start a ssh sessi
 Start a browser, open the URL [http://localhost:11111](http://localhost:11111) and enjoy Theia-IDE.
 
 ## UserData
-When providing the [theia-ide script](web-ide.sh) as userdata we have to make some additional configuration.  We have to pay attenttion for ...
+When providing the [theia-ide script](web-ide.sh) as userdata, we have to make some additional configuration.  We have to pay attenttion for ...
 
 ### permissions
 Userdata scripts are always executed as root. We have to take care that our IDE is executable as *normal* user.
@@ -124,7 +124,7 @@ WantedBy=multi-user.target
 
 
 
-Download a [Download](userdata.sh) a userdata script that wraps up everything mentioned above.
+Download a [Download](userdata.sh) userdata script that wraps up everything mentioned above.
 
 
 ## Ansible
