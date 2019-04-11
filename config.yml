@@ -53,7 +53,7 @@ nav:
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
     - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
-    - 'Theia Web IDE': Tutorial/
+    - 'Theia Web IDE': Tutorials/TheiaIde/index.md
     - 'UserData' : Tutorials/UserData/index.md
     
   - 'FAQ' : 'FAQ.md'
