@@ -74,11 +74,11 @@ A simple bash function can do job :
 
 ```
 function check_service {
-  /bin/nc ${1} ${2} </dev/null 2>/dev/null
+  /bin/nc -z ${1} ${2} 2>/dev/null
   while test $? -eq 1; do
-    log "wait 10s for service available at ${1}:${2}"
+    print "wait 10s for service available at ${1}:${2}"
     sleep 10
-    /bin/nc ${1} ${2} </dev/null 2>/dev/null
+    /bin/nc -z ${1} ${2} 2>/dev/null
   done
 }
 ```
@@ -129,4 +129,10 @@ ubuntu@host-192-168-0-6:~$ curl http://169.254.169.254/latest/user-data/
 
 echo "Hello World!" > /tmp/helloworld.txt
 ```
+## Further HandsOn
+There are two more de.NBI tutorials available that make use of userdata possibilities.
+
+- [TheiaIDE](../TheiaIde/index.md)
+- [Save FloatingIPs](../SaveFloatingIPs/index.md)
+
 
