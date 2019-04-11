@@ -50,7 +50,11 @@ After a successful build, we can start the IDE.
 
 In our example we set the workspace to '~' and bind the process to 127.0.0.1:8080.
 
-**Attention: It is always a bad idea to bind the IDE to an external network device, since there is no encryption (https) or authorization provided by Theia-IDE. **
+!!! warning "Warning"
+    It is always a bad idea to bind the IDE to an external network device, since there is no encryption (https) or authorization provided by Theia-IDE.
+
+
+
 
 ## Access Theia-IDE
 

@@ -52,8 +52,10 @@ nav:
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
     - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
-    - 'UserData' : Tutorials/UserData/index.md
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
+    - 'Theia Web IDE': Tutorial/
+    - 'UserData' : Tutorials/UserData/index.md
+    
   - 'FAQ' : 'FAQ.md'
   - 'Compute Center Specific' :
     - 'Giessen' : Compute_Center/Giessen.md
