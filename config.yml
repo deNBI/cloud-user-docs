@@ -60,7 +60,8 @@ nav:
   - 'Compute Center Specific' :
     - 'Giessen' : Compute_Center/Giessen.md
     - 'Bielefeld' : Compute_Center/Bielefeld.md
-    - 'Heidelberg' : Compute_Center/Heidelberg.md
+    - 'Heidelberg Uni' : Compute_Center/Heidelberg.md
+    - 'Heidelberg DKFZ' : Compute_Center/Heidelberg-DKFZ.md
     - 'Tuebingen' : Compute_Center/Tuebingen.md
     - 'Freiburg' : Compute_Center/Freiburg.md
   - 'Cloud Admin':

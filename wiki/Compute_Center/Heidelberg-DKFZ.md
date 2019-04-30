@@ -1,5 +1,5 @@
-# de.NBI Cloud Heidelberg
-Welcome to the de.NBI Cloud site Heidelberg. In the following guide we want 
+# de.NBI Cloud DKFZ Heidelberg
+Welcome to the de.NBI Cloud site DKFZ Heidelberg. In the following guide we want 
 to give you a quick introduction how to use our cloud site.
 
 Please note, you are responsible for everything that happens with the virtual
@@ -8,19 +8,19 @@ anything and do not give any guarantees.
 
 ## How to get in contact with us
 In case you have questions or want to give us any kind of feedback, please 
-contact us via <denbi-cloud@bioquant.uni-heidelberg.de>.
+contact us via <denbi-cloud@dkfz-heidelberg.de>.
 
-## Access to the de.NBI Cloud Heidelberg
+## Access to the de.NBI Cloud DKFZ Heidelberg
 ### OpenStack Dashboard
 The OpenStack dashboard gives you all information about your 
 project, e.g. your available resources, your virtual machines etc. The 
-dashboard is available [here](https://denbi-cloud.bioquant.uni-heidelberg.de).
+dashboard is available [here](https://cloud.denbi.dkfz-heidelberg.de/).
 To access your project, use Elixir as authentication provider. After 
 authentication you will be redirected to the OpenStack dashboard.
 
 ### SSH-Keys
 As a first step make sure that you import a public ssh-key into your 
-OpenStack project (**Project - Compute - Access & Security - Key Pairs - Import 
+OpenStack project (**Project - Compute - Key Pairs - Import 
 Key Pair**) so that you can access your VMs later on.
 
 ### Deploy your VMs
@@ -59,12 +59,12 @@ and can connect to VMs without any floating ip address.
 #### Linux-based host
 None of your VMs will be directly visible and accessible from the internet. To 
 connect to one of your VMs, you have to use our jumphost
-denbi-jumphost-01.bioquant.uni-heidelberg.de with your elixir login name (not
+denbi-jumphost-01.denbi.dkfz-heidelberg.de with your elixir login name (not
 your elixir id!):
 
-    ssh -A -i YOUR-SSH-KEY USERNAME@denbi-jumphost-01.bioquant.uni-heidelberg.de
+    ssh -A -i YOUR-SSH-KEY USERNAME@denbi-jumphost-01.denbi.dkfz-heidelberg.de
     
-**Example:** ssh -A -i ~/.ssh/denbi-cloud.key elixir1234@denbi-jumphost-01.bioquant.uni-heidelberg.de
+**Example:** ssh -A -i ~/.ssh/denbi-cloud.key elixir1234@denbi-jumphost-01.denbi.dkfz-heidelberg.de
 
 From the jumphost you can connect to each of your VMs which has an attached
 floating ip address.
@@ -75,7 +75,7 @@ If you want to connect from a Windows-based system you can use Putty
 
 In the field **Host Name** you have to enter the name of our jumphost:
 
-    denbi-jumphost-01.bioquant.uni-heidelberg.de
+    denbi-jumphost-01.denbi.dkfz-heidelberg.de
     
 Under **Connection - Data** you can choose the username for the auto-login. 
 Please use your elixir username here.
@@ -111,78 +111,6 @@ using it:
 
     sudo mount /dev/vdb /mnt
 
-
-### Create and configure a NFS share for your project
-In case you need a NFS share to store big amounts of data and share it within
-your project, you can use OpenStack to create and manage the share.
-
-#### Create a NFS share
-To create a NFS share choose the section **Shares** and click on **Create 
-Share**. In the popup you have to provide the following information:
-
-  **Share Name:**
-  - Provide a share name.
-  
-  **Share Protocol:**
-  - Please use the preselected "NFS" as protocol.
-  
-  **Size (GiB):**
-  - Provide the size of the share. Info: You have an overall quota for NFS 
-  shares on your project. Please make sure that you set the size below the 
-  project quota.
-
-  **Share Type:**
-  - Please select "default".
-  
-  **Availability Zone:**
-  - Please select "nova".
-
-#### Manage access rules for your NFS share
-After the creation of a NFS share, the share will not be accessible by anyone
-. To grant your VMs access to the share you have to configure the access rules.
-
-**Important: Please make sure to keep the access rule list of your NFS share up
- to date**, so that only your VMs can access the share.
-
-To manage the access rules click on the **arrow** on the right side of your 
-newly created NFS share and choose **Manage rules**. Now you have to choose 
-**Add rule**. In the popup you have to provide the following information:
-
-  **Access Type:**
-  - Select ip to allow a certain VM access to the share.
-  
-  **Access Level:**
-  - Choose **read-write** or **read-only** appropriate to your needs. In some
-   cases it may make sense that specific VMs just get read-only permissions.
-  
-  **Access to**
-  - Please fill in the ip address of your VM you want to grant access to the 
-  NFS share.
-  
-#### Access your NFS share
-In order to use your created NFS share you have to mount it to your VMs. 
-Click on the created share in the **Shares** section of the OpenStack 
-dashboard to get information about the complete mount path. Under the 
-**Export locations** section, please choose the **Path** starting with 
-isiloncl1-487:
-     
-     isiloncl1-487.denbi.bioquant.uni-heidelberg.de:/ifs/denbi/manila-prod/share-123456789
-
-You can mount the share with the following command:
-
-    sudo mount -o vers=4.0 isiloncl1-487.denbi.bioquant.uni-heidelberg.de:/ifs/denbi/manila-prod/YOUR-SHARE /mnt/
-    
-Alternatively you can add the mount path to the "/etc/fstab". Make sure that 
-you use NFS version 4.0.
-
-Please make sure that your user (depending on the used distribution: centos, 
-debian, ubuntu) is the owner of the NFS share. Therefore run the following 
-command to set the user as owner of the NFS share:
-
-    sudo chown centos:centos /mnt/
-    
-**Hint** This example is for a Centos based image.
-
 ### Distribution logins
 Please take care, as for now, that our images are shipped with the standard 
 users for the respective Linux distribution. Here you can see a list of 
@@ -209,7 +137,7 @@ the jumphost each time. In the following example socat is used. Add the
 following lines to your **local ~/.ssh/config**:
 
     # Access to the de.NBI jumphost
-    Host denbi-jumphost-01.bioquant.uni-heidelberg.de
+    Host denbi-jumphost-01.denbi.dkfz-heidelberg.de
       # Use your Elixir login name
       User ELIXIR_USERNAME
       # Use your ssh key for agent forwarding
@@ -222,7 +150,7 @@ following lines to your **local ~/.ssh/config**:
       ServerAliveInterval 120
       
     # Access to de.NBI cloud floating IP networks via SOCKS Proxy
-    Host 172.16.6* 172.16.7*
+    Host 10.133.24* 10.133.25*
       # Tunnel all requests through dynamic SOCKS proxy
       ProxyCommand /usr/bin/socat - socks4a:localhost:%h:%p,socksport=7777
       # Use your ssh key for agent forwarding
@@ -237,17 +165,16 @@ long as you have this connection open you can directly connect to one of your
 VMs from another terminal by specifying the username and ip address without 
 the need to first connect to the jumphost:
 
-    ssh centos@172.16.7x.xxx
+    ssh centos@10.133.2**.***
 
 ### Using the OpenStack API
 First, you will need to request a password to use the OpenStack API, 
-therefore write a mail to the support team at <denbi-cloud@bioquant
-.uni-heidelberg.de>. Second, the API is not directly accessible from the 
-outside, so the only way to access the API from a local machine is through 
-the jumphost. So make sure you've configured your SOCKS proxy as described 
-before. In addition you will need to configure your environment to use the 
-SOCKS proxy for the API requests. Therefore set your environment variables 
-for the http/https proxy:
+therefore write a mail to the support team at <denbi-cloud@dkfz-heidelberg.de>. 
+Second, the API is not directly accessible from the outside, so the only way to 
+access the API from a local machine is through the jumphost. So make sure you've
+configured your SOCKS proxy as described before. In addition you will need to 
+configure your environment to use the SOCKS proxy for the API requests. 
+Therefore set your environment variables for the http/https proxy:
 
     export http_proxy=socks5://localhost:7777
     export https_proxy=socks5://localhost:7777
