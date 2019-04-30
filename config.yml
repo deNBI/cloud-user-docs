@@ -34,6 +34,10 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
+  
+extra_javascript:
+  - matomo.js
+  
 nav:
   - 'Home' : index.md
   - 'Registration' : registration.md
