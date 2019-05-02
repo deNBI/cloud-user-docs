@@ -62,71 +62,16 @@ If you use our official images, the CeBiTec network will be detected automatical
     It takes up to one minute after a VM is running to detect the network and set the proxy settings.
 
 ## Images
-We provide some preconfigured Cloud images on top of the Ubuntu LTS releases (16.04 and 18.04). This images are patched to set the proxy settings if an cebitec network is detected. These image run without any further modifications on other cloud sites aswell.
+We provide some preconfigured Cloud images on top of the Ubuntu LTS releases (16.04 and 18.04). This images are patched to set the proxy settings (when connected to our internal network) and uses our apt mirror (when running on cloud site Bielefeld). These image run without any further modifications on other cloud sites aswell.
+
+### Ubuntu apt mirror
+We run an apt mirror for Ubuntu LTS releases (16.04 and 18.04) to speed up package download. The mirror is available at http[s]://apt-cache.bi.denbi.de:9999 from Bielefeld cloud site only. 
 
 ## Object storage
 The storage backend used by Bielefeld cloud site is powered by [Ceph](https://www.ceph.com). The Object storage endpoint provides API access via SWIFT and S3. The latter should be preferred due to better performance.
 
+## Known Problems
 
-## Server Groups for optional performance gains
-Our OpenStack cluster consists of many compute nodes which hosts all running instances. In some applications, it would be reasonable, when multiple instances of your project would be scheduled on as many different nodes as possible.
+Our current setup has some known problems.
 
-Distributed systems (like HPC, databases...) can gain a significant performance gain.
-
-This can be achieved with *Server Groups*. Server Groups act as a "container" for instances and it describes a "policy" on how those instances should be scheduled across the OpenStack Compute nodes.
-
-In order to create such Server Group, login to the OpenStack Dashboard and navigate to Compute -> Server Groups. Afterwards click on *Create Server Group*:
-![sg_screen1](img/bielefeld/sg_screen1.png)
-
-On the new screen, give this security group a name and assign the wanted affinity policy:
-![sg_screen2](img/bielefeld/sg_screen2.png)
-
-The policies are defined as following:
-
-| Policy | Description |
-|--------------|--------------|                                                
-| affinity        | Force schedule all instances on one single compute node. |
-| soft affinity         | Try to schedule all instances on a single compute node. Allow to violate the policy when there is not enough space on this single node.      |
-| anti affinity     | Force schedule all instances as spread as possible on all compute nodes.     |
-| soft anti affinity    | Try to schedule all instances as spread as possible on all compute nodes. Allow to violate this policy when there are not enough compute nodes with such capacity.     |
-
-It is recommended to use the "soft" variant. Otherwise, instances can fail to start when they would violate the more strict policy options.
-
-Afterwards the creation of a new Server Group, you can add instances to it when you are creating them. It's not possible to add already running instances to a Server Group since they are already scheduled. On the 
-*Server Groups* tab, add the group by clicking on the small up-arrow:
-![sg_screen3](img/bielefeld/sg_screen3.png)
-
-Afterwards, the scheduling of this instance will respect your selected Server Group policy.
-
-
-## Application Credentials (use OpenStack SDK)
-In order to access the OpenStack Cloud via commandline tools, you need to source a so called rc file as described [here](https://cloud.denbi.de/wiki/Tutorials/ObjectStorage/#retrieving-access-credentials).
-However, the standard procedure does not work on all Cloud locations. Executing `source` on the downloaded rc file prompts for a password. This password is not the same you have used when authenticating to ELIXIR in order to access the OpenStack Dashboard.
-
-Internally, OpenStack does not set a local password for your ELIXIR-ID, since it does not need to hence OpenStack confirms your authorization seperately via ELIXIR AAI.
-However, the commandline-tools can only function with a set local password. Prior to the new OpenStack release, users had to contact the cloud site administrators in order for them to set an explicit local password and send it via encrypted mail back to the user.
-
-Luckily, there is a new feature in OpenStack Rocky where the user is able to set it's own *local* credentials via the dashboard.
-
-Log in to the OpenStack Dashboard as usual, on the left side navigate to Identity -> Application Credentials and create a new credential set:
-![ac_screen1](img/bielefeld/ac_screen1.png)
-
-Afterwards, you have to specify your new credential set. You can leave the 'secret' field blank, OpenStack will autogenerate a long and cryptic password string afterwards. Of course you can also provide your own secret.
-**Warning: The secret field is not hidden in the browser!**. Afterwards click on *Create Application Credential*:
-![ac_screen2](img/bielefeld/ac_screen2.png)
-
-In the new window, you can directly download a generated rc file. Make sure that you explicitly click on *Close* afterwards, otherwise the credential won't be saved:
-![ac_screen3](img/bielefeld/ac_screen3.png)
-
-
-After the credential has been downloaded to your favourite location,
-you can simply source the file with:
-```
-#Depends on your location.
-source ~/Downloads/<NAME OF RC FILE>
-```
-
-Now you can use the openstack commandline tools.
-
-
-
+- Policy problems when using the dashboard object storage UI. However the cmdline access works.
