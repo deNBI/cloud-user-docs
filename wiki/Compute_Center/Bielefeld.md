@@ -62,7 +62,10 @@ If you use our official images, the CeBiTec network will be detected automatical
     It takes up to one minute after a VM is running to detect the network and set the proxy settings.
 
 ## Images
-We provide some preconfigured Cloud images on top of the Ubuntu LTS releases (16.04 and 18.04). This images are patched to set the proxy settings if an  cebitec network is detected. These image run without any further modifications on other cloud sites aswell.
+We provide some preconfigured Cloud images on top of the Ubuntu LTS releases (16.04 and 18.04). This images are patched to set the proxy settings (when connected to our internal network) and uses our apt mirror (when running on cloud site Bielefeld). These image run without any further modifications on other cloud sites aswell.
+
+### Ubuntu apt mirror
+We run an apt mirror for Ubuntu LTS releases (16.04 and 18.04) to speed up package download. The mirror is available at http[s]://apt-cache.bi.denbi.de:9999 from Bielefeld cloud site only. 
 
 ## Object storage
 The storage backend used by Bielefeld cloud site is powered by [Ceph](https://www.ceph.com). The Object storage endpoint provides API access via SWIFT and S3. The latter should be preferred due to better performance.
@@ -71,7 +74,4 @@ The storage backend used by Bielefeld cloud site is powered by [Ceph](https://ww
 
 Our current setup has some known problems.
 
-- Login sometimes fails. The workaround is to create a new private browser window and login again.
-- Create a router fails for non-admins, if a gateway is set. The workaround for this problem is to create a router without setting a gateway and  set the gateway and network bindings afterwards
-- Dashboard shows admin panel (without any functionality) for normal user.
 - Policy problems when using the dashboard object storage UI. However the cmdline access works.
