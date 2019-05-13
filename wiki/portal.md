@@ -150,7 +150,20 @@ Provide the data in the red rectangle in the settings of your x2go client:
 
 You also have to select the session type and the private key of your public ssh key that you provided in the user information tab.
 
-## Mount a volume
+## Volume
+
+### Create Volume
+
+There are two ways to start a volume:
+
+1. When starting a virtual machine you can choose to start a volume when selecting optional params.
+
+2. At the Volume tab you can choose to create an volume.
+![create_volume](img/volume.png)L
+
+To use the Volume you need to [mount](#mount-a-volume) it.
+
+### Mount a volume
 
 In order to mount a volume connect via ssh to your machine.
 You will find your volume with the command
