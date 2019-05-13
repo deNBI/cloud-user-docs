@@ -159,7 +159,7 @@ There are two ways to start a volume:
 1. When starting a virtual machine you can choose to start a volume when selecting optional params.
 
 2. At the Volume tab you can choose to create an volume.
-![create_volume](img/volume.png)L
+![create_volume](img/volume.png)
 
 To use the Volume you need to [mount](#mount-a-volume) it.
 
