@@ -14,7 +14,7 @@ contact us via <denbi-cloud@dkfz-heidelberg.de>.
 ### OpenStack Dashboard
 The OpenStack dashboard gives you all information about your 
 project, e.g. your available resources, your virtual machines etc. The 
-dashboard is available [here](https://cloud.denbi.dkfz-heidelberg.de/).
+dashboard is available [here](https://cloud.denbi.dkfz-heidelberg.de).
 To access your project, use Elixir as authentication provider. After 
 authentication you will be redirected to the OpenStack dashboard.
 
