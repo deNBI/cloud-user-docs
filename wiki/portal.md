@@ -167,15 +167,15 @@ You also have to select the session type and the private key of your public ssh 
 
 There are two ways to create a volume:
 
-1. When starting a virtual machine you can choose to start a volume when selecting optional params.
+1.When starting a virtual machine you can choose to start a volume when selecting optional params.
 ![create_volume_vm](img/volume_vm.png)
 
 The volume is automatically mounted this way.
 
-2. At the Volume tab you can choose to create an volume.
+2.At the Volume tab you can choose to create an volume.
 ![create_volume](img/volume.png)
 
-To use the Volume you need to [mount](#mount-a-volume) it.
+In order to use the Volume you need to [mount](#mount-a-volume) it.
 
 ### Mount a volume
 
