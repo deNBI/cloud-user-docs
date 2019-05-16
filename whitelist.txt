@@ -5,3 +5,4 @@ https://fonts.gstatic.com
 https://denbi-cloud.bioquant.uni-heidelberg.de
 https://cloud.denbi.uni-freiburg.de
 https://cloud.denbi.dkfz-heidelberg.de
+http://localhost:8000
