@@ -127,7 +127,7 @@ Then you can choose your project and fill the form to start an virtual machine.
 
 ![start_vm](img/start_vm.png)
 
-With the optional params you can start the vm with an volume [see](#create_volume).
+With the optional params you can start the vm with an volume [see](portal.md#Create Volume).
 Also if you want to use mosh (see https://mosh.org/ ) you can choose to open UDP ports.
 
 
@@ -175,7 +175,7 @@ The volume is automatically mounted this way.
 2.At the Volume tab you can choose to create an volume.
 ![create_volume](img/volume.png)
 
-In order to use the Volume you need to [mount](#mount-a-volume) it.
+In order to use the Volume you need to [mount](portal.md#mount-a-volume) it.
 
 ### Mount a volume
 
