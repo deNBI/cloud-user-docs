@@ -1,5 +1,5 @@
 #Theia IDE
-Welcome to a short **de.NBI tutorial** concerning [Theia IDE](www.theia-ide.org). Theia IDE is an extensible platform that allows to work with a virtual machine in a simplified, IDE like manner. A web based IDE like Theia-IDE comes at least with the following features:
+Welcome to a short **de.NBI tutorial** concerning [Theia IDE](https://www.theia-ide.org). Theia IDE is an extensible platform that allows to work with a virtual machine in a simplified, IDE like manner. A web based IDE like Theia-IDE comes at least with the following features:
 
 - Simplified access to the VM via a browser
 - File Browser
