@@ -68,6 +68,36 @@ We provide some preconfigured Cloud images on top of the Ubuntu LTS releases (16
 The storage backend used by Bielefeld cloud site is powered by [Ceph](https://www.ceph.com). The Object storage endpoint provides API access via SWIFT and S3. The latter should be preferred due to better performance.
 
 
+## Server Groups for optional performance gains
+Our OpenStack cluster consists of many compute nodes which hosts all running instances. In some applications, it would be reasonable, when multiple instances of your project would be scheduled on as many different nodes as possible.
+
+Distributed systems (like HPC, databases...) can gain a significant performance gain.
+
+This can be achieved with *Server Groups*. Server Groups act as a "container" for instances and it describes a "policy" on how those instances should be scheduled across the OpenStack Compute nodes.
+
+In order to create such Server Group, login to the OpenStack Dashboard and navigate to Compute -> Server Groups. Afterwards click on *Create Server Group*:
+![sg_screen1](img/bielefeld/sg_screen1.png)
+
+On the new screen, give this security group a name and assign the wanted affinity policy:
+![sg_screen2](img/bielefeld/sg_screen2.png)
+
+The policies are defined as following:
+
+| Policy | Description |
+|--------------|--------------|                                                
+| affinity        | Force schedule all instances on one single compute node. |
+| soft affinity         | Try to schedule all instances on a single compute node. Allow to violate the policy when there is not enough space on this single node.      |
+| anti affinity     | Force schedule all instances as spread as possible on all compute nodes.     |
+| soft anti affinity    | Try to schedule all instances as spread as possible on all compute nodes. Allow to violate this policy when there are not enough compute nodes with such capacity.     |
+
+It is recommended to use the "soft" variant. Otherwise, instances can fail to start when they would violate the more strict policy options.
+
+Afterwards the creation of a new Server Group, you can add instances to it when you are creating them. It's not possible to add already running instances to a Server Group since they are already scheduled. On the 
+*Server Groups* tab, add the group by clicking on the small up-arrow:
+![sg_screen3](img/bielefeld/sg_screen3.png)
+
+Afterwards, the scheduling of this instance will respect your selected Server Group policy.
+
 
 ## Application Credentials (use OpenStack SDK)
 In order to access the OpenStack Cloud via commandline tools, you need to source a so called rc file as described [here](https://cloud.denbi.de/wiki/Tutorials/ObjectStorage/#retrieving-access-credentials).
