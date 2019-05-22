@@ -69,7 +69,34 @@ The storage backend used by Bielefeld cloud site is powered by [Ceph](https://ww
 
 
 
+## Application Credentials (use OpenStack SDK)
+In order to access the OpenStack Cloud via commandline tools, you need to source a so called rc file as described [here](https://cloud.denbi.de/wiki/Tutorials/ObjectStorage/#retrieving-access-credentials).
+However, the standard procedure does not work on all Cloud locations. Executing `source` on the downloaded rc file prompts for a password. This password is not the same you have used when authenticating to ELIXIR in order to access the OpenStack Dashboard.
 
+Internally, OpenStack does not set a local password for your ELIXIR-ID, since it does not need to hence OpenStack confirms your authorization seperately via ELIXIR AAI.
+However, the commandline-tools can only function with a set local password. Prior to the new OpenStack release, users had to contact the cloud site administrators in order for them to set an explicit local password and send it via encrypted mail back to the user.
+
+Luckily, there is a new feature in OpenStack Rocky where the user is able to set it's own *local* credentials via the dashboard.
+
+Log in to the OpenStack Dashboard as usual, on the left side navigate to Identity -> Application Credentials and create a new credential set:
+![ac_screen1](img/bielefeld/ac_screen1.png)
+
+Afterwards, you have to specify your new credential set. You can leave the 'secret' field blank, OpenStack will autogenerate a long and cryptic password string afterwards. Of course you can also provide your own secret.
+**Warning: The secret field is not hidden in the browser!**. Afterwards click on *Create Application Credential*:
+![ac_screen2](img/bielefeld/ac_screen2.png)
+
+In the new window, you can directly download a generated rc file. Make sure that you explicitly click on *Close* afterwards, otherwise the credential won't be saved:
+![ac_screen3](img/bielefeld/ac_screen3.png)
+
+
+After the credential has been downloaded to your favourite location,
+you can simply source the file with:
+```
+#Depends on your location.
+source ~/Downloads/<NAME OF RC FILE>
+```
+
+Now you can use the openstack commandline tools.
 
 
 
