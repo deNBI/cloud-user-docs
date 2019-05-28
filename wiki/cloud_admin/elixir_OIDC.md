@@ -8,7 +8,7 @@ This document describes how to authenticate in OpenStack via Elixir AAI using Op
 ### Prerequites
 
 
-This guide was testet against OpenStack Queens/Rocky on top of Ubuntu 18.04 LTS, but should also work since Openstack Newton release and other operating systems (maybe with slightly modifications).
+This guide has been testet against OpenStack Queens/Rocky on top of Ubuntu 18.04 LTS, but should also work since Openstack Newton release and other operating systems (maybe with slightly modifications).
 
 - Openstack
 	- Keystone API 3 
@@ -102,7 +102,7 @@ remote_id_attribute = HTTP_OIDC_ISS
 
 ## Dashboard (Horizon)
 
-After setting up Keystone to be OIDC aware, we have to a enable SSO (single sign on) in OpenStack horizon and add Elixir_OIDC as choice in the list of providers via mapped drivers (`/etc/openstack-dashboard/local_settings.py`).
+After setting up Keystone to be OIDC aware, we have to enable SSO (single sign on) in OpenStack horizon and add Elixir_OIDC as choice in the list of providers via mapped drivers (`/etc/openstack-dashboard/local_settings.py`).
 
 ```
 WEBSSO_ENABLED = True
