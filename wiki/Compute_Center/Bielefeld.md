@@ -56,13 +56,18 @@ export https_proxy=proxy.cebitec.uni-bielefeld.de:3128
 export ftp_proxy=proxy.cebitec.uni-bielefeld.de:3128
 ```
 
-If you use our official images, the CeBiTec network will be detected automatically and the proxy settings will be set by an systemd service.
+### MTU settings
+We make use of a network virtualization technology called Virtual Extensible Lan (VXLAN). The MTU value provided to the network interfaces is  1450 and therefor differs from an expected *value* (e.g. 1500). You have to consider this if running docker or any other container technology.
 
-!!! note "Note" 
-    It takes up to one minute after a VM is running to detect the network and set the proxy settings.
 
 ## Images
-We provide some preconfigured Cloud images on top of the Ubuntu LTS releases (16.04 and 18.04). This images are patched to set the proxy settings if an cebitec network is detected. These image run without any further modifications on other cloud sites aswell.
+We provide some preconfigured cloud images on top of the Ubuntu LTS (16.04 and 18.04) and Debian (9). These images run without any further modifications on other cloud sites as well and come with a script `/usr/local/bin/de.NBI_Bielefeld_environment.sh` that adapt a running instance to the cloud site Bielefeld:
+
+- set proxy for enviroment, apt and docker if necessary
+- make use of apt-mirror
+
+### Ubuntu apt mirror
+We run an apt mirror for Ubuntu LTS releases (16.04 and 18.04) to speed up package download. The mirror is available from Bielefeld cloud site from the external (http[s]://apt-cache.bi.denbi.de:9999 or http://129.70.51.2:9999) and cebitec (http:172.21.40.2:9999) network.  
 
 ## Object storage
 The storage backend used by Bielefeld cloud site is powered by [Ceph](https://www.ceph.com). The Object storage endpoint provides API access via SWIFT and S3. The latter should be preferred due to better performance.
@@ -121,6 +126,7 @@ In the new window, you can directly download a generated rc file. Make sure that
 
 After the credential has been downloaded to your favourite location,
 you can simply source the file with:
+
 ```
 #Depends on your location.
 source ~/Downloads/<NAME OF RC FILE>
@@ -128,5 +134,11 @@ source ~/Downloads/<NAME OF RC FILE>
 
 Now you can use the openstack commandline tools.
 
+
+## Known Problems
+
+Our current setup has some known problems.
+
+- Policy problems when using the dashboard object storage UI. However the cmdline access works.
 
 
