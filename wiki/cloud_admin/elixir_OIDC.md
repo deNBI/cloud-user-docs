@@ -7,7 +7,8 @@ This document describes how to authenticate in OpenStack via Elixir AAI using Op
 
 ### Prerequites
 
-This guide was testet against OpenStack Newton on top of Ubuntu 16.04 LTS, but should also work with later Openstack versions and other operating systems (maybe with slightly modifications).
+
+This guide has been testet against OpenStack Queens/Rocky on top of Ubuntu 18.04 LTS, but should also work since Openstack Newton release and other operating systems (maybe with slightly modifications).
 
 - Openstack
 	- Keystone API 3 
@@ -27,7 +28,7 @@ $ a2endmod auth_openidc
 
 ## Keystone
 
-Keystone has two configuration files, its own (`/etc/keystone/keystone.conf`) and the Apache virtual host configuration (`/etc/apache/sites_available/keystone.conf`).
+Keystone has two configuration files, its own (`/etc/keystone/keystone.conf`) and the Apache virtual host configuration (`/etc/apache2/sites_available/keystone.conf`).
 
 ### Virtual host configuration 
 
@@ -56,19 +57,19 @@ The *oidc.crypto_passphrase* can be freely chosen, however it must be set.
 	OIDCClientID {{ oidc.client_id }}
 	OIDCClientSecret {{ oidc.client_secret }}
 	OIDCCryptoPassphrase {{ oidc.crypto_passphrase }}
-	OIDCRedirectURI https://{{ controller.public_hostname }}:5000/identity/v3/auth/OS-FEDERATION/websso/oidc/redirect
+	OIDCRedirectURI https://{{ controller.public_hostname }}:5000/identity/v3/auth/OS-FEDERATION/websso/openid/redirect
 
 	# OAuth for CLI access
 	OIDCOAuthIntrospectionEndpoint {{ oidc.provider_url }}introspect
 	OIDCOAuthClientID {{ oidc.client_id }}
 	OIDCOAuthClientSecret {{ oidc.client_secret }}
 
-	<Location ~ "/v3/auth/OS-FEDERATION/websso/oidc">
+	<Location ~ "/v3/auth/OS-FEDERATION/websso/openid">
 	     AuthType  openid-connect
 	     Require   valid-user
 	</Location>
 
-	<Location ~ "/v3/OS-FEDERATION/identity_providers/elixir_oidc/protocols/oidc/auth">
+	<Location ~ "/v3/OS-FEDERATION/identity_providers/elixir_oidc/protocols/openid/auth">
 	     Authtype oauth20
 	     Require   valid-user
 	</Location>
@@ -76,40 +77,41 @@ The *oidc.crypto_passphrase* can be freely chosen, however it must be set.
 
 ### Keystone configuration
 
-Configure the [auth] section of your keystone.conf to include `oidc` in the list of authentication methods. You also have to specify the class implementing oidc in the same section (`keystone.auth.plugins.mapped.Mapped`): 
+Configure the [auth] section of your keystone.conf to include `openid` in the list of authentication methods.
 
 ```
 [auth]
-methods = password,token,oidc
-oidc = keystone.auth.plugins.mapped.Mapped
+methods = password,token,openid
 ```
 
 Add your Horizon host as trusted dashboard to the [federation] section and configure the SSO callback template.
+
 ```
 [federation]
 trusted_dashboard=https://{{ oidc.endpoint }}/horizon/auth/websso/
 sso_callback_template = /etc/keystone/sso_callback_template.html
 ```
 
-Define the identity provider in the [oidc] section using the HTTP_OIDC_ISS attribute
+Define the identity provider in the [openid] section using the HTTP_OIDC_ISS attribute
+
 ```
-[oidc]
+[openid]
 remote_id_attribute = HTTP_OIDC_ISS
 ```
 
 
 ## Dashboard (Horizon)
 
-After setting up Keystone to be OIDC aware, we have to a enable SSO (single sign on) in OpenStack horizon and add Elixir_OIDC as choice in the list of providers via mapped drivers.
+After setting up Keystone to be OIDC aware, we have to enable SSO (single sign on) in OpenStack horizon and add Elixir_OIDC as choice in the list of providers via mapped drivers (`/etc/openstack-dashboard/local_settings.py`).
 
 ```
 WEBSSO_ENABLED = True
 WEBSSO_CHOICES = (
   ("credentials", _("Keystone Credentials")),
-  ("oidc", _("ELIXIR_OIDC")),
+  ("openid", _("ELIXIR_OIDC")),
 )
 
-WEBSSO_INITIAL_CHOICE="oidc"
+WEBSSO_INITIAL_CHOICE="openid"
 ```
 
 ### Running Dashboard behind a HA-Proxy
@@ -148,7 +150,7 @@ $ /usr/bin/openstack domain create --description 'The Elixir domain' --enable el
 
 ### Identity provider
 
-Then we have to create a new indentity provider https://login.elixir-czech.org/oidc/ named *elxir_oidc*
+Then we have to create a new indentity provider https://login.elixir-czech.org/oidc/ named *elixir_oidc*
 
 
 ```
@@ -180,7 +182,7 @@ $ /usr/bin/openstack mapping create --rules /tmp/elixir_oidc_mapping_rules.json 
 At last we have to create a federation protocol that connects the imported mapping with the created indentity-provider
 
 ```bash
-$ /usr/bin/openstack federation protocol create oidc --mapping elixir_oidc_mapping --identity-provider elixir_oidc
+$ /usr/bin/openstack federation protocol create openid --mapping elixir_oidc_mapping --identity-provider elixir_oidc
 ```
 
 ## Test/Demo
@@ -229,7 +231,7 @@ After a successfull authentication an active OIDC token can be used to obtain a 
 
 ```bash
 openstack --os-auth-type v3oidcaccesstoken --os-access-token ${iam_at} \
---os-auth-url https://openstack-dev.cebitec.uni-bielefeld.de:5000/v3 --os-protocol oidc \
+--os-auth-url https://openstack-dev.cebitec.uni-bielefeld.de:5000/v3 --os-protocol openid \
 --os-identity-provider elixir_oidc --os-identity-api-version 3 \
 token issue
 ```
