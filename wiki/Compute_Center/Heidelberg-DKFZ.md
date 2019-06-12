@@ -120,6 +120,35 @@ standard users for some common distributions:
   - **Ubuntu**: ubuntu
   - **Debian**: debian
 
+### Connecting to your VMs directly
+To easily connect directly to your VMs via our jumphost you can configure a 
+ProxyJump inside of your **local ~/.ssh/config**:
+
+    # Access to the de.NBI jumphost
+    Host denbi-jumphost-01.denbi.dkfz-heidelberg.de
+      # Use your Elixir login name
+      User ELIXIR_USERNAME
+      # Use your ssh-key file
+      IdentityFile YOUR-SSH-KEY-FILE
+      # Send a keep-alive packet to prevent the connection from beeing terminated
+      ServerAliveInterval 120
+
+    Host 10.133.24* 10.133.25*
+      # Use jumphost as proxy
+      ProxyJump denbi-jumphost-01.denbi.dkfz-heidelberg.de
+      # Use your ssh-key file
+      IdentityFile YOUR-SSH-KEY-FILE
+      # Send a keep-alive packet to prevent the connection from beeing terminated
+      ServerAliveInterval 120
+
+Please make sure that your local ssh-client is up to date, ProxyJump was 
+introduced in OpenSSH version 7.3.
+
+You now should be able to connect to your VM directly using the floating ip 
+address:
+
+    ssh centos@10.133.2xx.xxx
+    
 ## File transfer into the de.NBI cloud
 In case you want to transfer local data into the cloud you can use rsync, scp,
 etc. combined with a SOCKS proxy with one of your VMs as the target host. The 
@@ -130,34 +159,35 @@ data please contact us.
 This section includes some more advanced topics and configurations.
 
 ### Setting up a SOCKS proxy
-To make it easier to connect to your VMs you can configure an SOCKS proxy with 
-AgentForwarding. As long as you have an open SOCKS connection to the 
-jumphost you can directly connect to your VMs without the need to login to 
-the jumphost each time. In the following example socat is used. Add the 
-following lines to your **local ~/.ssh/config**:
+In some cases it would also make sense to configure a permanent SOCKS proxy to 
+communicate with your VMs behind the jumphost, e.g. when using web 
+applications etc. As long as you have an open SOCKS connection to the 
+jumphost you can directly connect to your VMs from a different console. In the
+following example socat is used but also netcat (nc) works in a similar way. 
+Add the following lines to your **local ~/.ssh/config**:
 
     # Access to the de.NBI jumphost
     Host denbi-jumphost-01.denbi.dkfz-heidelberg.de
       # Use your Elixir login name
       User ELIXIR_USERNAME
-      # Use your ssh key for agent forwarding
-      IdentityFile YOUR-KEY-FILE
+      # Use your ssh-key file
+      IdentityFile YOUR-SSH-KEY-FILE
       # Open a SOCKS proxy locally to tunnel traffic into the cloud environment
       DynamicForward localhost:7777
       # Forward locally managed keys to the VMs which are behind the jumphosts
       ForwardAgent yes
-      # Send a keep-alive packet to prevent the connection from terminating
+      # Send a keep-alive packet to prevent the connection from beeing terminated
       ServerAliveInterval 120
       
     # Access to de.NBI cloud floating IP networks via SOCKS Proxy
     Host 10.133.24* 10.133.25*
       # Tunnel all requests through dynamic SOCKS proxy
       ProxyCommand /usr/bin/socat - socks4a:localhost:%h:%p,socksport=7777
-      # Use your ssh key for agent forwarding
-      IdentityFile YOUR-KEY-FILE
+      # Use your ssh-key file
+      IdentityFile YOUR-SSH-KEY-FILE
       # Forward locally managed keys
       ForwardAgent yes
-      # Send a keep-alive packet to prevent the connection from terminating
+      # Send a keep-alive packet to prevent the connection from beeing terminated
       ServerAliveInterval 120
 
 Now you can connect to the jumphost the same way you usually do. As 
@@ -165,7 +195,7 @@ long as you have this connection open you can directly connect to one of your
 VMs from another terminal by specifying the username and ip address without 
 the need to first connect to the jumphost:
 
-    ssh centos@10.133.2**.***
+    ssh centos@10.133.2xx.xxx
 
 ### Using the OpenStack API
 First, you will need to request a password to use the OpenStack API, 
@@ -176,8 +206,8 @@ configured your SOCKS proxy as described before. In addition you will need to
 configure your environment to use the SOCKS proxy for the API requests. 
 Therefore set your environment variables for the http/https proxy:
 
-    export http_proxy=socks5://localhost:7777
-    export https_proxy=socks5://localhost:7777
+    export http_proxy=socks5h://localhost:7777
+    export https_proxy=socks5h://localhost:7777
     export no_proxy=localhost,127.0.0.1,::1
 
 Now, if you have an active SOCKS connection to the jumphost, you should be 
