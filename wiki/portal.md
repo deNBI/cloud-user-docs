@@ -113,23 +113,33 @@ in the application modal. Once the application is approved the user will have ac
 The development and support of the cloud is possible above all through the funding of the cloud infrastructure by the Federal Ministry of Education and Research (BMBF)! We would highly appreciate the following citation in your next publication(s):
 
 !!! note "" 
-    ‘This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A537B, 031A533A, 031A538A, 031A533B, 031A535A, 031A537C, 031A534A, 031A532B).  
+    ‘This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A537B, 031A533A, 031A538A, 031A533B, 031A535A, 031A537C, 031A534A, 031A532B).
 
 
 
 
 ## Simple VM Project
 
-### Start an Virtual Machine
+### Start a Virtual Machine
 If you are a member of a simple vm project you can start a virtual machine at the "New Instance" tab.
 You may need to reload the website if you can't see the tab.
-Then you can choose your project and fill the form to start an virtual machine.
+Then you can choose your project and fill the form to start a virtual machine.
 
 ![start_vm](img/start_vm.png)
 
-With the optional params you can start the vm with an volume [see](portal.md#create-volume).
+With the optional params you can start the vm with a volume [see](portal.md#create-volume).
 Also if you want to use mosh (see https://mosh.org/ ) you can choose to open UDP ports.
 
+### Connect to your Virtual Machine
+After the virtual machine has been started a modal with connection information is displayed. Alternatively you can find this information in the Instance Overview.
+
+![show_info](img/show_info.png)
+
+Here you can find general information about how to connect to your virtual machine and only if you chose to open UDP ports mosh-connection information is shown too.
+![how_to_modal_closed](img/how_to_modal_closed.png)
+
+Here you can see an example with open UDP ports. A ssh and mosh command is shown.
+![how_to_modal_opened](img/how_to_modal_opened.png)
 
 ### Images
 
