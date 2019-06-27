@@ -51,6 +51,7 @@ nav:
     - 'Security' : Concept/security.md
   - 'Tutorials' :
     - 'Access de.NBI Virtual Machines from Windows 10' : Tutorials/Win10_SSH/index.md
+    - 'Access de.NBI Virtual Machines with Mosh' : Tutorials/Mosh/index.md
     - 'Ansible Automation' : Tutorials/Ansible/index.md
     - 'Bibigrid' : Tutorials/BiBiGrid/index.md
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
