@@ -2,14 +2,13 @@
 Version from 28.06.2019
 
 ### Introduction
-[Mosh](https://mosh.org/) is a tool used to connect from a client computer to a server over the Internet, to run a remote terminal. Mosh is similar to SSH, with additional features meant to improve usability for mobile users. The major features are:
+[Mosh](https://mosh.org/) (short for mobile shell) is a replacement for interactive SSH terminals. It is a remote terminal application which provides some Benefits:
 
-* Mosh maintains its session even when "roams" (when the client endpoint changes to different IP addresses), for example by moving to a different Wi-Fi network or when changing from Wi-Fi to 3G.
-* Mosh maintains the terminal session (not "connection" in the TCP-sense because Mosh uses UDP) even when a user loses their Internet connection or puts their client to "sleep." In comparison, SSH can lose its connection in such cases because TCP times out.
-* Mosh client attempts to be responsive to keyboard events (typing, erasing characters with the delete key, and so on) without waiting for network lag. It uses an adaptive system that predicts whether the application running on the server will decide to echo the user's keystrokes or deletions.  
+* Mosh automatically roams as you move between Internet connections. Use Wi-Fi on the train, Ethernet in a hotel, and LTE on a beach: you'll stay logged in.
+* With Mosh, you can put your laptop to sleep and wake it up later, keeping your connection intact. If your Internet connection drops, Mosh will warn you — but the connection resumes when network service comes back.
+* Mosh gives an instant response to typing, deleting, and line editing. It does this adaptively and works even in full-screen programs like emacs and vim. On a bad connection, outstanding predictions are underlined so you won't be misled.  
 
-Source:[Wikipedia](https://en.wikipedia.org/wiki/Mosh_(software))
-
+For more information visit the [Mosh Homepage](https://mosh.org/)
 #### Prerequisites
 To follow this Tutorial, you need Ubuntu on your computer and you have to be a member of a SimpleVM project. If this is not the case, you can find information on how to apply in the "New Application Tab" in the Cloud Portal or in the Portal Tab in this Wiki.  
 Further, we chose an Ubuntu 18.04 LTS image in the "New Instance" Tab for our virtual machine.  
