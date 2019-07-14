@@ -41,7 +41,13 @@ extra_javascript:
 nav:
   - 'Home' : index.md
   - 'Registration' : registration.md
-  - 'Portal' : portal.md
+  - 'Portal' : 
+    - 'Allocation': Portal/allocation.md
+    - 'Modification': Portal/modification.md
+    - 'Project Overview': Portal/project_overview.md
+    - 'Simple VM Project': Portal/simple_vm_project.md
+    - 'Volumes': Portal/volumes.md
+    - 'Snapshots': Portal/snapshots.md
   - 'OpenStack Quickstart' : quickstart.md
   - 'Concept' : 
     - 'OpenStack Basics' : Concept/basics.md
