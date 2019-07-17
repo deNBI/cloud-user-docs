@@ -15,9 +15,11 @@ Further, we chose an Ubuntu 18.04 LTS image in the "New Instance" Tab for our vi
 In case you operate on a different system and/or choose an other image for your virtual machine, the steps will be generally the same but how to install Mosh is going to differ. Information on how to install Mosh for different operating systems can be found [here](https://mosh.org/#getting).
 
 #### Open UDP Ports
-When starting a virtual machine, you have the option to open UDP ports by clicking on the UDP switch-button which you can find under **Optional Parameters**.
+When starting a virtual machine, you have the option to open UDP ports by clicking on the UDP switch-button which you can find under **Optional Parameters**. 
+
 ![UDP_ON](images/udp_on.png)
-You need to turn on UDP Ports, otherwise Mosh will not be working!
+
+As Mosh uses UDP to establish a SSH connection (SSH requires TCP), UDP has to be enabled when creating the virtual machine. You need to turn on UDP Ports, otherwise Mosh will not be working! 
 
 #### Install Mosh on your Computer
 Before you can connect to your virtual machine by using Mosh, you need to install Mosh on your computer and on your virtual machine. In the following we will show you how to install Mosh on Ubuntu. If you have a different operating system e.g. macOS, Android, iOS or Windows, you can find further information [here](https://mosh.org/#getting).
@@ -49,9 +51,12 @@ Now, if you have installed Mosh on your computer and on your VM, you can exit yo
 #### Connect to your Virtual Machine with Mosh
 Next to the How to connect to your vm tab, you can find a Mosh Connection Info tab. As we already executed Step 1 and Step 2 by following this tutorial, we are interested in the mosh command given in Step 3.
 ![CONNECTION INFO](images/connect_info.png)
+
 In our case we have to run
 ```
 mosh -ssh="ssh -p 30024 -i PATH_TO_MY_KEY" -p 30080 ubuntu@129.70.51.75
 ```
-and are connected to our virtual machine via Mosh.
+and are connected to our virtual machine via Mosh. The first -p <portnumber> is the TCP port (for SSH) and the second -p <portnumber> after the "PATH_TO_MY_KEY") is the UDP port (for Mosh).
+
 ![CONNECT WITH MOSH](images/connect_with_mosh.png)
+
