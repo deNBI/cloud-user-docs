@@ -16,8 +16,10 @@ rsync
 2.2 usage
 
 3. sshfs
-3.1 installation
+3.1 installation in deNBI Cloud
 3.2 usage
+connection1: sshfs installed remotely, local FS mounted on remote VM
+connection2: sshfs installed locally, remote FS mounted on local machine
 
 4. sftp
 4.1 installation
