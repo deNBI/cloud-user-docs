@@ -21,22 +21,29 @@ Linux shippes SSH with SCP by default.
 ### Usage
 The usage is quite simple. To copy a file TO the remote machine use:
 
-   scp -i <id-file> -P <port> <file> <user>@<IP>:<path>
+```
+scp -i <id-file> -P <port> <file> <user>@<IP>:<path>
+```
 
 Example:
 This will connect to server 111.222.333.444 at port 30000 and will copy the local file data.csv from your local working directory  to the remote machine as analysis/input/data.csv
 
-   scp -i mykeyfile -P 30000 data.csv ubuntu@111.222.333.444:analysis/input/data.csv
+```
+scp -i mykeyfile -P 30000 data.csv ubuntu@111.222.333.444:analysis/input/data.csv
+```
 
 To copy a file FROM the remote machine use:
 
-   scp -i <id-file> -P <port> <user>@<IP>:<path> <file>
+```
+scp -i <id-file> -P <port> <user>@<IP>:<path> <file>
+```
 
 Example:
 This will connect to server 111.222.333.444 at port 30000 and will copy the remote file analysis/input/data.csv to your local working directory as file data.csv
 
-   scp -i mykeyfile -P 30000 ubuntu@111.222.333.444:analysis/input/data.csv data.csv 
-
+```
+scp -i mykeyfile -P 30000 ubuntu@111.222.333.444:analysis/input/data.csv data.csv 
+```
 
 ## SSHFS
 SSHFS allows to mount a remote file system like a normal file system. The benefits of using SSHFS is that the file system remains available as long it is mounted. Furthermore, as the remote file system is mounted like a normal local file system, you can work on remote files like you work with local files by using default file access and transfer tools like ls, cp and mv. You basically don't have to think about if a file is on a remote or on a local machine. Furthermore modern graphical file managers like Nautilus, Thunar etc. recognize the mounted file system so you can access the remote file system with the graphical file manager.
@@ -48,28 +55,40 @@ Option 1: Install SSHFS on your local machine and mount the remote file system o
 
 Option 2: Install SSHFS in the remote virtual machine in the Cloud and mount the file system from the local machine in the remote virtual machine. This option allows the benefits of using SSHFS on local machines which do not allow the installation of software or mounting of file systems. We will focus on this option in this tutorial.
 
+In general SSHFS is installed via:
+
+```
+sudo apt install sshfs
+```
+
 ### Usage
 First we need to install SSHFS on the remote virtual machine
 
-   sudo apt install sshfs
-
 We create a directory as a mount point from which the mounted file system will be available. You can choose any direcotry name, but here we call it remotefs.
 
-   mkdir remotefs
+```
+mkdir remotefs
+```
 
 Now we can mount the remote file system with SSHFS. The general command looks lie this:
 
+```
 sshfs <user>@<hostname>:</absolute/path/to/remote/directory> <mountpoint> -o IdentityFile=</absolute/path/to/identity_file> -p <portnumber>
+```
 
 Let's try a real world example: You want to access your local data directory /home/localuser/analysis by mounting it in the remote virtual machine in the directory /home/ubuntu/analysis . 
 
-   sshfs user@111.222.333.444:/home/user/analysis remotefs -p 30000
+```
+sshfs user@111.222.333.444:/home/user/analysis remotefs -p 30000
+```
 
 In this case sshfs will ask for local-user's password. In case you allowed connecting with a public/private key you have to provide the public key with -o IdentityFile=/home/ubuntu/mykeyfile . It is important to give the absolute path to the public key file.
 
 To unmount the mounted file system use this command
 
-   fusermount -u <mountpoint>
+```
+fusermount -u <mountpoint>
+```
 
 Hint: If you mounted the remote file system in a subdirectory like subdir/remotefs you have to give the same path to fusermount to unmount it (e.g. fusermount -u subdir/remotefs )
 
@@ -83,7 +102,9 @@ Rsync is installed by default on most Linux systems.
 #### Usage
 Rsync has to insstalled on the local and the remote machines in order to work. To copy the content of a local directory to a remote directory via rsync using SSH use this command:
 
-    rsync -avu --progress --port=<port> -e ssh <user>@<IP>:/local/dir1/ /remote/dir2/
+```
+rsync -avu --progress --port=<port> -e ssh <user>@<IP>:/local/dir1/ /remote/dir2/
+```
 
 The trailing slash (/) at the end of dir1 tells rsync to copy the content of dir1 to dir2 without creating dir1 inside of dir2. In case you want to create dir1 with all its content in dir2 remove the trailing slash behind dir1 (so it will look like this: /local/dir1 ).
 
