@@ -12,8 +12,8 @@ There are different tools for copying files from/to the de.NBI Cloud each for di
 ## SCP
 Secure Copy (SCP) is, as you already guessed, a command line tool for copying files from/to remote devices. It is based on the Secure Shell (SSH), which you probably already used to connect to your virtual machine.
 
-## Installation
-### Linux
+### Installation
+#### Linux
 Typically SCP is installed with SSH, which is installed by default by most distributions.
 
 ### Windows
