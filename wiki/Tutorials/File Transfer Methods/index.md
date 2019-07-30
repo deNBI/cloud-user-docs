@@ -4,11 +4,11 @@ At some point you want to use your own data in the de.NBI Cloud or you would lik
 ## Different tools for different use cases
 There are different tools for copying files from/to the de.NBI Cloud each for different use cases. Under Linux you can choose between different comman line tools. Some of them can also be used with a graphical user interface (GUI) by using a file manager. For Windows users it may be best to use a GUI tool like [WinSCP](https://winscp.net/eng/index.php). This tutorial will cover the following Linux tools:
 
-* scp -- secure copy (remote file copy program)
+* [scp](#SCP) -- secure copy (remote file copy program)
 * sshfs -- filesystem client based on ssh 
 * rsync -- a fast, versatile, remote (and local) file-copying tool 
 
-## SCP -- secure copy (remote file copy program)
+## <a name="SCP"></a> SCP -- secure copy (remote file copy program)
 Secure Copy (SCP) is, as you already guessed, a command line tool for copying files from/to remote devices. It is based on the Secure Shell (SSH), which you already used to connect to your virtual machine. SCP will establish a connection to the remote machine, transfer the file(s) and close the connection afterwards. If you want to transfer more files you have to start SCP again.
 
 ### Installation
@@ -45,7 +45,7 @@ This will connect to server ``111.222.333.444`` at port ``30000`` using the publ
 scp -i mykeyfile -P 30000 ubuntu@111.222.333.444:analysis/input/data.csv data.csv 
 ```
 
-## SSHFS -- filesystem client based on ssh 
+## <a name="SSHFS"></a> SSHFS -- filesystem client based on ssh 
 SSHFS allows to mount a remote file system like a normal file system. The benefits of using SSHFS is that the file system remains available as long it is mounted. Furthermore, as the remote file system is mounted like a normal local file system, you can work on remote files like you work with local files by using default file access and transfer tools like ``ls``, ``cp`` and ``mv``. You basically don't have to think about if a file is on a remote or on a local machine. Furthermore modern graphical file managers like Nautilus, Thunar etc. recognize the mounted file system so you can access the remote file system with the graphical file manager.
 
 ### Installation
@@ -93,17 +93,17 @@ fusermount -u <mountpoint>
 Hint: If you mounted the remote file system in a subdirectory like ``subdir/remotefs`` you have to give the same path to fusermount to unmount it (e.g. ``fusermount -u subdir/remotefs``)
 
 
-### RSYNC -- a fast, versatile, remote (and local) file-copying tool 
+### <a name="Rsync"></a> RSYNC -- a fast, versatile, remote (and local) file-copying tool 
 Rsync allows synchronization of two directories, e.g. a local and a remote directory. It checks for the differences between the directories and only transfers the differences which speeds up the file transfer a lot. Furthermore, the data can be compressed before transfer, to speed up the transfer. This feature renders Rsync perfect for frequent file transfers of large directories or backup purposes. Rsync offers a large number of options as it is a very powerfull tool. Here we only describe the basics for a very simple file transfer between a local and a remote machine. Please see the manual page for a complete list of options (``man rsync``).
 
 #### Installation
 Rsync is installed by default on most Linux systems.
 
 #### Usage
-Rsync has to insstalled on the local and the remote machines in order to work. To copy the content of a local directory to a remote directory via rsync using SSH use this command:
+Rsync has to insstalled on the local and the remote machines in order to work. To copy the content of a local directory to a remote directory via Rsync using SSH use this command:
 
 ```
-rsync -avu --progress --port=<port> -e ssh <user>@<IP>:/local/dir1/ /remote/dir2/
+rsync -avu --progress --port=<port> -e ssh /local/dir1/ <user>@<IP>:/remote/dir2/ 
 ```
 
 The trailing slash (``/``) at the end of ``dir1`` tells Rsync to copy the content of ``dir1`` to ``dir2`` without creating ``dir1`` inside of ``dir2``. In case you want to create ``dir1`` with all its content inside ``dir2`` remove the trailing slash behind ``dir1`` (so it will look like this: ``/local/dir1``).
@@ -115,6 +115,12 @@ The parameters used are:
     ``--progress`` show file transfer progress
     ``--port=<port>`` define the port number to use
     ``-e ssh`` tell rsync to connect via SSH
+
+To copy data from a remote machine to a local machine use:
+
+```
+rsync -avu --progress --port=<port> -e ssh <user>@<IP>:/remote/dir1/ /local/dir2/
+```
 
 In some cases Rsync is not installed in the default installation path. In this case you have to tell where Rsync is installed on the remote machine with ``--rsync-path=/path/to/rsync``. 
 By default Rsync will delete files on the receiver side before any files are transfered. Rsync has very delicate options to delete files under different circumstances which cannot be covered in this tutorial. In case you are unsure what data will be transfered and/or deleted  you can start a trial run with the option ``--dry-run``.
