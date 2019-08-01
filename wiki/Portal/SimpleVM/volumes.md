@@ -1,6 +1,4 @@
-## Volume
-
-### Create Volume
+## Create Volume
 
 There are two ways to create a volume:
 
@@ -12,9 +10,9 @@ The volume is automatically mounted this way.
 2.At the Volume tab you can choose to create an volume.
 ![create_volume](img/volume.png)
 
-In order to use the Volume you need to [mount](portal.md#mount-a-volume) it.
+In order to use the Volume you need to [mount](volumes.md#mount-a-volume) it.
 
-### Mount a volume
+## Mount a volume
 
 In order to mount a volume connect via ssh to your machine.
 You will find your volume with the command
