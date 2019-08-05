@@ -100,10 +100,11 @@ Rsync allows synchronization of two directories, e.g. a local and a remote direc
 Rsync is installed by default on most Linux systems.
 
 #### Usage
-Rsync has to be installed on the local and the remote machines in order to work. To copy the content of a local directory to a remote directory via Rsync using SSH use this command:
+Rsync has to be installed on the local and the remote machine in order to work. To avoid confusion all commands are entered on the local machine.
+To copy the content of a local directory to a remote directory in the de.NBI Cloud via Rsync using SSH use this command:
 
 ```
-rsync -avu --progress --port=<port> -e "ssh -i mykeyfile" /local/dir1/ <user>@<IP>:/remote/dir2/ 
+rsync -avu --progress -e "ssh -i mykeyfile -p <port>" /local/dir1/ <user>@<IP>:/remote/dir2/ 
 ```
 
 The trailing slash (``/``) at the end of ``dir1`` tells Rsync to copy the content of ``dir1`` to ``dir2`` without creating ``dir1`` inside of ``dir2``. In case you want to create ``dir1`` with all its content inside ``dir2`` remove the trailing slash behind ``dir1`` (so it will look like this: ``/local/dir1``).
@@ -113,13 +114,12 @@ The parameters used are:
     ``-v`` gives a more detailed output
     ``-u`` skip files that are newer on the receiver
     ``--progress`` show file transfer progress
-    ``--port=<port>`` define the port number to use
-    ``-e "ssh -i mykeyfile"`` tell rsync to connect via SSH using a keyfile
+    ``-e "ssh -i mykeyfile -p <port>"`` tell rsync to connect via SSH using a keyfile and port <port>
 
-To copy data from a remote machine to a local machine use:
+To copy data from a virtual machine in the de.NBI cloud to a local machine use:
 
 ```
-rsync -avu --progress --port=<port> -e "ssh -i mykeyfile" <user>@<IP>:/remote/dir1/ /local/dir2/
+rsync -avu --progress -e "ssh -i mykeyfile -p <port>" <user>@<IP>:/remote/dir1/ /local/dir2/
 ```
 
 In some cases Rsync is not installed in the default installation path. In this case you have to tell where Rsync is installed on the remote machine with ``--rsync-path=/path/to/rsync``. 
