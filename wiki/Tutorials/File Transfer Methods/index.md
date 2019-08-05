@@ -110,7 +110,9 @@ rsync -avu --progress -e "ssh -i mykeyfile -p <port>" /local/dir1/ <user>@<IP>:/
 The trailing slash (``/``) at the end of ``dir1`` tells Rsync to copy the content of ``dir1`` to ``dir2`` without creating ``dir1`` inside of ``dir2``. In case you want to create ``dir1`` with all its content inside ``dir2`` remove the trailing slash behind ``dir1`` (so it will look like this: ``/local/dir1``).
 
 The parameters used are:
+
     ``-a`` Archive mode. Copies files recursively and preserves users, groups, symbolic links, file permissions, and timestamps
+
     ``-v`` gives a more detailed output
     ``-u`` skip files that are newer on the receiver
     ``--progress`` show file transfer progress
