@@ -112,7 +112,6 @@ The trailing slash (``/``) at the end of ``dir1`` tells Rsync to copy the conten
 The parameters used are:
 
     ``-a`` Archive mode. Copies files recursively and preserves users, groups, symbolic links, file permissions, and timestamps
-
     ``-v`` gives a more detailed output
     ``-u`` skip files that are newer on the receiver
     ``--progress`` show file transfer progress
