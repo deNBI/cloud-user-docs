@@ -42,13 +42,13 @@ nav:
   - 'Home' : index.md
   - 'Registration' : registration.md
   - 'Portal' : 
-    - 'Allocation': Portal/allocation.md
-    - 'Modification': Portal/modification.md
-    - 'Project Overview': Portal/project_overview.md
+    - 'Allocation': portal/allocation.md
+    - 'Modification': portal/modification.md
+    - 'Project Overview': portal/project_overview.md
     - 'Simple VM': 
-      - 'Project': Portal/SimpleVM/simple_vm_project.md
-      - 'Volumes': Portal/SimpleVM/volumes.md
-      - 'Snapshots': Portal/SimpleVM/snapshots.md
+      - 'Project': portal/SimpleVM/simple_vm_project.md
+      - 'Volumes': portal/SimpleVM/volumes.md
+      - 'Snapshots': portal/SimpleVM/snapshots.md
   - 'OpenStack Quickstart' : quickstart.md
   - 'Concept' : 
     - 'OpenStack Basics' : Concept/basics.md
