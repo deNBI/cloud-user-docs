@@ -31,7 +31,14 @@ markdown_extensions:
   - pymdownx.tilde
 nav:
   - 'Home' : 'index.md'
-  - 'Portal' : portal.md
+  - 'Portal' : 
+    - 'Allocation': Portal/allocation.md
+    - 'Modification': Portal/modification.md
+    - 'Project Overview': Portal/project_overview.md
+    - 'Simple VM': 
+      - 'Project': Portal/SimpleVM/simple_vm_project.md
+      - 'Volumes': Portal/SimpleVM/volumes.md
+      - 'Snapshots': Portal/SimpleVM/snapshots.md
   - 'Registration' : registration.md
   - 'OpenStack Quickstart' : 'quickstart.md'
   - 'Concept' : 

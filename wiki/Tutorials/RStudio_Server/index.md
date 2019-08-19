@@ -7,7 +7,7 @@ Version from 03.12.2018
 This beginner tutorial shows you how to install and run RStudio Server to develop and run your R data analysis on the de.NBI Cloud. This tutorial is meant for beginner users working with the Simple VM for creation of new VM instances.
 
 ## 2. Requirements
-* Member of a Simple VM project in the de.NBI Cloud. More information how to apply for access can be found here: ([https://www.denbi.de/cloud](https://www.denbi.de/cloud), [Project allocation](/portal#allocation) )
+* Member of a Simple VM project in the de.NBI Cloud. More information how to apply for access can be found here: ([https://www.denbi.de/cloud](https://www.denbi.de/cloud), [Project allocation](/portal/allocation/))
 * An already running instance of a virtual machine (VM) in the de.NBI Cloud running on Ubuntu 18.04
 * Access to the de.NBI Cloud via SSH
 
