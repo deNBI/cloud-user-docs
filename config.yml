@@ -60,7 +60,6 @@ nav:
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
     - 'Theia Web IDE': Tutorials/TheiaIde/index.md
     - 'UserData' : Tutorials/UserData/index.md
-    
   - 'FAQ' : 'FAQ.md'
   - 'Compute Center Specific' :
     - 'Giessen' : Compute_Center/Giessen.md
@@ -69,6 +68,7 @@ nav:
     - 'Heidelberg DKFZ' : Compute_Center/Heidelberg-DKFZ.md
     - 'Tuebingen' : Compute_Center/Tuebingen.md
     - 'Freiburg' : Compute_Center/Freiburg.md
+    - 'Berlin' : Compute_Center/Berlin.md
   - 'Cloud Admin':
     - 'Jenkins + Haproxy with JuJu': cloud_admin/juju_jenkins.md
     - 'Configure OpenStack to use Elixir AAI via OpenID Connect': cloud_admin/elixir_OIDC.md 
