@@ -118,7 +118,6 @@ standard users for some common distributions:
  
   - **CentOS**: centos
   - **Ubuntu**: ubuntu
-  - **Debian**: debian
 
 ### Connecting to your VMs directly
 To easily connect directly to your VMs via our jumphost you can configure a 
@@ -133,7 +132,7 @@ ProxyJump inside of your **local ~/.ssh/config**:
       # Send a keep-alive packet to prevent the connection from beeing terminated
       ServerAliveInterval 120
 
-    Host 10.133.24* 10.133.25*
+    Host 172.16.102.* 172.16.103.*
       # Use jumphost as proxy
       ProxyJump denbi-jumphost-01.bihealth.org
       # Use your ssh-key file
@@ -147,7 +146,7 @@ introduced in OpenSSH version 7.3.
 You now should be able to connect to your VM directly using the floating ip 
 address:
 
-    ssh centos@10.133.2xx.xxx
+    ssh centos@172.16.10x.xxx
     
 ## File transfer into the de.NBI cloud
 In case you want to transfer local data into the cloud you can use rsync, scp,
@@ -180,7 +179,7 @@ Add the following lines to your **local ~/.ssh/config**:
       ServerAliveInterval 120
       
     # Access to de.NBI cloud floating IP networks via SOCKS Proxy
-    Host 10.133.24* 10.133.25*
+    Host 172.16.102.* 172.16.103.*
       # Tunnel all requests through dynamic SOCKS proxy
       ProxyCommand /usr/bin/socat - socks4a:localhost:%h:%p,socksport=7777
       # Use your ssh-key file
@@ -195,7 +194,7 @@ long as you have this connection open you can directly connect to one of your
 VMs from another terminal by specifying the username and ip address without 
 the need to first connect to the jumphost:
 
-    ssh centos@10.133.2xx.xxx
+    ssh centos@172.16.10x.xxx
 
 ### Using the OpenStack API
 First, you will need to request a password to use the OpenStack API, 
