@@ -52,7 +52,7 @@ This tutorial targets users running BiBigrid on the de.NBI cloud. Depending on t
 
 #### Java Opts
 
-The cloud sites Berlin, DKFZ and Heidelberg have some restrictions accessing their openstack API and also running instances. All traffic must be tunneled through a socks proxy. See cloud-site specific informations in de.NBI cloud wiki how to set up a socks proxy on your system. The REST API BiBiGrid uses to communicate with Openstack supports also a socks proxy. If your socks proxy is configured to run on localhost port 7777 you have to call java with some additional options as follows.
+The cloud sites Berlin, DKFZ and Heidelberg have some restrictions accessing their openstack API and also running instances. All traffic must be tunneled through a socks proxy. See cloud-site specific informations in de.NBI cloud wiki on how to set up a socks proxy on your system. The REST API BiBiGrid uses, for communication with OpenStack, also a socks proxy. If your socks proxy is configured to run on localhost port 7777, you have to call java with some additional options as follows:
 
 ```
 export JAVA_OPTS="-DsocksProxyHost=localhost -DsocksProxyPort=7777 -DproxySet=true"
@@ -64,7 +64,7 @@ java ${JAVA_OPTS} -jar bibigrid ...
 
 #### Template
 
-Use the [template](resources/bibigrid-tutorial.yml) as base for a BiBiGrid configuration. You can use the openstack cli or access openstack dashboard to fetch the necessary informations from your cloud site/project.
+Use the [template](resources/bibigrid.yml) as base for a BiBiGrid configuration. You can use the openstack cli or access openstack dashboard to fetch the necessary informations from your cloud site/project.
 
 
 ### Credentials
