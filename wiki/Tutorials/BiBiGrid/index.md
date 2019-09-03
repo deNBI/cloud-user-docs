@@ -59,7 +59,7 @@ java ${JAVA_OPTS} -jar bibigrid ...
 
 #### Template
 
-Use the [template](resources/bibigrid-tutorial.yml) as base for a BiBiGrid configuration. You can use the openstack cli or access openstack dashboard to fetch the necessary informations from your cloud site/project.
+Use the [template](resources/bibigrid.yml) as base for a BiBiGrid configuration. You can use the openstack cli or access openstack dashboard to fetch the necessary informations from your cloud site/project.
 
 
 ### Credentials
