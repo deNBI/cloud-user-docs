@@ -43,7 +43,6 @@ BiBiGrid is an open source tool hosted at github for an easy cluster setup insid
 
 ## Configuration
 
-<<<<<<< HEAD
 The goal of this session is to setup a small HPC cluster consisting of 3 nodes  (1 master, 2 workers) with basic service on top of Ubuntu 18.04 using BiBiGrid. 
 Basic Services means BiBiGrid provides a shared file system between all nodes and setup a Slurm cluster. For easy access we also install Theia (a Web-IDE).
 
