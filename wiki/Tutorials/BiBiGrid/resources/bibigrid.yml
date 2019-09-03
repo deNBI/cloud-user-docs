@@ -1,0 +1,37 @@
+mode: openstack
+
+# CREDENTIALS
+
+credentialsFile:
+
+# ACCESS
+keypair: 
+sshPublicKeyFile: 
+sshPrivateKeyFile: 
+
+sshUser: ubuntu
+region: 
+availabilityZone: 
+
+subnet: 
+
+# Enable if DNS is not available 
+localDNSLookup: no 
+
+masterInstance:
+  type: de.NBI mini 
+  image: 
+
+workerInstances:
+  - type: de.NBI tiny 
+    image: 
+    count: 2 
+
+
+useMasterAsCompute: yes 
+
+#Services
+slurm: yes
+nfs: yes
+theia: yes
+
