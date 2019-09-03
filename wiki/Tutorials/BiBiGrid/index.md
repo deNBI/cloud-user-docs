@@ -263,9 +263,9 @@ sleep 10
 
 `chmod u+x helloworld.sh`
 
-- Submit this script to each node: ` qsub -cwd -t 1-4 -pe multislot 2 helloworld.sh`
-- See the status of our cluster: `qhost`
-- See the output: `cat helloworld.sh.o.*`
+- Submit this script as array job 50 times : `sbatch --array=1-50 --job-name=helloworld hello-world.sh `
+- See the status of our cluster: `squeue`
+- See the output: `cat slurm-*.out`
 
 ## Terminate a cluster
 
