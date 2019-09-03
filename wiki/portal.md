@@ -120,6 +120,17 @@ The development and support of the cloud is possible above all through the fundi
 
 ## Simple VM Project
 
+### Start an Virtual Machine
+If you are a member of a simple vm project you can start a virtual machine at the "New Instance" tab.
+You may need to reload the website if you can't see the tab.
+Then you can choose your project and fill the form to start an virtual machine.
+
+![start_vm](img/start_vm.png)
+
+With the optional params you can start the vm with an volume [see](portal.md#create-volume).
+Also if you want to use mosh (see https://mosh.org/ ) you can choose to open UDP ports.
+
+
 ### Images
 
 #### X2Go Image
@@ -150,7 +161,23 @@ Provide the data in the red rectangle in the settings of your x2go client:
 
 You also have to select the session type and the private key of your public ssh key that you provided in the user information tab.
 
-## Mount a volume
+## Volume
+
+### Create Volume
+
+There are two ways to create a volume:
+
+1.When starting a virtual machine you can choose to start a volume when selecting optional params.
+![create_volume_vm](img/volume_vm.png)
+
+The volume is automatically mounted this way.
+
+2.At the Volume tab you can choose to create an volume.
+![create_volume](img/volume.png)
+
+In order to use the Volume you need to [mount](portal.md#mount-a-volume) it.
+
+### Mount a volume
 
 In order to mount a volume connect via ssh to your machine.
 You will find your volume with the command

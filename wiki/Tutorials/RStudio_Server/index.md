@@ -38,7 +38,7 @@ echo -e "deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/ \n" | s
 Now we add the GPG key from R CRAN repository to allow downloading from the R repository
 
 ```
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9 
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E084DAB9
 ```
 
 It’s time to update your software repositories to get the latest R version

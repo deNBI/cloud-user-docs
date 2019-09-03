@@ -34,6 +34,10 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
+  
+extra_javascript:
+  - matomo.js
+  
 nav:
   - 'Home' : index.md
   - 'Registration' : registration.md
@@ -52,13 +56,16 @@ nav:
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
     - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
-    - 'UserData' : Tutorials/UserData/index.md
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
+    - 'Theia Web IDE': Tutorials/TheiaIde/index.md
+    - 'UserData' : Tutorials/UserData/index.md
+    
   - 'FAQ' : 'FAQ.md'
   - 'Compute Center Specific' :
     - 'Giessen' : Compute_Center/Giessen.md
     - 'Bielefeld' : Compute_Center/Bielefeld.md
-    - 'Heidelberg' : Compute_Center/Heidelberg.md
+    - 'Heidelberg Uni' : Compute_Center/Heidelberg.md
+    - 'Heidelberg DKFZ' : Compute_Center/Heidelberg-DKFZ.md
     - 'Tuebingen' : Compute_Center/Tuebingen.md
     - 'Freiburg' : Compute_Center/Freiburg.md
   - 'Cloud Admin':

@@ -1,4 +1,4 @@
-## Saving up on FloatingIPs for your Project!”
+# Saving up on FloatingIPs for your Project!
 
 
 ## Overview
@@ -75,18 +75,18 @@ After successfull running our test environment we now write an user-data script 
 2. get the CIDR mask from the metadata service
 3. enable IP forwarding
 4. add forwarding rules for ssh (Port 22), http (Port 80) and https (Port 443) for each available ip address (1 ... 254)
-5. create a new security group that opens ports 30000-30765
+5. create a new security group that opens ports 30000-30255, 31000-31255 and 32000-32255
 
 The full script could look like the following:
 
 ```
 #!/bin/bash
 function check_service {
-  /bin/nc ${1} ${2} </dev/null 2>/dev/null
+  /bin/nc -z ${1} ${2} 2>/dev/null
   while test $? -eq 1; do
-    log "wait 10s for service available at ${1}:${2}"
+    echo "wait 10s for service available at ${1}:${2}"
     sleep 10
-    /bin/nc ${1} ${2} </dev/null 2>/dev/null
+    /bin/nc -z ${1} ${2}  2>/dev/null
   done
 }
 
@@ -105,18 +105,18 @@ LOCALNET=$( echo ${LOCALIP} | cut -f 1-3 -d".")
 echo "1" > /proc/sys/net/ipv4/ip_forward
 
 # Map port number to local ip-address
-# 30000+x*3+0 -> LOCALNET.0+x:22
-# 30001+x*3+1 -> LOCALNET.0+x:80
-# 30002+x*3+2 -> LOCALNET.0+x:443
+# 30000+x -> LOCALNET.0+x:22
+# 31000+x -> LOCALNET.0+x:80
+# 32000+x -> LOCALNET.0+x:443
 # x > 0 and x < 255
 
 
 #ip forwarding rules
 for ((n=1; n <=254; n++))
         {
-        SSH_PORT=$((30000+$n*3))
-        HTTP_PORT=$((30001+$n*3))
-        HTTPS_PORT=$((30002+$n*3))
+        SSH_PORT=$((30000+$n))
+        HTTP_PORT=$((31000+$n))
+        HTTPS_PORT=$((32000+$n))
 
         iptables -t nat -A PREROUTING -i ens3 -p tcp -m tcp --dport ${SSH_PORT} -j DNAT --to-destination ${LOCALNET}.${n}:22
         iptables -t nat -A POSTROUTING -d ${LOCALNET}.${n}/32 -p tcp -m tcp --dport 22 -j SNAT --to-source ${LOCALIP}

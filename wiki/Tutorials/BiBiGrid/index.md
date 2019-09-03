@@ -2,10 +2,12 @@
 
 ### Prerequisites
 
+
 - Java 8+ (required)
 - Openstack API access (required)
 - Openstack CLI installed (recommend)
 - git & maven 3.3+ (required to build from sources)
+
 
 ## Build from sources
 
@@ -16,6 +18,7 @@
 
 
 ## Download Binary
+
 
 If you don't want to build the client from sources you can [download a prebuilt binary](http://bibiserv.cebitec.uni-bielefeld.de/resources/bibigrid). It is always recommend to choose the latest one.
 
@@ -40,10 +43,12 @@ BiBiGrid is an open source tool hosted at github for an easy cluster setup insid
 
 ## Configuration
 
+<<<<<<< HEAD
 The goal of this session is to setup a small HPC cluster consisting of 3 nodes  (1 master, 2 workers) with basic service on top of Ubuntu 18.04 using BiBiGrid. 
 Basic Services means BiBiGrid provides a shared file system between all nodes and setup a Slurm cluster. For easy access we also install Theia (a Web-IDE).
 
 This tutorial targets users running BiBigrid on the de.NBI cloud. Depending on the cloud site (Berlin, Bielefeld, DKFZ, Giessen, Heidelberg or Tübingen) the usage of BiBiGrid differs a bit.
+
 
 #### Java Opts
 
@@ -112,6 +117,7 @@ $ openstack availability zone list
 ### Network
 If you have the permissions to create networks, BiBiGrid offers the possibility to  create a new private network connected to an existing router. For our tutorial we work on an existing *subnet*. Determine the subnet name or id using the cli.
 
+
 ```
 $ openstack subnet list
 ```
@@ -128,6 +134,7 @@ $ openstack image list
 ```
 
 ... and add it to the master/worker configuration.
+
 
 #### master
 
@@ -184,6 +191,7 @@ or in debug mode:
 Starting with blank Ubuntu 18.04 images takes up to 20 minutes to finish, depending on the cloud performance and bibigrid configuration.
 
 
+
 ## Good to know
 
 - `/vol/spool` -> shared filesystem between all nodes.
@@ -231,9 +239,11 @@ The command returns an informative list about all your running clusters.
 
 If the theia option is enabled in the configuration, theia will be run as systemd service on localhost. For security reasons, theia is not binding to a standard network device. A valid certificate and some kind of authentication is needed to create a safe connection, which is not that easy in a dynamic cloud environment. 
 
+
 However, Bibigrid has the possibility to open a ssh tunnel from the local machine to bibigrids master instance and open up a browser window/tab running theia web ide. 
 
 `java -jar bibigrid-openstack-<version>.jar --ide <clusterid>`
+
 
 
 
@@ -263,7 +273,6 @@ sleep 10
 Terminating a running cluster is quite simple :
 
 `java -jar bibigrid-openstack-<version>.jar -t <clusterid>`
-
 
 
 ## Attaching a volume to a running cluster
