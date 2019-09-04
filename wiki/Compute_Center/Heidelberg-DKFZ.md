@@ -134,7 +134,7 @@ ProxyJump inside of your **local ~/.ssh/config**:
       ServerAliveInterval 120
 
     Host 10.133.24* 10.133.25*
-      # Use jumphost as proxy
+      # Use jumphost as proxy (implies ForwardAgent)
       ProxyJump denbi-jumphost-01.denbi.dkfz-heidelberg.de
       # Use your ssh-key file
       IdentityFile YOUR-SSH-KEY-FILE
@@ -143,6 +143,25 @@ ProxyJump inside of your **local ~/.ssh/config**:
 
 Please make sure that your local ssh-client is up to date, ProxyJump was 
 introduced in OpenSSH version 7.3.
+
+You can use the ssh-agent to forward the ssh key to the target host. First, check that ssh-agent is running:
+
+    > eval `ssh-agent -s`
+    Agent pid 14655
+
+Then, check that your key is known by the agent (in this case, it has none):
+
+    > ssh-add -l
+    The agent has no identities.
+
+Add your denbi cloud key to the ssh-agent:
+
+    > ssh-add YOUR-SSH-KEY-FILE
+
+If your key is protected by a passphrase, you will have to enter it now:
+
+    Enter passphrase for YOUR-SSH-KEY-FILE: 
+    Identity added: YOUR-SSH-KEY-FILE (YOUR-SSH-KEY-FILE)
 
 You now should be able to connect to your VM directly using the floating ip 
 address:
