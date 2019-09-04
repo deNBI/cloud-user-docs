@@ -134,12 +134,10 @@ ProxyJump inside of your **local ~/.ssh/config**:
       ServerAliveInterval 120
 
     Host 10.133.24* 10.133.25*
-      # Use jumphost as proxy
+      # Use jumphost as proxy (implies ForwardAgent)
       ProxyJump denbi-jumphost-01.denbi.dkfz-heidelberg.de
       # Use your ssh-key file
       IdentityFile YOUR-SSH-KEY-FILE
-      # uncomment the following line to forward your ssh agent to the jump host
-      # ForwardAgent yes
       # Send a keep-alive packet to prevent the connection from beeing terminated
       ServerAliveInterval 120
 
