@@ -80,7 +80,13 @@ Download a [template](resources/credentials.yml) as base for your own credential
 
 ![API_Access](images/api-access.png)
 
-The *endpoint* needed is the identity API endpoint, which is used to ask Openstack for all other public API endpoints. The *domain* and *tentantdomain* values are for de.NBI projects normally the same  and is for all cloud sites 'elixir'. Make sure that the credentials file can only be read by yourself (especially in a multi user environment).
+The *endpoint* needed is the identity API endpoint, which is used to ask Openstack for all other public API endpoints. BiBigrid uses Version 3 of the API, you have to add the suffix `/v3` to identity API endpoint, e.g.
+
+`
+https://cloud.denbi.dkfz.de:13000/v3
+`
+
+  The *domain* and *tentantdomain* values are for de.NBI projects normally the same  and is for all cloud sites 'elixir'. Make sure that the credentials file can only be read by yourself (especially in a multi user environment).
 
 
 ### Access
@@ -225,7 +231,7 @@ to check if there are 3 execution nodes available.
 
 Since it is possible to start more than one cluster at once, it is possible to list all running clusters: 
 
-`java -jar bibigrid-openstack-<version>.jar -l`
+`java -jar bibigrid-openstack-<version>.jar -o bibigrid.yml -l`
 
 The command returns an informative list about all your running clusters.
 
@@ -241,7 +247,7 @@ If the theia option is enabled in the configuration, theia will be run as system
 
 However, Bibigrid has the possibility to open a ssh tunnel from the local machine to bibigrids master instance and open up a browser window/tab running theia web ide. 
 
-`java -jar bibigrid-openstack-<version>.jar --ide <clusterid>`
+`java -jar bibigrid-openstack-<version>.jar -o bibigrid.yml --ide <clusterid>`
 
 
 
@@ -271,7 +277,7 @@ sleep 10
 
 Terminating a running cluster is quite simple :
 
-`java -jar bibigrid-openstack-<version>.jar -t <clusterid>`
+`java -jar bibigrid-openstack-<version>.jar -o bibigrid.yml -t <clusterid>`
 
 
 ## Attaching a volume to a running cluster
