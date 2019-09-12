@@ -166,7 +166,7 @@ dashboard to get information about the complete mount path. Under the
 **Export locations** section, please choose the **Path** starting with 
 isiloncl1-487:
      
-     isiloncl1-487.denbi.bioquant.uni-heidelberg.de:/ifs/denbi/manila-prod/share-123456789
+    isiloncl1-487.denbi.bioquant.uni-heidelberg.de:/ifs/denbi/manila-prod/share-123456789
 
 You can mount the share with the following command:
 
@@ -215,6 +215,26 @@ ProxyJump inside of your **local ~/.ssh/config**:
 
 Please make sure that your local ssh-client is up to date, ProxyJump was 
 introduced in OpenSSH version 7.3.
+
+You can use the ssh-agent to forward the ssh key to the target host. First
+, check that ssh-agent is running:
+
+    eval `ssh-agent -s`
+    Agent pid 14655
+
+Then, check that your key is known by the agent (in this case, it has none):
+
+    ssh-add -l
+    The agent has no identities.
+
+Add your denbi cloud key to the ssh-agent:
+
+    ssh-add YOUR-SSH-KEY-FILE
+
+If your key is protected by a passphrase, you will have to enter it now:
+
+    Enter passphrase for YOUR-SSH-KEY-FILE: 
+    Identity added: YOUR-SSH-KEY-FILE (YOUR-SSH-KEY-FILE)
 
 You now should be able to connect to your VM directly using the floating ip 
 address:
