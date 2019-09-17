@@ -1,5 +1,5 @@
 # File Transfer from/to de.NBI Cloud
-At some point you want to use your own data in the de.NBI Cloud or you would like to copy the results from your cloud computation to your local device. Here we present different ways to copy data from or to the de.NBI Cloud.
+At some point you want to use your own data in the de.NBI Cloud or you would like to copy the results from your cloud computation to your local device. Here we present different ways to copy data from or to the de.NBI Cloud. This tutorial is meant for users of the simplified cloud access portal SimpleVM. In SimpleVM a connection to the VM is made via an IP-Adress and a Portnumber. Therefore your have to always specify the port number which is used to connect to the VM. de.NBI Cloud users which access their VMs via OpenStack directly connect to the default SSH port 22 which can be omitted.
 
 ## Different tools for different use cases
 There are different tools for copying files from/to the de.NBI Cloud each for different use cases. Under Linux you can choose between different comman line tools. Some of them can also be used with a graphical user interface (GUI) by using a file manager. For Windows users it may be best to use a GUI tool like [WinSCP](https://winscp.net/eng/index.php). This tutorial will cover the following Linux tools:
