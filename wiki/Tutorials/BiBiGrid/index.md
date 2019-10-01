@@ -84,8 +84,8 @@ This might differ a bit depending on which cloud site your are working on. The s
 
 
 ### Access
-Since version version 2.0.9 BiBigrid uses so called *One-Time ssh key pairs*  to connect to your cluster. For every started cluster a new key pair is generated and registered at Openstack. The keys are stored in 
-`${HOME}/.bibigrid/keys` as long the cluster is running.
+Since version version 2.0.9 BiBigrid uses so called *One-Time ssh key pairs*  to connect to your cluster. For every started cluster, a new key pair is generated and registered in Openstack. The keys are stored in 
+`${HOME}/.bibigrid/keys` as long as the cluster is running.
 
 #### additional public ssh key (optional)
 
@@ -129,18 +129,18 @@ $ openstack availability zone list
 ```
 
 ### Network
-If you have the permissions to create networks, BiBiGrid offers the possibility to  create a new private network connected to an existing router. For our tutorial we work on an existing *subnet*. Determine the subnet name or id using the cli.
+If you have the permissions to create networks, BiBiGrid offers the possibility to create a new private network, which is connected to an existing router. For our tutorial we work on an existing *subnet*. Determine the subnet name or id using the Command Line Tools.
 
 
 ```
 $ openstack subnet list
 ```
 
-Depending on the de.NBI cloud site we have to enable the `localDNSLookup` feature. Some cloud sites do not offer a full DNS service for instances (local instances can't be resolved), this is currently the case in **Berlin**, **DKFZ**, **Heidelberg** and **Tuebingen**.
+Depending on the de.NBI cloud site, we have to enable the `localDNSLookup` feature. Some cloud sites do not offer a full DNS service for instances (local instances can't be resolved), this is currently the case in **Berlin**, **DKFZ**, **Heidelberg** and **Tuebingen**.
 
-The network setup at  **Tuebingen** differs from the other cloud sites, not supporting Openstack self-service networks. The network is preconfigured and every instance gets a floating ip. 
+The network setup at **Tuebingen** differs from the other cloud sites, not supporting Openstack self-service networks. The network is preconfigured and every instance gets a floating ip. 
 
-BiBigrid takes care of this not adding an additional floating ip to the master node (which will not work). We have to disable the `useMasterWithPublicIp` option, when running BiBiGrid at **Tuebingen**.
+BiBiGrid takes care of this by not adding an additional floating ip to the master node (which will not work). We have to disable the `useMasterWithPublicIp` option, when running BiBiGrid at **Tuebingen**.
 
  
 ### Instances 
