@@ -49,9 +49,9 @@ Basic Services means BiBiGrid provides a shared file system between all nodes an
 This tutorial targets users running BiBigrid on the de.NBI cloud. Depending on the cloud site (Berlin, Bielefeld, DKFZ, Giessen, Heidelberg or Tübingen) the usage of BiBiGrid differs a bit.
 
 
-#### Java Opts
+#### Additional prerequisites for Berlin, DKFZ and Heidelberg  
 
-The cloud sites Berlin, DKFZ and Heidelberg have some restrictions accessing their openstack API and also running instances. All traffic must be tunneled through a socks proxy. See cloud-site specific informations in de.NBI cloud wiki on how to set up a socks proxy on your system. The REST API BiBiGrid uses, for communication with OpenStack, also a socks proxy. If your socks proxy is configured to run on localhost port 7777, you have to call java with some additional options as follows:
+The cloud sites Berlin, DKFZ and Heidelberg have some restrictions accessing their openstack API and also running instances. All traffic must be tunneled through a socks proxy. See cloud-site specific informations in de.NBI cloud wiki fon how to set up a socks proxy on your system. The REST API of BiBiGrid uses also a socks proxy for communication with OpenStack. If your socks proxy is configured to run on localhost port 7777, you have to call java with some additional options as follows:
 
 ```
 export JAVA_OPTS="-DsocksProxyHost=localhost -DsocksProxyPort=7777 -DproxySet=true"
@@ -63,45 +63,54 @@ java ${JAVA_OPTS} -jar bibigrid ...
 
 #### Template
 
-Use the [template](resources/bibigrid.yml) as base for a BiBiGrid configuration. You can use the openstack cli or access openstack dashboard to fetch the necessary informations from your cloud site/project.
+Use the [template](resources/bibigrid.yml) as base for a BiBiGrid configuration. You can use the openstack cli or access openstack dashboard to fetch the necessary informations from your cloud site/project. The template contains comments with valid options for all cloud site at time of writing (10/01/2019)
 
 
 ### Credentials
-The credentials are stored in separated file and linked 
-from the general configuration. 
 
-```
-credentialsFile: /path/to/your/credentials.yml
-```
+Download (if not already done) an Openstack RC file using the Openstack dashboard. After logging into the Dashboard ...
 
-
-#### credentials.yml
-Download a [template](resources/credentials.yml) as base for your own credentials file.  The necessary informations are available via Openstack Dashboard (left side menu -> Project -> API access).
 
 ![API_Access](images/api-access.png)
 
-The *endpoint* needed is the identity API endpoint, which is used to ask Openstack for all other public API endpoints. BiBigrid uses Version 3 of the API, you have to add the suffix `/v3` to identity API endpoint, e.g.
+- go to left side menu
+- open **Project**
+- select **API access**
+- push drop down button **Download Openstack RC File** (on right side)
+- download **Openstack RC File (Identity API v3)**
 
-`
-https://cloud.denbi.dkfz.de:13000/v3
-`
 
-  The *domain* and *tentantdomain* values are for de.NBI projects normally the same  and is for all cloud sites 'elixir'. Make sure that the credentials file can only be read by yourself (especially in a multi user environment).
+This might differ a bit depending on which cloud site your are working on. The screenshot is taken from  de.NBI cloud site Bielefeld running Openstack *Rocky* (10/01/2019)
 
 
 ### Access
-If not already done, you have to create an ssh key pair, upload your public key to Openstack and give it a name. BiBiGrid supports password protected keys using an ssh agent.
+Since version version 2.0.9 BiBigrid uses so called *One-Time ssh key pairs*  to connect to your cluster. For every started cluster, a new key pair is generated and registered in Openstack. The keys are stored in 
+`${HOME}/.bibigrid/keys` as long as the cluster is running.
+
+#### additional public ssh key (optional)
+
+BiBiGrid supports adding one or more additional **public keys**, which will be placed in the authorized keys file of all started instances.
+
 
 ```
-sshPrivateKeyFile: path/to/private/key
 sshPublicKeyFile: path/to/public/key
-keypair : name_of_the_uploaded_keypair
 ``` 
-You have to give the *full path* to your private and public key here. The keypair value is the name of the uploaded public key.
+
+or
+
+```
+sshPublicKeyFiles:
+  - path/to/public/key1
+  - path/to/public/key2
+  - ...
+```
+
+You have to give the *full path* to your public key file here. 
+
 
 #### ssh-user
 
-The ssh-user depends on the cloud image your cluster is based on. Since we run on top of Ubuntu 18.04 the ssh-user is *ubuntu*.
+The ssh-user depends on the cloud image your cluster is based on. Since we run on top of Ubuntu 18.04 the ssh-user is *ubuntu*. 
 
 #### region
 
@@ -120,16 +129,20 @@ $ openstack availability zone list
 ```
 
 ### Network
-If you have the permissions to create networks, BiBiGrid offers the possibility to  create a new private network connected to an existing router. For our tutorial we work on an existing *subnet*. Determine the subnet name or id using the cli.
+If you have the permissions to create networks, BiBiGrid offers the possibility to create a new private network, which is connected to an existing router. For our tutorial we work on an existing *subnet*. Determine the subnet name or id using the Command Line Tools.
 
 
 ```
 $ openstack subnet list
 ```
 
-Depending on the de.NBI cloud site we have to enable the *localDNSLookup* feature. Some cloud sites do not offer a full DNS service for instances, BiBiGrid can start this
-This currently the case in Berlin, HD-DKFZ, HD-BioQuant and Tuebingen.
+Depending on the de.NBI cloud site, we have to enable the `localDNSLookup` feature. Some cloud sites do not offer a full DNS service for instances (local instances can't be resolved), this is currently the case in **Berlin**, **DKFZ**, **Heidelberg** and **Tuebingen**.
 
+The network setup at **Tuebingen** differs from the other cloud sites, not supporting Openstack self-service networks.  The available networks are preconfigured and every instance gets a public IP without adding an additional floating IP.
+
+BiBiGrid takes care of this by not adding an additional floating ip to the master node (which will not work). We have to disable the `useMasterWithPublicIp` option, when running BiBiGrid at **Tuebingen**.
+
+ 
 ### Instances 
 
 Get the id of the Ubuntu 18.04 image ...
@@ -160,7 +173,7 @@ workerInstances:
     image: image_id_of_Ubuntu_18.04
 ```
 
-Choose the number of worker nodes to be started. BiBiGrid supports to start different type workers in a single grid. It is not guaranted that everything works if mix up different image types in a single cluster. A list of usable flavors can be optained by openstack cli ...
+Choose the number of worker nodes to be started. BiBiGrid supports to start different type workers in a single grid. It is not guaranted that everything works if mix up different image types in a single cluster. A list of usable flavors can be optained by Openstack Command line tools ...
 
 ```
 $ openstack flavor list
