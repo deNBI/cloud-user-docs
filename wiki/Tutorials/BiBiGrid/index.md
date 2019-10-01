@@ -136,14 +136,11 @@ If you have the permissions to create networks, BiBiGrid offers the possibility 
 $ openstack subnet list
 ```
 
-Depending on the de.NBI cloud site we have to enable the `localDNSLookup` feature. Some cloud sites do not offer a full DNS service for instances (local instances can't be re resolved), this is currently the case in **Berlin**, **DKFZ**, **Heidelberg** and **Tuebingen**.
+Depending on the de.NBI cloud site we have to enable the `localDNSLookup` feature. Some cloud sites do not offer a full DNS service for instances (local instances can't be resolved), this is currently the case in **Berlin**, **DKFZ**, **Heidelberg** and **Tuebingen**.
 
-The network setup at  **Tuebingen** differs from the other cloud sites, not supporting Openstack self-service networks. Everything is preconfigured and every started instance gets a flaoting ip. 
+The network setup at  **Tuebingen** differs from the other cloud sites, not supporting Openstack self-service networks. The network is preconfigured and every instance gets a floating ip. 
 
-BiBigrid has to take take care of this not adding an additional floating ip to the master node (which will not work). We have to disable the `useMasterWithPublicIp` option.
-
-This option can also be used when you want running a BiBiGrid cluster in non public environmemt. 
-
+BiBigrid takes care of this not adding an additional floating ip to the master node (which will not work). We have to disable the `useMasterWithPublicIp` option, when running BiBiGrid at **Tuebingen**.
 
  
 ### Instances 
