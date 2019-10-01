@@ -138,7 +138,7 @@ $ openstack subnet list
 
 Depending on the de.NBI cloud site, we have to enable the `localDNSLookup` feature. Some cloud sites do not offer a full DNS service for instances (local instances can't be resolved), this is currently the case in **Berlin**, **DKFZ**, **Heidelberg** and **Tuebingen**.
 
-The network setup at **Tuebingen** differs from the other cloud sites, not supporting Openstack self-service networks. The network is preconfigured and every instance gets a floating ip. 
+The network setup at **Tuebingen** differs from the other cloud sites, not supporting Openstack self-service networks.  The available networks are preconfigured and every instance gets a public IP without adding an additional floating IP.
 
 BiBiGrid takes care of this by not adding an additional floating ip to the master node (which will not work). We have to disable the `useMasterWithPublicIp` option, when running BiBiGrid at **Tuebingen**.
 
@@ -173,7 +173,7 @@ workerInstances:
     image: image_id_of_Ubuntu_18.04
 ```
 
-Choose the number of worker nodes to be started. BiBiGrid supports to start different type workers in a single grid. It is not guaranted that everything works if mix up different image types in a single cluster. A list of usable flavors can be optained by openstack cli ...
+Choose the number of worker nodes to be started. BiBiGrid supports to start different type workers in a single grid. It is not guaranted that everything works if mix up different image types in a single cluster. A list of usable flavors can be optained by Openstack Command line tools ...
 
 ```
 $ openstack flavor list
