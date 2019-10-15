@@ -52,6 +52,7 @@ nav:
   - 'Tutorials' :
     - 'Access de.NBI Virtual Machines from Windows 10' : Tutorials/Win10_SSH/index.md
     - 'Access a SimpleVM with Mosh' : Tutorials/Mosh/index.md
+    - 'SimpleVM File Transfer' : Tutorials/File_Transfer_Methods/index.md
     - 'Ansible Automation' : Tutorials/Ansible/index.md
     - 'Bibigrid' : Tutorials/BiBiGrid/index.md
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
@@ -60,7 +61,6 @@ nav:
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
     - 'Theia Web IDE': Tutorials/TheiaIde/index.md
     - 'UserData' : Tutorials/UserData/index.md
-    
   - 'FAQ' : 'FAQ.md'
   - 'Compute Center Specific' :
     - 'Giessen' : Compute_Center/Giessen.md
