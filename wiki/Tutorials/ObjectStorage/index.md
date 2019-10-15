@@ -8,8 +8,6 @@ Object stores have a higher abstraction from the underlying hardware than filesy
 
 Users benefit from the ubiquitous availability of the storage service. The data can be accessed and written from anywhere, as long a the user has the appropriate access/write permissions. These permissions can be controlled via access control lists by the container owners. With the concept of large objects, object have no size limitations. A caveat on object stores is the possible higher network latency between the storage servers and the client machines.
 
-See also: [Introduction to object storage by Rackspace](http://blog.rackspace.com/introduction-to-object-storage)
-
 ### Object storage access 
 
 The object storage in the de.NBI cloud can be accessed either via the S3-API or the Swift-API. These APIs differ in their terminology, capabilities and respective tools: Objects are stored in containers (swift) or buckets (s3). Access is controlled via access control lists (s3 and swift) or via policies (only s3).
