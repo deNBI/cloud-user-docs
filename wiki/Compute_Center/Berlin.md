@@ -1,5 +1,5 @@
-# de.NBI Cloud DKFZ Heidelberg
-Welcome to the de.NBI Cloud site DKFZ Heidelberg. In the following guide we want 
+# de.NBI Cloud Berlin
+Welcome to the de.NBI Cloud site Berlin. In the following guide we want 
 to give you a quick introduction how to use our cloud site.
 
 Please note, you are responsible for everything that happens with the virtual
@@ -8,13 +8,13 @@ anything and do not give any guarantees.
 
 ## How to get in contact with us
 In case you have questions or want to give us any kind of feedback, please 
-contact us via <denbi-cloud@dkfz-heidelberg.de>.
+contact us via <it.digitalhealth@charite.de>.
 
-## Access to the de.NBI Cloud DKFZ Heidelberg
+## Access to the de.NBI Cloud Berlin
 ### OpenStack Dashboard
 The OpenStack dashboard gives you all information about your 
 project, e.g. your available resources, your virtual machines etc. The 
-dashboard is available [here](https://cloud.denbi.dkfz-heidelberg.de).
+dashboard is available [here](https://denbi-cloud.bihealth.org).
 To access your project, use Elixir as authentication provider. After 
 authentication you will be redirected to the OpenStack dashboard.
 
@@ -59,12 +59,12 @@ and can connect to VMs without any floating ip address.
 #### Linux-based host
 None of your VMs will be directly visible and accessible from the internet. To 
 connect to one of your VMs, you have to use our jumphost
-denbi-jumphost-01.denbi.dkfz-heidelberg.de with your elixir login name (not
+denbi-jumphost-01.bihealth.org with your elixir login name (not
 your elixir id!):
 
-    ssh -A -i YOUR-SSH-KEY USERNAME@denbi-jumphost-01.denbi.dkfz-heidelberg.de
+    ssh -A -i YOUR-SSH-KEY USERNAME@denbi-jumphost-01.bihealth.org
     
-**Example:** ssh -A -i ~/.ssh/denbi-cloud.key elixir1234@denbi-jumphost-01.denbi.dkfz-heidelberg.de
+**Example:** ssh -A -i ~/.ssh/denbi-cloud.key elixir1234@denbi-jumphost-01.bihealth.org
 
 From the jumphost you can connect to each of your VMs which has an attached
 floating ip address.
@@ -75,7 +75,7 @@ If you want to connect from a Windows-based system you can use Putty
 
 In the field **Host Name** you have to enter the name of our jumphost:
 
-    denbi-jumphost-01.denbi.dkfz-heidelberg.de
+    denbi-jumphost-01.bihealth.org
     
 Under **Connection - Data** you can choose the username for the auto-login. 
 Please use your elixir username here.
@@ -118,14 +118,13 @@ standard users for some common distributions:
  
   - **CentOS**: centos
   - **Ubuntu**: ubuntu
-  - **Debian**: debian
 
 ### Connecting to your VMs directly
 To easily connect directly to your VMs via our jumphost you can configure a 
 ProxyJump inside of your **local ~/.ssh/config**:
 
     # Access to the de.NBI jumphost
-    Host denbi-jumphost-01.denbi.dkfz-heidelberg.de
+    Host denbi-jumphost-01.bihealth.org
       # Use your Elixir login name
       User ELIXIR_USERNAME
       # Use your ssh-key file
@@ -133,9 +132,9 @@ ProxyJump inside of your **local ~/.ssh/config**:
       # Send a keep-alive packet to prevent the connection from beeing terminated
       ServerAliveInterval 120
 
-    Host 10.133.24* 10.133.25*
-      # Use jumphost as proxy (implies ForwardAgent)
-      ProxyJump denbi-jumphost-01.denbi.dkfz-heidelberg.de
+    Host 172.16.102.* 172.16.103.*
+      # Use jumphost as proxy
+      ProxyJump denbi-jumphost-01.bihealth.org
       # Use your ssh-key file
       IdentityFile YOUR-SSH-KEY-FILE
       # Send a keep-alive packet to prevent the connection from beeing terminated
@@ -167,7 +166,7 @@ If your key is protected by a passphrase, you will have to enter it now:
 You now should be able to connect to your VM directly using the floating ip 
 address:
 
-    ssh centos@10.133.2xx.xxx
+    ssh centos@172.16.10x.xxx
     
 ## File transfer into the de.NBI cloud
 In case you want to transfer local data into the cloud you can use rsync, scp,
@@ -187,7 +186,7 @@ following example socat is used but also netcat (nc) works in a similar way.
 Add the following lines to your **local ~/.ssh/config**:
 
     # Access to the de.NBI jumphost
-    Host denbi-jumphost-01.denbi.dkfz-heidelberg.de
+    Host denbi-jumphost-01.bihealth.org
       # Use your Elixir login name
       User ELIXIR_USERNAME
       # Use your ssh-key file
@@ -200,7 +199,7 @@ Add the following lines to your **local ~/.ssh/config**:
       ServerAliveInterval 120
       
     # Access to de.NBI cloud floating IP networks via SOCKS Proxy
-    Host 10.133.24* 10.133.25*
+    Host 172.16.102.* 172.16.103.*
       # Tunnel all requests through dynamic SOCKS proxy
       ProxyCommand /usr/bin/socat - socks4a:localhost:%h:%p,socksport=7777
       # Use your ssh-key file
@@ -215,11 +214,11 @@ long as you have this connection open you can directly connect to one of your
 VMs from another terminal by specifying the username and ip address without 
 the need to first connect to the jumphost:
 
-    ssh centos@10.133.2xx.xxx
+    ssh centos@172.16.10x.xxx
 
 ### Using the OpenStack API
 First, you will need to request a password to use the OpenStack API, 
-therefore write a mail to the support team at <denbi-cloud@dkfz-heidelberg.de>. 
+therefore write a mail to the support team at <it.digitalhealth@charite.de>. 
 Second, the API is not directly accessible from the outside, so the only way to 
 access the API from a local machine is through the jumphost. So make sure you've
 configured your SOCKS proxy as described before. In addition you will need to 

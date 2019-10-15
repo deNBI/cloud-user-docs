@@ -15,7 +15,7 @@ The latter two points are based on other de.NBI cloud tutorials ([UserData](../U
 
 ## Configuration
 
-The general build process is quite easy and is well described on the Theia-Ide page ["Build your own IDE"](https://www.theia-ide.org/doc/Composing_Applications.html).  Feel free to follow the step-by-step documentation to build your own shell script or go the easy way and use the prepared [shell script](web-ide.sh).
+The general build process is quite easy and is well described on the Theia-Ide page ["Build your own IDE"](https://www.theia-ide.org/docs/composing_applications).  Feel free to follow the step-by-step documentation to build your own shell script or go the easy way and use the prepared [shell script](web-ide.sh).
 
 ### Dependencies
 Depending on your base system,  building Theia-IDE needs some additional packages installed.

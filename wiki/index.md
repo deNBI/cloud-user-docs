@@ -11,7 +11,7 @@ start a virtual machine.
 
 The OpenStack Concepts section introduces components and mechanisms available in OpenStack.
 
-## [de.NBI Cloud Portal](portal.md)
+## [de.NBI Cloud Portal]
 
 The de.NBI Cloud portal allows you to apply for projects, but also to start a virtual machine if you are
 part of the simple VM project.

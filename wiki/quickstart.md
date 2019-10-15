@@ -78,7 +78,9 @@ which will produce the files new_id and new_id.pub.
 **Windows**
 
 Start ‘puttygen’ and click on generate. You need to move your mouse cursor above the grey field to create enough entropy. Enter a passphrase and confirm the input.
-Save your private and public key into separate files e.g, new_id.ppk and new_id.key
+Save your private and public key into separate files e.g, new_id.ppk and new_id.key. Note that on your "User information" page only OpenSSH public keys are accepted as valid. 
+One can find the public key string in the textbox above the key-fingerprint, after generating the keys.
+An alternative for Windows 10 is to use the ssh-keygen command in Powershell.
 
 
 # Creating a Router and a Network

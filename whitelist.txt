@@ -8,3 +8,4 @@ https://cloud.denbi.dkfz-heidelberg.de
 http://localhost:8000
 http://129.70.51.2:9999
 https://denbi-cloud.bihealth.org
+/https://github.com/deNBI/cloud-user-docs./

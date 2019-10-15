@@ -1,0 +1,73 @@
+mode: openstack
+
+# ACCESS
+
+# BiBigrid uses since version 2.0.9 one-time ssh keys to access
+# a running cluster. Additonal public keys can be added.
+# comment out to add a single public key
+#sshPublicKeyFile: 
+# comment out to add a list of public keys
+#sshPublicKeyFiles:
+#  - 
+
+# Depends on cloud image
+sshUser: ubuntu
+
+# Depends on cloud site:
+# Berlin     : regionOne
+# Bielefeld  : bielefeld
+# DKFZ       : regionOne
+# Giessen    : RegionOne
+# Heidelberg : RegionOne
+# Tuebingen  : RegionOne
+region: 
+
+# Depends on cloud site:
+# Berlin     : nova
+# Bielefeld  : default
+# DKFZ       : nova
+# Giessen    : nova
+# Heidelberg : nova
+# Tuebingen  : nova
+availabilityZone: 
+
+# Depends on cloud site and project
+subnet: 
+
+# Uncomment if no full DNS service for started instances is available.
+# Currently the case in Berlin, DKFZ, Heidelberg and Tuebingen.
+#localDNSLookup: yes
+
+# Uncomment if you don't want assign a public ip to the master.
+# Currently the case at Tuebingen or for internal cluster.
+#useMasterWithPublicIp: no
+
+
+# master configuration 
+masterInstance:
+  type: de.NBI mini 
+  image: 
+
+# worker configuration
+workerInstances:
+  - type: de.NBI tiny 
+    image: 
+    count: 2 
+
+
+useMasterAsCompute: yes 
+
+
+# Services
+# A full list of supported service is available at the de.NBI BiBiGrid 
+# Tutorial (https://cloud.denbi.de/wiki/) or at BiBiGrid GitHub 
+# repository (https://github.com/BiBiServ/bibigrid) 
+
+
+# Enable configuring a SLURM cluster 
+slurm: yes
+# Create a shared file system between all nodes (/vol/spool)
+nfs: yes
+# Configure Theia Web IDE on master node
+theia: yes
+

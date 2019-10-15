@@ -41,7 +41,14 @@ extra_javascript:
 nav:
   - 'Home' : index.md
   - 'Registration' : registration.md
-  - 'Portal' : portal.md
+  - 'Portal' : 
+    - 'Allocation': portal/allocation.md
+    - 'Modification': portal/modification.md
+    - 'Project Overview': portal/project_overview.md
+    - 'Simple VM': 
+      - 'Project': portal/SimpleVM/simple_vm_project.md
+      - 'Volumes': portal/SimpleVM/volumes.md
+      - 'Snapshots': portal/SimpleVM/snapshots.md
   - 'OpenStack Quickstart' : quickstart.md
   - 'Concept' : 
     - 'OpenStack Basics' : Concept/basics.md
@@ -69,6 +76,7 @@ nav:
     - 'Heidelberg DKFZ' : Compute_Center/Heidelberg-DKFZ.md
     - 'Tuebingen' : Compute_Center/Tuebingen.md
     - 'Freiburg' : Compute_Center/Freiburg.md
+    - 'Berlin' : Compute_Center/Berlin.md
   - 'Cloud Admin':
     - 'Jenkins + Haproxy with JuJu': cloud_admin/juju_jenkins.md
     - 'Configure OpenStack to use Elixir AAI via OpenID Connect': cloud_admin/elixir_OIDC.md 
