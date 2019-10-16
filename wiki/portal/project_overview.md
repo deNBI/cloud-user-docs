@@ -1,20 +1,13 @@
 ## Project Overview
 
-In the Project Overview tab you get a list of all your running projects:
-
+In the "Project Management" sidebar your projects are listed and by clicking on a project tab the detailed overview opens.
 ![Project Overview Tab](img/overview_tab.png)
-![Project Overview](img/overview.png)
 
-
-The color of the text indicates whether the lifetime of your project is reached or not. Red means that the project lifetime
-is has beed exceeded.
 
 The following actions are only available for a project manager:
 
-* Show members: Shows all members of this project. Project managers are colored in blue.
+* Overview of all project members. Project managers are colored in blue.
     
-![Members](img/members.png)
-
 * Appoint another member as admin (project manager).
 
 * Remove the admin (project manager) state.
@@ -24,7 +17,6 @@ The following actions are only available for a project manager:
 * Add another user to this project by inserting their name, email or even ELIXIR ID and clicking on `add member`.
    
 ![Members](img/add_members.png)
-
 ### Inviting Members
 
 Through invitation links users can be easily added to a de.NBI Cloud project. The process is the following:

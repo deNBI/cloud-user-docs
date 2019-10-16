@@ -1,7 +1,7 @@
 ## Simple VM Project
 
 ### Start a Virtual Machine
-If you are a member of a simple vm project you can start a virtual machine at the "New Instance" tab.
+Ifd you are a member of a simple vm project you can start a virtual machine at the "New Instance" tab.
 You may need to reload the website if you can't see the tab.
 Then you can choose your project and fill the form to start a virtual machine.
 
@@ -18,8 +18,7 @@ After the virtual machine has been started a modal with connection information i
 Here you can find general information about how to connect to your virtual machine and only if you chose to open UDP ports mosh-connection information is shown too.
 ![how_to_modal_closed](img/how_to_modal_closed.png)
 
-Here you can see an example with open UDP ports. A ssh and mosh command is shown.
-![how_to_modal_opened](img/how_to_modal_opened.png)
+
 
 ### Images
 

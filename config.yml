@@ -46,9 +46,9 @@ nav:
     - 'Modification': portal/modification.md
     - 'Project Overview': portal/project_overview.md
     - 'Simple VM': 
-      - 'Project': portal/SimpleVM/simple_vm_project.md
-      - 'Volumes': portal/SimpleVM/volumes.md
-      - 'Snapshots': portal/SimpleVM/snapshots.md
+      - 'Project': portal/simple_vm_project.md
+      - 'Volumes': portal/volumes.md
+      - 'Snapshots': portal/snapshots.md
   - 'OpenStack Quickstart' : quickstart.md
   - 'Concept' : 
     - 'OpenStack Basics' : Concept/basics.md

@@ -1,7 +1,10 @@
+# Portal
+
+The de.NBI Cloud portal represents the central access point to the de.NBI Cloud.
 
 ## Allocation
 
-An application for resources in the de.NBI Cloud must be submitted by a principal investigator of a german university or research facility.
+An application for resources in the de.NBI Cloud can be submitted by any team member, but must be verified by a principal investigator of a German university or research institution.
 After you submitted the application, you will receive a confirmation mail. Your application will be reviewed by a scientific committee.
 You will be notified as soon as possible whether your application is approved or declined. 
 
