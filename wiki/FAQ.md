@@ -20,7 +20,7 @@ section, like shown below:
 In a last step you have to reload the daemon and restart docker:
 
     sudo systemctl daemon-reload
-    sudo systemctl docker restart
+    sudo systemctl restart docker
 
 Now the docker build process should be successful.
 
