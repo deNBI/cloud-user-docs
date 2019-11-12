@@ -1,7 +1,7 @@
 ## Simple VM Project
 
 ### Start a Virtual Machine
-Ifd you are a member of a simple vm project you can start a virtual machine at the "New Instance" tab.
+If you are a member of a simple vm project you can start a virtual machine at the "New Instance" tab.
 You may need to reload the website if you can't see the tab.
 Then you can choose your project and fill the form to start a virtual machine.
 
