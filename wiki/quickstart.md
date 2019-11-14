@@ -65,22 +65,50 @@ Afterwards, your key should be listed on the key overview page. In chapter [ Get
 
 ## Generate SSH-Keys
 
+Note that on your "User information" page only OpenSSH public keys are accepted as valid.
+
 **Linux**
 
 On all UNIX based operating systems ‘keygen’ may be used to create a key pair. A Linux command example is given below:
 
 ~~~BASH
-ssh-keygen –t rsa -f new_id
+$ ssh-keygen –t rsa -f new_id
 ~~~
 
 which will produce the files new_id and new_id.pub.
 
 **Windows**
 
-Start ‘puttygen’ and click on generate. You need to move your mouse cursor above the grey field to create enough entropy. Enter a passphrase and confirm the input.
-Save your private and public key into separate files e.g, new_id.ppk and new_id.key. Note that on your "User information" page only OpenSSH public keys are accepted as valid. 
-One can find the public key string in the textbox above the key-fingerprint, after generating the keys.
-An alternative for Windows 10 is to use the ssh-keygen command in Powershell.
+Download, install and start [puTTYgen](https://www.puttygen.com/download-putty#PuTTY_for_windows). Make sure RSA is chosen at the bottom of the window as 'type of key to generate'. You need to move your mouse cursor inside the grey field to create enough entropy until the key is generated. You now may enter a 'Key passphrase' (also enter the same passphrase in the Confirm passphrase field), which acts as a further security mechanism regarding the use of your key.
+Save your private and public key into separate files e.g, new_private_key.ppk and new_public_key.key with the buttons at the bottom. The .key file can be opened and read with a standard text-editor if you wish to.  
+The content of the public key file should look like this:
+~~~BASH
+---- BEGIN SSH2 PUBLIC KEY ----
+Comment: "rsa-key-20191114"
+AAAAB3NzaC1yc2EAAAABJQAAAQEA0DX7jcuqlsCXw51r4RYGkKeu78P9RXqx9VmQ
+1bwQl+is2BxZJWZCYibY1x5FfAkKZio+KSG3TRdWMq0JLciWcUTpKfQPduAkUXYX
+7pCAnDEzZt4wkabiQvf1odWbf0SWsg8hq46mgYvVMa9Yq1smHF+44WPjaTvHzOxt
+tYYIJnQd73vdO/XULbrEnYahp2DSfJL+GDHoymOxYj+3YTQOAxmTGnje1ZjCvwZ2
+33KZv+TXJRu6jx4eOMb9RjCvG+e2Bfn/JoaCPI6h4T1KLM5G2uh2tLXqIVN73PfR
+ljWpr6NDdPsCd+5uURFnQ2zdjg6G62/5JU5WPZAZZgfKhrE7qw==
+---- END SSH2 PUBLIC KEY ----
+~~~
+When setting your key on the [User Information page](portal/user_information.md#SSH-Key), you need to add 'ssh-rsa' infront and can add a comment after your key, so it would look like this:
+~~~BASH
+ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEA0DX7jcuqlsCXw51r4RYGkKeu78P9RXqx9VmQ
+1bwQl+is2BxZJWZCYibY1x5FfAkKZio+KSG3TRdWMq0JLciWcUTpKfQPduAkUXYX
+7pCAnDEzZt4wkabiQvf1odWbf0SWsg8hq46mgYvVMa9Yq1smHF+44WPjaTvHzOxt
+tYYIJnQd73vdO/XULbrEnYahp2DSfJL+GDHoymOxYj+3YTQOAxmTGnje1ZjCvwZ2
+33KZv+TXJRu6jx4eOMb9RjCvG+e2Bfn/JoaCPI6h4T1KLM5G2uh2tLXqIVN73PfR
+ljWpr6NDdPsCd+5uURFnQ2zdjg6G62/5JU5WPZAZZgfKhrE7qw== an-individual-comment-you-can-add-to-identify/seperate-keys
+~~~
+Alternatively you can copy the public key in the textbox above the key-fingerprint, after generating and saving the keys in puTTYgen. The public key string in this textbox has the correct 'ssh-rsa' prefix and the creation date as comment (but do not forget to save your private key!).  
+
+An alternative for Windows 10 is to use the ssh-keygen command in Powershell (open the Start menu or press the "Win" button on your keyboard, type in 'powershell' and press enter or click on it to run it):
+~~~BASH
+PS C:\Users\myusername> ssh-keygen.exe -t rsa -f new_id
+~~~
+which will produce the files new_id and new_id.pub in the directory C:\Users\myusername.
 
 
 # Creating a Router and a Network
