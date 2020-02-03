@@ -2,6 +2,10 @@
 
 The de.NBI Cloud is fully funded by the federal ministry of education and research. It is free for all academic life science research projects.
 
+### How can I acknowledge the de.NBI Cloud in publications?
+
+See [here](../portal/project_overview/#citation-information) for more information.
+
 ### I can not build docker images and can not download packages from inside of the container.
 
 In case you use docker containers in your VM it may happen that the building 

@@ -7,7 +7,7 @@ Then you can choose your project and fill the form to start a virtual machine.
 
 ![start_vm](img/start_vm.png)
 
-With the optional params you can start the vm with a volume [see](portal.md#create-volume).
+With the optional params you can start the vm with a volume [see](../volumes#create-volume).
 Also if you want to use mosh (see https://mosh.org/ ) you can choose to open UDP ports.
 
 ### Connect to your Virtual Machine

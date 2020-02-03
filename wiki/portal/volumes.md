@@ -12,7 +12,7 @@ The volume is automatically mounted this way.
 2.At the Volume tab you can choose to create an volume.
 ![create_volume](img/volume.png)
 
-In order to use the Volume you need to [mount](portal.md#mount-a-volume) it.
+In order to use the Volume you need to [mount](#mount-a-volume) it.
 
 ### Mount a volume
 
