@@ -37,9 +37,9 @@ in the application modal. Once the application is approved the user will have ac
 
 #### Adding a DOI (Digital Object Identifier)
 ![adding doi](img/adding_doi.png)
-In this field you can enter a DOI, which will be associated with your project. There is no limit on the number of DOI you can associate with your project. Clicking the delete Button will remove the DOI and its association to your project.  
+In this field you can enter a DOI, which will be associated with your project. There is no limit on the number of DOI you can associate with your project. Clicking the delete button will remove the DOI and its association to your project.  
 If you do not know about DOI, the placeholder [10.1000/182](https://doi.org/10.1000/182) links to the DOI handbook, where you may find more information.  
-Please Note that after completion, deletion or termination of your project, the association between the DOI and your project will remain.
+Please note that after completion, deletion or termination of your project, the association between the DOI and your project will remain.
 
 #### Citation Information
 
