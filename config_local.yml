@@ -36,9 +36,10 @@ nav:
     - 'Modification': portal/modification.md
     - 'Project Overview': portal/project_overview.md
     - 'Simple VM': 
-      - 'Project': portal/SimpleVM/simple_vm_project.md
-      - 'Volumes': portal/SimpleVM/volumes.md
-      - 'Snapshots': portal/SimpleVM/snapshots.md
+      - 'Project': portal/simple_vm_project.md
+      - 'Volumes': portal/volumes.md
+      - 'Snapshots': portal/snapshots.md
+      - 'Customisation': portal/customisation.md
     - 'User Information': portal/user_information.md
   - 'Registration' : registration.md
   - 'OpenStack Quickstart' : 'quickstart.md'
@@ -55,6 +56,7 @@ nav:
     - 'UserData' : Tutorials/UserData/index.md
     - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
+    - 'Theia Web IDE': Tutorials/TheiaIde/index.md
   - 'FAQ' : 'FAQ.md'
   - 'Compute Center Specific' :
     - 'Giessen' : Compute_Center/Giessen.md
