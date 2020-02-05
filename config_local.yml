@@ -39,7 +39,7 @@ nav:
       - 'Project': portal/simple_vm_project.md
       - 'Volumes': portal/volumes.md
       - 'Snapshots': portal/snapshots.md
-      - 'Customisation': portal/customisation.md
+      - 'Customization': portal/customization.md
     - 'User Information': portal/user_information.md
   - 'Registration' : registration.md
   - 'OpenStack Quickstart' : 'quickstart.md'
