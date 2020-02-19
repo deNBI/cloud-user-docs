@@ -27,6 +27,9 @@ Here you can find general information about how to connect to your virtual machi
 X2Go Images allow you to start your own desktop in the de.NBI Cloud which you can access from
 any operating system (Windows, Linux, MacOS).
 
+!!! Guacamole
+    Please note, that as an alternative we now offer [Apache Guacamole](customization.md#apache-guacamole).
+
 ## (Windows only) Export key in OpenSSH format for X2GO
 
 To connect to a machine with X2GO you have to export your private key in openssh format. To achieve this first load your private key into puttygen.
