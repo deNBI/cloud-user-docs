@@ -35,15 +35,3 @@ in the application modal. Once the application is approved the user will have ac
 
 ![application invitation](img/application_list.png)
 
-#### Adding a DOI (Digital Object Identifier)
-![adding doi](img/adding_doi.png)
-In this field you can enter a DOI, which will be associated with your project. There is no limit on the number of DOI you can associate with your project. Clicking the delete button will remove the DOI and its association to your project.  
-If you do not know about DOI, the placeholder [10.1000/182](https://doi.org/10.1000/182) links to the DOI handbook, where you may find more information.  
-Please note that after completion, deletion or termination of your project, the association between the DOI and your project will remain.
-
-#### Citation Information
-
-The development and support of the cloud is possible above all through the funding of the cloud infrastructure by the Federal Ministry of Education and Research (BMBF)! We would highly appreciate the following citation in your next publication(s):
-
-!!! note "" 
-    ‘This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A537B, 031A533A, 031A538A, 031A533B, 031A535A, 031A537C, 031A534A, 031A532B).

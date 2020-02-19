@@ -41,6 +41,7 @@ extra_javascript:
 nav:
   - 'Home' : index.md
   - 'Registration' : registration.md
+  - 'Citation and publication': citation_and_publication.md
   - 'Portal' : 
     - 'Allocation': portal/allocation.md
     - 'Modification': portal/modification.md
