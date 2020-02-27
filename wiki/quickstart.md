@@ -177,7 +177,7 @@ Now your topology should include your network:
 
 ----
 
-We want to connect our **Router** with our new **Network**. Click on your Router !(img/User/symbol.png). A tooltip should pop up. Click on **Add Interface**. A form will appear:
+We want to connect our **Router** with our new **Network**. Click on your **Router**. A tooltip should pop up. Click on **Add Interface**. A form will appear:
 
 ----
 
