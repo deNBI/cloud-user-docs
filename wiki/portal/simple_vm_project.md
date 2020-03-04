@@ -11,12 +11,11 @@ With the optional params you can start the vm with a volume [see](../volumes#cre
 Also if you want to use mosh (see https://mosh.org/ ) you can choose to open UDP ports.
 
 ### Connect to your Virtual Machine
-After the virtual machine has been started a modal with connection information is displayed. Alternatively you can find this information in the Instance Overview.
+After the virtual machine has been started you will be redirected to the Instance Overview.
 
 ![show_info](img/show_info.png)
 
 Here you can find general information about how to connect to your virtual machine and only if you chose to open UDP ports mosh-connection information is shown too.
-![how_to_modal_closed](img/how_to_modal_closed.png)
 
 
 
