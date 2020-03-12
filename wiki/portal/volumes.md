@@ -60,3 +60,49 @@ If you do not need you Cinder Volume you can also unmount it with
 ```BASH
 umount /dev/device_name
 ```
+
+### Extend a Volume
+If you have a volume and want to increase the volume size, you can do this at the volume overview.
+
+![extend_volume](img/extend_volume.png)
+
+> **_NOTE:_**  The volume must be detached from any virtual machine or you will not see the option!.
+
+
+After you have extended your volume you need to attach the volume to your vm.
+Depending on which filesystem you use on your volume
+there are different procedures necessary to make the new capacity available.
+
+#####  XFS formatted filesystem
+
+[Mount](#mount-a-volume) the volume as usual and run the following command
+```BASH
+sudo xfs_growfs -d <MOUNTPOINT>
+```
+If you followed the instructions above the <MOUNTPOINT> would be ***/mnt/volume***
+After that you can use the extend volume with the new capacity.
+
+#####  Ext4 formatted filesystem
+
+Do not mount the volume. If you can see it with:
+
+```BASH
+lsblk
+```
+it is enough.
+
+Run the following command to get increase the capacity
+
+```BASH
+sudo resize2fs </dev/device_name>
+```
+The ***</dev/device_name>*** is the same you have used in the mount command
+above (/dev/device_name)
+Now you can mount and use it as usual and also use the extended capacity.
+
+#####  Another formatted filesystem
+
+If you use another filesystem than xfs or ext4 please look up if and how an increase
+of the capacity is possible.
+
+
