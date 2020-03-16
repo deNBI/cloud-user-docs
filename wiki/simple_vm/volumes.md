@@ -5,12 +5,12 @@
 There are two ways to create a volume:
 
 1.When starting a virtual machine you can choose to start a volume when selecting optional params.
-![create_volume_vm](img/volume_vm.png)
+![create_volume_vm](../portal/img/volume_vm.png)
 
 The volume is automatically mounted this way.
 
 2.At the Volume tab you can choose to create an volume.
-![create_volume](img/volume.png)
+![create_volume](../portal/img/volume.png)
 
 In order to use the Volume you need to [mount](#mount-a-volume) it.
 
@@ -64,7 +64,7 @@ umount /dev/device_name
 ### Extend a Volume
 If you have a volume and want to increase the volume size, you can do this at the volume overview.
 
-![extend_volume](img/extend_volume.png)
+![extend_volume](../portal/img/extend_volume.png)
 
 > **_NOTE:_**  The volume must be detached from any virtual machine or you will not see the option!.
 
