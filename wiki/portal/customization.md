@@ -48,6 +48,11 @@ To access your RStudio research environment, please follow the link you may find
 Use the following credentials:  
 ```
 Username: ubuntu  
+Password: simplevm
+```
+If these credentials do not work, please try the deprecated (since 16.03.2020) credentials:
+```
+Username: ubuntu  
 Password: ogvkyf
 ```
 Now you are able to work with RStudio via web browser!  
