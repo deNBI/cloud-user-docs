@@ -66,7 +66,7 @@ If you have a volume and want to increase the volume size, you can do this at th
 
 ![extend_volume](../portal/img/extend_volume.png)
 
-> **_NOTE:_**  The volume must be detached from any virtual machine or you will not see the option!.
+> **_NOTE:_**  The volume must be detached from any virtual machine!
 
 
 After you have extended your volume you need to attach the volume to your vm.
@@ -89,16 +89,15 @@ Do not mount the volume. If you can see it with:
 ```BASH
 lsblk
 ```
-it is enough.
 
-Run the following command to get increase the capacity
+Run the following command to increase the capacity:
 
 ```BASH
 sudo resize2fs </dev/device_name>
 ```
-The ***</dev/device_name>*** is the same you have used in the mount command
-above (/dev/device_name)
-Now you can mount and use it as usual and also use the extended capacity.
+The </dev/device_name\> is the same you have used in the mount command
+above.
+Now you can mount and use the volume as usual and also the extended capacity.
 
 #####  Another formatted filesystem
 
