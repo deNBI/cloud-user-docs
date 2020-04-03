@@ -20,7 +20,7 @@ authentication you will be redirected to the OpenStack dashboard.
 
 ### SSH-Keys
 As a first step make sure that you import a public ssh-key into your 
-OpenStack project (**Project - Compute - Key Pairs - Import 
+OpenStack project (**Project - Compute - Key Pairs - Import
 Key Pair**) so that you can access your VMs later on.
 
 ### Deploy your VMs
@@ -69,6 +69,27 @@ your elixir id!):
 From the jumphost you can connect to each of your VMs which has an attached
 floating ip address.
 
+On some OS the ssh-agent is not running by default (like on MacOS), so you have to start the agent
+before. You then can use the ssh-agent to forward the ssh key to the target host. First, check that
+the ssh-agent is running:
+
+    eval `ssh-agent -s`
+    Agent pid 14655
+
+Then, check that your key is known by the agent (in this case, it has none):
+
+    ssh-add -l
+    The agent has no identities.
+
+Add your ssh key to the ssh-agent:
+
+    ssh-add YOUR-SSH-KEY-FILE
+
+If your key is protected by a passphrase, you will have to enter it now:
+
+    Enter passphrase for YOUR-SSH-KEY-FILE:
+    Identity added: YOUR-SSH-KEY-FILE (YOUR-SSH-KEY-FILE)
+
 #### Windows-based host
 If you want to connect from a Windows-based system you can use Putty 
 (http://www.putty.org/) to connect to the jumphost and your virtual machines.
@@ -112,9 +133,9 @@ using it:
     sudo mount /dev/vdb /mnt
 
 ### Distribution logins
-Please take care, as for now, that our images are shipped with the standard 
-users for the respective Linux distribution. Here you can see a list of 
-standard users for some common distributions:
+Please be aware that our images are shipped with the standard users for the
+respective Linux distribution. Here you  can see a list of standard users for
+some common distributions:
  
   - **CentOS**: centos
   - **Ubuntu**: ubuntu
@@ -134,7 +155,7 @@ ProxyJump inside of your **local ~/.ssh/config**:
       ServerAliveInterval 120
 
     Host 10.133.24* 10.133.25*
-      # Use jumphost as proxy (implies ForwardAgent)
+      # Use jumphost as proxy
       ProxyJump denbi-jumphost-01.denbi.dkfz-heidelberg.de
       # Use your ssh-key file
       IdentityFile YOUR-SSH-KEY-FILE
@@ -143,26 +164,6 @@ ProxyJump inside of your **local ~/.ssh/config**:
 
 Please make sure that your local ssh-client is up to date, ProxyJump was 
 introduced in OpenSSH version 7.3.
-
-You can use the ssh-agent to forward the ssh key to the target host. First
-, check that ssh-agent is running:
-
-    eval `ssh-agent -s`
-    Agent pid 14655
-
-Then, check that your key is known by the agent (in this case, it has none):
-
-    ssh-add -l
-    The agent has no identities.
-
-Add your denbi cloud key to the ssh-agent:
-
-    ssh-add YOUR-SSH-KEY-FILE
-
-If your key is protected by a passphrase, you will have to enter it now:
-
-    Enter passphrase for YOUR-SSH-KEY-FILE: 
-    Identity added: YOUR-SSH-KEY-FILE (YOUR-SSH-KEY-FILE)
 
 You now should be able to connect to your VM directly using the floating ip 
 address:
