@@ -48,9 +48,11 @@ nav:
     - 'Project Overview': portal/project_overview.md
     - 'User Information': portal/user_information.md
   - 'Simple VM':
-      - 'Project': simple_vm/simple_vm_project.md
+      - 'New instance': simple_vm/new_instance.md
+      - 'Instance overview': simple_vm/instance_overview.md
+      - 'Instance details': simple_vm/instance_detail.md
       - 'Volumes': simple_vm/volumes.md
-      - 'Snapshots': simple_vm/snapshots.md
+      - 'Images/Snapshots': simple_vm/snapshots.md
       - 'Customization': simple_vm/customization.md
   - 'OpenStack Quickstart' : quickstart.md
   - 'Concept' : 
