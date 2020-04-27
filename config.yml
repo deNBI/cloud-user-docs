@@ -1,4 +1,4 @@
-site_name: "de.NBI Cloud Wiki"                         
+site_name: "de.NBI Cloud Wiki"
 docs_dir: /srv_root/docs/wiki
 site_dir: /var/www/html/wiki
 theme:
@@ -9,7 +9,7 @@ theme:
   logo: 'img/denbi.svg'
   favicon: 'img/denbi.svg'
 repo_name: 'deNBI/cloud-user-docs'
-repo_url: 'https://github.com/deNBI/cloud-user-docs' 
+repo_url: 'https://github.com/deNBI/cloud-user-docs'
 edit_uri: blob/master/wiki/
 plugins:
  - search
@@ -34,15 +34,15 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
-  
+
 extra_javascript:
   - matomo.js
-  
+
 nav:
   - 'Home' : index.md
   - 'Registration' : registration.md
   - 'Citation and publication': citation_and_publication.md
-  - 'Portal' : 
+  - 'Portal' :
     - 'Allocation': portal/allocation.md
     - 'Modification': portal/modification.md
     - 'Project Overview': portal/project_overview.md
@@ -53,7 +53,7 @@ nav:
       - 'Snapshots': simple_vm/snapshots.md
       - 'Customization': simple_vm/customization.md
   - 'OpenStack Quickstart' : quickstart.md
-  - 'Concept' : 
+  - 'Concept' :
     - 'OpenStack Basics' : Concept/basics.md
     - 'OpenStack Components' : Concept/openstack.md
     - 'Flavors' : Concept/flavors.md
@@ -66,6 +66,7 @@ nav:
     - 'Ansible Automation' : Tutorials/Ansible/index.md
     - 'Bibigrid' : Tutorials/BiBiGrid/index.md
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
+    - 'Install latest CUDA version' : Tutorials/CUDA/index.md
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
     - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
@@ -82,6 +83,6 @@ nav:
     - 'Berlin' : Compute_Center/Berlin.md
   - 'Cloud Admin':
     - 'Jenkins + Haproxy with JuJu': cloud_admin/juju_jenkins.md
-    - 'Configure OpenStack to use Elixir AAI via OpenID Connect': cloud_admin/elixir_OIDC.md 
+    - 'Configure OpenStack to use Elixir AAI via OpenID Connect': cloud_admin/elixir_OIDC.md
     - 'Register your identity provider for ELIXIR': cloud_admin/identity_provider.md
     - 'News Management': cloud_admin/news_management.md
