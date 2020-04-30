@@ -29,28 +29,30 @@ sudo apt install mosh
 ```
 
 #### Install Mosh on your Virtual Machine
-As said above, you also need to install Mosh on your virtual machine. For this Tutorial we chose Ubuntu 18.04 LTS as the image running on our virtual machine.
-First, connect to your VM like specified in the How to connect to your vm tab:
-![CONNECTION INFO](images/connect_info.png)
+You have two ways of installing Mosh on your virtual machine:
+
+1. By having it installed on vm creation, [see](./new_instance.md#mosh-udp-ports).
+
+2. Installing it manually:  
+For this Tutorial we chose Ubuntu 18.04 LTS as the image running on our virtual machine.
+First, connect to your VM. Information on how to connect can be cound on the [instance overview](./instance_overview.md#8-how-to-connect) and on the [instance detail page](./instance_detail.md#general-information)
 In our case we need to use ssh:
 ```
 ssh -i /path/to/your/ssh/private/key ubuntu@129.70.51.75 -p 30024
 ```
 And are now connected to our virtual machine:
-![CONNECTED WITH SSH](images/connected_with_ssh.png)
-
+![CONNECTED WITH SSH](images/connected_with_ssh.png)  
 Next, we need to install Mosh:
 ```
 sudo apt install mosh
 ```
 ![INSTALL MOSH ON VM](images/install_mosh_on_vm.png)
-Again, if you chose a different image with a different operating system, you might have to look [here](https://mosh.org/#getting).
-
+Again, if you chose a different image with a different operating system, you might have to look [here](https://mosh.org/#getting).  
 Now, if you have installed Mosh on your computer and on your VM, you can exit your VM (usually by running exit or CTRL-D).
 
 #### Connect to your Virtual Machine with Mosh
-Next to the How to connect to your vm tab, you can find a Mosh Connection Info tab. As we already executed Step 1 and Step 2 by following this tutorial, we are interested in the mosh command given in Step 3.
-![CONNECTION INFO](images/connect_info.png)
+On the instance overview we find our mosh connection information.
+![CONNECTION INFO](images/connect_info_two.png)
 
 In our case we have to run
 ```
