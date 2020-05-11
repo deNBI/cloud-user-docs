@@ -139,6 +139,8 @@ Now you can use the openstack commandline tools.
 
 Our current setup has some known problems.
 
+- Suspending and Shelving instances has been disabled for regular users. Please use the snapshot functionality in order to
+save up on ressources.
 - Policy problems when using the dashboard object storage UI. However the cmdline access works.
 
 
