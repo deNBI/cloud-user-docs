@@ -72,7 +72,7 @@ Note that on your "User information" page only OpenSSH public keys are accepted 
 On all UNIX based operating systems ‘keygen’ may be used to create a key pair. A Linux command example is given below:
 
 ~~~BASH
-$ ssh-keygen –t rsa -f new_id
+$ ssh-keygen -t rsa -f new_id
 ~~~
 
 which will produce the files new_id and new_id.pub.
@@ -325,13 +325,13 @@ For Linux and MacOS just use ssh, specifying the correct IP, the right key and t
 It can be found within the Horizon dashboard under Instances. An example of a Linux command is given below:
 
 ~~~BASH
-ssh –i /path/to/private/key @
+ssh -i /path/to/private/key @
 ~~~
 
 An example for a CentOS machine with the floating IP 1.2.3.4 would be:
 
 ~~~BASH
-ssh –i /path/to/private/key ubuntu@1.2.3.4
+ssh -i /path/to/private/key ubuntu@1.2.3.4
 ~~~
 
 If you need X-Forwarding for graphical user interfaces don’t forget to set the –X flag and check if the xauth package is installed on the host and the server and the X-Forwarding settings are correct. 
