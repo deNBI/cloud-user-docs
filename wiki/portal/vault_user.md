@@ -27,6 +27,8 @@ https://cloud.denbi.de/ui/vault/secrets/bielefeld/show/
 Tübingen:
 https://cloud.denbi.de/ui/vault/secrets/tuebingen/show/
 ```
+To get your Elixir ID, please visist the [Profile page](https://cloud.denbi.de/portal/webapp/#/userinfo) of the portal. There you will find your Elixir ID.
+
 ![user2_version_2](../cloud_admin/images/vault/user2_version2.png)  
 Click on the eye-icon to read the secret value or click on the copy button next to it to copy the secret value directly.
 
