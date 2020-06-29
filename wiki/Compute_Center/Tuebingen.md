@@ -149,6 +149,76 @@ Now you can mount and use it as usual and also use the extended capacity.
 
 If you use another filesystem than xfs or ext4 please look up if and how an increase of the capacity is possible.
 
+## Attach a second interface
+If you need a second interface for example to use direct volume mounts of our Quobyte storage for handling sensitive data or you need an internal network to build a virtual cluster where the compute nodes usually do not need to be accessed by the outside network this guide will help you to get them configured.
+In the following we will differentiate between VM images based on CentOS7 and Ubuntu 18.04. (Bionic).
+
+### CentOS7
+1. First launch a VM with a publicly acessible IP address, as usual
+2. Login to the VM
+3. Change to the root user 
+<pre>sudo su -</pre>
+4. The following command will set the default gateway to network interface eth0 which should be the interface for the public IP address:
+<pre>echo 'GATEWAY=eth0' >> /etc/sysconfig/network</pre>
+5. Exit as root user running the following command:
+<pre>exit</pre>
+6. Attach the second interface of your choice via webinterface (OpenStack Dashboard)
+7. Change back to the VM and run the following command to configure the second interface:
+<pre>sudo dhclient</pre>
+8. Check if the interface eth1 (usually) now has an IP address configured matching the one shown in the webinterface with the following command:
+<pre>ip a</pre>
+You should see something similar to this output (XXX are replaced by numbers or letter)
+<pre>1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether fa:16:3e:16:91:XX brd ff:ff:ff:ff:ff:ff
+    inet 193.196.20.XXX/XX brd 193.196.20.XXX scope global dynamic eth0
+       valid_lft 85038sec preferred_lft 85038sec
+    inet6 fe80::f816:3eff:fe16:91XX/64 scope link 
+       valid_lft forever preferred_lft forever
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether fa:16:3e:4b:83:XX brd ff:ff:ff:ff:ff:ff
+    inet 192.168.58.XXX/XX brd 192.168.XX.255 scope global dynamic eth1
+       valid_lft 85040sec preferred_lft 85040sec
+    inet6 fe80::f816:3eff:fe4b:83XX/64 scope link 
+       valid_lft forever preferred_lft forever</pre>
+
+The configuration of the network will not be persistent and after a reboot it would be gone. If you want to make this configuration persistent,
+please follow the following steps we are assuming here that the second interface name is eth1. Further you can skip steps 7. and 8. from above:
+9. Change to the root user 
+<pre>sudo su -</pre>
+10. Create a new network config file
+<pre>vim /etc/sysconfig/network-scripts/ifcfg-eth1</pre>
+With the following content:
+<pre>DEVICE=eth1
+NAME=eth1
+BOOTPROTO=dhcp
+NM_CONTROLLED=no
+PERSISTENT_DHCLIENT=1
+ONBOOT=yes
+TYPE=Ethernet</pre>
+
+11. Bring the interface up by running the following command:
+<pre>ifup eth1</pre>
+Wait until the additional interface has been configured.
+
+12. Check if the interface has been configured correctly running the command:
+<pre>ip a</pre>
+which should print out a similar output as shown above.
+
+
+### Ubuntu 18.04. (Bionic)
+
+
+
+
+
+
+
 
 
 
