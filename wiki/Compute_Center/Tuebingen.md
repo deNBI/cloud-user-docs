@@ -242,7 +242,10 @@ Save and close the file with `:wq`
 5. Restart the network with the follwoing command:
 <pre>systemctl restart systemd-networkd</pre>
 
-6. Check if the interface has been configured correctly running the command:
+6. Exit as root user running the following command:
+<pre>exit</pre>
+
+7. Check if the interface has been configured correctly running the command:
 <pre>ip a</pre>
 which should print out a similar output as shown above for the centos7 section.
 The made changes here are directly persistent.
