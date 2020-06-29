@@ -162,7 +162,7 @@ In the following we will differentiate between VM images based on CentOS7 and Ub
 <pre>echo 'GATEWAY=eth0' >> /etc/sysconfig/network</pre>
 5. Exit as root user running the following command:
 <pre>exit</pre>
-6. Attach the second interface of your choice via webinterface (OpenStack Dashboard)
+6. Attach a second interface of your choice via the webinterface (OpenStack Dashboard)
 7. Change back to the VM and run the following command to configure the second interface:
 <pre>sudo dhclient</pre>
 8. Check if the interface eth1 (usually) now has an IP address configured matching the one shown in the webinterface with the following command:
@@ -192,7 +192,7 @@ please follow the following steps we are assuming here that the second interface
 9. Change to the root user 
 <pre>sudo su -</pre>
 10. Create a new network config file
-<pre>vim /etc/sysconfig/network-scripts/ifcfg-eth1</pre>
+<pre>vi /etc/sysconfig/network-scripts/ifcfg-eth1</pre>
 With the following content:
 <pre>DEVICE=eth1
 NAME=eth1
@@ -201,7 +201,7 @@ NM_CONTROLLED=no
 PERSISTENT_DHCLIENT=1
 ONBOOT=yes
 TYPE=Ethernet</pre>
-
+Save and close the file with `:wq` 
 11. Bring the interface up by running the following command:
 <pre>ifup eth1</pre>
 Wait until the additional interface has been configured.
@@ -210,21 +210,39 @@ Wait until the additional interface has been configured.
 <pre>ip a</pre>
 which should print out a similar output as shown above.
 
+13. Exit as root user running the following command:
+<pre>exit</pre>
+
 
 ### Ubuntu 18.04. (Bionic)
+1. First launch a VM with a publicly acessible IP address, as usual
 
+2. Attach a second interface of your choice via the webinterface (OpenStack Dashboard)
 
+3. Check the interface name of the second interface, usually it should be 'ens6' with the following command:
+<pre>ip a</pre>
 
+4. Change to the root user 
+<pre>sudo su -</pre>
 
+5. Create a new network config file
+<pre>vi /etc/systemd/network/ens6.network</pre>
+With the following content:
+<pre>[Match]
+Name=ens6
 
+[Network]
+DHCP=ipv4
 
+[DHCP]
+UseMTU=true
+RouteMetric=200</pre>
+Save and close the file with `:wq`
 
+5. Restart the network with the follwoing command:
+<pre>systemctl restart systemd-networkd</pre>
 
-
-
-
-
-
-
-
-
+6. Check if the interface has been configured correctly running the command:
+<pre>ip a</pre>
+which should print out a similar output as shown above for the centos7 section.
+The made changes here are directly persistent.
