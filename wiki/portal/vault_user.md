@@ -3,7 +3,11 @@ For general information about Vault, please visit [Vault on github](https://gith
 
 ## Logging into Vault
 You can find the Vault ui [here](https://cloud.denbi.de/ui/).  
-Log in with OIDC as method and leave the role field blank.
+
+!!! danger "OIDC popup"
+    To log in with OIDC you need to have popups allowed for the vault login page! If the login is buggy after allowing popups, please reload the page.
+
+Log in with OIDC as method and leave the role field blank.  
 ![login_vault](../cloud_admin/images/vault/login.png)  
 
 ## Reading a secret

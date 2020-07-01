@@ -3,6 +3,10 @@ For general information about Vault, please visit [Vault on github](https://gith
 
 ## Logging into Vault
 You can find the Vault ui [here](https://cloud.denbi.de/ui/).  
+
+!!! danger "OIDC popup"
+    To log in with OIDC you need to have popups allowed for the vault login page! If the login is buggy after allowing popups, please reload the page.
+
 If you are not yet a member of an admin group, please log in with OIDC as method. You can leave the role field blank. Then contact the de.NBI Cloud governance to be added to an admin group.  
 If you already are member of an admin group, simply log in with OIDC as method and a blank role field.  
 ![login_vault](images/vault/login.png)  
@@ -13,7 +17,7 @@ For more information about the Secret engine, please click [here for the documen
 
 ![secrets_overview](images/vault/secrets_overview.png)  
 ![user_paths](images/vault/user_overview_2.png)  
-![](images/vault/)
+
 ### Add a secret for a new user
 Click on 'Create secret +' in the top right corner.  
 ![user_overview](images/vault/user_overview_1.png)  
@@ -22,9 +26,6 @@ In the field 'Path for this secret' put in the Elixir ID (with the @elixir-europ
 You can change the 'Maximum number of versions'. If you create a new secret version (see [Add a secret for an existing user](#add-a-secret-for-an-existing-user)) which exceeds the maximum number of versions, the oldest version will get deleted.  
 Put some key in the key field and put the secret you want to share in the value field and click 'Save'.
 ![user2_version_1](images/vault/user2_version1.png)  
-
-!!! warning
-    Never use sensitive information in a path, as every user has to be able to list these.
 
 ### Add a secret for an existing user
 Click on the Elixir ID of the user you want to share secrets with.  
