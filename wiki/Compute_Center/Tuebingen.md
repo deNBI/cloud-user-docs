@@ -13,10 +13,11 @@ What you get is a computing infrastructure where you can run calculations or sim
 in your own computing environment (VM).
 
 ## Login
-You need to apply for a login for https://denbi.uni-tuebingen.de. While the overall de.NBI cloud is still being build, the central application mechanisms are not available yet.
-For the time being, get in touch with us (jens.krueger@uni-tuebingen.de, maximilian.hanussek@uni-tuebingen.de).
+You need to apply for a login for https://denbi.uni-tuebingen.de. 
 
-Please note, you are responsible for everything that happens with the virtual machines (VMs) you deploy! We as resource provider are not liable for anything and do not give any guarantees. It is anticipated to have a more sophisticated user agreement available till the end of 2017.
+The cloud site in Tübingen consists of two sites that are called RegionOne and RegionTwo. The two regions offer different resources. RegionOne offers low memory CPU nodes and high memory CPU nodes. RegioTwo offers medium memory CPU nodes and GPU nodes (NVIDIA V100). Also the storage components of these two regions are divided but have the same capabilities. Depending on which region your resources are please switch to the specific region. Per default RegionOne is chosen after the login. If you need to change to RegionTwo click on the `RegionOne` button in the upper left corner of the browser window. 
+
+Please note, you are responsible for everything that happens with the virtual machines (VMs) you deploy! We as resource provider are not liable for anything and do not give any guarantees.
 
 ## Operating Systems
 Here, we are talking about the operating system of your notebook or workstation, not the one of the VM. If you are a Linux User, we assume that you know what you are doing. If you are using MacOS you are hopefully aware that it is based on BSD and therefore very similar to other Linux distributions.
