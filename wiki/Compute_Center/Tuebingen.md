@@ -277,7 +277,7 @@ GRUB_CMDLINE_LINUX="console=tty0 crashkernel=auto net.ifnames=0 console=ttyS0 no
 GRUB_DISABLE_RECOVERY="true"</pre>
 
 5. Make the chnages effective
-<pre><sudo grub2-mkconfig -o /boot/grub2/grub.cfg/pre>
+<pre><sudo grub2-mkconfig -o /boot/grub2/grub.cfg</pre>
 
 6. Reboot the VM
 <pre>sudo reboot</pre>
