@@ -250,3 +250,104 @@ Save and close the file with `:wq`
 <pre>ip a</pre>
 which should print out a similar output as shown above for the centos7 section.
 The made changes here are directly persistent.
+
+## Install CUDA Driver for NVIDIA V100
+The following installation instructions help you if you want to install the NVIDIA CUDA drivers for the available NVIDIA V100 GPUs.
+It is assumed that you have a running VM with one or more GPUs attached already running. Otherwise please launch VM using one of the GPU flavors if GPUs are available for your project. The instructions are made for CentOS 7 and Ubuntu. We also offer existing images with CUDA already installed (CentOS 7.8 CUDA 11.0 2020-07-23, Ubuntu 18.04.4 LTS CUDA 11.0 2020-07-23, Ubuntu 20.04 LTS CUDA 11.0 2020-07-23).
+
+### CentOS 7
+1. Update the existing installation
+<pre>sudo yum update -y</pre>
+
+2. Install development tools
+<pre>sudo yum groupinstall "Development Tools" -y</pre>
+
+3. Install additional, required tools
+<pre>sudo yum install kernel-devel epel-release wget htop vim pciutils dkms -y</pre>
+
+4. Next we need to disable the Linux kernel default driver for GPU cards in. For this open the file `/etc/default/grub` with vim for example and add
+the parameter `nouveau.modeset=0` to the line starting with `GRUB_CMDLINE_LINUX=`. The line should be similar to the following example:
+<pre>GRUB_TIMEOUT=1
+GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
+GRUB_DEFAULT=saved
+GRUB_DISABLE_SUBMENU=true
+GRUB_TERMINAL="serial console"
+GRUB_SERIAL_COMMAND="serial"
+GRUB_CMDLINE_LINUX="console=tty0 crashkernel=auto net.ifnames=0 console=ttyS0 nouveau.modeset=0"
+GRUB_DISABLE_RECOVERY="true"</pre>
+
+5. Make the chnages effective
+<pre><sudo grub2-mkconfig -o /boot/grub2/grub.cfg/pre>
+
+6. Reboot the VM
+<pre>sudo reboot</pre>
+
+7. Login again and download the CUDA installer (11.0)
+<pre>wget http://us.download.nvidia.com/tesla/450.51.05/NVIDIA-Linux-x86_64-450.51.05.run</pre>
+
+8. Run the installer and answer everything with yes (especially to use DKMS)
+<pre>sudo sh NVIDIA-Linux-x86_64-450.51.05.run</pre>
+
+9. If the installation has finished you can check if everything works by running the following command
+<pre>nvidia-smi</pre>
+
+That should print out something similar to the following output depending on the number of GPUs requested
+<pre>+-----------------------------------------------------------------------------+
+| NVIDIA-SMI 450.51.05    Driver Version: 450.51.05    CUDA Version: 11.0     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Tesla V100-SXM2...  Off  | 00000000:00:05.0 Off |                    0 |
+| N/A   31C    P0    37W / 300W |      0MiB / 32510MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+</pre>
+
+### Ubuntu
+1. Load package updates
+<pre>sudo apt update</pre>
+
+2. If wanted, install the loaded updates
+<pre>sudo apt upgrade</pre>
+
+3. Install additional, required tools
+<pre>sudo apt install build-essential gcc-multilib dkms xorg xorg-dev libglvnd-dev -y</pre>
+
+4. Download the CUDA installer (11.0)
+<pre>wget http://us.download.nvidia.com/tesla/450.51.05/NVIDIA-Linux-x86_64-450.51.05.run</pre>
+
+5. Run the installer and answer everything with yes (especially to use DKMS)
+<pre>sudo sh NVIDIA-Linux-x86_64-450.51.05.run</pre>
+
+6. If the installation has finished you can check if everything works by running the following command
+<pre>nvidia-smi</pre>
+
+That should print out something similar to the following output depending on the number of GPUs requested
+<pre>+-----------------------------------------------------------------------------+
+| NVIDIA-SMI 450.51.05    Driver Version: 450.51.05    CUDA Version: 11.0     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Tesla V100-SXM2...  Off  | 00000000:00:05.0 Off |                    0 |
+| N/A   31C    P0    37W / 300W |      0MiB / 32510MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+</pre>
