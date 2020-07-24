@@ -308,9 +308,7 @@ That should print out something similar to the following output depending on the
 |        ID   ID                                                   Usage      |
 |=============================================================================|
 |  No running processes found                                                 |
-+-----------------------------------------------------------------------------+
-</pre>
-
++-----------------------------------------------------------------------------+</pre>
 10. In order to use for example `nvcc` please make sure the cuda directory `/usr/local/cuda` is in your path
 <pre>export PATH=/usr/local/cuda/bin:$PATH</pre>
 <pre>export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH</pre>
@@ -354,9 +352,7 @@ That should print out something similar to the following output depending on the
 |        ID   ID                                                   Usage      |
 |=============================================================================|
 |  No running processes found                                                 |
-+-----------------------------------------------------------------------------+
-</pre>
-
++-----------------------------------------------------------------------------+</pre>
 7. In order to use for example `nvcc` please make sure the cuda directory `/usr/local/cuda` is in your path
 <pre>export PATH=/usr/local/cuda/bin:$PATH</pre>
 <pre>export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH</pre>
