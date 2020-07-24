@@ -252,7 +252,7 @@ The made changes here are directly persistent.
 
 ## Install CUDA Driver for NVIDIA V100
 The following installation instructions help you if you want to install the NVIDIA CUDA drivers for the available NVIDIA V100 GPUs.
-It is assumed that you have a running VM with one or more GPUs attached already running. Otherwise please launch VM using one of the GPU flavors if GPUs are available for your project. The instructions are made for CentOS 7 and Ubuntu. We also offer existing images with CUDA already installed (CentOS 7.8 CUDA 11.0 2020-07-23, Ubuntu 18.04.4 LTS CUDA 11.0 2020-07-23, Ubuntu 20.04 LTS CUDA 11.0 2020-07-23).
+It is assumed that you have a running VM with one or more GPUs attached already running. Otherwise please launch VM using one of the GPU flavors if GPUs are available for your project. The instructions are made for CentOS 7 and Ubuntu. We also offer existing images with CUDA already installed (CentOS 7.8 CUDA 11.0 2020-07-24, Ubuntu 18.04.4 LTS CUDA 11.0 2020-07-24, Ubuntu 20.04 LTS CUDA 11.0 2020-07-24).
 
 ### CentOS 7
 1. Update the existing installation
