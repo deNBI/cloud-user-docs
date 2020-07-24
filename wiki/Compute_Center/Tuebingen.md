@@ -309,7 +309,8 @@ That should print out something similar to the following output depending on the
 |        ID   ID                                                   Usage      |
 |=============================================================================|
 |  No running processes found                                                 |
-+-----------------------------------------------------------------------------+</pre>
++-----------------------------------------------------------------------------+
+</pre>
 
 ### Ubuntu
 1. Load package updates
@@ -349,4 +350,5 @@ That should print out something similar to the following output depending on the
 |        ID   ID                                                   Usage      |
 |=============================================================================|
 |  No running processes found                                                 |
-+-----------------------------------------------------------------------------+</pre>
++-----------------------------------------------------------------------------+
+</pre>
