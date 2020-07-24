@@ -282,10 +282,10 @@ GRUB_DISABLE_RECOVERY="true"</pre>
 <pre>sudo reboot</pre>
 
 7. Login again and download the CUDA installer (11.0)
-<pre>wget http://us.download.nvidia.com/tesla/450.51.05/NVIDIA-Linux-x86_64-450.51.05.run</pre>
+<pre>http://developer.download.nvidia.com/compute/cuda/11.0.2/local_installers/cuda_11.0.2_450.51.05_linux.run</pre>
 
-8. Run the installer and answer everything with yes (especially to use DKMS)
-<pre>sudo sh NVIDIA-Linux-x86_64-450.51.05.run</pre>
+8. Run the installer and type in `accept` and go down to install and hit enter
+<pre>cuda_11.0.2_450.51.05_linux.run</pre>
 
 9. If the installation has finished you can check if everything works by running the following command
 <pre>nvidia-smi</pre>
@@ -311,6 +311,12 @@ That should print out something similar to the following output depending on the
 +-----------------------------------------------------------------------------+
 </pre>
 
+10. In order to use for example `nvcc` please make sure the cuda directory `/usr/local/cuda-11.0` is in your path
+<pre>export PATH=/usr/local/cuda-11.0/bin:$PATH</pre>
+<pre>export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH</pre>
+
+
+
 ### Ubuntu
 1. Load package updates
 <pre>sudo apt update</pre>
@@ -322,10 +328,10 @@ That should print out something similar to the following output depending on the
 <pre>sudo apt install build-essential gcc-multilib dkms xorg xorg-dev libglvnd-dev -y</pre>
 
 4. Download the CUDA installer (11.0)
-<pre>wget http://us.download.nvidia.com/tesla/450.51.05/NVIDIA-Linux-x86_64-450.51.05.run</pre>
+<pre>http://developer.download.nvidia.com/compute/cuda/11.0.2/local_installers/cuda_11.0.2_450.51.05_linux.run</pre>
 
-5. Run the installer and answer everything with yes (especially to use DKMS)
-<pre>sudo sh NVIDIA-Linux-x86_64-450.51.05.run</pre>
+5. Run the installer and type in `accept` and go down to install and hit enter
+<pre>sudo sh cuda_11.0.2_450.51.05_linux.run</pre>
 
 6. If the installation has finished you can check if everything works by running the following command
 <pre>nvidia-smi</pre>
@@ -350,3 +356,7 @@ That should print out something similar to the following output depending on the
 |  No running processes found                                                 |
 +-----------------------------------------------------------------------------+
 </pre>
+
+7. In order to use for example `nvcc` please make sure the cuda directory `/usr/local/cuda-11.0` is in your path
+<pre>export PATH=/usr/local/cuda-11.0/bin:$PATH</pre>
+<pre>export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH</pre>
