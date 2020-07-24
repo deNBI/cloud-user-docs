@@ -231,13 +231,12 @@ which should print out a similar output as shown above.
 With the following content:
 <pre>[Match]
 Name=ens6
-
 [Network]
 DHCP=ipv4
-
 [DHCP]
 UseMTU=true
-RouteMetric=200</pre>
+RouteMetric=200
+</pre>
 Save and close the file with `:wq`
 
 6. Restart the network with the follwoing command:
