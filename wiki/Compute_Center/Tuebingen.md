@@ -301,8 +301,7 @@ That should print out something similar to the following output depending on the
 |   0  Tesla V100-SXM2...  Off  | 00000000:00:05.0 Off |                    0 |
 | N/A   31C    P0    37W / 300W |      0MiB / 32510MiB |      0%      Default |
 |                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+
-                                                                               
++-------------------------------+----------------------+----------------------+                                                                               
 +-----------------------------------------------------------------------------+
 | Processes:                                                                  |
 |  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
@@ -343,7 +342,6 @@ That should print out something similar to the following output depending on the
 | N/A   31C    P0    37W / 300W |      0MiB / 32510MiB |      0%      Default |
 |                               |                      |                  N/A |
 +-------------------------------+----------------------+----------------------+
-                                                                               
 +-----------------------------------------------------------------------------+
 | Processes:                                                                  |
 |  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
