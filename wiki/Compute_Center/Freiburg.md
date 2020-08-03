@@ -1,6 +1,6 @@
 # de.NBI Cloud Freiburg
 
-Welcome to the de.NBI Cloud site Freiburg. Freburg is offering access cloud resources
+Welcome to the de.NBI Cloud site Freiburg. Freburg is offering access to cloud resources
 via the [Galaxy Gateway](https://galaxyproject.org) and the [European Galaxy server](https://usegalaxy.eu).
 
 
@@ -31,7 +31,7 @@ If you have any questions please contact us at galaxy@informatik.uni-freiburg.de
 
 ### Storage
 
-We provide all registered users a quota of 250GB. You can request more for a limited time by visiting https://usegalaxy.eu/quota-increase. 
+We provide all registered users a quota of 250GB. You can request more storage space for a limited time by visiting https://usegalaxy.eu/quota-increase. 
 
 ### Updates
 
