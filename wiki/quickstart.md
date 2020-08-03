@@ -113,7 +113,7 @@ which will produce the files new_id and new_id.pub in the directory C:\Users\myu
 
 # Creating a Router and a Network
 
-**This section does not apply to the de.NBI cloud site Tübingen. If your project is scheduled to Tübingen please follow cloud site specific instructions [de.NBI cloud site Tübingen](https://cloud.denbi.de/wiki/Compute_Center/Tuebingen/)**
+**This section does not apply to the de.NBI cloud site Tübingen. If your project is scheduled to Tübingen please follow the cloud site specific instructions for the [de.NBI cloud site Tübingen](https://cloud.denbi.de/wiki/Compute_Center/Tuebingen/).**
 
 We want to create a network to get access to our in the near future launched instances. First, we get to the Network Topology page: ![nav network topology](img/User/nav_project_network_network_topology.png). When you click on **Graph** (red box), you should see this page:
 
