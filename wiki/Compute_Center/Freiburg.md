@@ -20,8 +20,21 @@ Learn more about Galaxy's API and especially the Python Bindings, called bioblen
 
 The Galaxy framework allows us to deploy some nifty things easily in the cloud. Check out https://live.usegalaxy.eu to start your Jupyter Notebook, RStudio instance
 or other virtual Desktop or de.NBI projects like Wilson. All of those interactive environments can be combined with Galaxy workflows and you have access to
-your Galaxy storage, called histories. This will enable you to combine the best of both worlds, the asynchron world of workflow scheduling and the synchron world of 
-Notebook.
+your Galaxy storage, called histories. This will enable you to combine the best of both worlds, the asynchron world of workflow scheduling
+and the synchron world of Notebook.
+
+### Special Infrastructure for training, workshops and e-learning
+
+[TIaaS (Training Infrastructure as a Service)](https://galaxyproject.eu/tiaas) is a secial service offerred by de.NBI Freiburg. With TIaaS
+you will get for your workshop (or remote training event):
+
+* private queue where only your training’s jobs will run
+* no admin knowledge needed
+* official Galaxy Training Materials are guaranteed to work and regularly tested
+* your own dashboard, with information about your trainees, how they process and if they have problems in a GDPR compliant way
+
+TIaaS also works with the interactive tools, so you can also run your Python or R workshop inside the de.NBI cloud with Notebooks for every trainee and
+no administration overhead.
 
 ### Access to de.NBI cloud Freiburg
 
@@ -32,6 +45,7 @@ If you have any questions please contact us at galaxy@informatik.uni-freiburg.de
 ### Storage
 
 We provide all registered users a quota of 250GB. You can request more storage space for a limited time by visiting https://usegalaxy.eu/quota-increase. 
+
 
 ### Updates
 
