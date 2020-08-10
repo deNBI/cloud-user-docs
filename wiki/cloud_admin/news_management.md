@@ -29,3 +29,5 @@ You can also show all news with a specific tag. Therefore you can use the `/tag/
 ## Message of the Day
 You can get News in a specific Message of the Day format. To do this, you need to send a request to the Message of the day URL of the facility. You will receive a string which contains the current Message of the Day of the coresponding facility and a link to the full news article.
 You need to send the request to `https://cloud.denbi.de/portal/public/news/motd/<facility-id>/` to get the Message of the Day of the respective facility. 
+
+In case you need the Facility-ID of your facility, please [contact the de.NBI Cloud Governance](mailto:cloud@denbi.de) to receive the ID.
