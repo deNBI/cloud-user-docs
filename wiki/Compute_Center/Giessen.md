@@ -10,7 +10,7 @@ The de.NBI cloud team in Giessen can contacted via email: cloud@computational.bi
 
 ### Access to de.NBI cloud Giessen
 
-The web based dashboard is available at [Giessen dashboard](https://cloud.computational.bio.uni-giessen.de). It currently does not offer ELIXIR AAI logins.
+The web based dashboard is available at [Giessen dashboard](https://cloud.computational.bio.uni-giessen.de).
 
 ### Volume type providers
 
