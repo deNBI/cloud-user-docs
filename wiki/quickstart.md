@@ -330,10 +330,16 @@ It can be found within the Horizon dashboard under Instances. An example of a Li
 ssh -i /path/to/private/key @
 ~~~
 
-An example for a CentOS machine with the floating IP 1.2.3.4 would be:
+An example for a Ubuntu machine with the floating IP 1.2.3.4 would be:
 
 ~~~BASH
 ssh -i /path/to/private/key ubuntu@1.2.3.4
+~~~
+
+For a CentOS machine, it would be:
+
+~~~BASH
+ssh -i /path/to/private/key centos@1.2.3.4
 ~~~
 
 If you need X-Forwarding for graphical user interfaces don’t forget to set the –X flag and check if the xauth package is installed on the host and the server and the X-Forwarding settings are correct. 
