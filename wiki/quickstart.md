@@ -199,7 +199,11 @@ Select your **Subnet** and click on the blue **Submit** button. Your topology gr
 
 # Launching an Instance
 
-Finally, we can launch our instances. We are still on network overview page. Click on the **Launch Instance** button (pink box on the picture in the last chapter). A new **Launch Instance** form will appear:
+Finally, we can launch our instances. We are still on network overview page. 
+
+Please note that it is absolutely essential having completed the [SSH Setup](quickstart.md#ssh-setup) before continuing. Otherwise, you will not be able to access your instance.
+
+Click on the **Launch Instance** button (pink box on the picture in the last chapter). A new **Launch Instance** form will appear:
 
 ----
 
