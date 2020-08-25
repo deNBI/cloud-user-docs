@@ -20,7 +20,13 @@ Add **--mtu=1440** to the end of the **ExecStart** line in the [Service]
 section, like shown below:
 
     ExecStart=/usr/bin/docker daemon -H fd:// --mtu=1440
-    
+
+Or you can add this to **/etc/docker/daemon.json**
+
+    {
+          "mtu": 1440
+    }    
+
 In a last step you have to reload the daemon and restart docker:
 
     sudo systemctl daemon-reload
