@@ -1,27 +1,70 @@
-## Security aspects in clouds
+## Security aspects of cloud computing
 
-One important change triggered by the rise of clouds is a shift in responsibility. In the pre-cloud world, a system administrator was responsible for taking care of system, installing security patches and fixes, securing the network, settings up firewalls and monitor the operation state of servers.
+### Shift in responsibility
 
-With clouds, this has changed. The system administrator is still responsible for the servers, but is focusing on the cloud setup itself. An inspection of running instances is technically difficult (if not infeasible), and in case of extern users' instance legally forbidden. Monitoring is restricted to transfer points like network interfaces, and may allow the administrator to detect abuse or suspicious actions.
+One important change triggered by the rise of cloud computing is a shift in responsibility.
+In the pre-cloud world, a system administrator was responsible for taking care of the system,
+installing security patches and fixes, securing the network, setting up firewalls and monitoring
+the operation state of servers.
 
-As a result, the user or group starting and managing their instances are responsible for them. It's up to them to ensure that the systems are updated in a properly manner, and set up in a secure way to prevent abuse or instances being compromised.
+With cloud computing, this has changed considerably:
+The system administrator is still responsible for the bare
+hardware servers. However, the user-created instances (virtual machines) running on these servers
+are the sole responsibility of the user who launched them. This includes any activity going on
+inside the instances while they are running as well as all of their
+communication with the outside world.
 
-This page hosts a list of recommendations every cloud user should follow. This list is neither complete nor comprehensive, and will be extended over time:
+Large compute ressources and unrestricted high-speed internet access make cloud instances
+an attractive target for outside attackers. Users are obligated to keep their instances
+secure and up-to-date.
 
-*  Do not use password based logins, always use SSH with key only.
+### General security recommendations
 
-*  Keep the operation system and installed packages in each instance up to date, especially in long running ones.
+- SSH access: Always use key based authentication instead of a plain password.
 
-*  Update images to contain the latest patches (and ask the site administrators to update images provided by them).
+- Keep the operating system and all installed packages of your instances up to date.
 
-*  Use security groups and a white list of allowed ports to control access to your instances.
+- Make sure to always use the most recent of the officially provided cloud images when
+  launching a new instance.
 
-*  Restrict access even further if possible, e.g. by restricting to certain IP networks.
+- Configure the internal firewall of your instances using `iptables` to add another layer of
+  security in addition to the security groups.
 
-*  **ALWAYS** change the default credentials of services, these credentials are well known and will be probed if the service is exposed to the internet.
+- Do not rely on any global cloud site firewall, its configuration might change without
+  prior notice. If in doubt, ask the site administrators!
 
-*  Configure the firewall of the instance in addition to the security groups, every additional layer will help.
+If you have detected a possible security problem with an instance, please contact the site
+administrators immediately and ask for support. They will to advise you on how to proceed.
 
-*  Do not rely on a cloud site firewall, its configuration might change without prior notice. If in doubt, ask the site administrators!
+### Best practices for remote port access
 
-If you have detected a possible security problem with an instance, contact the site administrator and ask for support. He/she should be able to advise you how to proceed.
+#### SSH port forwarding
+
+SSH is able to forward a port through a tunnel and make it available to your local computer only.
+No security group rule needed! So e.g. to access a server listening on port `localhost:8080` of your
+instance, you forward it to `127.0.0.1:8080` on your local computer by adding the following to your
+SSH call: `-L 127.0.0.1:8080:localhost:8080`. A server serving a website would then be available at
+`http://127.0.0.1:8080`.
+
+Further information:
+- [https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding](https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding)
+
+#### Well defined remote IP range
+
+Allow access from only a subset of IP addresses, e.g. from the Bielefeld University IP range:
+`129.70.0.0/16` (That is only about 0.002% of the world's IPv4 addresses). The default security
+group (which all new instances get) should not be touched. Create a new one instead, add your rules
+and attach it only to the instance you need outside access to.
+
+Further information:
+- [https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation)
+
+#### Application security
+
+Many applications support authentication (e.g. username and password). Use it to stop any outside
+attacks that were (easily) able to guess your instance's IP and port (which are not secret by any
+means). It is also highly recommended to protect your network traffic from prying eyes using TLS
+which is available inside almost all server applications, especially webservers.
+
+**Always** change the default credentials of services as these are well known and
+will be probed as soon as the service is exposed to the internet.
