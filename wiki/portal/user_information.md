@@ -18,7 +18,7 @@ You have the possibility to view, copy and deposit your public ssh key. This is 
 ### Link Accounts to ELIXIR
 
 On the profile page you can link multiple accounts to your existing ELIXIR-account.
-By clicking on the button `Link accounts` you will be redirected to the ELIXIR profile-page. If you are not yet logged in to ELIXIR, please do so to be redirected to the page mentioned. Click on `My linked accounts` in the menu to see and manage your accounts linked to your ELIXIR account. 
+By clicking on the button `Link accounts` you will be redirected to the [ELIXIR profile-page](https://perun.elixir-czech.cz/fed/profile/#identities "ELIXIR profile"). If you are not yet logged in to ELIXIR, please do so to be redirected to the page mentioned. Click on `My linked accounts` in the menu to see and manage your accounts linked to your ELIXIR account. 
 To link another account click on `Link a new account` below `My linked accounts`. 
 ![accountlinkingpage](img/linked_accounts.png)
 
