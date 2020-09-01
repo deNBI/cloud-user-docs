@@ -56,12 +56,12 @@ nav:
       - 'Images/Snapshots': simple_vm/snapshots.md
       - 'Customization': simple_vm/customization.md
   - 'OpenStack Quickstart' : quickstart.md
+  - 'Security' : security.md
   - 'Concept' :
     - 'OpenStack Basics' : Concept/basics.md
     - 'OpenStack Components' : Concept/openstack.md
     - 'Flavors' : Concept/flavors.md
     - 'Images' : Concept/images.md
-    - 'Security' : Concept/security.md
   - 'Tutorials' :
     - 'Access de.NBI Virtual Machines from Windows 10' : Tutorials/Win10_SSH/index.md
     - 'Access a SimpleVM with Mosh' : Tutorials/Mosh/index.md

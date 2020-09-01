@@ -294,7 +294,7 @@ Click on **Associate** to associate your new floating ip to your instance. Now, 
 
 ## Security Groups
 
-First of all, you should read our [Security aspects in clouds](../Concept/security/#security-aspects-in-clouds) page!
+First of all, you should read our [Security aspects in clouds](../security/#security-aspects-in-clouds) page!
 You are responsible for a secure setup of your VMs. To allow external access to your instance via SSH, you have to change the security group and allow SSH! Go to Project -> Compute -> Access & Security
 
 ![nav compute](img/User/nav_project_compute_access_and_security.png)

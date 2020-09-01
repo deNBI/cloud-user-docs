@@ -47,6 +47,7 @@ SSH call: `-L 127.0.0.1:8080:localhost:8080`. A server serving a website would t
 `http://127.0.0.1:8080`.
 
 Further information:
+
 - [https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding](https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding)
 
 #### Well defined remote IP range
@@ -57,6 +58,7 @@ group (which all new instances get) should not be touched. Create a new one inst
 and attach it only to the instance you need outside access to.
 
 Further information:
+
 - [https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation)
 
 #### Application security

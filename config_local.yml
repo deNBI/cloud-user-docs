@@ -45,7 +45,7 @@ nav:
   - 'OpenStack Quickstart' : 'quickstart.md'
   - 'Concept' : 
     - 'OpenStack Basics' : Concept/basics.md
-    - 'Security' : Concept/security.md
+  - 'Security' : security.md
   - 'Tutorials' :
     - 'Access de.NBI Virtual Machines from Windows 10' : Tutorials/Win10_SSH/index.md
     - 'Access a Simple VM with Mosh' : Tutorials/Mosh/index.md
