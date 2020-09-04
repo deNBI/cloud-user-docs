@@ -61,6 +61,9 @@ Now you are able to work with RStudio via web browser!
 From the project page:
 > [Apache Guacamole](https://guacamole.apache.org/) is a clientless remote desktop gateway. It supports standard protocols like VNC, RDP, and SSH. We call it clientless because no plugins or client software are required. Thanks to HTML5, once Guacamole is installed on a server, all you need to access your desktops is a web browser.  
 
+!!! Info
+    After rebooting or turning from shutoff to active, it will take about 15 minutes until you are able to access your Apache Guacamole research environment.
+
 To access your Apache Guacamole research environment, please follow the link you may find after starting your virtual machine, in the instance overview and/or on the detail page of your virtual machine. You will be prompted to log in with your ELIXIR account if you have not done it already. Afterwards you will be prompted to log in to Apache Guacamole.  
 ![guacamole_login](./img/customization/guacamole_login.png)  
 #### Login credentials
