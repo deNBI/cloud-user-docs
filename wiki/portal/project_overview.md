@@ -1,37 +1,32 @@
-## Project Overview
+In the sidebar under "Project Management" all projects you are a member of are listed. By clicking on the corresponding project you will get to the project overview page, which contains all information about the project as well as the possibility of adjustments.
 
-In the "Project Management" sidebar your projects are listed and by clicking on a project tab the detailed overview opens.
-![Project Overview Tab](img/overview_tab.png)
+![project_overview](img/project_overview.png)
+
+### Quick overview
+
+The upper part of the overview page summarizes the most important information about the project. This information includes the runtime and the number of available virtual machines. In addition, the support of the project location where the project is running can be contacted directly. 
+It is possible to [request extensions or resource modifications](modification.md) directly from the overview.
+With a click on "Show more information" all further project information and currently requested changes/extensions can be displayed.
+
+### Member management
+
+In the area "Members of the Project" all members of the project can be viewed. 
+Project administrators are also able to  
+
+* Invite further members
+
+* Accept/reject member applications for the project
+
+* Remove existing members from the project
+
+* Promote members to administrators or revoke their status
+
+Members can be easily be added to the project.
+If desired users already have a de.NBI Cloud account, they can easily be added using the search function under "Add member". Otherwise you will find an invitation link in the same section, which can be sent to the desired persons. These persons must then register for an ELIXIR and a de.NBI Cloud account. As soon as the invited person has completed this process and applied for your project, the project administrators will be informed by mail. Adding the people to the project can then be confirmed or declined under "Member Applications".
 
 
-The following actions are only available for a project manager:
+![member_overview](img/member_overview.png)
 
-* Overview of all project members. Project managers are colored in blue.
-    
-* Appoint another member as admin (project manager).
+### Publications
 
-* Remove the admin (project manager) state.
-
-* Remove a member from this project.
-    
-* Add another user to this project by inserting their name, email or even ELIXIR ID and clicking on `add member`.
-
-* Add a DOI (Digital Object Identifier).
-   
-![Members](img/add_members.png)
-### Inviting Members
-
-Through invitation links users can be easily added to a de.NBI Cloud project. The process is the following:
-
-* __Step 1__: Send the invitation link which you can find in the "Add Member" modal to the user you want to add (see figure of the previous section).
-
-* __Step 2__: By using this link the user will be requested to register for an ELIXIR and de.NBI Cloud account. In the final step the
-user also registers for your project.
-
-![Invitation Registration](img/invitation_registration.png)
-
-* __Step 3__: You will be informed by mail as soon as the user submits an application. You can then approve the application
-in the application modal. Once the application is approved the user will have access to your project.
-
-![application invitation](img/application_list.png)
-
+Project administrators can add DOIs of publications that are related to the current project so that they are published on the de.NBI cloud page. You can find more information on this topic [here](../citation_and_publication.md).
