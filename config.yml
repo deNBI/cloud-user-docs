@@ -44,7 +44,7 @@ nav:
   - 'Citation and publication': citation_and_publication.md
   - 'Portal' :
     - 'Allocation': portal/allocation.md
-    - 'Modification': portal/modification.md
+    - 'Resource/Lifetime Modifications': portal/modification.md
     - 'Project Overview': portal/project_overview.md
     - 'Profile Page': portal/user_information.md
     - 'Using Vault': portal/vault_user.md
