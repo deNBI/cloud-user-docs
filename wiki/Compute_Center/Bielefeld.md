@@ -64,7 +64,7 @@ We make use of a network virtualization technology called Virtual Extensible Lan
 ## Images
 We provide some preconfigured cloud images on top of the Ubuntu LTS (16.04, 18.04 and 20.04) and Debian (9). These images run without any further modifications on other cloud sites as well and come with a script `/usr/local/bin/de.NBI_Bielefeld_environment.sh` that adapt a running instance to the cloud site Bielefeld:
 
-- set proxy for enviroment, apt and docker if necessary
+- set proxy for environment, apt and docker if necessary
 - make use of apt-mirror
 
 ### Ubuntu apt mirror
