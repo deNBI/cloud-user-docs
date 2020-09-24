@@ -1,4 +1,4 @@
-# de.NBI Cloud Wiki STAGING VERSION
+# de.NBI Cloud Wiki
 
 Welcome to the de.NBI Cloud wiki!
 
