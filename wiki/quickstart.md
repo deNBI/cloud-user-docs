@@ -65,7 +65,7 @@ Afterwards, your key should be listed on the key overview page. In chapter [ Get
 
 ## Generate SSH-Keys
 
-Note that on your "User information" page only RSA and EDCSA public keys are accepted as valid.
+Note that on your "User information" page only RSA and ECDSA public keys are accepted as valid.
 The following instructions are for RSA keys.
 
 **Linux**
