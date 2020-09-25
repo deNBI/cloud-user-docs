@@ -145,7 +145,7 @@ The A record will be generated according to the following scheme:
 
 `<INSTANCE_NAME>.<PROJECT_NAME>.projects.bi.denbi.de`
 
-Therefore, you can reach you instance (via SSH) not only by the numeric floating ip, but also by name. 
+Therefore, you can reach you instance (via SSH) not only by the numeric floating IP, but also by name. 
 
 Detaching the floating ip will also delete the A record.
 
