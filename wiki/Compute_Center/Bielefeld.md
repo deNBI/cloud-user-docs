@@ -69,7 +69,7 @@ We provide some preconfigured cloud images on top of the Ubuntu LTS (16.04, 18.0
 
 ### Ubuntu apt mirror
 We run an apt mirror for Ubuntu LTS releases (16.04, 18.04 and 20.04) to speed up package download. The mirror is available from Bielefeld cloud site from the external (http[s]://apt-cache.bi.denbi.de:9999 or http://129.70.51.2:9999) and cebitec (http://172.21.40.2:9999) network.
-This mirror synced every midnight with the official Canonical repositories.
+This mirror is synced every midnight with the official Canonical repositories.
 
 ## Object storage
 The storage backend used by Bielefeld cloud site is powered by [Ceph](https://www.ceph.com). The Object storage endpoint provides API access via SWIFT and S3. The latter should be preferred due to better performance.
@@ -157,5 +157,4 @@ Our current setup has some known problems.
 - Suspending and Shelving instances has been disabled for regular users. Please use the snapshot functionality in order to
 save up on ressources.
 - Policy problems when using the dashboard object storage UI. However the cmdline access works.
-
 
