@@ -147,7 +147,7 @@ The A record will be generated according to the following scheme:
 
 Therefore, you can reach you instance (via SSH) not only by the numeric floating IP, but also by name. 
 
-Detaching the floating ip will also delete the A record.
+Detaching the floating IP will also delete the A record.
 
 
 ## Known Problems
