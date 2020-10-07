@@ -14,6 +14,10 @@ Log in with OIDC as method and leave the role field blank.
 After logging in you should see the 'Secrets' tab.  
 ![secrets_overview](../cloud_admin/images/vault/secrets_overview.png)  
 To access a secret, copy the URL with the compute center you want to access and add your Elixir ID at the end:  
+
+!!! danger "Access a secret"
+    Make sure that you are logged in to ELIXIR before you copy the link into the address bar, otherwise the process will not work.
+ 
 ```
 Format:
 https://cloud.denbi.de/ui/vault/secrets/<COMPUTE CENTER>/show/<YOUR ELIXIR ID>  
