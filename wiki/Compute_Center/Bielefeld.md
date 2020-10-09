@@ -17,11 +17,12 @@ You can get an up to date list of API endpoints of the following services using 
 |--------------|--------------|                                                
 | swift        | object-store |
 | nova         | compute      |
-| cinderv2     | volumev2     |
+| cinderv3     | volumev3     |
 | keystone     | identity     |
 | glance       | image        |
 | neutron      | network      |
 | cinder       | volume       |
+| designate    | dns          |
 
 ## Login
 The Bielefeld cloud site supports login using Elixir AAI via OpenID Connect or default Keystone credentials. Using Elxir AAI is the prefered way for all cloud users and the only way for non cloud users not working at the Bielefeld university. 
@@ -61,16 +62,18 @@ We make use of a network virtualization technology called Virtual Extensible Lan
 
 
 ## Images
-We provide some preconfigured cloud images on top of the Ubuntu LTS (16.04 and 18.04) and Debian (9). These images run without any further modifications on other cloud sites as well and come with a script `/usr/local/bin/de.NBI_Bielefeld_environment.sh` that adapt a running instance to the cloud site Bielefeld:
+We provide some preconfigured cloud images on top of the Ubuntu LTS (16.04, 18.04 and 20.04) and Debian (9). These images run without any further modifications on other cloud sites as well and come with a script `/usr/local/bin/de.NBI_Bielefeld_environment.sh` that adapt a running instance to the cloud site Bielefeld:
 
-- set proxy for enviroment, apt and docker if necessary
+- set proxy for environment, apt and docker if necessary
 - make use of apt-mirror
 
 ### Ubuntu apt mirror
-We run an apt mirror for Ubuntu LTS releases (16.04 and 18.04) to speed up package download. The mirror is available from Bielefeld cloud site from the external (http[s]://apt-cache.bi.denbi.de:9999 or http://129.70.51.2:9999) and cebitec (http://172.21.40.2:9999) network.  
+We run an apt mirror for Ubuntu LTS releases (16.04, 18.04 and 20.04) to speed up package download. The mirror is available from Bielefeld cloud site from the external (http[s]://apt-cache.bi.denbi.de:9999 or http://129.70.51.2:9999) and cebitec (http://172.21.40.2:9999) network.
+This mirror is synced every midnight with the official Canonical repositories.
 
 ## Object storage
 The storage backend used by Bielefeld cloud site is powered by [Ceph](https://www.ceph.com). The Object storage endpoint provides API access via SWIFT and S3. The latter should be preferred due to better performance.
+You can find a tutorial [here](../Tutorials/ObjectStorage/index.md) on how to use this service.
 
 
 ## Server Groups for optional performance gains
@@ -135,6 +138,18 @@ source ~/Downloads/<NAME OF RC FILE>
 Now you can use the openstack commandline tools.
 
 
+## DNS as a Service
+
+Attaching a floating ip to an instance automatically creates an A record in our public nameserver.
+The A record will be generated according to the following scheme:
+
+`<INSTANCE_NAME>.<PROJECT_NAME>.projects.bi.denbi.de`
+
+Therefore, you can reach you instance (via SSH) not only by the numeric floating IP, but also by name. 
+
+Detaching the floating IP will also delete the A record.
+
+
 ## Known Problems
 
 Our current setup has some known problems.
@@ -142,5 +157,3 @@ Our current setup has some known problems.
 - Suspending and Shelving instances has been disabled for regular users. Please use the snapshot functionality in order to
 save up on ressources.
 - Policy problems when using the dashboard object storage UI. However the cmdline access works.
-
-
