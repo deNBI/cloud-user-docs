@@ -7,6 +7,7 @@ You can find the Vault ui [here](https://cloud.denbi.de/ui/).
 !!! danger "OIDC popup"
     To log in with OIDC you need to have popups allowed for the vault login page! If the login is buggy after allowing popups, please reload the page.
 
+The tab with OIDC as login method should be openeded by default. If the 'other' tab is opened, switch to the OIDC tab.  
 If you are not yet a member of an admin group, please log in with OIDC as method. You can leave the role field blank. Then contact the de.NBI Cloud governance to be added to an admin group.  
 If you already are member of an admin group, simply log in with OIDC as method and a blank role field.  
 ![login_vault](images/vault/login.png)  

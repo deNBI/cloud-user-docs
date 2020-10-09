@@ -7,6 +7,7 @@ You can find the Vault ui [here](https://cloud.denbi.de/ui/).
 !!! danger "OIDC popup"
     To log in with OIDC you need to have popups allowed for the vault login page! If the login is buggy after allowing popups, please reload the page.
 
+The tab with OIDC as login method should be openeded by default. If the 'other' tab is opened, switch to the OIDC tab.  
 Log in with OIDC as method and leave the role field blank.  
 ![login_vault](../cloud_admin/images/vault/login.png)  
 
