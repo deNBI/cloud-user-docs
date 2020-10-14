@@ -36,4 +36,4 @@ After submitting the form you are finally a member of the de.NBI Cloud:
 
 ![de.NBI Registration Success](img/denbi_successful_registration.png)
 
-After the registration you might want to [apply](../portal/allocation/) for a de.NBI Cloud project or you can be granted access to an already existing Cloud project through the [invitation function](../portal/project_overview/#inviting-members).
+After the registration you might want to [apply](../portal/allocation/) for a de.NBI Cloud project or you can be granted access to an already existing Cloud project through the [invitation function](../portal/project_overview/#member-management).

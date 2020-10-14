@@ -116,7 +116,7 @@ In this example, the `apt` and `systemd` modules were used. On the first group, 
   
 Ansible provides a bunch of modules for nearly everything. It ranges from installing software with a package manager to modifying MySQL permissions.
 Luckily, there is a well documented description of all Ansible modules with a rich variety of examples.
-You can view the module index [here](https://docs.ansible.com/ansible/latest/modules/modules_by_category.html).
+You can view the module index [here](https://docs.ansible.com/ansible/2.9/modules/modules_by_category.html).
 
 ### Getting started with Ansible!
 

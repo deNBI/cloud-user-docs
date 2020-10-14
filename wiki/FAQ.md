@@ -4,7 +4,7 @@ The de.NBI Cloud is fully funded by the federal ministry of education and resear
 
 ### How can I acknowledge the de.NBI Cloud in publications?
 
-See [here](../portal/project_overview/#citation-information) for more information.
+See [here](citation_and_publication.md/#citation-information) for more information.
 
 ### I can not build docker images and can not download packages from inside of the container.
 
