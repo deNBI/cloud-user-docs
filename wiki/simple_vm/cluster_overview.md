@@ -43,7 +43,8 @@ hostname: bibigrid-worker-1-1-yif3uig7qvwlbmv
 memory: 2048
 epheremals: []
 ```
-This example yaml file would be saved as 192.168.1.117.yml <br>
+This example yaml file would be saved as:<br> **192.168.1.117.yml** <br>
+<br>
 **You can find this information for every worker in the cluster detail overview!<br>
 Navigate to the respective worker and on the right side click on "Scaling Info".**
 
@@ -53,11 +54,21 @@ Navigate to the respective worker and on the right side click on "Scaling Info".
 Now the downloaded script has to be executed, as parameter the private ip of each new worker has to be passed
 
 ```BASH
-./scaling_up_v0.py 192.168.1.117
+python3 scaling_up_v0.py 192.168.1.117
 ```
+**_NOTE:_** Sometimes the ansible script can fail with the error message **Could not get lock /var/lib/dpkg/lock-frontend - open (11: Resource temporarily unavailable)** <br>
+Then you have to wait a few minutes and run the script again
 
 When the script has run, your cluster is properly configured again and the new workers can be used!
 </li>
+
+You can check with the command **sinfo** if the worker has been added correctly!
+
+**If the new worker is still missing you can try to restart slrum with the following command:**
+```BASH
+sudo /etc/init.d/slurmctld restart
+```
+**If the worker is still missing after the command has been executed something went wrong and you should contact the support.**
 </ol> 
 
 
@@ -88,11 +99,21 @@ wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/v0/sca
 Now the downloaded script has to be executed, as parameter the private ip of each deleted worker has to be passed
 
 ```BASH
-./scaling_down_v0.py 192.168.1.54 192.168.1.62
+python3 scaling_down_v0.py 192.168.1.54 192.168.1.62
 ```
 
 When the script has run, your cluster is properly configured again!
+
+
+
 </li>
+You can check with the command **sinfo** if the worker has been removed correctly!
+
+**If the  worker is still there you can try to restart slurm with the following command:**
+```BASH
+sudo /etc/init.d/slurmctld restart
+```
+**If the worker is still there after the command has been executed something went wrong and you should contact the support.**
 </ol> 
 
 
