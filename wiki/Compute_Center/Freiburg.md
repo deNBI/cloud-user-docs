@@ -14,7 +14,7 @@ ENA or SRA, or learn how to use one of our 2500 tools.
 ### Get Started - the API way
 
 You can control all aspects of Galaxy via a powerful API. The most obvious use-case is to start workflows programmatically or via GitHub actions.
-Learn more about Galaxy's API and especially the Python bindings, called BioBlend, in the [Galaxy Training Network](https://training.galaxyproject.org/training-material/topics/dev/tutorials/bioblend-api/) or play around with our [Jupyter Notebooks](https://mybinder.org/v2/gh/nsoranzo/bioblend-tutorial/master).
+Learn more about Galaxy's API and especially the Python bindings, called BioBlend, in the [Galaxy Training Network]( https://training.galaxyproject.org/training-material/topics/dev/tutorials/bioblend-api/slides.html#1) or play around with our [Jupyter Notebooks](https://mybinder.org/v2/gh/nsoranzo/bioblend-tutorial/master).
 
 ### Interactive Tools, Notebooks and Virtual Desktops
 
