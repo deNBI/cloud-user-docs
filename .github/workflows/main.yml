@@ -12,3 +12,11 @@ jobs:
         run: docker run  -v $(pwd)/wiki:/srv_root/docs/wiki -v $(pwd)/html:/var/www/html/wiki -v $(pwd)/config.yml:/config.yml -p "8000:8000"  --entrypoint="mkdocs" denbicloud/mkdocswebhook:2.1.0 build --strict --clean -f /config.yml
       - name: Run Html-proofer
         run: docker run  -v $(pwd)/whitelist.txt:/whitelist.txt  -v $(pwd)/html:/html 18fgsa/html-proofer  --url-ignore $(cat whitelist.txt | tr '\n' ',')  --empty_alt_ignore   /html
+      - name: Rocket.Chat Notification
+        uses: RocketChat/Rocket.Chat.GitHub.Action.Notification@master
+        if: always()
+        with:
+          type: ${{ job.status }}
+          job_name: '*Wiki Check*'
+          mention_if: 'failure'
+          url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
