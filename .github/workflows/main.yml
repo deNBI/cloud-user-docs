@@ -18,5 +18,5 @@ jobs:
         with:
           type: ${{ job.status }}
           job_name: '*Wiki Check*'
-          mention_if: 'always'
+          mention_if: 'failure'
           url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
