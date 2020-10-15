@@ -14,7 +14,7 @@ See also: [Introduction to object storage by Rackspace](http://blog.rackspace.co
 
 The object storage in the de.NBI cloud can be accessed either via the S3-API or the Swift-API. These APIs differ in their terminology, capabilities and respective tools: Objects are stored in containers (swift) or buckets (s3). Access is controlled via access control lists (s3 and swift) or via policies (only s3).
 
-The s3 and swift APIs in the de.NBI cloud is based on radosgw, a part of the ceph object store. For further details on this implementation see http://docs.ceph.com/docs/luminous/radosgw/ .
+The s3 and swift APIs in the de.NBI cloud is based on radosgw, a part of the ceph object store. For further details on this implementation see https://docs.ceph.com/en/latest/radosgw/s3/.
 
 Both APIs have command line clients as well as graphical user interfaces.
 
