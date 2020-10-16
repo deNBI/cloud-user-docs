@@ -104,7 +104,7 @@ An element defines steps for each phase of the creation cycle. Every single step
 
 ###  Packages
 
-As mentioned above, packages which are available through the, e.g. Ubuntu, [ package repository ]( http://packages.ubuntu.com/ ), could be installed during the creation process by simply append package names.
+As mentioned above, packages which are available through the, e.g. Ubuntu, [ package repository ]( https://packages.ubuntu.com/ ), could be installed during the creation process by simply append package names.
 
 	# create Ubuntu Trusty as qcow2 image
 	$ disk-image-create -a amd64 -o ubuntu-trusty.qcow ubuntu vm

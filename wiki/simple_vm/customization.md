@@ -28,11 +28,11 @@ $ denbi
 ~~~
 as a command once you logged into your virtual machine.
 ## Research environments
-Here you may find a selection of research environments you will be able to use over your web browser, e.g. [RStudio](#rstudio), [Apache Guacamole](#apache-guacamole) or [Theia IDE](theia-ide). More research environments might be added in the future.  
+Here you may find a selection of research environments you will be able to use over your web browser, e.g. [RStudio](#rstudio), [Apache Guacamole](#apache-guacamole) or [Theia IDE](#theia-ide). More research environments might be added in the future.  
 You will need to select a template of the research environment you wish to install and a namespace, which will be part of the URL under which you will have access to your research environment. ![resenv_selection_filled](./img/new_instance/new_instance_resenv_name.png)  
 
 !!! Installation
-    Similiar to the [installation process of Conda](#conda#installation-process), we will create a temporary rsa-keypair which will be used to install your research environment via Ansible. Afterwards we remove the temporary key and copy your public key onto your virtual machine, whether the process succeeds or fails. Afterwards you may download and look into the installation logs if you wish to.
+    Similiar to the [installation process of Conda](#conda), we will create a temporary rsa-keypair which will be used to install your research environment via Ansible. Afterwards we remove the temporary key and copy your public key onto your virtual machine, whether the process succeeds or fails. Afterwards you may download and look into the installation logs if you wish to.
 
 ##### Where to find the URL
 To access your research environment, follow the Link you will find on the [instance overview](./instance_overview.md) and/or on the [detail page](./instance_detail.md) of your virtual machine.  
