@@ -14,7 +14,7 @@ jobs:
         run: docker run  -v $(pwd)/whitelist.txt:/whitelist.txt  -v $(pwd)/html:/html 18fgsa/html-proofer  --url-ignore $(cat whitelist.txt | tr '\n' ',')  --empty_alt_ignore   /html
       - name: Rocket.Chat Notification
         uses: RocketChat/Rocket.Chat.GitHub.Action.Notification@master
-        if: always()
+        if: ${{ failure() }}
         with:
           type: ${{ job.status }}
           job_name: '*Wiki Check*'
