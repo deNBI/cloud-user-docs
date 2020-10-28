@@ -18,14 +18,14 @@ This will open a modal where you have to specify which batch should be expanded.
 Therefore it is calculated how many maximum workers are possible in each batch.
 
 **This will only initiate the start of the workers.
-The cluster has to be configured correctly, so please wait until all new workers are active in the cluster detail overview until you configure the cluster!**.
+The cluster has to be configured correctly, so please wait until all new workers are active in the cluster detail overview until you configure the cluster!**
 
 ####  Configuring Master
 For the cluster to use the new workers the master must be reconfigured.
 Therefore  you have to do the following steps:
 
-<ol>
-<li>Download a script:
+
+##### 1. Download a script:
 
 
 ```BASH
@@ -33,15 +33,14 @@ wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/v0/sca
 ```
 
 
-<li>
-Now the downloaded script has to be executed:
+
+##### 2. Now the downloaded script has to be executed:
 
 ```BASH
 python3 scaling_v0.1.0.py 
 ```
 
 When the script has run, your cluster is properly configured again and the new workers can be used!
-</li>
 
 You can check with the command _sinfo_ if the worker has been added correctly!
 
@@ -50,7 +49,6 @@ You can check with the command _sinfo_ if the worker has been added correctly!
 sudo /etc/init.d/slurmctld restart
 ```
 **If the worker is still missing after the command has been executed something went wrong and you should contact the support.**
-</ol> 
 
 
 
@@ -65,8 +63,7 @@ Once you have selected which batches should be scaled down and confirmed, these 
 
 Therefore  you have to do the following steps:
 
-<ol>
-<li>Download a script:
+##### 1. Download a script:
 
 
 ```BASH
@@ -74,10 +71,8 @@ wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/v0/sca
 ```
 
 
-</li>
 
-<li>
-Now the downloaded script has to be executed:
+##### 2. Now the downloaded script has to be executed:
 
 ```BASH
 python3 scaling_v0.1.0.py 
@@ -86,7 +81,6 @@ python3 scaling_v0.1.0.py
 When the script has run, your cluster is properly configured again!
 
 
-</li>
 You can check with the command _sinfo_ if the workers have been removed correctly!
 
 **If the  workers are still there you can try to restart slurm with the following command:**
@@ -94,7 +88,6 @@ You can check with the command _sinfo_ if the workers have been removed correctl
 sudo /etc/init.d/slurmctld restart
 ```
 **If the workers are still there after the command has been executed something went wrong and you should contact the support.**
-</ol> 
 
 
 ### 5. Delete Cluster
