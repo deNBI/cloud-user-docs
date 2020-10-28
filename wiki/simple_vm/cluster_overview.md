@@ -37,13 +37,13 @@ wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/v0/sca
 Now the downloaded script has to be executed:
 
 ```BASH
-python3 scaling_up_v0.py 
+python3 scaling_v0.1.0.py 
 ```
 
 When the script has run, your cluster is properly configured again and the new workers can be used!
 </li>
 
-You can check with the command **sinfo** if the worker has been added correctly!
+You can check with the command _sinfo_ if the worker has been added correctly!
 
 **If the new worker is still missing you can try to restart slurm with the following command:**
 ```BASH
@@ -80,14 +80,14 @@ wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/v0/sca
 Now the downloaded script has to be executed:
 
 ```BASH
-python3 scaling_down_v0.py 
+python3 scaling_v0.1.0.py 
 ```
 
 When the script has run, your cluster is properly configured again!
 
 
 </li>
-You can check with the command **sinfo** if the worker has been removed correctly!
+You can check with the command _sinfo_ if the workers have been removed correctly!
 
 **If the  workers are still there you can try to restart slurm with the following command:**
 ```BASH
