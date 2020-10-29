@@ -52,6 +52,8 @@ nav:
       - 'New instance': simple_vm/new_instance.md
       - 'Instance overview': simple_vm/instance_overview.md
       - 'Instance details': simple_vm/instance_detail.md
+      - 'New cluster': simple_vm/new_cluster.md
+      - 'Cluster overview': simple_vm/cluster_overview.md
       - 'Volumes': simple_vm/volumes.md
       - 'Images/Snapshots': simple_vm/snapshots.md
       - 'Customization': simple_vm/customization.md
