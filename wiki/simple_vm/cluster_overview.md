@@ -67,7 +67,7 @@ Therefore  you have to do the following steps:
 
 
 ```BASH
-wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/v0/scaling_down_v0.py
+wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/scaling_latest.py
 ```
 
 
@@ -75,7 +75,7 @@ wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/v0/sca
 ##### 2. Now the downloaded script has to be executed:
 
 ```BASH
-python3 scaling_v0.1.0.py 
+python3 scaling_latest.py 
 ```
 
 When the script has run, your cluster is properly configured again!
