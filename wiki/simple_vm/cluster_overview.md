@@ -32,7 +32,10 @@ Therefore  you have to do the following steps:
 wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/scaling_latest.py
 ```
 
-
+You are able to check the version of the script by entering 
+```BASH
+python3 scaling_latest.py -v
+```
 
 ##### 2. Now the downloaded script has to be executed:
 
@@ -50,10 +53,6 @@ sudo /etc/init.d/slurmctld restart
 ```
 **If the worker is still missing after the command has been executed something went wrong and you should contact the support.**
 
-You are able to check the version of the script by entering 
-```BASH
-python3 scaling_latest.py -v
-```
 
 
 
@@ -75,7 +74,10 @@ Therefore  you have to do the following steps:
 wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/scaling_latest.py
 ```
 
-
+You are able to check the version of the script by entering 
+```BASH
+python3 scaling_latest.py -v
+```
 
 ##### 2. Now the downloaded script has to be executed:
 
@@ -94,10 +96,7 @@ sudo /etc/init.d/slurmctld restart
 ```
 **If the workers are still there after the command has been executed something went wrong and you should contact the support.**
 
-You are able to check the version of the script by entering 
-```BASH
-python3 scaling_latest.py -v
-```
+
 
 
 ### 5. Delete Cluster
