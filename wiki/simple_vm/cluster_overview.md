@@ -29,7 +29,7 @@ Therefore  you have to do the following steps:
 
 
 ```BASH
-wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/v0/scaling_v0.1.0.py
+wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/scaling_latest.py
 ```
 
 
@@ -37,7 +37,7 @@ wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/v0/sca
 ##### 2. Now the downloaded script has to be executed:
 
 ```BASH
-python3 scaling_v0.1.0.py 
+python3 scaling_latest.py 
 ```
 
 When the script has run, your cluster is properly configured again and the new workers can be used!
@@ -49,6 +49,11 @@ You can check with the command _sinfo_ if the worker has been added correctly!
 sudo /etc/init.d/slurmctld restart
 ```
 **If the worker is still missing after the command has been executed something went wrong and you should contact the support.**
+
+You are able to check the version of the script by entering 
+```BASH
+python3 scaling_latest.py -v
+```
 
 
 
@@ -88,6 +93,11 @@ You can check with the command _sinfo_ if the workers have been removed correctl
 sudo /etc/init.d/slurmctld restart
 ```
 **If the workers are still there after the command has been executed something went wrong and you should contact the support.**
+
+You are able to check the version of the script by entering 
+```BASH
+python3 scaling_latest.py -v
+```
 
 
 ### 5. Delete Cluster
