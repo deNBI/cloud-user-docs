@@ -4,7 +4,7 @@ to give you a quick introduction how to use our cloud site.
 
 Please note, you are responsible for everything that happens with the virtual
 machines (VMs) you deploy! We as resource provider are not liable for 
-anything and do not give any guarantees.
+anything and do not give any guarantees. Keep this in mind and try to make your setup as reproducible as possible from the beginning.
 
 ## How to get in contact with us
 In case you have questions or want to give us any kind of feedback, please 
@@ -17,11 +17,6 @@ project, e.g. your available resources, your virtual machines etc. The
 dashboard is available [here](https://denbi-cloud.bihealth.org).
 To access your project, use Elixir as authentication provider. After 
 authentication you will be redirected to the OpenStack dashboard.
-
-### SSH-Keys
-As a first step make sure that you import a public ssh-key into your 
-OpenStack project (**Project - Compute - Key Pairs - Import 
-Key Pair**) so that you can access your VMs later on.
 
 ### Deploy your VMs
 The networks are already preconfigured, so you can directly start and deploy 
@@ -36,7 +31,8 @@ information at least in the categories **Details, Source and Flavor**.
   **Source:**
   
   - Choose "Image" as "Boot Source"
-  - Set "Create New Volume" to No
+  - If you choose "Create New Volume" **No**, the vm volume will be created on hypervisor and be limited to 20GB.
+  - If you choose "Create New Volume" **Yes**, your volume will be placed on our separate storage system and can be bigger than 20GB. **Please to not create volumes bigger than 250 GB!** (You can use a share instead) 
   - Choose an appropriate image from the list (e.g. CentOS)
   
   **Flavor:**
@@ -55,21 +51,49 @@ assign at least one floating ip address to another of your machines. As soon
 as you are connected to this machine you are inside of your project network 
 and can connect to VMs without any floating ip address.
 
-### Connect to your VMs
-#### Linux-based host
+## Connect to your VMs with ssh
+
 None of your VMs will be directly visible and accessible from the internet. To 
-connect to one of your VMs, you have to use our jumphost
+connect to one of your VMs, you have to use our jumphost server
 denbi-jumphost-01.bihealth.org with your elixir login name (not
-your elixir id!):
+your elixir id!). 
 
-    ssh -A -i YOUR-SSH-KEY USERNAME@denbi-jumphost-01.bihealth.org
-    
-**Example:** ssh -A -i ~/.ssh/denbi-cloud.key elixir1234@denbi-jumphost-01.bihealth.org
+#### SSH-Keys
 
-From the jumphost you can connect to each of your VMs which has an attached
-floating ip address.
+Your public ssh must be added at the de.NBI portal: https://cloud.denbi.de/portal/ (or at the elixir portal) to able to connect to our jumphost.
+and make sure that you import a public ssh-key into your 
+OpenStack project (**Project - Compute - Key Pairs - Import 
+Key Pair**) so that you can access your VMs later on.
 
-#### Windows-based host
+
+
+##### Distribution logins
+Please take care, as for now, that our images are shipped with the standard 
+users for the respective Linux distribution. Here you can see a list of 
+standard users for some common distributions:
+ 
+  - **CentOS**: centos
+  - **Ubuntu**: ubuntu
+
+
+#### Windows 10 
+
+```bash
+Host denbi-jumphost-01.bihealth.org
+    HostName denbi-jumphost-01.bihealth.org
+    User ELIXIR_USERNAME
+    IdentityFile PATH_TO_KEY
+
+
+Host NAME_OF_VM  # first vm
+  HostName 172.16.XXX.XXX
+  IdentityFile PATH_TO_KEY
+  User ubuntu / centos
+  ProxyCommand C:\Windows\System32\OpenSSH\ssh.exe denbi-jumphost-01.bihealth.org -W %h:%p
+```
+
+#### Putty (Windows)
+  
 If you want to connect from a Windows-based system you can use Putty 
 (http://www.putty.org/) to connect to the jumphost and your virtual machines.
 
@@ -87,97 +111,58 @@ that you can connect to your VM.
 When you connect to our jumphost for the first time you may get a warning about 
 accepting the servers host key. Please confirm with yes.
 
-### Create Volumes
-If you need more disk space than the initial image provides (20GB), one 
-way is to create a volume and attach it to your VM. Please keep in mind that 
-a volume can only be attached to one VM at the same time. The advantage of a 
-volume is that it will be available also after you deleted your VM. So you can
-use it to store data temporally.
+#### Linux .ssh/config
 
-To create a volume choose **Project - Compute - Volumes** followed by **Create 
-Volume** on the right side. Now assign a name to your volume and set the size
-according to your needs. After the successful creation of the  volume you have 
-to attach it to your VM. Choose the arrow on the right side of the created 
-volume and select **Attach Volume**. In the new window you have to choose your 
-VM from the drop-down menu under **Attach to Instance**.
+```bash
+Host denbi-jumphost-01.bihealth.org
+    HostName denbi-jumphost-01.bihealth.org
+    User ELIXIR_USERNAME
+    IdentityFile PATH_TO_KEY
+    ServerAliveInterval 120
 
-On your VM you now have to make a filesystem on the device so that you can 
-mount it to your machine. Use e.g. mkfs to make an ext4 filesystem:
+Host NAME_OF_VM
+  HostName 172.16.XXX.XXX
+  IdentityFile PATH_TO_KEY
+  User ubuntu / centos
+  ProxyJump denbi-jumphost-01.bihealth.org
 
-    sudo mkfs.ext4 /dev/vdb
-    
-After creating the filesystem you can mount the filesystem to your VM and start 
-using it:
+```
 
-    sudo mount /dev/vdb /mnt
+#### Connection with SSH-Agent
 
-### Distribution logins
-Please take care, as for now, that our images are shipped with the standard 
-users for the respective Linux distribution. Here you can see a list of 
-standard users for some common distributions:
- 
-  - **CentOS**: centos
-  - **Ubuntu**: ubuntu
+Manually jump from your client to jumphost and from there further to your vm with [ssh-agent-forwarding](https://www.ssh.com/ssh/agent)
 
-### Connecting to your VMs directly
-To easily connect directly to your VMs via our jumphost you can configure a 
-ProxyJump inside of your **local ~/.ssh/config**:
+1. Start ssh-agent:
 
-    # Access to the de.NBI jumphost
-    Host denbi-jumphost-01.bihealth.org
-      # Use your Elixir login name
-      User ELIXIR_USERNAME
-      # Use your ssh-key file
-      IdentityFile YOUR-SSH-KEY-FILE
-      # Send a keep-alive packet to prevent the connection from beeing terminated
-      ServerAliveInterval 120
+    ```bash
+    eval `ssh-agent` // eval $(ssh-agent)
+    ```
 
-    Host 172.16.102.* 172.16.103.*
-      # Use jumphost as proxy
-      ProxyJump denbi-jumphost-01.bihealth.org
-      # Use your ssh-key file
-      IdentityFile YOUR-SSH-KEY-FILE
-      # Send a keep-alive packet to prevent the connection from beeing terminated
-      ServerAliveInterval 120
+2. Add ssh private key:
 
-Please make sure that your local ssh-client is up to date, ProxyJump was 
-introduced in OpenSSH version 7.3.
+    ```bash
+    ssh-add .ssh/id_rsa
+   ```
 
-You can use the ssh-agent to forward the ssh key to the target host. First
-, check that ssh-agent is running:
+    show identies:
 
-    eval `ssh-agent -s`
-    Agent pid 14655
-
-Then, check that your key is known by the agent (in this case, it has none):
-
+    ```bash
     ssh-add -l
-    The agent has no identities.
+   ```
 
-Add your denbi cloud key to the ssh-agent:
+3. Connect at first from your client to jumphost: 
 
-    ssh-add YOUR-SSH-KEY-FILE
+    ```bash
+    ssh -A yourElixirAccountName@denbi-jumphost-01.bihealth.org
+    ```
 
-If your key is protected by a passphrase, you will have to enter it now:
+    And from the jumphost you can connect further to the floating ip of your vm
 
-    Enter passphrase for YOUR-SSH-KEY-FILE: 
-    Identity added: YOUR-SSH-KEY-FILE (YOUR-SSH-KEY-FILE)
+    ```bash
+    ssh ubuntu@yourFloatingIpOfVM
+    ```
 
-You now should be able to connect to your VM directly using the floating ip 
-address:
-
-    ssh centos@172.16.10x.xxx
-    
-## File transfer into the de.NBI cloud
-In case you want to transfer local data into the cloud you can use rsync, scp,
-etc. combined with a SOCKS proxy with one of your VMs as the target host. The 
-jumphost itself is not meant to store data. In case you have large amounts of 
-data please contact us.
-
-## Advanced Section
-This section includes some more advanced topics and configurations.
-
-### Setting up a SOCKS proxy
+#### Setting up a SOCKS proxy
 In some cases it would also make sense to configure a permanent SOCKS proxy to 
 communicate with your VMs behind the jumphost, e.g. when using web 
 applications etc. As long as you have an open SOCKS connection to the 
@@ -201,20 +186,109 @@ Add the following lines to your **local ~/.ssh/config**:
     # Access to de.NBI cloud floating IP networks via SOCKS Proxy
     Host 172.16.102.* 172.16.103.*
       # Tunnel all requests through dynamic SOCKS proxy
-      ProxyCommand /usr/bin/socat - socks4a:localhost:%h:%p,socksport=7777
+      ProxyCommand /usr/bin/socat - socks4a:localhost:%h:%p,socksport=7777 or socks5h:localhost:%h %p,socksport=7777
       # Use your ssh-key file
       IdentityFile YOUR-SSH-KEY-FILE
       # Forward locally managed keys
       ForwardAgent yes
       # Send a keep-alive packet to prevent the connection from beeing terminated
       ServerAliveInterval 120
+      
+## Storage
 
-Now you can connect to the jumphost the same way you usually do. As 
-long as you have this connection open you can directly connect to one of your 
-VMs from another terminal by specifying the username and ip address without 
-the need to first connect to the jumphost:
+#### Create Volumes
 
-    ssh centos@172.16.10x.xxx
+If you need more disk space than the initial image provides (20GB), one 
+way is to create a volume and attach it to your VM. Please keep in mind that 
+a volume can only be attached to one VM at the same time. The advantage of a 
+volume is that it will be available also after you deleted your VM. So you can
+use it to store data temporally. **Please to not create volumes bigger than 250GB**
+
+To create a volume choose **Project - Compute - Volumes** followed by **Create 
+Volume** on the right side. Now assign a name to your volume and set the size
+according to your needs. After the successful creation of the  volume you have 
+to attach it to your VM. Choose the arrow on the right side of the created 
+volume and select **Attach Volume**. In the new window you have to choose your 
+VM from the drop-down menu under **Attach to Instance**.
+
+On your VM you now have to make a filesystem on the device so that you can 
+mount it to your machine. Use e.g. mkfs to make an ext4 filesystem:
+
+    sudo mkfs.ext4 /dev/vdb
+    
+After creating the filesystem you can mount the filesystem to your VM and start 
+using it:
+
+    sudo mount /dev/vdb /mnt
+
+#### Create a NFS share
+In case you need a NFS share to store big amounts of data and share it within
+your project, you can use OpenStack to create and manage the share.
+
+To create a NFS share choose the section **Shares** and click on **Create 
+Share**. In the popup you have to provide the following information:
+
+  **Share Name:**
+  - Provide a share name.
+  
+  **Share Protocol:**
+  - Please use the preselected "NFS" as protocol.
+  
+  **Size (GiB):**
+  - Provide the size of the share. Info: You have an overall quota for NFS 
+  shares on your project. Please make sure that you set the size below the 
+  project quota.
+
+  **Share Type:**
+  - Please select "default".
+  
+  **Availability Zone:**
+  - Please select "nova".
+
+#### Manage access rules for your NFS share
+After the creation of a NFS share, the share will not be accessible by anyone
+. To grant your VMs access to the share you have to configure the access rules.
+
+**Important: Please make sure to keep the access rule list of your NFS share up
+ to date**, so that only your VMs can access the share.
+
+To manage the access rules click on the **arrow** on the right side of your 
+newly created NFS share and choose **Manage rules**. Now you have to choose 
+**Add rule**. In the popup you have to provide the following information:
+
+  **Access Type:**
+  - Select ip to allow a certain VM access to the share.
+  
+  **Access Level:**
+  - Choose **read-write** or **read-only** appropriate to your needs. In some
+   cases it may make sense that specific VMs just get read-only permissions.
+  
+  **Access to**
+  - Please fill in the ip address of your VM you want to grant access to the 
+  NFS share.
+  
+#### Access your NFS share
+In order to use your created NFS share you have to mount it to your VMs. 
+Click on the created share in the **Shares** section of the OpenStack 
+dashboard to get information about the complete mount path. Under the 
+**Export locations** section, please choose the **Path** e.g.:
+     
+    denbi-isi-manila-prod.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID
+
+You can mount the share with the following command:
+
+    sudo mount -o vers=4.0 denbi-isi-manila-prod.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID /mnt/
+    
+Alternatively you can add the mount path to the "/etc/fstab". Make sure that 
+you use NFS version 4.0.
+
+Please make sure that your user (depending on the used distribution: centos, 
+debian, ubuntu) is the owner of the NFS share. Therefore run the following 
+command to set the user as owner of the NFS share:
+
+    sudo chown centos:centos /mnt/
+    
+**Hint** This example is for a Centos based image.
 
 ### Using the OpenStack API
 First, you will need to request a password to use the OpenStack API, 
