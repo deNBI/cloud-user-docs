@@ -29,18 +29,18 @@ Therefore  you have to do the following steps:
 
 
 ```BASH
-wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/scaling_latest.py
+wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/scaling.py
 ```
 
 You are able to check the version of the script by entering 
 ```BASH
-python3 scaling_latest.py -v
+python3 scaling.py -v
 ```
 
 ##### 2. Now the downloaded script has to be executed:
 
 ```BASH
-python3 scaling_latest.py 
+python3 scaling.py 
 ```
 
 When the script has run, your cluster is properly configured again and the new workers can be used!
@@ -71,18 +71,18 @@ Therefore  you have to do the following steps:
 
 
 ```BASH
-wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/scaling_latest.py
+wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/scaling.py
 ```
 
 You are able to check the version of the script by entering 
 ```BASH
-python3 scaling_latest.py -v
+python3 scaling.py -v
 ```
 
 ##### 2. Now the downloaded script has to be executed:
 
 ```BASH
-python3 scaling_latest.py 
+python3 scaling.py 
 ```
 
 When the script has run, your cluster is properly configured again!
