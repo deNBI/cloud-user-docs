@@ -189,8 +189,7 @@ You should see something similar to this output (XXX are replaced by numbers or 
        valid_lft forever preferred_lft forever</pre>
 
 The configuration of the network will not be persistent and after a reboot it would be gone. If you want to make this configuration persistent,
-please follow the following steps we are assuming here that the second interface name is eth1. Further you can skip steps 7. and 8. from above:
-
+please follow the following steps we are assuming here that the second interface name is eth1. Further you can skip steps 7. and 8. from above.
 9. Change to the root user 
 <pre>sudo su -</pre>
 10. Create a new network config file
