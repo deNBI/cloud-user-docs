@@ -189,19 +189,19 @@ You should see something similar to this output (XXX are replaced by numbers or 
        valid_lft forever preferred_lft forever</pre>
 
 The configuration of the network will not be persistent and after a reboot it would be gone. If you want to make this configuration persistent,
-please follow the following steps we are assuming here that the second interface name is eth1. Further you can skip steps 7. and 8. from above.
+please follow the following steps we are assuming here that the second interface name is eth1. Further you can skip steps 7. and 8. from above. 
 9. Change to the root user 
 <pre>sudo su -</pre>
 10. Create a new network config file
 <pre>vi /etc/sysconfig/network-scripts/ifcfg-eth1</pre>
 With the following content:
-<pre>DEVICE=eth1
-NAME=eth1
-BOOTPROTO=dhcp
-NM_CONTROLLED=no
-PERSISTENT_DHCLIENT=1
+<pre>BOOTPROTO=dhcp
+DEVICE=eth1
+HWADDR=xx:xx:xx:xx:xx:xx
+MTU=1500
 ONBOOT=yes
-TYPE=Ethernet</pre>
+TYPE=Ethernet
+USERCTL=no</pre>
 Save and close the file with `:wq` 
 11. Bring the interface up by running the following command:
 <pre>ifup eth1</pre>
