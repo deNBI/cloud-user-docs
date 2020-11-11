@@ -193,17 +193,20 @@ please follow the following steps we are assuming here that the second interface
 
 9. Change to the root user 
 <pre>sudo su -</pre>
-10. Create a new network config file
+
+10. Create a new network config file, **replace the HWADDR with the one shown in the `ip a` command of your VM**
 <pre>vi /etc/sysconfig/network-scripts/ifcfg-eth1</pre>
 With the following content:
 <pre>BOOTPROTO=dhcp
 DEVICE=eth1
-HWADDR=xx:xx:xx:xx:xx:xx
+HWADDR=fa:16:3e:4b:83:XX
 MTU=1500
 ONBOOT=yes
 TYPE=Ethernet
 USERCTL=no</pre>
-Save and close the file with `:wq` 
+
+Save and close the file with `:wq`
+
 11. Bring the interface up by running the following command:
 <pre>ifup eth1</pre>
 Wait until the additional interface has been configured.
