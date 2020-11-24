@@ -64,6 +64,9 @@ If you do not have an SSH key or you are not sure whether you have one, please g
 Afterwards, your key should be listed on the key overview page. In chapter [ Getting Access to the Instance](quickstart.md#getting-access-to-the-instance) we will use this key. 
 
 ## Generate SSH-Keys
+You have two options to generate your SSH Key:  
+1. Manually. Follow the instructions for either Linux or Windows.  
+2. Automatically. Please see our information on the [profile page](portal/user_information.md#ssh-key).  
 
 Note that on your "User information" page only RSA and ECDSA public keys are accepted as valid.
 The following instructions are for RSA keys.
