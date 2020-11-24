@@ -25,3 +25,5 @@ jobs:
           mention_if: 'failure'
           mention: ${{env.proofer_logs}}
           url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
+          commit: true
+          token: ${{secrets.CLOUD_USER_DOCS_WIKI_CHECK}}    
