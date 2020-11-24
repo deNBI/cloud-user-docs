@@ -11,7 +11,7 @@ Here you will find various information about the virtual machine.
 
 3. some actions you can execute:  
     * Stop VM: this will shutoff the virtual machine, also setting the status to 'SHUTOFF'. It will be resumable, but you will not be able to interact with it in any form while it is shutoff.  
-    * Reboot VM: this will either soft reboot or hard reboot your virtual machine. From [openstack](https://docs.openstack.org/mitaka/user-guide/cli_reboot_an_instance.html): A soft reboot attempts a graceful shut down and restart of the instance. A hard reboot power cycles the instance.  
+    * Reboot VM: this will either soft reboot or hard reboot your virtual machine. From [openstack](https://docs.openstack.org/mitaka/user-guid/cli_reboot_an_instance.html): A soft reboot attempts a graceful shut down and restart of the instance. A hard reboot power cycles the instance.  
     * Create Snapshot: this will let you take a snapshot of the virtual machine, allowing to boot a new virtual machine with it. For more information on snapshots please visist the respective wiki page.  
     * Delete VM: this will delete the virtual machine and everything on it. If a volume is attached, it will get detached but not deleted!  
     * Restart VM: this will boot up your shutoff virtual machine.  
