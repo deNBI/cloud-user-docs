@@ -29,7 +29,7 @@ Therefore  you have to do the following steps:
 
 
 ```BASH
-wget https://raw.githubusercontent.com/deNBI/user_scripts/mastr/bibigrid/scaling.py
+wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/scaling.py
 ```
 
 You are able to check the version of the script by entering 
