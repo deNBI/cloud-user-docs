@@ -160,7 +160,7 @@ In the following we will differentiate between VM images based on CentOS7 and Ub
 3. Change to the root user 
 <pre>sudo su -</pre>
 4. The following command will set the default gateway to network interface eth0 which should be the interface for the public IP address:
-<pre>echo 'GATEWAY=eth0' >> /etc/sysconfig/network</pre>
+<pre>echo 'GATEWAYDEV=eth0' >> /etc/sysconfig/network</pre>
 5. Exit as root user running the following command:
 <pre>exit</pre>
 6. Attach a second interface of your choice via the webinterface (OpenStack Dashboard)
@@ -189,20 +189,24 @@ You should see something similar to this output (XXX are replaced by numbers or 
        valid_lft forever preferred_lft forever</pre>
 
 The configuration of the network will not be persistent and after a reboot it would be gone. If you want to make this configuration persistent,
-please follow the following steps we are assuming here that the second interface name is eth1. Further you can skip steps 7. and 8. from above:
+please follow the following steps we are assuming here that the second interface name is eth1. Further you can skip steps 7. and 8. from above. 
+
 9. Change to the root user 
 <pre>sudo su -</pre>
-10. Create a new network config file
+
+10. Create a new network config file, **replace the HWADDR with the one shown in the `ip a` command of your VM**
 <pre>vi /etc/sysconfig/network-scripts/ifcfg-eth1</pre>
 With the following content:
-<pre>DEVICE=eth1
-NAME=eth1
-BOOTPROTO=dhcp
-NM_CONTROLLED=no
-PERSISTENT_DHCLIENT=1
+<pre>BOOTPROTO=dhcp
+DEVICE=eth1
+HWADDR=fa:16:3e:4b:83:XX
+MTU=1500
 ONBOOT=yes
-TYPE=Ethernet</pre>
-Save and close the file with `:wq` 
+TYPE=Ethernet
+USERCTL=no</pre>
+
+Save and close the file with `:wq`
+
 11. Bring the interface up by running the following command:
 <pre>ifup eth1</pre>
 Wait until the additional interface has been configured.
