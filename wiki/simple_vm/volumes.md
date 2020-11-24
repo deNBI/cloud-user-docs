@@ -50,19 +50,19 @@ mkfs.ext4 /dev/device_name
 After the formating you have to create a mountpoint
 
 ```BASH
-mkdir -p /mnt/volume
+mkdir -p /vol/volume
 ```
 
 Check that you have the correct permissions for this directory, otherwise set them with the follwoing command
 
 ```BASH
-chmod 777 /mnt/volume/
+chmod 777 /vol/volume
 ```
 
 And mount the Cinder Volume under the created directory
 
 ```BASH
-mount /dev/device_name /mnt/volume
+mount /dev/device_name /vol/volume
 ```
 
 Now you should see your device by executing the command
@@ -96,7 +96,7 @@ there are different procedures necessary to make the new capacity available.
 ```BASH
 sudo xfs_growfs -d <MOUNTPOINT>
 ```
-If you followed the instructions above the <MOUNTPOINT> would be ***/mnt/volume***
+If you followed the instructions above the <MOUNTPOINT> would be ***/vol/volume***
 After that you can use the extend volume with the new capacity.
 
 ###  Ext4 formatted filesystem
