@@ -21,5 +21,5 @@ jobs:
           type: ${{ job.status }}
           job_name: '*Wiki Check*'
           mention_if: 'failure'
-          mention: docker logs html-proofer
+          mention: $(docker logs html-proofer)
           url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
