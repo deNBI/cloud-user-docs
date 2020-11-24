@@ -13,6 +13,8 @@ jobs:
       - name: Run Html-proofer
         run: |
           docker run --name html-proofer -v $(pwd)/whitelist.txt:/whitelist.txt  -v $(pwd)/html:/html 18fgsa/html-proofer  --url-ignore $(cat whitelist.txt | tr '\n' ',')  --empty_alt_ignore   /html
+          docker logs html-proofer &> logs
+          export proofer_logs=$(tail -n 100 logs)
           
       - name: Rocket.Chat Notification
         uses: RocketChat/Rocket.Chat.GitHub.Action.Notification@master
@@ -21,5 +23,5 @@ jobs:
           type: ${{ job.status }}
           job_name: '*Wiki Check*'
           mention_if: 'failure'
-          mention: $(docker logs html-proofer)
+          mention: ${{proofer_logs}}
           url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
