@@ -254,9 +254,36 @@ Save and close the file with `:wq`
 which should print out a similar output as shown above for the centos7 section.
 The made changes here are directly persistent.
 
+### Ubuntu 20.04. (Bionic)
+1. First launch a VM with a publicly acessible IP address, as usual
+
+2. Attach a second interface of your choice via the webinterface (OpenStack Dashboard)
+
+3. Check the interface name of the second interface, usually it should be 'ens6' but can also be 'ens4' with the following command:
+<pre>ip a</pre>
+
+The output should look be similar to the following:
+<pre>1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: ens3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether fa:16:3e:XX:XX:XX brd ff:ff:ff:ff:ff:ff
+    inet 193.196.XX.XXX/XX brd 193.196.29.207 scope global dynamic ens3
+       valid_lft 85662sec preferred_lft 85662sec
+    inet6 fe80::f816:3eff:xxxx:xxxx/64 scope link 
+       valid_lft forever preferred_lft forever
+3: ens6: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether fa:16:3e:XX:XX:XX brd ff:ff:ff:ff:ff:ff</pre>
+
+
+
+
 ## Install CUDA Driver for NVIDIA V100
 The following installation instructions help you if you want to install the NVIDIA CUDA drivers for the available NVIDIA V100 GPUs.
-It is assumed that you have a running VM with one or more GPUs attached already running. Otherwise please launch VM using one of the GPU flavors if GPUs are available for your project. The instructions are made for CentOS 7 and Ubuntu. We also offer existing images with CUDA already installed (CentOS 7.8 CUDA 11.0 2020-07-24, Ubuntu 18.04.4 LTS CUDA 11.0 2020-07-24, Ubuntu 20.04 LTS CUDA 11.0 2020-07-24).
+It is assumed that you have a running VM with one or more GPUs attached already running. Otherwise please launch VM using one of the GPU flavors if GPUs are available for your project. The instructions are made for CentOS 7 and Ubuntu. We also offer existing images with CUDA already installed (CentOS 7.8 CUDA 11.0 2020-07-31, Ubuntu 18.04.4 LTS CUDA 11.0 2020-07-24, Ubuntu 20.04 LTS CUDA 11.0 2020-07-31).
 
 ### CentOS 7
 1. Update the existing installation
