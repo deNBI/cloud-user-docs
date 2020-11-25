@@ -259,7 +259,7 @@ The made changes here are directly persistent.
 
 2. Attach a second interface of your choice via the webinterface (OpenStack Dashboard)
 
-3. Check the interface name of the second interface, usually it should be 'ens6' but can also be 'ens4' with the following command:
+3. Check the interface name of the second interface, usually it should be 'ens6' but can also be 'ens4' so please check for the name, with the following command:
 <pre>ip a</pre>
 
 The output should look be similar to the following:
@@ -271,13 +271,38 @@ The output should look be similar to the following:
        valid_lft forever preferred_lft forever
 2: ens3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     link/ether fa:16:3e:XX:XX:XX brd ff:ff:ff:ff:ff:ff
-    inet 193.196.XX.XXX/XX brd 193.196.29.207 scope global dynamic ens3
+    inet 193.196.XX.XXX/XX brd 193.196.XX.XXX scope global dynamic ens3
        valid_lft 85662sec preferred_lft 85662sec
     inet6 fe80::f816:3eff:xxxx:xxxx/64 scope link 
        valid_lft forever preferred_lft forever
 3: ens6: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
     link/ether fa:16:3e:XX:XX:XX brd ff:ff:ff:ff:ff:ff</pre>
 
+4. After that create a new configuration file with the following command:
+<pre>sudo vi </pre>
+
+Enter the following content depending on the interface name ens6 or ens4 or ... and the corresponding MAC address.
+<pre>network:
+    version: 2
+    ethernets:
+        ens4:
+            dhcp4: true
+            match:
+                macaddress: fa:16:3e:XX:XX:XX
+            mtu: 1500
+            dhcp4-overrides:
+                use-routes: false
+            set-name: ens4</pre>
+
+Save and close the file with `:wq`
+
+5. Apply the network changes with the follwoing command:
+<pre>sudo netplan apply</pre>
+
+6. Check if the interface has been configured correctly running the command:
+<pre>ip a</pre>
+which should print out a similar output as shown above for the centos7 section.
+The made changes here are directly persistent.
 
 
 
