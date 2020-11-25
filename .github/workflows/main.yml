@@ -1,6 +1,7 @@
 name: User Docs test
 on: 
-  - pull_request
+   workflow_dispatch:
+   pull_request:
 
 jobs:
   runner-job:
@@ -11,12 +12,17 @@ jobs:
       - name: Run Docker
         run: docker run  -v $(pwd)/wiki:/srv_root/docs/wiki -v $(pwd)/html:/var/www/html/wiki -v $(pwd)/config.yml:/config.yml -p "8000:8000"  --entrypoint="mkdocs" denbicloud/mkdocswebhook:2.1.0 build --strict --clean -f /config.yml
       - name: Run Html-proofer
-        run: docker run  -v $(pwd)/whitelist.txt:/whitelist.txt  -v $(pwd)/html:/html 18fgsa/html-proofer  --url-ignore $(cat whitelist.txt | tr '\n' ',')  --empty_alt_ignore   /html
+        run: |
+          docker run --name html-proofer -v $(pwd)/whitelist.txt:/whitelist.txt  -v $(pwd)/html:/html 18fgsa/html-proofer  --url-ignore $(cat whitelist.txt | tr '\n' ',')  --empty_alt_ignore   /html
+          
       - name: Rocket.Chat Notification
         uses: RocketChat/Rocket.Chat.GitHub.Action.Notification@master
         if: ${{ failure() }}
         with:
           type: ${{ job.status }}
-          job_name: '*Wiki Check*'
+          job_name: ':kermit_typing: *Wiki Check*'
           mention_if: 'failure'
+          mention: 'To see the error, click on the workflow link and check in which step the workflow failed!  -  '
           url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
+          commit: true
+          token: ${{secrets.CLOUD_USER_DOCS_WIKI_CHECK}}    
