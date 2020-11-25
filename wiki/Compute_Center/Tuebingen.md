@@ -279,7 +279,6 @@ The output should look be similar to the following:
 
 4. After that create a new configuration file with the following command:
 <pre>sudo vi </pre>
-
 Enter the following content depending on the interface name ens6 or ens4 or ... and the corresponding MAC address.
 <pre>network:
     version: 2
@@ -292,7 +291,6 @@ Enter the following content depending on the interface name ens6 or ens4 or ... 
             dhcp4-overrides:
                 use-routes: false
             set-name: ens4</pre>
-
 Save and close the file with `:wq`
 
 5. Apply the network changes with the follwoing command:
