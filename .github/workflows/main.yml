@@ -23,7 +23,7 @@ jobs:
           type: ${{ job.status }}
           job_name: '*Wiki Check*'
           mention_if: 'failure'
-          mention: '${{ github.actor }} To see the error click on the workflow link and see in which step the workflow failed! \n\n Job - '
+          mention: "${{ github.actor }} To see the error click on the workflow link and see in which step the workflow failed!  -  "
           url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
           commit: true
           token: ${{secrets.CLOUD_USER_DOCS_WIKI_CHECK}}    
