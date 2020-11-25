@@ -260,7 +260,6 @@ The made changes here are directly persistent.
 
 3. Check the interface name of the second interface, usually it should be 'ens6' but can also be 'ens4' so please check for the name, with the following command:
 <pre>ip a</pre>
-
 The output should look be similar to the following:
 <pre>1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -300,8 +299,6 @@ Save and close the file with `:wq`
 <pre>ip a</pre>
 which should print out a similar output as shown above for the centos7 section.
 The made changes here are directly persistent.
-
-
 
 ## Install CUDA Driver for NVIDIA V100
 The following installation instructions help you if you want to install the NVIDIA CUDA drivers for the available NVIDIA V100 GPUs.
