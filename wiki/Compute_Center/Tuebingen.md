@@ -239,8 +239,7 @@ Name=ens6
 DHCP=ipv4
 [DHCP]
 UseMTU=true
-RouteMetric=200
-</pre>
+RouteMetric=200</pre>
 Save and close the file with `:wq`
 
 6. Restart the network with the follwoing command:
