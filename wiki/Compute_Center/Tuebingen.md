@@ -47,7 +47,7 @@ Count: 1</pre>
 
 #### Source
 <pre>Select Boot Source: Instance Snapshot or Images
-Create New Volume: No (Otherwise launching the instance will fail !)
+Create New Volume: No (Otherwise the root partition of the instance is launched on a volume which is not recommended!)
 Allocated: Select the required OS by clicking on the up arrow</pre>
 
 #### Flavor
@@ -80,7 +80,7 @@ Allocated: Select the required OS by clicking on the up arrow</pre>
 Finally launch the instance. You should see a fresh instance entry. It may take a couple of minutes to spawn the instance depending on the requested resources. 
 
 ## Accessing a VM
-For Linux and MacOS just use ssh, specifying the correct IP, the right key and the username of the OS you have chosen for example ‘centos’. For Windows, start ‘Putty’ and enter the IP address of your VM under Hostname (or IP address). It can be found within the Horizon dashboard under Instances. An example of a Linux command is given below:
+For Linux and MacOS just use ssh, specifying the correct IP, the right key and the username of the OS (centos, ubuntu, debian, ...), you have chosen for example ‘centos’. For Windows, start ‘Putty’ and enter the IP address of your VM under Hostname (or IP address). It can be found within the Horizon dashboard under Instances. An example of a Linux command is given below:
 <pre>ssh –i /path/to/private/key <osname>@<IP-Address></pre>
 
 An example for a centos machine with the IP 1.2.3.4 would be:
@@ -116,7 +116,7 @@ Now you have to login into your VM, format and mount the volume.
 You will find your volume with the command
 <pre>lsblk</pre>
 This command will list all your block devices connected to your VM.
-Chose the correct device (mostly the name will be the second entry, you can orientate oneself on the SIZE parameter) and format it with a filesystem if you are using this volume for the first time. Common filesystems are ext4 or xfs.
+Chose the correct device (mostly the name will be the second entry, you can orientate oneself on the SIZE parameter) and format it with a filesystem if you are using this volume for the first time. Common filesystems are ext4 or xfs. <span style="color:red">some **This command needs to be executed just for a new volume, otherwise all residing data on it will be deleted!** text</span>
 <pre>mkfs.ext4 /dev/device_name</pre>
 
 After the formating you have to create a mountpoint
