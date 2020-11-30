@@ -116,7 +116,7 @@ Now you have to login into your VM, format and mount the volume.
 You will find your volume with the command
 <pre>lsblk</pre>
 This command will list all your block devices connected to your VM.
-Chose the correct device (mostly the name will be the second entry, you can orientate oneself on the SIZE parameter) and format it with a filesystem if you are using this volume for the first time. Common filesystems are ext4 or xfs. <span style="color: red;"> **This command needs to be executed just for a new volume, otherwise all residing data on it will be deleted!**
+Chose the correct device (mostly the name will be the second entry, you can orientate oneself on the SIZE parameter) and format it with a filesystem if you are using this volume for the first time. Common filesystems are ext4 or xfs. <span style="color: red;"> **This command needs to be executed just for a new volume, otherwise all residing data on it will be deleted!** </span>
 <pre>mkfs.ext4 /dev/device_name</pre>
 
 After the formating you have to create a mountpoint
