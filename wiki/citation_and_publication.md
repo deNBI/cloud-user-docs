@@ -2,7 +2,7 @@
 The development and support of the cloud is possible above all through the funding of the cloud infrastructure by the Federal Ministry of Education and Research (BMBF)! We would highly appreciate the following citation in your next publication(s):
 
 !!! Citation 
-    ‘This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A532B,031A533A,031A533B,031A534A,031A535A,031A537A,031A537B,031A537C,031A537D,031A538A).
+    ‘This work was supported by the BMBF-funded de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) (031A532B, 031A533A, 031A533B, 031A534A, 031A535A, 031A537A, 031A537B, 031A537C, 031A537D, 031A538A).
 
 ### Publications
 To see a list of publications, respectively a list of projects that added a DOI, please have a look [here](https://cloud.denbi.de/publications/). We would greatly appreciate to have your publication listed here as well. To add your publication, please add your [DOI](#adding-a-doi-digital-object-identifier) like described below.
