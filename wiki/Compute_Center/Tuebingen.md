@@ -47,7 +47,7 @@ Count: 1</pre>
 
 #### Source
 <pre>Select Boot Source: Instance Snapshot or Images
-Create New Volume: No (Otherwise launching the instance will fail !)
+Create New Volume: No (Otherwise the root partition of the instance is launched on a volume which is not recommended!)
 Allocated: Select the required OS by clicking on the up arrow</pre>
 
 #### Flavor
@@ -80,7 +80,7 @@ Allocated: Select the required OS by clicking on the up arrow</pre>
 Finally launch the instance. You should see a fresh instance entry. It may take a couple of minutes to spawn the instance depending on the requested resources. 
 
 ## Accessing a VM
-For Linux and MacOS just use ssh, specifying the correct IP, the right key and the username of the OS you have chosen for example ‘centos’. For Windows, start ‘Putty’ and enter the IP address of your VM under Hostname (or IP address). It can be found within the Horizon dashboard under Instances. An example of a Linux command is given below:
+For Linux and MacOS just use ssh, specifying the correct IP, the right key and the username of the OS (centos, ubuntu, debian, ...), you have chosen for example ‘centos’. For Windows, start ‘Putty’ and enter the IP address of your VM under Hostname (or IP address). It can be found within the Horizon dashboard under Instances. An example of a Linux command is given below:
 <pre>ssh –i /path/to/private/key <osname>@<IP-Address></pre>
 
 An example for a centos machine with the IP 1.2.3.4 would be:
@@ -116,7 +116,7 @@ Now you have to login into your VM, format and mount the volume.
 You will find your volume with the command
 <pre>lsblk</pre>
 This command will list all your block devices connected to your VM.
-Chose the correct device (mostly the name will be the second entry, you can orientate oneself on the SIZE parameter) and format it with a filesystem if you are using this volume for the first time. Common filesystems are ext4 or xfs.
+Chose the correct device (mostly the name will be the second entry, you can orientate oneself on the SIZE parameter) and format it with a filesystem if you are using this volume for the first time. Common filesystems are ext4 or xfs. **This command needs to be executed just for a new volume, otherwise all residing data on it will be deleted!**
 <pre>mkfs.ext4 /dev/device_name</pre>
 
 After the formating you have to create a mountpoint
@@ -239,8 +239,7 @@ Name=ens6
 DHCP=ipv4
 [DHCP]
 UseMTU=true
-RouteMetric=200
-</pre>
+RouteMetric=200</pre>
 Save and close the file with `:wq`
 
 6. Restart the network with the follwoing command:
@@ -254,9 +253,56 @@ Save and close the file with `:wq`
 which should print out a similar output as shown above for the centos7 section.
 The made changes here are directly persistent.
 
+### Ubuntu 20.04. (Bionic)
+1. First launch a VM with a publicly acessible IP address, as usual
+
+2. Attach a second interface of your choice via the webinterface (OpenStack Dashboard)
+
+3. Check the interface name of the second interface, usually it should be 'ens6' but can also be 'ens4' so please check for the name, with the following command:
+<pre>ip a</pre>
+The output should look be similar to the following:
+<pre>1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: ens3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether fa:16:3e:XX:XX:XX brd ff:ff:ff:ff:ff:ff
+    inet 193.196.XX.XXX/XX brd 193.196.XX.XXX scope global dynamic ens3
+       valid_lft 85662sec preferred_lft 85662sec
+    inet6 fe80::f816:3eff:xxxx:xxxx/64 scope link 
+       valid_lft forever preferred_lft forever
+3: ens6: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether fa:16:3e:XX:XX:XX brd ff:ff:ff:ff:ff:ff</pre>
+
+4. After that create a new configuration file with the following command:
+<pre>sudo vi </pre>
+Enter the following content depending on the interface name ens6 or ens4 or ... and the corresponding MAC address.
+<pre>network:
+    version: 2
+    ethernets:
+        ens4:
+            dhcp4: true
+            match:
+                macaddress: fa:16:3e:XX:XX:XX
+            mtu: 1500
+            dhcp4-overrides:
+                use-routes: false
+            set-name: ens4</pre>
+Save and close the file with `:wq`
+
+5. Apply the network changes with the follwoing command:
+<pre>sudo netplan apply</pre>
+
+6. Check if the interface has been configured correctly running the command:
+<pre>ip a</pre>
+which should print out a similar output as shown above for the centos7 section.
+The made changes here are directly persistent.
+
 ## Install CUDA Driver for NVIDIA V100
 The following installation instructions help you if you want to install the NVIDIA CUDA drivers for the available NVIDIA V100 GPUs.
-It is assumed that you have a running VM with one or more GPUs attached already running. Otherwise please launch VM using one of the GPU flavors if GPUs are available for your project. The instructions are made for CentOS 7 and Ubuntu. We also offer existing images with CUDA already installed (CentOS 7.8 CUDA 11.0 2020-07-24, Ubuntu 18.04.4 LTS CUDA 11.0 2020-07-24, Ubuntu 20.04 LTS CUDA 11.0 2020-07-24).
+It is assumed that you have a running VM with one or more GPUs attached already running. Otherwise please launch VM using one of the GPU flavors if GPUs are available for your project. The instructions are made for CentOS 7 and Ubuntu. We also offer existing images with CUDA already installed (CentOS 7.8 CUDA 11.0 2020-07-31, Ubuntu 18.04.4 LTS CUDA 11.0 2020-07-24, Ubuntu 20.04 LTS CUDA 11.0 2020-07-31).
 
 ### CentOS 7
 1. Update the existing installation
