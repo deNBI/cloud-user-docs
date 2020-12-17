@@ -13,8 +13,6 @@ repo_url: 'https://github.com/deNBI/cloud-user-docs'
 edit_uri: blob/master/wiki/
 plugins:
  - search
- - pdf-export:
-     enabled_if_env: ENABLE_PDF_EXPORT
 markdown_extensions:
   - admonition
   - codehilite
