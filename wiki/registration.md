@@ -1,6 +1,6 @@
 
 You can register for the de.NBI Cloud using an ELIXIR account. 
-The registration is done via this [link](https://perun.elixir-czech.cz/registrar/?vo=elixir&targetnew=https://perun.elixir-czech.cz/registrar/?vo=denbi&targetexisting=https://perun.elixir-czech.cz/registrar/?vo=denbi).
+The registration is done via this [link](https://cloud.denbi.de/register).
 
 ### Step 1: Select your identity provider
 
