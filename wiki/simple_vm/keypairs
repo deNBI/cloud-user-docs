@@ -6,7 +6,7 @@ access to your virtual machine you need to share your private ssh key with them.
 private ssh key can access your machine. The person you are sending the private key to then needs to use the key with the ssh option -i {name_of_private_key}.
 
 ##Multiple key pairs
-If you are responsible for multiple machines and only want to share some of them it makes sense to create new key pairs for different virtual
+If you are responsible for multiple machines and only want to share access of some of them it makes sense to create new key pairs for different virtual
 machines. If you use multiple keys you need to provide the respective name of the name of the private key with the -i command for ssh. It is also
 strongly advised that you create an exclusive ssh key pair for the de.NBI cloud, if you plan on using your ssh key pair for other connections and want
 to share your private key.
