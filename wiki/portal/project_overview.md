@@ -16,7 +16,7 @@ The evaluation of the application is divided into the following steps:
 
 * Confirmation by the Cloud committee: The application must be approved by the committee of the de.NBI Virtual Organization
 
-* **Only for OpenStack projects** - Approval of the Facility Manager: The application must be confirmed by the facility manager of the data center to which their project was assigned by the VO
+* **Only for OpenStack projects** - Approval of the Facility Manager: The application must be confirmed by the facility manager of the compute center to which their project was assigned by the VO
 
 The upper part of the overview page summarizes the most important information about the project. This information includes the runtime and the number of available virtual machines. In addition, the support of the project location where the project is running can be contacted directly. 
 It is possible to [request extensions or resource modifications](modification.md) directly from the overview.
