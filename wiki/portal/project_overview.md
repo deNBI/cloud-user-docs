@@ -12,7 +12,7 @@ The evaluation of the application is divided into the following steps:
 
 * Submitting the application
 
-* Approval of the Principal Investigator: The application must be submitted or confirmed by the responsible research director
+* Approval of the Principal Investigator: The application must be submitted or confirmed by the responsible principal investigator
 
 * Confirmation by the Cloud committee: The application must be approved by the committee of the de.NBI Virtual Organization
 
