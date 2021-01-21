@@ -18,6 +18,10 @@ independing on the project type you choose:
  * The **Simple VM** Project type allows you to start virtual machines without configuring a project in OpenStack (e.g. network configuration). 
 
  * In a **Cloud Project**  you will have your own OpenStack project and you are free to configure your network, virtual machines and storage setup.
+ 
+### Application Status
+
+The review of your application follows a series of different stages. The progress is visible in the [project overview](project_overview.md).
 
 ### Simple VM
 
