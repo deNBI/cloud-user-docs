@@ -4,6 +4,20 @@ In the sidebar under "Project Management" all projects you are a member of are l
 
 ### Quick overview
 
+If the evaluation of your project application is not yet completed, the current status can be seen here. Depending on the project type, several steps are necessary for the evaluation of the application, which are visible in the progress display.  If you move the mouse over a step in the display, more information will be shown.
+
+![application_progress](img/application_progress.png)
+
+The evaluation of the application is divided into the following steps:
+
+* Submitting the application
+
+* Approval of the Principal Investigator: The application must be submitted or confirmed by the responsible principal investigator
+
+* Confirmation by the Cloud committee: The application must be approved by the committee of the de.NBI Virtual Organization
+
+* **Only for OpenStack projects** - Approval of the Facility Manager: The application must be confirmed by the facility manager of the compute center to which their project was assigned by the VO
+
 The upper part of the overview page summarizes the most important information about the project. This information includes the runtime and the number of available virtual machines. In addition, the support of the project location where the project is running can be contacted directly. 
 It is possible to [request extensions or resource modifications](modification.md) directly from the overview.
 With a click on "Show more information" all further project information and currently requested changes/extensions can be displayed.
