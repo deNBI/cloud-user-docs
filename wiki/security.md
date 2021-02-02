@@ -48,7 +48,7 @@ SSH call: `-L 127.0.0.1:8080:localhost:8080`. A server serving a website would t
 
 Further information:
 
-- [https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding](https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding)
+- [http://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding](http://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding)
 
 #### Well defined remote IP range
 
