@@ -53,7 +53,7 @@ Here you may choose multiple conda, bioconda and anaconda tools which will be in
 Here you may choose from different browser based research environments respectively web IDEs, which will be installed on your machine at startup. For more information, please visist the [customization wiki page](./customization.md#research-environments).
 
 ### 3. Grant Access for project members
-![add_users](./img/new_instance_new/add_users_to_vm.png)
+![add_users](./img/new_instance/add_users_to_vm.png)
 When you start a virtual machine, you are able to grant access to it for any other member of your project.
 You can grant access only to members of your project who already have an SSH key stored in the portal. This is displayed for members who have not stored a key. You can find out how to set an SSH key [here](../portal/user_information.md/#ssh-key).
 After starting the machine, you and all added members can connect to the machine with their respective keys. 
