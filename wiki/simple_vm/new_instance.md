@@ -55,7 +55,7 @@ Here you may choose from different browser based research environments respectiv
 ### 3. Grant Access for project members
 ![add_users](./img/new_instance/add_users_to_vm.png)
 When you start a virtual machine, you are able to grant access to it for any other member of your project.
-You can grant access only to members of your project who already have an SSH key stored in the portal. This is displayed for members who have not stored a key. You can find out how to set an SSH key [here](./portal/user_information.md/#ssh-key).
+You can grant access only to members of your project who already have an SSH key stored in the portal. This is displayed for members who have not stored a key. You can find out how to set an SSH key [here](../portal/user_information.md#ssh-key).
 After starting the machine, you and all added members can connect to the machine with their respective keys. 
 Note that all users on the machine have the same rights and do not have separate home directories.
 Only the person who initially started the machine can stop, restart or delete it.  
