@@ -25,10 +25,7 @@ Ephemeral storage suits best for temporary data that changes often or is consist
 ### 4. Image
 Here you may choose the image your virtual machine will be started with. Images are basically the operating system and tool packages which will be installed on your virtual machine. The images listed here are the ones provided by de.NBI and your created snapshots. For more information about images and snapshots, please visit the [wiki page](./snapshots.md).
 
-## Optional configuration
-![overview_two](./img/new_instance/new_instance_overview_two.png)
-
-### 1. Volumes
+### Volumes
 Here you may create, attach and mount a new volume or attach and mount an already existing volume.  
 For more information about volumes, please visit the [volume wiki](./volumes.md) page.
 
@@ -43,13 +40,25 @@ You may choose its mountpath, which is the path to the data saved on the volume.
 After adding a volume you will see an overview of your chosen volumes:
 ![vol_done](./img/new_instance/new_instance_vol_done.png)
 
-### 2. Conda tools
+## Optional configuration
+![overview_two](./img/new_instance/new_instance_overview_two.png)
+
+
+### 1. Conda tools
 ![conda](./img/new_instance/new_instance_conda.png)
 Here you may choose multiple conda, bioconda and anaconda tools which will be installed on your machine at startup. For more information, please visist the [customization wiki page](./customization.md#conda).
 
-### 3. Research environments
+### 2. Research environments
 ![resenv](./img/new_instance/new_instance_resenv_name.png)
 Here you may choose from different browser based research environments respectively web IDEs, which will be installed on your machine at startup. For more information, please visist the [customization wiki page](./customization.md#research-environments).
+
+### 3. Grant Access for project members
+![add_users](./img/new_instance_new/add_users_to_vm.png)
+When you start a virtual machine, you are able to grant access to it for any other member of your project.
+You can grant access only to members of your project who already have an SSH key stored in the portal. This is displayed for members who have not stored a key. You can find out how to set an SSH key [here](../portal/user_information.md/#ssh-key).
+After starting the machine, you and all added members can connect to the machine with their respective keys. 
+Note that all users on the machine have the same rights and do not have separate home directories.
+Only the person who initially started the machine can stop, restart or delete it.  
 
 ### 4. Optional parameters
 ![optionals](./img/new_instance/new_instance_optional.png)
