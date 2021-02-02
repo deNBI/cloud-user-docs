@@ -24,6 +24,7 @@ The public key part will be automatically set for you and you are able to downlo
 ![setcopypublickey](img/generate_key_download.png)  
 
 If you do not save the private key generated for you, it will be irretrievably lost. We do not save the generated private keys for you. If you have cancelled or forgotten to download the key, you must repeat the process with a new key.
+Please note that you will have to change the permissions of the key file as written in the notification you just confirmed.
 
 ### Link Accounts to ELIXIR
 
