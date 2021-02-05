@@ -15,7 +15,7 @@ On this page you will as well find your public SSH-Key (if it is already stored)
 
 You have the possibility to view, copy and deposit your public ssh key. A set key is required for starting machines. Furthermore, you can only be added to machines by other members of your projects, which are started by them, if the key is set. 
 Read more about it [here](../simple_vm/new_instance.md#3-grant-access-for-project-members).
-If you don't know how to generate a ssh key, you will find a link to the [instructions](../quickstart.md#generate-ssh-keys) on the page.
+If you don't know how to generate a ssh key,  you can read the [instructions](../quickstart.md#generate-ssh-keys) on our quickstart page.
 
 Alternatively you are also able to have a ECDSA key generated for you. Click on the `Generate Key` button and read and confirm the notification.  
 ![setcopypublickey](img/generate_key_notification.png)  
