@@ -13,7 +13,7 @@ On this page you will as well find your public SSH-Key (if it is already stored)
 
 ![setcopypublickey](img/profile_page.png)
 
-You have the possibility to view, copy and deposit your public ssh key. A set key is required for starting machines. Furthermore, you can only be added to machines by other members of your projects, which are started by them, if the key is set. 
+You have the possibility to view, copy and deposit your public ssh key. An uploaded public key is required for starting machines. 
 Read more about it [here](../simple_vm/new_instance.md#3-grant-access-for-project-members).
 If you don't know how to generate a ssh key,  you can read the [instructions](../quickstart.md#generate-ssh-keys) on our quickstart page.
 
