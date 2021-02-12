@@ -52,6 +52,7 @@ nav:
       - 'Instance details': simple_vm/instance_detail.md
       - 'New cluster': simple_vm/new_cluster.md
       - 'Cluster overview': simple_vm/cluster_overview.md
+      - 'SSH keys and sharing access': simple_vm/keypairs.md
       - 'Volumes': simple_vm/volumes.md
       - 'Images/Snapshots': simple_vm/snapshots.md
       - 'Customization': simple_vm/customization.md
@@ -62,6 +63,8 @@ nav:
     - 'OpenStack Components' : Concept/openstack.md
     - 'Flavors' : Concept/flavors.md
     - 'Images' : Concept/images.md
+  - 'Workshops':
+    - 'Best Practices': workshops/best_practices.md
   - 'Tutorials' :
     - 'Access de.NBI Virtual Machines from Windows 10' : Tutorials/Win10_SSH/index.md
     - 'Access a SimpleVM with Mosh' : Tutorials/Mosh/index.md
