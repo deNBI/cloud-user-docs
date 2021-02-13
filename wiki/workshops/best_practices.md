@@ -1,7 +1,7 @@
 #Best Practices and Support
 
 ##Preparation
-It is advised to add your participants to your project a couple of days beforehand. This will help with a smoother start of your workshop.They will need to have or make an account for the de.NBI portal in order for you to add them. If you are not sure if they have an account you can send your participants the [wiki site](registration.md) where the registration process is explained.
+It is advised to add your participants to your project a couple of days beforehand. This will help with a smoother start of your workshop.They will need to have or make an account for the de.NBI portal in order for you to add them. If you are not sure if they have an account you can send your participants the [wiki site](../registration.md) where the registration process is explained.
 
 ##SSH keys
 
