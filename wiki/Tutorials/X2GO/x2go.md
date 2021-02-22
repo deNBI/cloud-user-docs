@@ -49,7 +49,6 @@ The following data, most of which can be found on the details page of the VM run
 
 ![X2Go Information](../../portal/img/x2go_session.png)
 
-![X2Go Client](../../portal/img/x2go_client.png)
 
 Select your private key, which you use to connect to the machine.
 For the session type select `LXDE` or any other desktop environment you have installed in advance.
@@ -57,6 +56,8 @@ The IP is the first marked information on the previous picture. The port is the 
 This information can be found as described on the details page of your VM.
 
 After you have saved the session preferences, you can now select the session and connect to the machine.
+
+![X2Go Client](../../portal/img/x2go_client.png)
 
 
 
