@@ -13,7 +13,9 @@ Make sure, that the `software-properties-common` package is installed. On Ubuntu
 
 Run the following commands to install the X2Go-server on your machine.
 > sudo add-apt-repository ppa:x2go/stable
+
 > sudo apt-get update
+
 > sudo apt-get install x2goserver x2goserver-xsession
 
 In the next step, install a desktop binding for the desktop environment you like.
@@ -21,6 +23,7 @@ In this tutorial we will use `LXDE`, but you can find bindings and install instr
 
 For LXDE, run the following commands:
 > sudo apt install aptitude
+
 > sudo aptitude install x2golxdebindings
 
 #### Export key in OpenSSH format for X2GO (Windows only)
