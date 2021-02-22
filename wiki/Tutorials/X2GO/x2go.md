@@ -2,7 +2,7 @@
 X2Go allows you to start your own desktop in the de.NBI Cloud which you can access from any operating system (Windows, Linux, MacOS).
 
 !!! Guacamole
-    Please note, that as an alternative we offer [Apache Guacamole](customization.md#apache-guacamole), which can easily be started in SimpleVM.
+    Please note, that as an alternative we offer [Apache Guacamole](../../simple_vm/customization.md#apache-guacamole), which can easily be started in SimpleVM.
 
 ## Installation
 
@@ -26,11 +26,11 @@ For LXDE, run the following commands:
 #### Export key in OpenSSH format for X2GO (Windows only)
 To connect to a machine with X2GO you have to export your private key in openssh format. To achieve this first load your private key into puttygen.
 
-![X2Go Client](../portal/img/putty_private.png)
+![X2Go Client](../../portal/img/putty_private.png)
 
 Then click Conversions and choose Export OpenSSH Key. Afterwards save this file on your computer. This file will be needed when you want to establish a connection to a machine with the X2GO client.
 
-![SSH_export](../portal/img/putty_export.png)
+![SSH_export](../../portal/img/putty_export.png)
 
 ## Usage
 
@@ -47,9 +47,9 @@ The following data, most of which can be found on the details page of the VM run
 - The path of your private key. The key can be easily selected via the user interface
 - The username for the connection to the machine. By default this is `ubuntu`
 
-![X2Go Information](../portal/img/x2go_session.png)
+![X2Go Information](../../portal/img/x2go_session.png)
 
-![X2Go Client](../portal/img/x2go_client.png)
+![X2Go Client](../../portal/img/x2go_client.png)
 
 Select your private key, which you use to connect to the machine.
 For the session type select `LXDE` or any other desktop environment you have installed in advance.
