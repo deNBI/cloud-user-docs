@@ -161,7 +161,7 @@ We will differentiate in the following between two different kind of volumes. Bo
 The general process of installing and mounting a Quobyte volume is explained in a separate document that will be send to you on request. 
 
 
-## S3 
+## S3
 The required S3 credentials (EC2 Access Key and Secret) are provided over the Dashboard. Login to the Dashboard and on the left side go to `Project -> API Access -> View Credentials`. Please make sure you are logged in to **RegionOne** as the credentials are not displayed on **RegionTwo**.  
 
 There are two possibilities to make use of the S3 service. 
