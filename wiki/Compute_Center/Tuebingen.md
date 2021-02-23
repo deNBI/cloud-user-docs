@@ -162,15 +162,14 @@ The general process of installing and mounting a Quobyte volume is explained in 
 
 
 ## S3
-The required S3 credentials (EC2 Access Key and Secret) are provided over the Dashboard. Login to the Dashboard and on the left side go to `Project -> API Access -> View Credentials`. Please make sure you are logged in to **RegionOne** as the credentials are not displayed on **RegionTwo**.  
+The required S3 credentials (EC2 Access Key and Secret) are provided over the Dashboard. Login to the Dashboard and on the left side go to `Project -> API Access -> View Credentials`. Please make sure you are logged in to **RegionOne** as the credentials are not displayed on **RegionTwo**. Please be aware that these credentials are project specific **not** user specific.
 
 There are two possibilities to make use of the S3 service. 
 
 You can make a Quobyte volume accessible via S3. More precise, you can make files and directories inside of this volume accessible. A mounted Quobyte volume is required for this and it needs to be enabled for S3 from our side. After that you can access it via the following URL schema (if permissions allow it). All the following steps need to be executed from the machine/VM where the quobyte volume is mounted. 
 
-```
-https://s3.denbi.uni-tuebingen.de/VOLUME_NAME/FILENAME_OR_DIRECTORY
-```
+`https://s3.denbi.uni-tuebingen.de/VOLUME_NAME/FILENAME_OR_DIRECTORY`
+
 
 **Please be aware that S3 is thought to handle flat structures and not multiple nested directory structures, where you might hit some limits.** The URL can be used in a browser or via wget/curl to download the specified content. 
 
