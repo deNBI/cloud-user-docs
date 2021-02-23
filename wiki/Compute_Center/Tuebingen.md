@@ -219,7 +219,7 @@ List all your buckets:
 
 
 List the content of bucket test: 
-<pre>aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 s3://test</pre>
+<pre>aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 ls s3://test</pre>
 
 
 Copy file test from local machine to bucket test:
