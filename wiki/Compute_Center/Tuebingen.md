@@ -178,21 +178,44 @@ Files and directories have to be made accessible using the `nfs4-acl-tools` that
 
 ```
 sudo nfs4_setfacl -a A:g:EVERYONE@ANONYMOUS:rtncx /mnt/qbvol/
+
+```
+
+```
 sudo nfs4_setfacl -a A:g:EVERYONE@ANONYMOUS:rtncx /mnt/qbvol/folder
+```
+
+```
 sudo nfs4_setfacl -a A:g:EVERYONE@ANONYMOUS:rtnc /mnt/qbvol/folder/file-object
 ```
 
 Further, you can grant read access to another OpenStack project `other_proj`
-sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rtncx /mnt/qbvol/
-sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rtncx /mnt/qbvol/folder
-sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rtnc /mnt/qbvol/folder/file-object
 
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rtncx /mnt/qbvol/
+```
+
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rtncx /mnt/qbvol/folder
+```
+
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rtnc /mnt/qbvol/folder/file-object
+```
 
 Or grant write/full access to another OpenStack project `other_proj` 
-<pre>sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rwadtTnNcCx /mnt/qbvol/</pre>
-<pre>sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rwadtTnNcCx /mnt/qbvol/folder</pre> 
-<pre>sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rwadtTnNcC/mnt/qbvol/folder/fileobject</pre> 
 
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rwadtTnNcCx /mnt/qbvol/
+```
+
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rwadtTnNcCx /mnt/qbvol/folder
+```
+
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rwadtTnNcC/mnt/qbvol/folder/fileobject 
+```
 These are just examples, you can further try other settings from the nfs4_setfacl. This kind of Quobyte volume (S3) is only available on RegionOne. 
 
 
@@ -200,38 +223,59 @@ The second possibility is to use an S3 client to create, list, push, pull bucket
 
 To use the `awscli` please install it and provide your credentials through .aws/credentials the following way (e.g. replace `test_user:ec2-access_key` with your access_key, do the sanme for the secret_key): 
 
-<pre>[default] 
+
+```
+[default] 
 aws_access_key_id=test_user:ec2-access_key
 aws_secret_access_key=test_user:ec2-secret_key
 
 [PROJEKT_NAME] 
 aws_access_key_id=test_user:ec2-access_key
-aws_secret_access_key=test_user:ec2-secret_key</pre>
+aws_secret_access_key=test_user:ec2-secret_key
+```
 Further you can create different profiles as seen above with the bracket notation.
 Also make sure you have enforced the PathStyle s3 URLs with
-<pre>aws configure set default.s3.addressing_style path </pre>
+
+```
+aws configure set default.s3.addressing_style path
+```
 
 The general command to interact with the S3 storage is the following: 
 
-<pre>aws --endpoint https://s3.denbi.uni-tuebingen.de s3 CMD</pre>
 
+```
+aws --endpoint https://s3.denbi.uni-tuebingen.de s3 CMD
+```
 and should then perform the documented s3 CMD on the Quobyte storage. Please note that not all of the aws commands provided by aws and the awscli client are available and implemented on the Quobyte storage backend. A list of general commands and examples can be found on the [aws documentation website](https://docs.aws.amazon.com/cli/latest/userguide/cli-services-s3-commands.html) 
 
 Simple commandline examples are listed below:
-List all your buckets: 
-<pre>aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 ls </pre>
+List all your buckets:
 
+```
+aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 ls
+
+```
 
 List the content of bucket test: 
-<pre>aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 ls s3://test</pre>
 
+```
+aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 ls s3://test
+
+```
 
 Copy file test from local machine to bucket test:
-<pre>aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 cp test.txt s3://test </pre>
 
+```
+aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 cp test.txt s3://test
+
+```
 
 Download file test from S3 to the current directory of the local machine:
-<pre>aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 cp s3://test/test.txt ./</pre>
+
+```
+aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 cp s3://test/test.txt ./
+
+```
 
 
 ## Attach a second interface
