@@ -11,4 +11,6 @@ http://172.21.40.2:9999
 https://denbi-cloud.bihealth.org
 https://www.shibboleth.net/products/identity-provider/
 https://www.shibboleth.net/
+https://wiki.x2go.org/doku.php/download:start
+https://wiki.x2go.org/doku.php/wiki:advanced:desktopbindings
 /https://github.com/deNBI/cloud-user-docs./
