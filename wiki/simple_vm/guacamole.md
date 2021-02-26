@@ -1,4 +1,4 @@
-#Enable concurrent sessions for Guacamole 
+# Enable concurrent sessions for Guacamole 
 
 If you use the default settings for the Guacamole research environment only one user can 
 log in at a time. The sessions of other users are terminated, when one user logs in. You can enable more concurrent sessions
