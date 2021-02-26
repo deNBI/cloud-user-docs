@@ -56,6 +56,7 @@ nav:
       - 'Volumes': simple_vm/volumes.md
       - 'Images/Snapshots': simple_vm/snapshots.md
       - 'Customization': simple_vm/customization.md
+      - 'Concurrent Guacamole Sessions': simple_vm/guacamole.md
   - 'OpenStack Quickstart' : quickstart.md
   - 'Security' : security.md
   - 'Concept' :
