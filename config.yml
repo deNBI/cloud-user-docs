@@ -57,6 +57,7 @@ nav:
       - 'Images/Snapshots': simple_vm/snapshots.md
       - 'Customization': simple_vm/customization.md
       - 'Concurrent Guacamole Sessions': simple_vm/guacamole.md
+      - 'Workshops': simple_vm/workshop.md
   - 'OpenStack Quickstart' : quickstart.md
   - 'Security' : security.md
   - 'Concept' :
@@ -64,8 +65,6 @@ nav:
     - 'OpenStack Components' : Concept/openstack.md
     - 'Flavors' : Concept/flavors.md
     - 'Images' : Concept/images.md
-  - 'Workshops':
-    - 'Best Practices': workshops/best_practices.md
   - 'Tutorials' :
     - 'Access de.NBI Virtual Machines from Windows 10' : Tutorials/Win10_SSH/index.md
     - 'Access a SimpleVM with Mosh' : Tutorials/Mosh/index.md
@@ -79,6 +78,7 @@ nav:
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
     - 'Theia Web IDE': Tutorials/TheiaIde/index.md
     - 'UserData' : Tutorials/UserData/index.md
+    - 'Using X2GO': Tutorials/X2GO/x2go.md
   - 'FAQ' : 'FAQ.md'
   - 'Compute Center Specific' :
     - 'Giessen' : Compute_Center/Giessen.md
