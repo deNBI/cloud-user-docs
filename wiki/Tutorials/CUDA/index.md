@@ -35,7 +35,7 @@ sudo yum install cuda -y && sudo reboot
 Now You can use `nvidia-smi` to validate if the installation was successfully.
 
 ```
-$ nvidia-smi
+$ sudo nvidia-smi
 Mon Apr 27 14:18:12 2020       
 +-----------------------------------------------------------------------------+
 | NVIDIA-SMI 440.64.00    Driver Version: 440.64.00    CUDA Version: 10.2     |
