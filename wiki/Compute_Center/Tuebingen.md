@@ -533,3 +533,25 @@ That should print out something similar to the following output depending on the
 7. In order to use for example `nvcc` please make sure the cuda directory `/usr/local/cuda` is in your path
 <pre>export PATH=/usr/local/cuda/bin:$PATH</pre>
 <pre>export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH</pre>
+
+
+## Upgrade from Ubuntu 16.04 (Xenial) to 18.04 (Bionic)
+The following steps will help you to upgrade your system from Ubuntu 16.04 codename: Xenial to the next LTS (Long Term Support) Version, that is 18.04 codename Bionic. This is necessary as the support with updates (e.g Security updates) ends with the 31.03.21. If you run any instances of Ubuntu 16.04 it is a potential security risk. Therefore it is necessary to update your instances.
+
+### Check your current version
+In order to check if which Ubuntu version you are using run the following command:
+```
+lbs_release -a
+```
+
+If the output tells you something like the following 
+```
+
+
+
+
+
+
+
+
+
