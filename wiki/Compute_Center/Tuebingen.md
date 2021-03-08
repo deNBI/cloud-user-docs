@@ -544,8 +544,16 @@ In order to check if which Ubuntu version you are using run the following comman
 lbs_release -a
 ```
 
-If the output tells you something like the following 
+If the output tells you something like the following:
 ```
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 16.04.X LTS
+Release:	    16.04
+Codename:	    xenial
+```
+Please upgrade to next LTS release with the following instructions.
+
 
 
 
