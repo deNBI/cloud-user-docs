@@ -47,3 +47,6 @@ research environment here. For more information, please visist the [customizatio
 Here you may configure which users are allowed to connect to your research environment. Please note, that this does not
 automatically allow for concurrent sessions for some research environments. To allow concurrent sessions, please consult
 the specific section of your chosen research environment [concurrent sessions guide](./customization.md#research-environments).
+## Ansible logs
+![ansible_logs](./img/instance_detail/ansible_logs.png)
+Here you may download the ansible logs of your installation as pdf or txt.

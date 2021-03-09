@@ -33,8 +33,8 @@ We will create a temporary private and public key pair which will be used to acc
 Then we will install your selection with [Ansible](https://docs.ansible.com/ansible/latest/index.html). 
 At the end of the installation process we will remove the temporary key from your machine and copy your public key onto it, 
 regardless of whether the installation of your selection will succeed or fail.  
-Also you will be able to download the installation logs (as pdf or txt file) and look into the them if you wish.  
-![ansible_donwload_logs](./img/instance_detail/ansible_logs.png)
+Also you will be able to download the installation logs (as pdf or txt file) and look into the them if you wish 
+[here](./instance_detail.md#ansible-logs).
 
 ### Environment
 
