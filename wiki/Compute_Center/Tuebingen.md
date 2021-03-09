@@ -150,6 +150,133 @@ Now you can mount and use it as usual and also use the extended capacity.
 
 If you use another filesystem than xfs or ext4 please look up if and how an increase of the capacity is possible.
 
+## Different volume types on the de.NBI Cloud site Tübingen 
+We will differentiate in the following between two different kind of volumes. Both volume types are handled on the same storage system solution running Quobyte, but are different in their handling and functionalities.  
+
+**Cinder volumes:** Cinder is the OpenStack volume service. As a user you are able to create new volumes, according to the granted project quotas, on your own via the web interface (Dashboard). These volumes are good for storing general data and are a good start. A drawback of this simple solution is, that Cinder volumes can only be attached to one VM at a time. In general, a Cinder volume can be seen as a slice of a larger Quobyte Volume which is s holding the data in the background. 
+
+**Quobyte volumes:** Further, it is possible to use a Quobyte volume directly, which is mounted via an additional network interface in the VM using the quobyte-client tool. These kind of volumes offer the possibility to mount them on multiple VMs at the same time, use different kinds of hardware (SSDs, HDDs), replication methods and also make them available via the S3 protocol. If such a Quobyte volume is required, please contact us. They cannot be created by users themselves, they have to be provided from our side. 
+
+### Handling Quobyte Volumes 
+The general process of installing and mounting a Quobyte volume is explained in a separate document that will be send to you on request. 
+
+
+## S3
+The required S3 credentials (EC2 Access Key and Secret) are provided over the Dashboard. Login to the Dashboard and on the left side go to `Project -> API Access -> View Credentials`. Please make sure you are logged in to **RegionOne** as the credentials are not displayed on **RegionTwo**. Please be aware that these credentials are project specific **not** user specific.
+
+There are two possibilities to make use of the S3 service. 
+
+You can make a Quobyte volume accessible via S3. More precise, you can make files and directories inside of this volume accessible. A mounted Quobyte volume is required for this and it needs to be enabled for S3 from our side. After that you can access it via the following URL schema (if permissions allow it). All the following steps need to be executed from the machine/VM where the quobyte volume is mounted. 
+
+`https://s3.denbi.uni-tuebingen.de/BUCKET_NAME/FILENAME_OR_DIRECTORY`
+
+
+**Please be aware that S3 is thought to handle flat structures and not multiple nested directory structures, where you might hit some limits.** The URL can be used in a browser or via wget/curl to download the specified content. 
+
+Files and directories have to be made accessible using the `nfs4-acl-tools` that need to be installed. Via the following command for example a file can be made accessible for everyone (mountpoint of the volume here is /mnt/qbvol/ ): 
+
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@ANONYMOUS:rtncx /mnt/qbvol/
+
+```
+
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@ANONYMOUS:rtncx /mnt/qbvol/folder
+```
+
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@ANONYMOUS:rtnc /mnt/qbvol/folder/file-object
+```
+
+Further, you can grant read access to another OpenStack project `other_proj`
+
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rtncx /mnt/qbvol/
+```
+
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rtncx /mnt/qbvol/folder
+```
+
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rtnc /mnt/qbvol/folder/file-object
+```
+
+Or grant write/full access to another OpenStack project `other_proj` 
+
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rwadtTnNcCx /mnt/qbvol/
+```
+
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rwadtTnNcCx /mnt/qbvol/folder
+```
+
+```
+sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rwadtTnNcC/mnt/qbvol/folder/fileobject 
+```
+These are just examples, you can further try other settings from the nfs4_setfacl. This kind of Quobyte volume (S3) is only available on RegionOne. 
+
+
+The second possibility is to use an S3 client to create, list, push, pull buckets and data. We have tested and therefore can recommend the `awscli` client. Please install it and provide the credentials to it. More on the awscli client and downloads can be found [here](https://aws.amazon.com/de/cli/) 
+
+To use the `awscli` please install it and provide your credentials through .aws/credentials the following way (e.g. replace `test_user:ec2-access_key` with your access_key, do the sanme for the secret_key): 
+
+
+```
+[default] 
+aws_access_key_id=test_user:ec2-access_key
+aws_secret_access_key=test_user:ec2-secret_key
+
+[PROJEKT_NAME] 
+aws_access_key_id=test_user:ec2-access_key
+aws_secret_access_key=test_user:ec2-secret_key
+```
+Further you can create different profiles as seen above with the bracket notation.
+Also make sure you have enforced the PathStyle s3 URLs with
+
+```
+aws configure set default.s3.addressing_style path
+```
+
+The general command to interact with the S3 storage is the following: 
+
+
+```
+aws --endpoint https://s3.denbi.uni-tuebingen.de s3 CMD
+```
+and should then perform the documented s3 CMD on the Quobyte storage. Please note that not all of the aws commands provided by aws and the awscli client are available and implemented on the Quobyte storage backend. A list of general commands and examples can be found on the [aws documentation website](https://docs.aws.amazon.com/cli/latest/userguide/cli-services-s3-commands.html) 
+
+Simple commandline examples are listed below:
+List all your buckets:
+
+```
+aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 ls
+
+```
+
+List the content of bucket test: 
+
+```
+aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 ls s3://test
+
+```
+
+Copy file test from local machine to bucket test:
+
+```
+aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 cp test.txt s3://test
+
+```
+
+Download file test from S3 to the current directory of the local machine:
+
+```
+aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 cp s3://test/test.txt ./
+
+```
+
+
 ## Attach a second interface
 If you need a second interface for example to use direct volume mounts of our Quobyte storage for handling sensitive data or you need an internal network to build a virtual cluster where the compute nodes usually do not need to be accessed by the outside network this guide will help you to get them configured.
 In the following we will differentiate between VM images based on CentOS7 and Ubuntu 18.04. (Bionic).
@@ -253,7 +380,7 @@ Save and close the file with `:wq`
 which should print out a similar output as shown above for the centos7 section.
 The made changes here are directly persistent.
 
-### Ubuntu 20.04. (Bionic)
+### Ubuntu 20.04. (Focal)
 1. First launch a VM with a publicly acessible IP address, as usual
 
 2. Attach a second interface of your choice via the webinterface (OpenStack Dashboard)
@@ -406,3 +533,85 @@ That should print out something similar to the following output depending on the
 7. In order to use for example `nvcc` please make sure the cuda directory `/usr/local/cuda` is in your path
 <pre>export PATH=/usr/local/cuda/bin:$PATH</pre>
 <pre>export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH</pre>
+
+
+## Upgrade from Ubuntu 16.04 (Xenial) to 18.04 (Bionic)
+The following steps will help you to upgrade your system from Ubuntu 16.04 codename: Xenial to the next LTS (Long Term Support) Version, that is 18.04 codename Bionic. This is necessary as the support with updates (e.g Security updates) ends with the 31.03.21. If you run any instances of Ubuntu 16.04 it is a potential security risk. Therefore it is necessary to update your instances. The following instructions explain how to upgrade an Ubuntu System from Version Xenial to Bionic. The following instruction is tested with a plain Ubuntu 16.04 without any installations or configurations. We can not make sure that the steps are 
+
+
+### Check your current version
+In order to check if which Ubuntu version you are using run the following command:
+```
+lbs_release -a
+```
+
+If the output tells you something like the following:
+```
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 16.04.X LTS
+Release:	    16.04
+Codename:	    xenial
+```
+Please upgrade to next LTS release with the following instructions. If a version of 18.04 or higher is shown you are fine.
+
+### Prior steps
+In order make the upgrade as simple as possible, please unmount any mounted volumes to the VM and also detach any attached Cinder volumes. If your operating system runs on a cinder volume, usually attached to `/dev/vda` please let it there and do not try to unmount it, as this is not possible and would break your VM. Further, make sure to make a snapshot of the VM to have a backup, if somehting fails during the upgrade process.  
+
+### Upgrade to next LTS release
+You should now be logged in to the VM you want to upgrade.
+First update and upgrade the current system, executing the following commands:
+```
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get dist-upgrade #(confirm with yes)
+```
+Afterwards the update manager has to be installed with the following command:
+```
+sudo apt install update-manager-core
+```
+Due to the made updates a reboot might be necessary, so please reboot the VM with the following command:
+```
+sudo reboot
+```
+You will be logged out automatically, after a minute the reboot should have suceeded and you can login again.
+Please login and start the upgrade process with the following command:
+```
+sudo do-release-upgrade
+```
+Afterwards you will be asked to start the process confirm with `y` and press `ENTER`.
+After some seconds you will be asked to allow the creation of an additional iptables entry,
+confirm with `y` and press `ENTER`. 
+After that you will be asked again, again confirm with `y` and press `ENTER`. 
+After a while a pink screen will appear and asks you, if the sshd config should be replaced, please keep the, normally, default answer `keep the local version currently installed` and press `ENTER`, as we want to keep the SSH configuration.
+Depending on your configuration this can happen multiple times, please check carfully every time this message occurs if you want to keep a specific configuration or if it can be overwritten.
+After some minutes you will get another notice with the text `XX packages are going to be removed`, again you can confirm with `y` and press `ENTER` or let you show the details with `d` and press `ENTER`, depending on your installed packages.
+The last message is that the system needs to be restarted, which you need to confirm again with `y` and press `ENTER`.
+After that you will be logged out automatically.
+After the reboot is finished you can login and check the version with the command `lsb_release -a` again.
+Now you should get something similar to the following output:
+```
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 18.04.5 LTS
+Release:	18.04
+Codename:	bionic
+```
+The upgrade has succeeded and is finished. You can now attach and remount your volumes if necessary. Further please check if the system is working like expected or the upgrade process broke anything.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
