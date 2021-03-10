@@ -542,7 +542,7 @@ The following steps will help you to upgrade your system from Ubuntu 16.04 coden
 ### Check your current version
 In order to check if which Ubuntu version you are using run the following command:
 ```
-lbs_release -a
+lsb_release -a
 ```
 
 If the output tells you something like the following:
