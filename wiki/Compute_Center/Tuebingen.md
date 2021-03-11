@@ -22,12 +22,14 @@ Please note, you are responsible for everything that happens with the virtual ma
 ## Operating Systems
 Here, we are talking about the operating system of your notebook or workstation, not the one of the VM. If you are a Linux User, we assume that you know what you are doing. If you are using MacOS you are hopefully aware that it is based on BSD and therefore very similar to other Linux distributions.
 
-For a normal Windows user, we suggest using Putty (http://www.putty.org/) to access the deployed VMs. It comes with ‘puttygen’ which should be used to generate your SSH Keys.
+For a normal Windows user, we suggest using Putty (http://www.putty.org/) to access the deployed VMs. It comes with `puttygen` which should be used to generate your SSH Keys.
 
 ## SSH-Keys
 To access your VMs, a valid SSH key pair is required. On all UNIX based operating systems ‘keygen’ may be used to create a key pair. A Linux command example is given below:
 
-<pre>ssh-keygen –t rsa</pre>
+```
+ssh-keygen –t rsa
+```
 
 Please note, keep your private key as private as you would do it with your credit card PIN number. We will never ask you to share your private key.
 
@@ -35,29 +37,39 @@ Please note, keep your private key as private as you would do it with your credi
 Start ‘puttygen’ and click on generate. You need to move your mouse cursor above the grey field to create enough entropy. Enter a passphrase, twice. Save your private and public key into separate files e.g, bla.ppk and bla.key.
 
 ### Deploying a Key Pair
-Login to the Horizon dashboard https://denbi.uni-tuebingen.de and navigate to Key Pairs via Project / Compute. Click on ‘Import Key Pair’ and insert your public key after giving it a name.
+Login to the Horizon dashboard https://denbi.uni-tuebingen.de and navigate to Key Pairs via Project / Compute. Click on `Import Key Pair` and insert your public key after giving it a name.
 
 ## Launching an Instance
 Navigate to Instances via Project / Compute and click on Launch Instance (upper right). The following entries for the VM are only examples, please chose the appropriate settings for your work case (Operating System (Images), Resources (Flavors)).
 
 #### Details
-<pre>Instance Name: <some name you like>
+```
+Instance Name: <some name you like>
 Availability Zone: Nova
-Count: 1</pre>
+Count: 1
+```
 
 #### Source
-<pre>Select Boot Source: Instance Snapshot or Images
+```
+Select Boot Source: Instance Snapshot or Images
 Create New Volume: No (Otherwise the root partition of the instance is launched on a volume which is not recommended!)
-Allocated: Select the required OS by clicking on the up arrow</pre>
+Allocated: Select the required OS by clicking on the up arrow
+```
 
 #### Flavor
-<pre>Allocated: Select the required flavor by clicking on the up arrow</pre>
+```
+Allocated: Select the required flavor by clicking on the up arrow
+```
 
 #### Networks
-<pre>Allocated: Select the set up network by clicking on the up arrow beneath the network name</pre>
+```
+Allocated: Select the set up network by clicking on the up arrow beneath the network name
+```
 
 #### Network Ports
-<pre>Leave it unchanged</pre>
+```
+Leave it unchanged
+```
 
 #### Security Groups
 <pre>Allocated: Select the set up network by clicking on the up arrow beneath the network name and move ‘default’ to the Available section</pre>
