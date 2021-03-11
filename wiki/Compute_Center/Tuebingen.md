@@ -72,32 +72,48 @@ Leave it unchanged
 ```
 
 #### Security Groups
-<pre>Allocated: Select the set up network by clicking on the up arrow beneath the network name and move ‘default’ to the Available section</pre>
+```
+Allocated: Select the set up network by clicking on the up arrow beneath the network name and move ‘default’ to the Available section
+```
 
 #### Key Pair
-<pre>Select your key pair</pre>
+```
+Select your key pair
+```
 
 #### Configuration
-<pre>Leave it unchanged</pre>
+```
+Leave it unchanged
+```
 
 #### Server Groups
-<pre>Leave it unchanged</pre>
+```
+Leave it unchanged
+```
 
 #### Scheduler Hints
-<pre>Leave it unchanged</pre>
+```
+Leave it unchanged
+```
 
 #### Metadata
-<pre>Leave it unchanged</pre>
+```
+Leave it unchanged
+```
 
 Finally launch the instance. You should see a fresh instance entry. It may take a couple of minutes to spawn the instance depending on the requested resources. 
 
 ## Accessing a VM
 For Linux and MacOS just use ssh, specifying the correct IP, the right key and the username of the OS (centos, ubuntu, debian, ...), you have chosen for example ‘centos’. For Windows, start ‘Putty’ and enter the IP address of your VM under Hostname (or IP address). It can be found within the Horizon dashboard under Instances. An example of a Linux command is given below:
-<pre>ssh –i /path/to/private/key <osname>@<IP-Address></pre>
+```
+ssh –i /path/to/private/key <osname>@<IP-Address>
+```
 
 An example for a centos machine with the IP 1.2.3.4 would be:
 
-<pre>ssh –i /path/to/private/key centos@1.2.3.4</pre>
+```
+ssh –i /path/to/private/key centos@1.2.3.4
+```
 
 If you need x-forwarding for graphical user interfaces don’t forget to set the –X flag and check if the xauth package is installed on the host and the server and the x-forwarding settings are correct. For Windows user we suggest to use xming (https://sourceforge.net/projects/xming/). 
 
@@ -108,55 +124,76 @@ Please note, each time you are shutting down and deleting the VM or redeploy the
 
 ## Transferring data
 Per default you will have a varying amount of space available (root disc) within your VM depending on the chosen operating system. More is easily available through Swift or Cinder volumes. How to use Cinder Volumes is explained below. Further you can use a flavor with 20GB of root disc space to enlarge the available default space.
-You may copy data from and to your VM using simply the Linux  scp  command with the –i flag to use your SSH key. For Windows users, the usage of WinSCP (https://sourceforge.net/projects/winscp/) is suggested. Of course, the correct IP, the right key and the username ‘centos’ for example has to be specified.
+You may copy data from and to your VM using simply the Linux  `scp`  command with the `–i` flag to use your SSH key. For Windows users, the usage of WinSCP (https://sourceforge.net/projects/winscp/) is suggested. Of course, the correct IP, the right key and the username ‘centos’ for example has to be specified.
 
 ## Using Cinder Volumes
 Cinder Volumes are nothing else than block devices like a hard drive connected to your computer but in this case virtual. You can mount format and unmount it like a normal block device. In the following it is explained how to create a Cinder Volume and how to use it in your VM. But before some remaks. It is only possible to attach a Cinder Volume to exactly one VM. So you can not share one Volume with other VMs. A more cheerful remark is that the data saved on a Cinder Volume is persistent. As long you do not delete the Volume in the Dashboard (Horizon) your data will not get lost by deleting the VM or anything else happening with the VM.  
 
 In the Dashboard (Horizon) you will navigate to the `Compute` section and then to the `Volume` section.
 Here you can create a new volume entering the following parameters
-<pre>Volume name: Type in any name you want to
+```
+Volume name: Type in any name you want to
 Description: Describe for which purpose you will use the volume (optional) 
 Volume Source: Set it to `No source, empty Volume` to get an empty block device
 Type: quobyte_hdd
 Size (GiB): Select the desired size in Gigabytes
-Availability zone: nova</pre>
+Availability zone: nova
+```
 
 Then click `create volume` and your volume will appear in the list of volumes with the status `Available`.
 Now you have to attach the just created volume to your VM. This is done by changing to the `instance` section under the `compute` section and clicking on the arrow on the right side belonging to your VM. Choose `Attach Volume` and choose the just created volume. Now your volume is connected to your VM like if connect a hard drive via USB with your computer.
 Now you have to login into your VM, format and mount the volume.
 You will find your volume with the command
-<pre>lsblk</pre>
+```
+lsblk
+```
 This command will list all your block devices connected to your VM.
 Chose the correct device (mostly the name will be the second entry, you can orientate oneself on the SIZE parameter) and format it with a filesystem if you are using this volume for the first time. Common filesystems are ext4 or xfs. **This command needs to be executed just for a new volume, otherwise all residing data on it will be deleted!**
-<pre>mkfs.ext4 /dev/device_name</pre>
+```
+mkfs.ext4 /dev/device_name
+```
 
 After the formating you have to create a mountpoint
-<pre>mkdir -p /mnt/volume</pre>
+```
+mkdir -p /mnt/volume
+```
 
 Check that you have the correct permissions for this directory, otherwise set them with the follwoing command
-<pre>chmod 777 /mnt/volume/</pre>
+```
+chmod 777 /mnt/volume/
+```
 
 And mount the Cinder Volume under the created directory
-<pre>mount /dev/device_name /mnt/volume</pre>
+```
+mount /dev/device_name /mnt/volume/
+```
+
 
 Now you should see your device by executing the command
-<pre>df -h</pre>
+```
+df -h
+```
 
 If you do not need you Cinder Volume you can also unmount it with
-<pre>umount /dev/device_name</pre>
+```
+umount /dev/device_name
+```
 
 ## Resize a Cinder Volume
 If you find out that you need more space for your Cinder volume and want to increase the volume size, you can do this over the dashboard. Go to the Volumes section on the left side. If the Cinder volume is already attached to a VM please unmount the Cinder volume in the VM and detach it over the dashboard. Only if the Cinder volume is detached you can increase the size. Now choose the “Extend Volume” button after you have clicked on the down showing arrow on the right of the Cinder volume you want to extend. Enter the new size (in Gigabytes) and click on the button “Extend Volume”.
 After this procedure has finished successfully you can attach the extended Cinder volume to your VM. Depending on which filesystem you use on your Cinder volume there are different procedures necessary to make the new capacity available.
 For an xfs formatted filesystem:
 Mount the volume as usual and run the following command
-<pre>sudo xfs_grow -d MOUNTPOINT</pre>
+```
+sudo xfs_grow -d MOUNTPOINT
+```
 If you followed the instructions above the `MOUNTPOINT` would be `/mnt/volume` After that you can use the extend volume with the new capacity.
 
 For an ext4 formatted filesystem:
 Do not mount the volume. If you can see it with the lsblk command that is enough. Run the following command to get increase the capacity
-<pre>sudo resize2fs /dev/device_name</pre>
+```
+sudo resize2fs /dev/device_name
+```
 The `/dev/device_name` is the same you have used in the mount command above.
 Now you can mount and use it as usual and also use the extended capacity.
 
