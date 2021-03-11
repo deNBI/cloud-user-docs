@@ -285,18 +285,30 @@ In the following we will differentiate between VM images based on CentOS7 and Ub
 1. First launch a VM with a publicly acessible IP address, as usual
 2. Login to the VM
 3. Change to the root user 
-<pre>sudo su -</pre>
+```
+sudo su -
+```
 4. The following command will set the default gateway to network interface eth0 which should be the interface for the public IP address:
-<pre>echo 'GATEWAYDEV=eth0' >> /etc/sysconfig/network</pre>
+```
+echo 'GATEWAYDEV=eth0' >> /etc/sysconfig/network
+```
 5. Exit as root user running the following command:
-<pre>exit</pre>
+```
+exit
+```
 6. Attach a second interface of your choice via the webinterface (OpenStack Dashboard)
 7. Change back to the VM and run the following command to configure the second interface:
-<pre>sudo dhclient</pre>
+```
+sudo dhclient
+```
 8. Check if the interface eth1 (usually) now has an IP address configured matching the one shown in the webinterface with the following command:
-<pre>ip a</pre>
+```
+ip a
+```
+
 You should see something similar to this output (XXX are replaced by numbers or letter)
-<pre>1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+```
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
        valid_lft forever preferred_lft forever
@@ -313,16 +325,20 @@ You should see something similar to this output (XXX are replaced by numbers or 
     inet 192.168.58.XXX/XX brd 192.168.XX.255 scope global dynamic eth1
        valid_lft 85040sec preferred_lft 85040sec
     inet6 fe80::f816:3eff:fe4b:83XX/64 scope link 
-       valid_lft forever preferred_lft forever</pre>
+       valid_lft forever preferred_lft forever
+```
 
 The configuration of the network will not be persistent and after a reboot it would be gone. If you want to make this configuration persistent,
 please follow the following steps we are assuming here that the second interface name is eth1. Further you can skip steps 7. and 8. from above. 
 
 9. Change to the root user 
-<pre>sudo su -</pre>
+```
+sudo su -
+```
 
 10. Create a new network config file, **replace the HWADDR with the one shown in the `ip a` command of your VM**
-<pre>vi /etc/sysconfig/network-scripts/ifcfg-eth1</pre>
+```
+vi /etc/sysconfig/network-scripts/ifcfg-eth1</pre>
 With the following content:
 <pre>BOOTPROTO=dhcp
 DEVICE=eth1
@@ -330,21 +346,26 @@ HWADDR=fa:16:3e:4b:83:XX
 MTU=1500
 ONBOOT=yes
 TYPE=Ethernet
-USERCTL=no</pre>
-
+USERCTL=no
+```
 Save and close the file with `:wq`
 
 11. Bring the interface up by running the following command:
-<pre>ifup eth1</pre>
+```
+ifup eth1
+```
 Wait until the additional interface has been configured.
 
 12. Check if the interface has been configured correctly running the command:
-<pre>ip a</pre>
+```
+ip a
+```
 which should print out a similar output as shown above.
 
 13. Exit as root user running the following command:
-<pre>exit</pre>
-
+```
+exit</pre>
+```
 
 ### Ubuntu 18.04. (Bionic)
 1. First launch a VM with a publicly acessible IP address, as usual
@@ -352,31 +373,45 @@ which should print out a similar output as shown above.
 2. Attach a second interface of your choice via the webinterface (OpenStack Dashboard)
 
 3. Check the interface name of the second interface, usually it should be 'ens6' with the following command:
-<pre>ip a</pre>
+```
+ip a
+```
 
 4. Change to the root user 
-<pre>sudo su -</pre>
+```
+sudo su -
+```
 
 5. Create a new network config file
-<pre>vi /etc/systemd/network/ens6.network</pre>
+```
+vi /etc/systemd/network/ens6.network
+```
 With the following content:
-<pre>[Match]
+```
+[Match]
 Name=ens6
 [Network]
 DHCP=ipv4
 [DHCP]
 UseMTU=true
-RouteMetric=200</pre>
+RouteMetric=200
+```
 Save and close the file with `:wq`
 
 6. Restart the network with the follwoing command:
-<pre>systemctl restart systemd-networkd</pre>
+```
+systemctl restart systemd-networkd
+```
 
 7. Exit as root user running the following command:
-<pre>exit</pre>
+```
+exit
+```
 
 8. Check if the interface has been configured correctly running the command:
-<pre>ip a</pre>
+```
+ip a
+```
 which should print out a similar output as shown above for the centos7 section.
 The made changes here are directly persistent.
 
@@ -386,9 +421,12 @@ The made changes here are directly persistent.
 2. Attach a second interface of your choice via the webinterface (OpenStack Dashboard)
 
 3. Check the interface name of the second interface, usually it should be 'ens6' but can also be 'ens4' so please check for the name, with the following command:
-<pre>ip a</pre>
+```
+ip a
+```
 The output should look be similar to the following:
-<pre>1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+```
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
        valid_lft forever preferred_lft forever
@@ -401,12 +439,16 @@ The output should look be similar to the following:
     inet6 fe80::f816:3eff:xxxx:xxxx/64 scope link 
        valid_lft forever preferred_lft forever
 3: ens6: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
-    link/ether fa:16:3e:XX:XX:XX brd ff:ff:ff:ff:ff:ff</pre>
+    link/ether fa:16:3e:XX:XX:XX brd ff:ff:ff:ff:ff:ff
+```
 
 4. After that create a new configuration file with the following command:
-<pre>sudo vi </pre>
+```
+sudo vi
+```
 Enter the following content depending on the interface name ens6 or ens4 or ... and the corresponding MAC address.
-<pre>network:
+```
+network:
     version: 2
     ethernets:
         ens4:
@@ -416,14 +458,19 @@ Enter the following content depending on the interface name ens6 or ens4 or ... 
             mtu: 1500
             dhcp4-overrides:
                 use-routes: false
-            set-name: ens4</pre>
+            set-name: ens4
+```
 Save and close the file with `:wq`
 
 5. Apply the network changes with the follwoing command:
-<pre>sudo netplan apply</pre>
+```
+sudo netplan apply
+```
 
 6. Check if the interface has been configured correctly running the command:
-<pre>ip a</pre>
+```
+ip a
+```
 which should print out a similar output as shown above for the centos7 section.
 The made changes here are directly persistent.
 
@@ -433,42 +480,61 @@ It is assumed that you have a running VM with one or more GPUs attached already 
 
 ### CentOS 7
 1. Update the existing installation
-<pre>sudo yum update -y</pre>
+```
+sudo yum update
+```
 
 2. Install development tools
-<pre>sudo yum groupinstall "Development Tools" -y</pre>
+```
+sudo yum groupinstall "Development Tools"
+```
 
 3. Install additional, required tools
-<pre>sudo yum install kernel-devel epel-release wget htop vim pciutils dkms -y</pre>
+```
+sudo yum install kernel-devel epel-release wget htop vim pciutils dkms
+```
 
 4. Next we need to disable the Linux kernel default driver for GPU cards in. For this open the file `/etc/default/grub` with vim for example and add
 the parameter `nouveau.modeset=0` to the line starting with `GRUB_CMDLINE_LINUX=`. The line should be similar to the following example:
-<pre>GRUB_TIMEOUT=1
+```
+GRUB_TIMEOUT=1
 GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
 GRUB_DEFAULT=saved
 GRUB_DISABLE_SUBMENU=true
 GRUB_TERMINAL="serial console"
 GRUB_SERIAL_COMMAND="serial"
 GRUB_CMDLINE_LINUX="console=tty0 crashkernel=auto net.ifnames=0 console=ttyS0 nouveau.modeset=0"
-GRUB_DISABLE_RECOVERY="true"</pre>
+GRUB_DISABLE_RECOVERY="true"
+```
 
 5. Make the changes effective
-<pre>sudo grub2-mkconfig -o /boot/grub2/grub.cfg</pre>
+```
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+```
 
 6. Reboot the VM
-<pre>sudo reboot</pre>
+```
+sudo reboot
+```
 
 7. Login again and download the CUDA installer (11.0)
-<pre>http://developer.download.nvidia.com/compute/cuda/11.0.2/local_installers/cuda_11.0.2_450.51.05_linux.run</pre>
+```
+http://developer.download.nvidia.com/compute/cuda/11.0.2/local_installers/cuda_11.0.2_450.51.05_linux.run
+```
 
 8. Run the installer and type in `accept` and go down to install and hit enter
-<pre>cuda_11.0.2_450.51.05_linux.run</pre>
+```
+cuda_11.0.2_450.51.05_linux.run
+```
 
 9. If the installation has finished you can check if everything works by running the following command
-<pre>nvidia-smi</pre>
+```
+nvidia-smi
+```
 
 That should print out something similar to the following output depending on the number of GPUs requested
-<pre>+-----------------------------------------------------------------------------+
+```
++-----------------------------------------------------------------------------+
 | NVIDIA-SMI 450.51.05    Driver Version: 450.51.05    CUDA Version: 11.0     |
 |-------------------------------+----------------------+----------------------+
 | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
@@ -485,34 +551,51 @@ That should print out something similar to the following output depending on the
 |        ID   ID                                                   Usage      |
 |=============================================================================|
 |  No running processes found                                                 |
-+-----------------------------------------------------------------------------+</pre>
++-----------------------------------------------------------------------------+
+```
 10. In order to use for example `nvcc` please make sure the cuda directory `/usr/local/cuda` is in your path
-<pre>export PATH=/usr/local/cuda/bin:$PATH</pre>
-<pre>export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH</pre>
-
+```
+export PATH=/usr/local/cuda/bin:$PATH
+```
+```
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+```
 
 
 ### Ubuntu
 1. Load package updates
-<pre>sudo apt update</pre>
+```
+sudo apt update
+```
 
 2. If wanted, install the loaded updates
-<pre>sudo apt upgrade</pre>
+```
+sudo apt upgrade
+```
 
 3. Install additional, required tools
-<pre>sudo apt install build-essential gcc-multilib dkms xorg xorg-dev libglvnd-dev -y</pre>
+```
+sudo apt install build-essential gcc-multilib dkms xorg xorg-dev libglvnd-dev
+```
 
 4. Download the CUDA installer (11.0)
-<pre>http://developer.download.nvidia.com/compute/cuda/11.0.2/local_installers/cuda_11.0.2_450.51.05_linux.run</pre>
+```
+http://developer.download.nvidia.com/compute/cuda/11.0.2/local_installers/cuda_11.0.2_450.51.05_linux.run
+```
 
 5. Run the installer and type in `accept` and go down to install and hit enter
-<pre>sudo sh cuda_11.0.2_450.51.05_linux.run</pre>
+```
+sudo sh cuda_11.0.2_450.51.05_linux.run
+```
 
 6. If the installation has finished you can check if everything works by running the following command
-<pre>nvidia-smi</pre>
+```
+nvidia-smi
+```
 
 That should print out something similar to the following output depending on the number of GPUs requested
-<pre>+-----------------------------------------------------------------------------+
+```
++-----------------------------------------------------------------------------+
 | NVIDIA-SMI 450.51.05    Driver Version: 450.51.05    CUDA Version: 11.0     |
 |-------------------------------+----------------------+----------------------+
 | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
@@ -529,10 +612,15 @@ That should print out something similar to the following output depending on the
 |        ID   ID                                                   Usage      |
 |=============================================================================|
 |  No running processes found                                                 |
-+-----------------------------------------------------------------------------+</pre>
++-----------------------------------------------------------------------------+
+```
 7. In order to use for example `nvcc` please make sure the cuda directory `/usr/local/cuda` is in your path
-<pre>export PATH=/usr/local/cuda/bin:$PATH</pre>
-<pre>export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH</pre>
+```
+export PATH=/usr/local/cuda/bin:$PATH
+```
+```
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+```
 
 
 ## Upgrade from Ubuntu 16.04 (Xenial) to 18.04 (Bionic)
