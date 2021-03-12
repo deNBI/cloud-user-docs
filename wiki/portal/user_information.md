@@ -13,14 +13,17 @@ On this page you will as well find your public SSH-Key (if it is already stored)
 
 ![setcopypublickey](img/profile_page.png)
 
-You have the possibility to view, copy and deposit your public ssh key. This is necessary for starting machines. 
-If you don't know how to generate a ssh key, you will find a link to the [instructions](../quickstart.md#generate-ssh-keys) on the page.
+You have the possibility to view, copy and deposit your public ssh key. An uploaded public key is required for starting machines. 
+Read more about it [here](../simple_vm/new_instance.md#3-grant-access-for-project-members).
+If you don't know how to generate a ssh key,  you can read the [instructions](../quickstart.md#generate-ssh-keys) on our quickstart page.
 
 Alternatively you are also able to have a ECDSA key generated for you. Click on the `Generate Key` button and read and confirm the notification.  
 ![setcopypublickey](img/generate_key_notification.png)  
+
 The public key part will be automatically set for you and you are able to download the private key file once.  
 ![setcopypublickey](img/generate_key_download.png)  
-If you do not download it or save it otherwise it will be lost and you will have to generate a new key pair.
+
+If you do not save the private key generated for you, it will be irretrievably lost. We do not save the generated private keys for you. If you have cancelled or forgotten to download the key, you must repeat the process with a new key.
 Please note that you will have to change the permissions of the key file as written in the notification you just confirmed.
 
 ### Link Accounts to ELIXIR

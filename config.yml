@@ -52,9 +52,13 @@ nav:
       - 'Instance details': simple_vm/instance_detail.md
       - 'New cluster': simple_vm/new_cluster.md
       - 'Cluster overview': simple_vm/cluster_overview.md
+      - 'SSH keys and sharing access': simple_vm/keypairs.md
       - 'Volumes': simple_vm/volumes.md
       - 'Images/Snapshots': simple_vm/snapshots.md
       - 'Customization': simple_vm/customization.md
+      - 'Concurrent Guacamole sessions': simple_vm/guacamole.md
+      - 'Concurrent RStudio sessions': simple_vm/rstudio.md
+      - 'Workshops': simple_vm/workshop.md
   - 'OpenStack Quickstart' : quickstart.md
   - 'Security' : security.md
   - 'Concept' :
@@ -75,6 +79,7 @@ nav:
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
     - 'Theia Web IDE': Tutorials/TheiaIde/index.md
     - 'UserData' : Tutorials/UserData/index.md
+    - 'Using X2GO': Tutorials/X2GO/x2go.md
   - 'FAQ' : 'FAQ.md'
   - 'Compute Center Specific' :
     - 'Giessen' : Compute_Center/Giessen.md
