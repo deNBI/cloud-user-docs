@@ -153,7 +153,7 @@ Share**. In the popup you have to provide the following information:
   project quota.
 
   **Share Type:**
-  - Please select "default".
+  - Please select "isilon-denbi".
 
   **Availability Zone:**
   - Please select "nova".
