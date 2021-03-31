@@ -81,7 +81,7 @@ standard users for some common distributions:
 ```bash
 Host denbi-jumphost-01.bihealth.org
     HostName denbi-jumphost-01.bihealth.org
-    User ELIXIR_USERNAME
+    User ElixirLogin
     IdentityFile PATH_TO_KEY
 
 
@@ -116,7 +116,7 @@ accepting the servers host key. Please confirm with yes.
 ```bash
 Host denbi-jumphost-01.bihealth.org
     HostName denbi-jumphost-01.bihealth.org
-    User ELIXIR_USERNAME
+    User ElixirLogin
     IdentityFile PATH_TO_KEY
     ServerAliveInterval 120
 
@@ -153,7 +153,7 @@ Manually jump from your client to jumphost and from there further to your vm wit
 3. Connect at first from your client to jumphost: 
 
     ```bash
-    ssh -A yourElixirAccountName@denbi-jumphost-01.bihealth.org
+    ssh -A yourElixirLogin@denbi-jumphost-01.bihealth.org
     ```
 
     And from the jumphost you can connect further to the floating ip of your vm
@@ -173,7 +173,7 @@ Add the following lines to your **local ~/.ssh/config**:
     # Access to the de.NBI jumphost
     Host denbi-jumphost-01.bihealth.org
       # Use your Elixir login name
-      User ELIXIR_USERNAME
+      User ElixirLogin
       # Use your ssh-key file
       IdentityFile YOUR-SSH-KEY-FILE
       # Open a SOCKS proxy locally to tunnel traffic into the cloud environment
