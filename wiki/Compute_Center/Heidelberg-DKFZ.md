@@ -8,7 +8,7 @@ anything and do not give any guarantees.
 
 ## How to get in contact with us
 In case you have questions or want to give us any kind of feedback, please
-contact us via <denbi-cloud@dkfz-heidelberg.de>.
+contact us via denbi-cloud(at)dkfz-heidelberg.de.
 
 ## Access to the de.NBI Cloud DKFZ Heidelberg
 ### OpenStack Dashboard
