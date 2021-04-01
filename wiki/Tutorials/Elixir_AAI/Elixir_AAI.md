@@ -233,7 +233,9 @@ def update_movie(movie_id):
 Per default flask applications run on `127.0.0.1:5000`. Remember this is important for the configuration of your openresty service (`nginx.conf`).
 
 ### Test the configuration
-You can test the whole architecture simply by accessing your virtual instance via a browser either by its public IP or its DNS name. After a successful authentification at the Elixir AAI service you are redirected to your running flask application. With the given `myflask.py` you should see the following output: ![](Flask_Application.png). Another way to test the reverse proxy is via curl commands. Example commands can be seen in the screenshot above or in the following:
+You can test the whole architecture simply by accessing your virtual instance via a browser either by its public IP or its DNS name. After a successful authentification at the Elixir AAI service you are redirected to your running flask application. With the given `myflask.py` you should see the following output: ![](Flask_Application.png)
+
+Another way to test the reverse proxy is via curl commands. Example commands can be seen in the screenshot above or in the following:
 - `curl -X DELETE http://oidcproxy-dev.bi.denbi.de/api/movies/1`
 - `curl -i -H "Content-Type: application/json" -X POST -d '{"title":"Harry Potter 2","main_actor":"Daniel Radcliff","published":"2002", "director": "David Yates" }' http://oidcproxy-dev.bi.denbi.de/api/movies`
 
