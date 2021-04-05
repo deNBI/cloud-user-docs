@@ -51,6 +51,7 @@ nav:
     - 'Project Overview': portal/project_overview.md
     - 'Profile Page': portal/user_information.md
     - 'Using Vault': portal/vault_user.md
+    - 'Cloud Credits': portal/credits.md
   - 'Simple VM':
       - 'New instance': simple_vm/new_instance.md
       - 'Instance overview': simple_vm/instance_overview.md
