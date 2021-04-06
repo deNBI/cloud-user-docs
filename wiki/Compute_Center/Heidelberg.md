@@ -92,7 +92,7 @@ If your key is protected by a passphrase, you will have to enter it now:
 
 #### Windows-based host
 If you want to connect from a Windows-based system you can use Putty
-(http://www.putty.org/) to connect to the jumphost and your virtual machines.
+(https://www.putty.org/) to connect to the jumphost and your virtual machines.
 
 In the field **Host Name** you have to enter the name of our jumphost:
 
@@ -153,7 +153,7 @@ Share**. In the popup you have to provide the following information:
   project quota.
 
   **Share Type:**
-  - Please select "default".
+  - Please select "isilon-denbi".
 
   **Availability Zone:**
   - Please select "nova".
