@@ -12,6 +12,7 @@ Use the Environment which will also be used in production.
 docker run -it -v "$(pwd)/wiki:/srv_root/docs/wiki" -v "$(pwd)/config.yml:/config.yml" -p "8000:8000"  --entrypoint="mkdocs" denbicloud/mkdocswebhook:2.2.0 serve -f /config.yml --dev-addr 0.0.0.0:8000
 ~~~
 
+
 ### Local
 
 Please install the libraries used in the production instance:
