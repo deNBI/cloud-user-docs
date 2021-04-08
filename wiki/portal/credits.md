@@ -1,22 +1,22 @@
 # Cloud Credits
 The de.NBI Cloud is a cloud federation, providing compute and storage resources free of charge for academics. These resources
 are expensive and in high demand which is why they should idle the least amount of time possible. Therefore we employ
-'<strong>C</strong>loud <strong>C</strong>redit<strong>s</strong>' (CCS) to assist in your individual responsibility of 
+'<strong>C</strong>loud <strong>C</strong>redit<strong>s</strong>' (CCs) to assist in your individual responsibility of 
 monitoring your resource usage.  
 
-CCS represent the equivalent of computing power per time and have no monetary equivalent, they can not be 
-bought, sold or traded. The number of available CCS depend on the duration and the choice of resources for a project 
-and are automatically allocated to each project. If you feel you do not have enough CCS, you may always request more CCS.
+CCs represent the equivalent of computing power per time and have no monetary equivalent, they can not be 
+bought, sold or traded. The number of available CCs depend on the duration and the choice of resources for a project 
+and are automatically allocated to each project. If you feel you do not have enough CCs, you may always request more CCs.
 
-Below you will find an overview on the theoretical and practical aspect of CCS calculation and billing and 
-where you may see your used and allocated CCS and how to request more CCS.  
+Below you will find an overview on the theoretical and practical aspect of CCs calculation and billing and 
+where you may see your used and allocated CCs and how to request more CCs.  
 
 !!! info "Subject to change"
     The usage of Cloud Credits is still in its beginning and therefore subject to change.  
     If you got questions which are not covered on this page or encounter an error, please contact us at cloud@denbi.de.
 
 ## Your Cloud Credits overview
-At your project overview you will see an overview of your 'used Cloud Credits' and 'granted Cloud Credits'. Your used CCS 
+At your project overview you will see an overview of your 'used Cloud Credits' and 'granted Cloud Credits'. Your used CCs 
 will be updated in a certain interval.  
 ![credits_overview](img/credits/credits-overview.png)  
 At the right side of it you may [request more cloud credits](#requesting-more-cloud-credits).  
@@ -27,7 +27,7 @@ calculation of Cloud Credits, please see [below](#cloud-credits-calculation).
 
 ### Requesting more Cloud Credits
 Click on `Request more credits`. A modal will open in which you are asked for information on why you need more Cloud Credits, 
-how many Cloud Credits you need and an example on how long these CCS will last for two example flavors.  
+how many Cloud Credits you need and an example on how long these CCs will last for two example flavors.  
 ![credits_request](img/credits/credits-request.png)  
 
 You will also be granted more Cloud Credits when you request a lifetime extension (for information how these are calculated 
@@ -38,9 +38,9 @@ please see [here](#calculating-modification-request-ccs))
 ![credits_modification_request](img/credits/credits-modification-request.png)    
 
 ## Cloud Credits calculation
-We offer a CCS calculator [on this page](https://cloud.denbi.de/creditscalculator/) where you may calculate how many CCS
+We offer a CCs calculator [on this page](https://cloud.denbi.de/creditscalculator/) where you may calculate how many CCs
 you need for a flavor configuration over a specified amount of time and how long you may run a flavor configuration 
-with a specified amount of CCS.
+with a specified amount of CCs.
 
 ### Theory
 #### Variable overview
@@ -71,7 +71,7 @@ $({c_P}_j)_{j\in\mathbb{N}}\in\mathbb{R}:=$ the used Cloud Credits for a project
 $H\in[0,24]\subset\mathbb{N}:=$ fixed amount of hours any flavor is allowed to run nonstop per day  
 
 
-#### Calculating initial/granted CCS
+#### Calculating initial/granted CCs
 The amount of granted Cloud Credits is calculated with $C_P=\lceil t_P\cdot H\cdot\displaystyle\sum_{f\in\mathcal{F}_P}c_f\rceil$.  
 $c_f$ is calculated with $c_f=\displaystyle\sum_{r\in\mathcal{R}}m_{fr}\cdot w(m_{fr})\cdot p_r$.  
 
@@ -105,8 +105,8 @@ c_{\text{de.NBI large}}&= && && (m_{\text{de.NBI large, vcpu}}\cdot w(m_{\text{d
 \end{alignat*}
 $$
 
-Thus running a de.NBI tiny for an hour costs $1.6$ CCS and running a de.NBI large for an hour costs $104$ CCS. Running the 
-whole configuration for an hour would therefore cost $107.2$ CCS.  
+Thus running a de.NBI tiny for an hour costs $1.6$ CCs and running a de.NBI large for an hour costs $104$ CCs. Running the 
+whole configuration for an hour would therefore cost $107.2$ CCs.  
 To get the granted Cloud Credits for P, we can now calculate:  
 
 $$
@@ -118,9 +118,9 @@ C_P&=\lceil H\cdot t_P\cdot \displaystyle\sum_{f\in\mathcal{F}_P}c_f\rceil\\
 \end{alignat*}
 $$
 
-Thus our project P will have $78042$ CCS granted for its lifetime of 91 days.
+Thus our project P will have $78042$ CCs granted for its lifetime of 91 days.
 
-####Calculating used CCS: 
+####Calculating used CCs: 
 We calculate a measurement ${M_{rP}}_j=\displaystyle\sum_{i\in\mathcal{I}_P}{t_i}_j\cdot m_{ir}\cdot w(m_{ir})$. After 
 some time we take another measurement ${M_{rP}}_{j+1}$ and calculate the used Cloud Credits between the
 measurements ${M_{rP}}_j$ and ${M_{rP}}_{j+1}$ with ${c_{r,\Delta}}_{j+1}=({M_{rP}}_{j+1}-{M_{rP}}_j)\cdot p_r$. 
@@ -206,9 +206,9 @@ $$
 $$
 
 After one day running one de.NBI tiny for 8 hours, one de.NBI tiny for 4 hours and one de.NBI large for 6.8 hours, the project $P$ 
-has used $726.4$ CCS and has $78042-726.4=77315.6$ CCS left.  
+has used $726.4$ CCs and has $78042-726.4=77315.6$ CCs left.  
 
-#### Calculating lifetime extension request CCS
+#### Calculating lifetime extension request CCs
 Let ${t_P}_\text{extension}$ the extended amount of lifetime in days.  
 The amount of extra granted Cloud Credits is calculated with ${C_P}_\text{new}=\lceil ({t_P}_\text{extension}\cdot H\cdot
 \displaystyle\sum_{f\in\mathcal{F}_P}c_f)+C_P\rceil$.  
@@ -227,7 +227,7 @@ $$
 
 Our project $P$ will have 131214 granted Cloud Credits after the approval of the lifetime extension.
 
-#### Calculating modification request CCS
+#### Calculating modification request CCs
 Let ${t_P}_\text{remaining}$ here the remaining amount of lifetime in days, ${\mathcal{F}_P}_\text{new}$ the new set 
 of requested flavors and ${\mathcal{F}_P}_\text{old}$ the old set of requested flavors.  
 First we take the difference between the two flavor sets ${\mathcal{F}_P}_\text{diff}={\mathcal{F}_P}_\text{new}-
