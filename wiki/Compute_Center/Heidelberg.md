@@ -56,11 +56,11 @@ as you are connected to this machine you are inside of your project network
 and can connect to VMs without any floating ip address.
 
 ### Connect to your VMs
+#### Prerequisites
+None of your VMs will be directly visible and accessible from the internet. Therefore, please make sure that you add your public ssh key to the [central portal](https://cloud.denbi.de/). This is important as you will login to our jumphost first before connecting to your VMs. The jumphost account will only be created after adding a public ssh key to the central portal.
+
 #### Linux-based host
-None of your VMs will be directly visible and accessible from the internet. To
-connect to one of your VMs, you have to use our jumphost
-denbi-jumphost-01.bioquant.uni-heidelberg.de with your elixir login name (not
-your elixir id!):
+To connect to one of your VMs, you have to use our jumphost denbi-jumphost-01.bioquant.uni-heidelberg.de with your elixir login name (not your elixir id!):
 
     ssh -A -i YOUR-SSH-KEY USERNAME@denbi-jumphost-01.bioquant.uni-heidelberg.de
 
