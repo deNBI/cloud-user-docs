@@ -58,7 +58,7 @@ export ftp_proxy=proxy.cebitec.uni-bielefeld.de:3128
 
 ### MTU settings
 
-We make use of a network virtualization technology called Virtual Extensible Lan (VXLAN). The MTU value provided 
+We make use of a network virtualization technology called Virtual Extensible LAN (VXLAN). The MTU value provided 
 to the network interfaces is  1450 and therefor differs from an expected *value* (e.g. 1500). You have to 
 consider this if running docker or any other container technology.
 
