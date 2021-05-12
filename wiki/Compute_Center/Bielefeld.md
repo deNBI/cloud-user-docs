@@ -81,7 +81,7 @@ This mirror is synced every midnight with the official Canonical repositories.
 
 ## Object storage
 
-The storage backend used by Bielefeld cloud site is powered by [Ceph](https://www.ceph.com). The Object storage 
+The storage backend used by the Bielefeld cloud site is powered by [Ceph](https://www.ceph.com). The Object storage 
 endpoint provides API access via SWIFT and S3. The latter should be preferred due to better performance.
 You can find a tutorial [here](../Tutorials/ObjectStorage/index.md) on how to use this service.
 
