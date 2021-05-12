@@ -1,7 +1,7 @@
 # de.NBI cloud at Bielefeld University
 
-The Bielefeld cloud site currently has Openstack Queens installed. That means that the general descriptions or 
-screenshots based on Openstack Newton differs from our installation. 
+The Bielefeld cloud site currently has OpenStack Queens installed. That means that the general descriptions with 
+screenshots based on OpenStack Newton differs from our installation. 
 
 ## Contact
 The de.NBI cloud team in Bielefeld can be contacted via email: os-service(at)cebitec.uni-bielefeld.de
