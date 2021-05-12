@@ -75,7 +75,7 @@ the cloud site Bielefeld:
 ### Ubuntu apt mirror
 
 We run an apt mirror for Ubuntu LTS releases (18.04 and 20.04) to speed up package download. The mirror is available 
-from Bielefeld cloud site from the external (http[s]://apt-cache.bi.denbi.de:9999 or http://129.70.51.2:9999) and c
+at the Bielefeld cloud site through the external (http[s]://apt-cache.bi.denbi.de:9999 or http://129.70.51.2:9999) and c
 ebitec (http://172.21.40.2:9999) network.
 This mirror is synced every midnight with the official Canonical repositories.
 
