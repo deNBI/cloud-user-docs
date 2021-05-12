@@ -14,7 +14,7 @@ at [https://openstack.cebitec.uni-bielefeld.de](https://openstack.cebitec.uni-bi
 ## Endpoints
 
 You can get an up to date list of API endpoints of the following services using the dashboard, or 
-the OpenStack commandline tool (`> openstack endpoint list`).
+the OpenStack command-line tool (`openstack endpoint list`).
 
 ## Login
 The Bielefeld cloud site supports login using Elixir AAI via OpenID Connect or default Keystone credentials. 
