@@ -13,7 +13,7 @@ at [https://openstack.cebitec.uni-bielefeld.de](https://openstack.cebitec.uni-bi
 
 ## Endpoints
 
-You can get an up to date list of API endpoints of the following services using the dashboard, or 
+You can get an up-to-date list of API endpoints of the available services using the dashboard or 
 the OpenStack command-line tool (`openstack endpoint list`).
 
 ## Login
