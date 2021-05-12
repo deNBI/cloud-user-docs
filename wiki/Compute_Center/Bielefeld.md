@@ -125,7 +125,7 @@ Afterwards, the scheduling of this instance will respect your selected Server Gr
 
 ## Application Credentials (use OpenStack API)
 
-In order to access the OpenStack Cloud via commandline tools, you need to source a so called rc file as 
+In order to access the OpenStack Cloud via command-line tools, you need to source a so called rc file as 
 described [here](https://cloud.denbi.de/wiki/Tutorials/ObjectStorage/#retrieving-access-credentials).
 However, the standard procedure does not work on all Cloud locations. Executing `source` on the 
 downloaded rc file prompts for a password. This password **is not the same** you have used when 
