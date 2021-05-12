@@ -66,7 +66,7 @@ consider this if running docker or any other container technology.
 
 We provide some preconfigured cloud images on top of the Ubuntu LTS (18.04 and 20.04) and Debian (10). These 
 images are able to run on other cloud sites without any further modifications and come with a 
-script `/usr/local/bin/de.NBI_Bielefeld_environment.sh` that adapt a running instance to 
+script `/usr/local/bin/de.NBI_Bielefeld_environment.sh` that adapts a running instance to 
 the cloud site Bielefeld:
 
 - set proxy for environment, apt and docker if necessary
