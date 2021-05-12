@@ -93,7 +93,7 @@ can benefit if you schedule the instances of your project on as many different c
 - Distributed systems (like HPC, databases...) can get a significant performance gain.
 - Spreading instances over several compute nodes increases the availability when running a high availability setup. 
 
-This can be achieved with *Server Groups*. Server Groups act as a "container" for instances and it describes 
+This can be achieved with *Server Groups*. Server Groups act as a "container" for instances and describe 
 a "policy" on how those instances should be scheduled across the OpenStack Compute nodes.
 
 In order to create such Server Group, login to the OpenStack Dashboard and navigate to Compute -> Server Groups. 
