@@ -32,7 +32,7 @@ The Bielefeld cloud currently has 3 different _external_ networks available.
 
 ### external
 
-The external network is a public available network. There are no limitations from our side and it is the 
+The external network is a publicly available network. There are no limitations from our side and it is the 
 preferred network if you don't have access to the Bielefeld university LAN. 
 
 ### external-service
