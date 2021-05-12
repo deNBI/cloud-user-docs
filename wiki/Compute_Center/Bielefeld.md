@@ -65,7 +65,7 @@ consider this if running docker or any other container technology.
 ## Images
 
 We provide some preconfigured cloud images on top of the Ubuntu LTS (18.04 and 20.04) and Debian (10). These 
-images run without any further modifications on other cloud sites as well and come with a 
+images are able to run on other cloud sites without any further modifications and come with a 
 script `/usr/local/bin/de.NBI_Bielefeld_environment.sh` that adapt a running instance to 
 the cloud site Bielefeld:
 
