@@ -47,8 +47,8 @@ be used for (web-)services running in the cloud. Each IP address must be activat
 
 The cebitec network is a non-public _external_ network, that can only be used from the Bielefeld university LAN. 
 However, since this network represents a non-public ip address range, it is possible to have more than one in 
-use at the same time. The access is limited to ssh, http and https. Access to the world is only possible using 
-the CeBiTec Proxy and only for http, https, and ftp.
+use at the same time. The access is limited to SSH, HTTP and HTTPS. Access to the world is only possible using 
+the CeBiTec Proxy and only for HTTP, HTTPS and FTP.
 
 ```
 export http_proxy=proxy.cebitec.uni-bielefeld.de:3128
