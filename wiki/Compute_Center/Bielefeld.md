@@ -87,11 +87,11 @@ You can find a tutorial [here](../Tutorials/ObjectStorage/index.md) on how to us
 
 ## Server Groups for optional performance gains
 
-Our OpenStack cluster consists of many compute nodes which hosts all running instances. In some applications, 
-it would be reasonable, when multiple instances of your project would be scheduled on as many nodes as possible.
+Our OpenStack cluster consists of multiple compute nodes hosting all running instances. Some applications
+can benefit if you schedule the instances of your project on as many different compute nodes as possible.
 
-- Distributed systems (like HPC, databases...) can gain a significant performance gain.
-- Spread instances over several compute nodes increases the availability when running a high availability setup. 
+- Distributed systems (like HPC, databases...) can get a significant performance gain.
+- Spreading instances over several compute nodes increases the availability when running a high availability setup. 
 
 This can be achieved with *Server Groups*. Server Groups act as a "container" for instances and it describes 
 a "policy" on how those instances should be scheduled across the OpenStack Compute nodes.
