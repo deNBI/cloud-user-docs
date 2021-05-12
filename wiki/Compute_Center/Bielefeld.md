@@ -182,6 +182,32 @@ Therefore, you can reach you instance (via SSH) not only by the numeric floating
 
 Detaching the floating IP will also delete the A record.
 
+## (Information) Security
+
+Our [information security policy (german language)](assets/bielefeld/informationssicherheitsleitlinie.md)  
+ensures that we follow defined protocols and procedures.
+
+### Clock synchronisation
+
+Our cloud infrastructure and user virtual machines are clock synchronised using the Network Time Protocol (NTP).
+
+### Information security incidents
+
+If users get aware of a security incident or notice an abnormal behaviour of his instance (unexpected high CPU 
+load or high network traffic without running actively anything), he should immediately get in contact with 
+the cloud administrators (os-service@cebitec.uni-bielefeld.de). The administrators will help the user to separate 
+the concerned instance(s) from the public network and will start a basic forensic analyses (with the users' 
+agreement). Depending on the analysis result a security incident report is written and the security incident 
+officer of Bielefeld university is informed. If any personal data is affected, the data security officer 
+is also consulted.
+
+### Cryptographic 
+
+We use cryptographic methods to protect the users' data located on our infrastructure :
+
+- Openstack UI and Openstack API is secured by TLS
+- VMs local discs are located on encrypted devices (LUKS).
+- Cloud storage  is also LUKS encrypted (work in progress)
 
 ## Known Problems
 
