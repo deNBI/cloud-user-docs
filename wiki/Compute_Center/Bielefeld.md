@@ -18,8 +18,8 @@ the OpenStack command-line tool (`openstack endpoint list`).
 
 ## Login
 The Bielefeld cloud site supports login using Elixir AAI via OpenID Connect or default Keystone credentials. 
-Using Elixir AAI is the preferred way for all cloud users and the only way for non cloud users not working 
-at the Bielefeld university. 
+Using Elixir AAI is the preferred way for all cloud users and the only way for non-cloud users not working 
+at Bielefeld university. 
 
 
 ## Network
