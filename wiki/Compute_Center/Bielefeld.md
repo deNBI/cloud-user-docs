@@ -168,7 +168,7 @@ Now you can use the openstack commandline tools.
 ### Note
 
 Application credentials are currently not supported by all applications or development kits accessing the 
-Openstack API. If this is case users had to contact the cloud site administrators in order for them to set 
+Openstack API. In this case users have to contact the cloud site administrators in order for them to set 
 an explicit local password.
 
 ## DNS as a Service
