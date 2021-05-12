@@ -137,7 +137,7 @@ However, the commandline-tools can only function with a set local password. Prio
 OpenStack release, users had to contact the cloud site administrators in order for them to set an 
 explicit local password and send it back to the user via encrypted mail or de.NBI vault service. 
 
-Luckily, there is a new feature since OpenStack Rocky where the user is able to set its own *local* 
+Luckily, there is a new feature since OpenStack Rocky where users are able to set their own *local* 
 credentials via the dashboard.
 
 Log in to the OpenStack Dashboard as usual, on the left side navigate to Identity -> Application 
