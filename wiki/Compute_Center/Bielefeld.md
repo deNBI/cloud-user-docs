@@ -85,6 +85,25 @@ The storage backend used by the Bielefeld cloud site is powered by [Ceph](https:
 endpoint provides API access via SWIFT and S3. The latter should be preferred due to better performance.
 You can find a tutorial [here](../Tutorials/ObjectStorage/index.md) on how to use this service.
 
+## Protection against loss of data
+
+Users should be aware, that instances are ephemeral. This means, that instances can go offline for various
+reasons. This is most likely due to hardware issues on the hypervisor. Users can prepare against this
+by storing their data in the storage infrastructure of this compute center. For this you can
+use Snapshots and Volumes. This data is stored redundantly on our Ceph Cluster three times on different
+locations of the cloud-center. Beware that this does not act as a backup. If you want true backups (which
+are independent of this cloud-center), you have to copy your data to a safe location, like an external harddrive,
+for yourself. We do our best to prevent any data loss, but we can't guarantee that 100%.
+Here is a quick overview about our solutions for storing data:
+
+| Data Location | Description | Performance |
+| ------------- | ----------- | ----------- |
+| Root Disk     | The root disk of an instance is hosted on a RAID10 backend. This means that data is safe against single harddrive failures. However, if the hypervisor itself goes bad your data will be also completely unavailable. | Fast |
+| Ephemeral Disk | Some flavors provide an extra disk called "ephemeral disk". While this storage is practical for most use-cases it is also the most unsafe one. They are **not** included in Snapshots and should be used for temporarily used data. | Fast |
+| Volumes       | Volumes are stored redundantly in our Ceph-Storage. While these are a little bit slower, they offer a great solution for storing persistent data since volumes can be swapped to different instances. | Slower |
+| S3 Object Storage | This data is also stored in our Ceph-Storage just like volumes. Access to this data is completely independent from instances since access is done via regular HTTPS. Therefore data in S3 is safe against any hypervisor issues. Since data is transfered by HTTPS, the performance is a bit slower than other storage solutions. | Slower |
+
+
 ## Server Groups for optional performance gains
 
 Our OpenStack cluster consists of multiple compute nodes hosting all running instances. Some applications
