@@ -100,8 +100,8 @@ Here is a quick overview about our solutions for storing data:
 | ------------- | ----------- | ----------- |
 | Root Disk     | The root disk of an instance is hosted on a RAID10 backend. This means that data is safe against single harddrive failures. However, if the hypervisor itself goes bad your data will be also completely unavailable. | Fast |
 | Ephemeral Disk | Some flavors provide an extra disk called "ephemeral disk". While this storage is practical for most use-cases it is also the most unsafe one. They are **not** included in Snapshots and should be used for temporarily used data. | Fast |
-| Volumes       | Volumes are stored redundantly in our Ceph-Storage. While these are a little bit slower, they offer a great solution for storing persistent data since volumes can be swapped to different instances. | Slower |
-| S3 Object Storage | This data is also stored in our Ceph-Storage just like volumes. Access to this data is completely independent from instances since access is done via regular HTTPS. Therefore data in S3 is safe against any hypervisor issues. Since data is transfered by HTTPS, the performance is a bit slower than other storage solutions. | Slower |
+| Volumes       | Volumes are stored redundantly in our Ceph-Storage. Since volumes are network-backed storage, random read/write operations performance is significantly slower than using the local disk space. Volumes offer a great solution for storing persistent data since volumes can be swapped to different instances. | Medium - Fast |
+| S3 Object Storage | This data is also stored in our Ceph-Storage just like volumes. Access to this data is completely independent from instances since access is done via regular HTTPS. Therefore data in S3 is safe against any hypervisor issues. Performance heavily depends on the client used to access the object storage. A single-threaded connection is slow but can heavily speed up using multiple connections retrieving different chunks of the same object. Pushing data is much slower than retrieving data. | Slow - Fast |
 
 
 ## Server Groups for optional performance gains
