@@ -12,7 +12,7 @@ repo_name: 'deNBI/cloud-user-docs'
 repo_url: 'https://github.com/deNBI/cloud-user-docs'
 edit_uri: blob/master/wiki/
 use_directory_urls: true
-site_url: 'https://cloud.denbi/wiki/'
+site_url: 'https://portal-dev.denbi/wiki/'
 plugins:
  - search
 markdown_extensions:
