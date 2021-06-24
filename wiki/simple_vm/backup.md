@@ -16,6 +16,7 @@ volume storage.
     system, i.e. they are stored safely even if you accidentally corrupt your system. 
 
 There are different ways to backup data on a volume:  
+
   * Backup manually.  
     Mount the volume to the virtual machine you want to backup data from and either copy it with 
     ```bash
