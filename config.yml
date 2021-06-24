@@ -3,7 +3,6 @@ docs_dir: /srv_root/docs/wiki
 site_dir: /var/www/html/wiki
 theme:
   name: material
-  custom_dir: /srv_root/docs/wiki/overrides
   palette:
     primary: 'light blue'
     accent: 'light blue'
