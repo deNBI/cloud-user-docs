@@ -1,9 +1,9 @@
 site_name: "de.NBI Cloud Wiki"
-docs_dir: /srv_root/docs/wiki
+docs_dir: /var/www/html/wiki
 site_dir: /var/www/html/wiki
 theme:
   name: material
-  custom_dir: overrides
+  custom_dir: /var/www/html/wiki/overrides
   palette:
     primary: 'light blue'
     accent: 'light blue'
