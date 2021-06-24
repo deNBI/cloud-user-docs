@@ -307,6 +307,82 @@ for the http/https proxy:
 Now, if you have an active SOCKS connection to the jumphost, you should be
 able to use the OpenStack API from your local machine.
 
+### Terraform
+
+#### Prerequisites
+Install Terraform either via your distribution or by downloading it from the [website](https://www.terraform.io/downloads.html).
+
+
+Similar to using the OpenStack CLI you will need a proper ssh config to use a SOCKS proxy as described above. To be able to use Terraform please download the openstack.rc file (v3) for your OpenStack project, source it and export the SOCKS proxy in your shell environment:
+```bash
+source openrc.sh
+export https_proxy=socks5://localhost:7777
+export http_proxy=socks5://localhost:7777
+```
+
+Please make sure to **use socks5** instead of socks5h as you might would use with the OpenStack CLI.
+
+
+Furthermore we have to tell Terrafrom which providers we want to use. Therefor create a `versions.tf` file in your working directory with the following content if you use Terraform >= 0.13:
+```
+terraform {
+  required_providers {
+    openstack = {
+      source = "terraform-provider-openstack/openstack"
+    }
+  }
+  required_version = ">= 0.13"
+}
+```
+
+
+#### Basic Terraform example
+We will create a `main.tf` file containing some basic tasks like uploading our public ssh key, creating a new sandbox VM and also attaching a floating ip address to the newly created VM.
+```
+# Deploy public ssh key
+resource "openstack_compute_keypair_v2" "ssh-key" {
+  name       = "ssh-key"
+  public_key = "PUT_YOUR_PUBLIC_KEY_HERE"
+}
+
+
+# Deploy sandbox VM
+resource "openstack_compute_instance_v2" "sandbox-vm" {
+  name            = "sandbox"
+  image_name      = "IMAGE_NAME"
+  flavor_name     = "FLAVOR_NAME"
+  key_pair        = "ssh-key"
+  security_groups = ["default"]
+
+  network {
+    name = "NETWORK_NAME"
+  }
+}
+
+
+resource "openstack_networking_floatingip_v2" "fip" {
+  pool = "public"
+}
+
+
+# Associate floating ip
+resource "openstack_compute_floatingip_associate_v2" "fip" {
+  floating_ip = "${openstack_networking_floatingip_v2.fip.address}"
+  instance_id = "${openstack_compute_instance_v2.sandbox-vm.id}"
+}
+```
+
+The configuration can be verified with `terraform validate`. Please also make sure to run `terraform init` if you are starting in a fresh directory so that the latest OpenStack plugins will be available.
+
+#### Working with Terraform
+To apply a Terraform configuration simply run `terraform apply`. You will see an overview of the tasks to do. You have to confirm the listed actions by typing `yes`.
+
+Each time you change the `main.tf` configuration file and run `terraform apply` you will see which changes to the current state of your infrastructure will be applied.
+
+To get a complete overview of the current state you can run `terraform show`.
+
+You can destroy all resources defined in your configuration file with the `terraform destroy`. Terraform will list all resources which will be deleted. You have to confirm the listed actions by typing `yes`. Terraform will not touch any OpenStack resources that were defined outside of your Terraform configurations.
+
 ### Adding multiple SSH-Keys
 To access your VM you have to provide a public ssh-key. In the deployment
 step of your VM you can choose which public ssh-key you want to use for your

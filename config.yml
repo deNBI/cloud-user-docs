@@ -11,6 +11,8 @@ theme:
 repo_name: 'deNBI/cloud-user-docs'
 repo_url: 'https://github.com/deNBI/cloud-user-docs'
 edit_uri: blob/master/wiki/
+use_directory_urls: true
+site_url: !ENV [SITE_URL, 'https://cloud.denbi.de/wiki/']
 plugins:
  - search
 markdown_extensions:
@@ -61,6 +63,7 @@ nav:
       - 'SSH keys and sharing access': simple_vm/keypairs.md
       - 'Volumes': simple_vm/volumes.md
       - 'Images/Snapshots': simple_vm/snapshots.md
+      - 'Backuping data': simple_vm/backup.md
       - 'Customization': simple_vm/customization.md
       - 'Concurrent Guacamole sessions': simple_vm/guacamole.md
       - 'Concurrent RStudio sessions': simple_vm/rstudio.md
@@ -95,6 +98,7 @@ nav:
     - 'Tuebingen' : Compute_Center/Tuebingen.md
     - 'Freiburg' : Compute_Center/Freiburg.md
     - 'Berlin' : Compute_Center/Berlin.md
+    - 'EMBL' : Compute_Center/EMBL.md
   - 'Cloud Admin':
     - 'Jenkins + Haproxy with JuJu': cloud_admin/juju_jenkins.md
     - 'Configure OpenStack to use Elixir AAI via OpenID Connect': cloud_admin/elixir_OIDC.md

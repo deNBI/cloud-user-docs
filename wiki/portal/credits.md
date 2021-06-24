@@ -259,8 +259,8 @@ and our used start/since date [here](https://cloud.denbi.de/portal/public/startd
 Our weight function works as follows:  
 Let $s_i$ the starting date of an instance $i$, $W_\text{timestamps}=$ {timestamps of the weight function}, 
 $W_{r,t}=$ {weights for a metric $r\in\mathcal{R}$ at timestamp $t\in W_\text{timestamps}$}.  
-We iterate through the ascending sorted timestamps $t\in W_\text{timestamps}$ and use the possible weights when we get either 
-the first hit with $t\leq s_i$ or $t=|W_\text{timestamps}|$.  
+We iterate through the **descending sorted** timestamps $t\in W_\text{timestamps}$ and use the possible weights when we get either 
+the first hit with $t\geq s_i$ or $t=|W_\text{timestamps}|$.  
 Next we iterate through the ascending sorted weights $w\in W_{r,t}$ and use the weight when we get either the first hit with 
 $w\leq m_{i,r}$ or $w=|W_{r,t}|$.  
 The runtime $({t_i}_j)_{j\in\mathbb{N}}$ will be calculated by counting the uptime between the since/start date and the timestamp 
