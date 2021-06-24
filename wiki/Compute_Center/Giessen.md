@@ -14,7 +14,7 @@ The web based dashboard is available at [Giessen dashboard](https://cloud.comput
 
 ### Volume type providers
 
-Giessen is providing volumes via a [CEPH](https://www.ceph.com) storage cluster. This cluster ensures data integrity and data availability.
+Giessen is providing volumes via a [CEPH](https://www.ceph.com/en/) storage cluster. This cluster ensures data integrity and data availability.
 
 In the future other storage options my be added.
 
