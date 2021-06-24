@@ -97,7 +97,7 @@ tYYIJnQd73vdO/XULbrEnYahp2DSfJL+GDHoymOxYj+3YTQOAxmTGnje1ZjCvwZ2
 ljWpr6NDdPsCd+5uURFnQ2zdjg6G62/5JU5WPZAZZgfKhrE7qw==
 ---- END SSH2 PUBLIC KEY ----
 ~~~
-When setting your key on the [User Information page](portal/user_information.md#ssh-Key), you need to add 'ssh-rsa' infront and can add a comment after your key, so it would look like this:
+When setting your key on the [User Information page](portal/user_information.md#ssh-key), you need to add 'ssh-rsa' infront and can add a comment after your key, so it would look like this:
 ~~~BASH
 ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEA0DX7jcuqlsCXw51r4RYGkKeu78P9RXqx9VmQ
 1bwQl+is2BxZJWZCYibY1x5FfAkKZio+KSG3TRdWMq0JLciWcUTpKfQPduAkUXYX
@@ -199,7 +199,7 @@ Select your **Subnet** and click on the blue **Submit** button. Your topology gr
 
 ----
 
-**For further reading visit our [Networking](../Concept/basics/#network) section**
+**For further reading visit our [Networking](Concept/basics.md#network) section**
 
 # Launching an Instance
 
