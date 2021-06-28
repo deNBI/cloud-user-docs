@@ -3,6 +3,14 @@ When a virtual machine is deleted, the data saved on the machine will be deleted
 virtual machine and therefore the data on the machine will be accessable at all times due to possible hardware or 
 software errors, we collect some best practices for data backup here.
 
+## Remote backup
+Although it is a rare occurence, it is possible that even volumes and snapshots might vanish or get corrupted. Therefore 
+the absolute best practice for backuping data is by copying it to a remote hard drive, disk or other storage solution 
+which is not part of the de.NBI Cloud.  
+You may find a tutorial on how to copy data from your machine to a local or remote storage 
+[here](../Tutorials/File_Transfer_Methods/index.md).  
+If you have access to an object storage, please refer to the documentation of your object storage.
+
 ## Backup with volumes
 !!! info "How to attach/mount volumes"
     You may find more information on how to create, attach and mount volumes [here](./volumes.md).
@@ -67,11 +75,3 @@ machine. Snapshots may only be created manually and can not be automated for use
     Data on ephemeral disks will not be saved, data on ephemeral disks will be lost when not saved on a different storage 
     solution, e.g. a volume!  
     Data on attached and mounted volumes will not be saved in a Snapshot, but are of course still available on your volume.
-
-## Remote backup
-Although it is a rare occurence, it is possible that even volumes and snapshots might vanish or get corrupted. Therefore 
-the absolute best practice for backuping data is by copying it to a remote hard drive, disk or other storage solution 
-which is not part of the de.NBI Cloud.  
-You may find a tutorial on how to copy data from your machine to a local or remote storage 
-[here](../Tutorials/File_Transfer_Methods/index.md).  
-If you have access to an object storage, please refer to the documentation of your object storage.
