@@ -25,7 +25,7 @@ The diagram shows the described setup. Note that the IPs attached to the red
 circles are the public floating IPs of the corresponding master and VPN node
 and that they will most definitely differ in your setup. `wg0` signifies
 the Wireguard VPN interface, the IPs will be set in the
-[Configure Wireguard](#configure-wireguard) section.
+[Configure Wireguard](#configure-wireguard-interfaces) section.
 The master and worker node in Bielefeld are part of a subnet with an IP range of
 `192.168.66.0/24` whereas the subnet in Gießen has the range `192.168.77.0/24`.
 The ranges can be freely chosen while setting up the subnets, but the ranges of
