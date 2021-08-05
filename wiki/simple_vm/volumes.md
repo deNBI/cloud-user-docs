@@ -40,8 +40,13 @@ lsblk
 ```
 
 This command will list all your block devices connected to your VM.
-Chose the correct device (mostly the name will be the second entry, you can orientate oneself on the SIZE parameter) and format it with a filesystem if you are using this volume for the first time.
+Chose the correct device (mostly the name will be the second entry, you can orientate oneself on the SIZE parameter) and format it with a filesystem if you are using this volume for the **first** time.
 Common filesystems are ext4 or xfs.
+
+
+!!! danger "Warning"
+        If the volume already has a file system and data is stored on it, this will be completely lost if it is formatted again!
+
 
 ```BASH
 mkfs.ext4 /dev/device_name
