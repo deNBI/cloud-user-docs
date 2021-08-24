@@ -28,31 +28,33 @@ There are two ways to create a volume:
 2. At the Volume tab you can choose to create a volume.
 ![create_volume](./img/volumes/create_and_attach.png)
 
-In order to use the Volume you need to [mount](#mount-a-volume) it.
+In order to use the new volume you need to create a filesystem and [mount](#mount-a-volume) it.
 
-## Mount a volume
+## Create the volume file system (once)
 
-In order to mount a volume connect via ssh to your machine.
-You will find your volume with the command
+To be able to place files onto your newly attached volume there needs to be a file system on it. This process of file system generation is also called "formatting the device".
+First, use this command to list all the block devices connected to your VM:
 
 ```BASH
 lsblk
 ```
 
-This command will list all your block devices connected to your VM.
-Chose the correct device (mostly the name will be the second entry, you can orientate oneself on the SIZE parameter) and format it with a filesystem if you are using this volume for the **first** time.
-Common filesystems are ext4 or xfs.
 
+Now find the entry that corresponds to the volume you have attached previously. On most VMs it's the second item in the list, but you absolutely should verify that using its SIZE as well as through the fact that its MOUNTPOINTS should be empty.
 
-!!! danger "Warning"
-        If the volume already has a file system and data is stored on it, this will be completely lost if it is formatted again!
+!!! Danger "Formatting any device WILL DESTROY ALL THE DATA already on it!"
+    New data disks (e.g. volumes) need to be formatted EXACTLY ONCE to use them.
+    NEVER apply this command to an ALREADY FORMATTED DISK if you value the data on that disk.
 
+Format the volume with a filesystem (e.g. `ext4` or `xfs`):
 
 ```BASH
-mkfs.ext4 /dev/device_name
+mkfs.ext4 /dev/vdx
 ```
 
-After the formating you have to create a mountpoint
+## Mount a volume
+
+Create a mountpoint using
 
 ```BASH
 mkdir -p /vol/volume
