@@ -387,20 +387,28 @@ Here you can create a new volume entering the following parameters
 Then click `create volume` and your volume will appear in the list of volumes with the status **Available**.
 Now you have to attach the just created volume to your VM. This is done by changing to the `instance`section under the `compute` section and clicking on the arrow on the right side belonging to your VM.
 Choose `Attach Volume` and choose the just created volume. Now your volume is connected to your VM similar to connecting a hard drive via USB with your computer.
-Now you have to login into your VM, format and mount the volume. You will find your volume with the command
+In order to use the new volume you need to create a filesystem and mount it.
 
-~~~BASH
+To be able to place files onto your newly attached volume there needs to be a file system on it. This process of file system generation is also called "formatting the device".
+First, use this command to list all the block devices connected to your VM:
+
+```BASH
 lsblk
-~~~
+```
 
-This command will list all your block devices connected to your VM.
-Chose the correct device (mostly the name will be the second entry, you can orientate oneself on the SIZE parameter) and format it with a filesystem if you are using this volume for the first time. Common filesystems are ext4 or xfs.
+Now find the entry that corresponds to the volume you have attached previously. On most VMs it's the second item in the list, but you absolutely should verify that using its SIZE as well as through the fact that its MOUNTPOINTS should be empty.
 
-~~~BASH
-mkfs.ext4 /dev/device_name
-~~~
+!!! Danger "Formatting any device WILL DESTROY ALL THE DATA already on it!"
+    New data disks (e.g. volumes) need to be formatted EXACTLY ONCE to use them.
+    NEVER apply this command to an ALREADY FORMATTED DISK if you value the data on that disk.
 
-After the formating you have to create a mountpoint
+Format the empty volume with a filesystem (e.g. `ext4` or `xfs`):
+
+```BASH
+mkfs.ext4 /dev/vdx
+```
+
+Create a mountpoint for the new volume using
 
 ~~~BASH
 mkdir -p /mnt/volume
