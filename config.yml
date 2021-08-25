@@ -78,14 +78,16 @@ nav:
   - 'Tutorials' :
     - 'Access de.NBI Virtual Machines from Windows 10' : Tutorials/Win10_SSH/index.md
     - 'Access a SimpleVM with Mosh' : Tutorials/Mosh/index.md
-    - 'SimpleVM File Transfer' : Tutorials/File_Transfer_Methods/index.md
     - 'Ansible Automation' : Tutorials/Ansible/index.md
     - 'Bibigrid' : Tutorials/BiBiGrid/index.md
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
+    - 'Hybridcloud' : Tutorials/Hybridcloud/index.md
     - 'Install latest CUDA version' : Tutorials/CUDA/index.md
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
+    - 'Reverse Proxy with Elixir AAI': Tutorials/Elixir_AAI/Elixir_AAI.md
     - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
+    - 'SimpleVM File Transfer' : Tutorials/File_Transfer_Methods/index.md
     - 'Theia Web IDE': Tutorials/TheiaIde/index.md
     - 'UserData' : Tutorials/UserData/index.md
     - 'Using X2GO': Tutorials/X2GO/x2go.md
