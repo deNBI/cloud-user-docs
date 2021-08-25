@@ -39,6 +39,7 @@ First, use this command to list all the block devices connected to your VM:
 lsblk
 ```
 
+
 Now find the entry that corresponds to the volume you have attached previously. On most VMs it's the second item in the list, but you absolutely should verify that using its SIZE as well as through the fact that its MOUNTPOINTS should be empty.
 
 !!! Danger "Formatting any device WILL DESTROY ALL THE DATA already on it!"
