@@ -20,6 +20,10 @@ Here you will find some actions you can execute:
 * Detach volume: detaches an in-use volume from an existing virtual machine.
 * Extend volume: extends the size of the volume if your project has enough ressources left. For more information, please see [below](#extend-a-volume).
 * Delete volume: deletes the volume and all its data.
+
+!!! info "Attaching and detaching"
+    Attaching and detaching volumes is only possible, when the machine the volume is attached or shall be attached to is running.
+
 ## Create a volume
 There are two ways to create a volume:
 

@@ -32,12 +32,10 @@ Clicking this button will show you commands and information on how to connect to
 Here you will find some actions you can execute.
 ![actions](./img/instance_overview/instance_overview_actions.png)  
 
-###### Check status
-This will check the status of your virtual machine.  
 ###### Attach Volume
-This will let you choose an already created volume and attach it to the virtual machine.  
+This will let you choose an already created volume and attach it to the virtual machine. This is only possible, when the machine is active and running.
 ###### Detach Volume
-This will let you choose an attached volume and detach it from the virtual machine.  
+This will let you choose an attached volume and detach it from the virtual machine. This is only possible, when the machine is active and running.
 ###### Stop VM
 This will shutoff the virtual machine, also setting the status to 'SHUTOFF'. It will be resumable, but you will not be able to interact with it in any form while it is shutoff.  
 ###### Reboot VM
