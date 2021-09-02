@@ -114,6 +114,23 @@ PS C:\Users\myusername> ssh-keygen.exe -t rsa -f new_id
 ~~~
 which will produce the files new_id and new_id.pub in the directory C:\Users\myusername.
 
+Similarly, to create an ECDSA key, you can do the following, since it is recommended to use a key length of 521:
+
+**Linux**
+
+~~~BASH
+ssh-keygen -t ecdsa -b 521 -f keyname
+~~~
+
+Your generated public key will then look something like this:
+
+~~~BASH
+ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAH3liBXX2P2H20VGrtuR9lnEoA9h7LvhbUfWaKVT9MWTiu9h7zSPcvAZTjGletDBdbhWpEp3LnjnuwcOeteHj9TsgCiuZSjvuGw8sT7DE6xReUq8jTG34n2hKmemOU9DHPJJFDdipDTAqkhxFAkBv+QGqoV9pSPHAN/m8LOnh9cQts29w== username@host
+~~~
+
+**Windows**
+
+As mentioned above, on Windows you can use PowerShell to achieve the same result.
 
 # Creating a Router and a Network
 
