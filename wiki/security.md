@@ -52,13 +52,34 @@ Further information:
 
 #### Well defined remote IP range
 
-Allow access from only a subset of IP addresses, e.g. from the Bielefeld University IP range:
-`129.70.0.0/16` (That is only about 0.002% of the world's IPv4 addresses). The default security
-group (which all new instances get) should not be touched. Create a new one instead, add your rules
-and attach it only to the instance you need outside access to.
+Allow access from only a subset of IP addresses, e.g. limit this to your institution's IP address range.
+For Bielefeld University this would be `129.70.0.0/16`, which amounts to only 0.002% of the world's IPv4 addresses, thereby drastically reducing the attack surface.
+
+##### Determine your institution's IP address range and convert it to CIDR notation
+
+1. Use the [european internet registry search](https://apps.db.ripe.net) to find the IP address range for your institution.
+   
+   - Search for your institution first, e.g. `Universitaet Bielefeld` and find the `organisation:` ID (e.g. `ORG-UB29-RIPE`).
+   
+   - Now search again, but this time for the ID, after selecting `Inverse lookup` and checking the box next to `org`.
+   
+   - Look for the line `inetnum:` containing your institution's IP address range, e.g.
+     ```
+     inetnum:         129.70.0.0 - 129.70.255.255
+     ```
+   
+2. Transform the IP address range into CIDR notation using a [calculator](https://www.subnet-calculator.com/cidr.php).
+
+   - Enter the start of the range into the field `IP Address`.
+   - Adjust the `Mask Bits` (`16` is a good starting point) until the end of your institution's IP range matches (or is included in) the range shown in the field `CIDR Address Range`.
+   
+3. Use the `Net: CIDR Notation` from the calculator to configure the _Remote CIDR_ of your security group rule (e.g. `129.70.0.0/16`).
+
+The `default` security group (which all new instances get) should not be touched. Create a new one instead, add your rules and attach it only to the instances you need outside access to.
 
 Further information:
 
+- [https://en.wikipedia.org/wiki/Regional_Internet_registry](https://en.wikipedia.org/wiki/Regional_Internet_registry)
 - [https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation)
 
 #### Application security
