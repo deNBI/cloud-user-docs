@@ -220,8 +220,18 @@ We use cryptographic methods to protect user data stored on our infrastructure:
 
 ## Known Problems
 
+### Issues after maintenance September 2021
+
+After a major maintenance operation (15.09.2021), we noticed some recurring issues:
+
+- In a few cases, instances don't have any network capabilities when launched. Sometimes, dhcp requests from instances are not accordingly replied to. Please write us a mail including the affected instances and we will restore connectivity as soon as possible.
+- Automatic DNS A-records following the scheme `<instance_name>.<project_name>.projects.bi.denbi.de` are removed due to incompatibility with the new setup. If you wish to have custom A-records, write us a mail with the desired name and the associate FloatingIP.
+
+If you notice any issues which are not part of this list, don't hesitate to contact us.
+
+### Known minor issues
+
 Our current setup has some known problems.
 
 - Suspending and Shelving instances has been disabled for regular users. Please use the snapshot 
   functionality in order to save up on resources.
-- Policy problems when using the dashboard object storage UI. However, the cmdline access works.
