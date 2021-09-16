@@ -190,17 +190,6 @@ Application credentials are currently not supported by all applications or devel
 Openstack API. In this case users have to contact the cloud site administrators in order for them to set 
 an explicit local password.
 
-## DNS as a Service
-
-Attaching a floating ip to an instance automatically creates an A record in our public nameserver.
-The A record will be generated according to the following scheme:
-
-`<INSTANCE_NAME>.<PROJECT_NAME>.projects.bi.denbi.de`
-
-Therefore, you can reach you instance (via SSH) not only by the numeric floating IP, but also by name. 
-
-Detaching the floating IP will also delete the A record.
-
 ## (Information) Security
 
 Our [information security policy (german language)](assets/bielefeld/informationssicherheitsleitlinie.md)  
