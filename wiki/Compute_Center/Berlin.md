@@ -273,11 +273,11 @@ Click on the created share in the **Shares** section of the OpenStack
 dashboard to get information about the complete mount path. Under the 
 **Export locations** section, please choose the **Path** e.g.:
      
-    manila-prod.isi.denbi.bihealth.org.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID
+    manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID
 
 You can mount the share with the following command:
 
-    sudo mount -o vers=4.0 manila-prod.isi.denbi.bihealth.orgbihealth.org:/ifs/denbi/prod/share-YOUR_UIID /mnt/
+    sudo mount -o vers=4.0 manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID /mnt/
     
 Alternatively you can add the mount path to the "/etc/fstab". Make sure that 
 you use NFS version 4.0. In order to use NFS version 4.0, you might need to set the host's DNS domain name:
