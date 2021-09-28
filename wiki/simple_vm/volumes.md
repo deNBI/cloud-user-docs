@@ -67,7 +67,7 @@ mkdir -p /vol/volume
 Check that you have the correct permissions for this directory, otherwise set them with the follwoing command
 
 ```BASH
-chmod 777 /vol/volume
+sudo chmod 777 /vol/volume
 ```
 
 And mount the Cinder Volume under the created directory
