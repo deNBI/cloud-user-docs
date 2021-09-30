@@ -190,17 +190,6 @@ Application credentials are currently not supported by all applications or devel
 Openstack API. In this case users have to contact the cloud site administrators in order for them to set 
 an explicit local password.
 
-## DNS as a Service
-
-Attaching a floating ip to an instance automatically creates an A record in our public nameserver.
-The A record will be generated according to the following scheme:
-
-`<INSTANCE_NAME>.<PROJECT_NAME>.projects.bi.denbi.de`
-
-Therefore, you can reach you instance (via SSH) not only by the numeric floating IP, but also by name. 
-
-Detaching the floating IP will also delete the A record.
-
 ## (Information) Security
 
 Our [information security policy (german language)](assets/bielefeld/informationssicherheitsleitlinie.md)  
@@ -231,8 +220,18 @@ We use cryptographic methods to protect user data stored on our infrastructure:
 
 ## Known Problems
 
+### Issues after maintenance September 2021
+
+After a major maintenance operation (15.09.2021), we noticed some recurring issues:
+
+- In a few cases, instances don't have any network capabilities when launched. Sometimes, dhcp requests from instances are not accordingly replied to. Please write us a mail including the affected instances and we will restore connectivity as soon as possible.
+- Automatic DNS A-records following the scheme `<instance_name>.<project_name>.projects.bi.denbi.de` are removed due to incompatibility with the new setup. If you wish to have custom A-records, write us a mail with the desired name and the associate FloatingIP.
+
+If you notice any issues which are not part of this list, don't hesitate to contact us.
+
+### Known minor issues
+
 Our current setup has some known problems.
 
 - Suspending and Shelving instances has been disabled for regular users. Please use the snapshot 
   functionality in order to save up on resources.
-- Policy problems when using the dashboard object storage UI. However, the cmdline access works.

@@ -240,7 +240,7 @@ Share**. In the popup you have to provide the following information:
   project quota.
 
   **Share Type:**
-  - Please select "default".
+  - Please select "default" (or dmz, if you want to use a share from a server within the dmz)
   
   **Availability Zone:**
   - Please select "nova".
@@ -273,14 +273,23 @@ Click on the created share in the **Shares** section of the OpenStack
 dashboard to get information about the complete mount path. Under the 
 **Export locations** section, please choose the **Path** e.g.:
      
-    denbi-isi-manila-prod.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID
+    manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID
 
 You can mount the share with the following command:
 
-    sudo mount -o vers=4.0 denbi-isi-manila-prod.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID /mnt/
+    sudo mount -o vers=4.0 manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID /mnt/
     
 Alternatively you can add the mount path to the "/etc/fstab". Make sure that 
-you use NFS version 4.0.
+you use NFS version 4.0. In order to use NFS version 4.0, you might need to set the host's DNS domain name:
+
+```
+cat /etc/idmapd.conf 
+[General]
+#Verbosity = 0
+# The following should be set to the local NFSv4 domain name
+# The default is the host's DNS domain name.
+Domain = denbi.bihealth.org
+```
 
 Please make sure that your user (depending on the used distribution: centos, 
 debian, ubuntu) is the owner of the NFS share. Therefore run the following 

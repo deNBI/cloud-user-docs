@@ -493,7 +493,7 @@ The output should look be similar to the following:
 
 4. After that create a new configuration file with the following command:
 ```
-sudo vi
+sudo vi /etc/netplan/config.yaml
 ```
 Enter the following content depending on the interface name ens6 or ens4 or ... and the corresponding MAC address.
 ```

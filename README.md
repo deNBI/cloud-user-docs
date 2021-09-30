@@ -1,7 +1,8 @@
 ## Development Setup
 
 The markdown files in this repo are visualized using [mkdocs-material](https://squidfunk.github.io/mkdocs-material/specimen/).
-In the config.yaml you will find a list of all installed markdown extensions. You can find the documentation [here](https://squidfunk.github.io/mkdocs-material/extensions/admonition/).
+In the config.yaml you will find a list of all installed markdown extensions. You can find the documentation 
+[here](https://squidfunk.github.io/mkdocs-material/extensions/admonition/).
 
 
 ### Docker
