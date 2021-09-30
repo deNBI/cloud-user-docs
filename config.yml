@@ -83,6 +83,7 @@ nav:
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
     - 'Hybridcloud' : Tutorials/Hybridcloud/index.md
     - 'Install latest CUDA version' : Tutorials/CUDA/index.md
+    - 'Kubermatic' : Tutorials/Kubermatic/index.md
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
     - 'Reverse Proxy with Elixir AAI': Tutorials/Elixir_AAI/Elixir_AAI.md
     - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
