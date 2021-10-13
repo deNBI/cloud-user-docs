@@ -132,6 +132,73 @@ using it:
 
     sudo mount /dev/vdb /mnt
 
+### Create and configure a NFS share for your project
+In case you need a NFS share to store big amounts of data and share it within
+your project, you can use OpenStack to create and manage the share.
+
+#### Create a NFS share
+To create a NFS share choose the section **Shares** and click on **Create
+Share**. In the popup you have to provide the following information:
+
+  **Share Name:**
+  - Provide a share name.
+
+  **Share Protocol:**
+  - Please use the preselected "NFS" as protocol.
+
+  **Size (GiB):**
+  - Provide the size of the share. Info: You have an overall quota for NFS
+  shares on your project. Please make sure that you set the size below the
+  project quota.
+
+  **Share Type:**
+  - Please select "isilon-denbi".
+
+  **Availability Zone:**
+  - Please select "nova".
+
+#### Manage access rules for your NFS share
+After the creation of a NFS share, the share will not be accessible by anyone
+. To grant your VMs access to the share you have to configure the access rules.
+
+**Important: Please make sure to keep the access rule list of your NFS share up
+ to date**, so that only your VMs can access the share.
+
+To manage the access rules click on the **arrow** on the right side of your
+newly created NFS share and choose **Manage rules**. Now you have to choose
+**Add rule**. In the popup you have to provide the following information:
+
+  **Access Type:**
+  - Select ip to allow a certain VM access to the share.
+
+  **Access Level:**
+  - Choose **read-write** or **read-only** appropriate to your needs. In some
+   cases it may make sense that specific VMs just get read-only permissions.
+
+  **Access to**
+  - Please fill in the floating ip address of your VM you want to grant access to the NFS share.
+
+#### Access your NFS share
+In order to use your created NFS share you have to mount it to your VMs.
+Click on the created share in the **Shares** section of the OpenStack
+dashboard to get information about the complete mount path. Under the
+**Export locations** section you will find the complete path to your NFS share.
+
+You can mount the share with the following command:
+
+    sudo mount -o vers=4.0 manila-prod.isi2.denbi.dkfz.de:/ifs/denbi/prod/YOUR-SHARE /mnt/
+
+Alternatively you can add the mount path to the "/etc/fstab". Make sure that
+you use NFS version 4.0.
+
+Please make sure that your user (depending on the used distribution: centos,
+debian, ubuntu) is the owner of the NFS share. Therefore run the following
+command to set the user as owner of the NFS share:
+
+    sudo chown centos:centos /mnt/
+
+**Hint** This example is for a Centos based image.
+
 ### Distribution logins
 Please be aware that our images are shipped with the standard users for the
 respective Linux distribution. Here you  can see a list of standard users for
