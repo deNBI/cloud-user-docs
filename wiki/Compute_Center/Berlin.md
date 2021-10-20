@@ -39,6 +39,11 @@ information at least in the categories **Details, Source and Flavor**.
   
   - Choose a Flavor from the list that fits your resource requests (e.g de.NBI 
   default provides 2 cores with 4GB of RAM)
+
+  **Network:**
+  
+  - For new projects (09/2021) it is recommended to choose "yourProject-network-2". You will be able to use floating ips within subnet of public2: `172.17.0.10 - 172.17.7.250` 
+  - Older projects (prior 09/2021) can still use their existing "your-Project-network". You will be able to use floating ips within subnet of public: `172.16.102.200 - 172.16.103.220`
   
 Now hit the button "Launch Instance". The VM will be deployed and accessible
 in a few seconds. To connect to your VM you need to assign a floating ip 
