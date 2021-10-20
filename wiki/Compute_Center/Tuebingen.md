@@ -491,9 +491,9 @@ The output should look be similar to the following:
     link/ether fa:16:3e:XX:XX:XX brd ff:ff:ff:ff:ff:ff
 ```
 
-4. After that create a new configuration file with the following command:
+4. After that create a new configuration file with the following command and name (you can also use other names but make sure that it is named with 01 in front to be executed before other config files):
 ```
-sudo vi /etc/netplan/config.yaml
+sudo vi /etc/netplan/01-second-if.yaml
 ```
 Enter the following content depending on the interface name ens6 or ens4 or ... and the corresponding MAC address.
 ```
