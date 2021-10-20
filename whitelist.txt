@@ -15,3 +15,4 @@ https://wiki.x2go.org/doku.php/download:start
 https://wiki.x2go.org/doku.php/wiki:advanced:desktopbindings
 http://BIBIGRID_MASTER/ganglia
 /https://github.com/deNBI/cloud-user-docs./
+https://support.rstudio.com/hc/en-us/categories/200035113-Documentation
