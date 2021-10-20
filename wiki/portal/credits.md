@@ -38,7 +38,7 @@ please see [here](#calculating-modification-request-ccs))
 ![credits_modification_request](img/credits/credits-modification-request.png)    
 
 ## Cloud Credits calculation
-We offer a CCs calculator [on this page](https://cloud.denbi.de/creditscalculator/) where you may calculate how many CCs
+We offer a CCs calculator [on this page](https://cloud.denbi.de/about/creditscalculator/) where you may calculate how many CCs
 you need for a flavor configuration over a specified amount of time and how long you may run a flavor configuration 
 with a specified amount of CCs.
 
