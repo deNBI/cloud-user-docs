@@ -55,6 +55,7 @@ nav:
     - 'Using Vault': portal/vault_user.md
     - 'Cloud Credits': portal/credits.md
   - 'Simple VM':
+      - 'Group Permissions': simple_vm/permissions.md
       - 'New instance': simple_vm/new_instance.md
       - 'Instance overview': simple_vm/instance_overview.md
       - 'Instance details': simple_vm/instance_detail.md
