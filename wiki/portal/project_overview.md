@@ -62,7 +62,7 @@ button in the project overview.
 
 ![leave_project](img/leaving_project.png)
 
-The PI cannot leave the project as he is responsible for it. In order to leave the project, the PI must
+The PI cannot leave the project as she/he is responsible for it. In order to leave the project, the PI must
 contact <a href="mailto:cloud@denbi.de">cloud@denbi.de</a>  and clarify which person will take over further
 responsibility for the project.
 
