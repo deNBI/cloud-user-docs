@@ -7,3 +7,7 @@ An **admin** generally has all rights, not limited to own resources (like vms).<
 <br> <br> The following table illustrates the different rights:
 
 ![permissions](./img/permissions/simple_vm_rights.png)
+
+
+| Type | Project        |
+| ---- | ---------------|  

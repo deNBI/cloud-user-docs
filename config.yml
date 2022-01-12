@@ -19,6 +19,7 @@ markdown_extensions:
   - admonition
   - codehilite
   - footnotes
+  - tables
   - toc:
       permalink: true
   - pymdownx.betterem:
