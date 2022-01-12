@@ -9,9 +9,9 @@ An **admin** generally has all rights, not limited to own resources (like vms).<
 ![permissions](./img/permissions/simple_vm_rights.png)
 
 
-| Type                  | Project                                                                                       |
-| --------------------- | --------------------------------------------------------------------------------------------- |
-|                       | Admin                                         | Member                                        |
+| Type                  | Project               |                       |                       |                       |
+| --------------------- | --------------------- | --------------------- | --------------------- | --------------------- |
+|                       | Admin                 |                       | Member                |                       |
 |   VM                  | Own                   | Others                | Own                   | Others                |
 | --------------------- | --------------------- | --------------------- | --------------------- | --------------------- |
 | Create                | :material-check-all:  | :material-check:      | :material-check-all:  | :material-close:      |
