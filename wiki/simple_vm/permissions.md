@@ -10,6 +10,6 @@ An **admin** generally has all rights, not limited to own resources (like vms).<
 
 
 | Type              | Project                               |
-| -------------     |-------------------------------------- |
+| ----------------- | ------------------------------------- |
 |                   | Admin             | Member            |
 |   VM  |           | Own   | Others    | Own   | Others    |
