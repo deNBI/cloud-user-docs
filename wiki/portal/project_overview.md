@@ -33,7 +33,7 @@ more information" all further project information and currently requested change
 
 ### Member management
 
-In the area "Members of the Project" all members of the project can be viewed. Project administrators are also able to
+In the area "Members of the Project" all members of the project can be viewed if granted by the administrators. Project administrators are also able to
 
 * Invite further members
 
@@ -42,6 +42,10 @@ In the area "Members of the Project" all members of the project can be viewed. P
 * Remove existing members from the project
 
 * Promote members to administrators or revoke their status
+
+* Adjust the visiblity of member names
+
+* Prevent the starting of machines by non-administrator
 
 Members can be easily be added to the project. If desired users already have a de.NBI Cloud account, they can easily be
 added using the search function under "Add member". Otherwise you will find an invitation link in the same section,
@@ -52,6 +56,9 @@ informed by mail. Adding the people to the project can then be confirmed or decl
 By default, only admins of a project see all project members. This option can be disabled and re-enabled by admins using
 the "Show/Hide Member Names" button (as seen below). If the option is enabled, this is also indicated by a "(hidden)"
 next to "Full Name" in the header of the member table.
+
+Also by default, all project members are able to start machines as soon as the project resources are available.
+Administators of SimpleVM projects are able to prevent machines from being started by non-administrators or to allow this again after the restriction has been made. The "Allow/Prevent starting of machines" button can be used for this purpose.
 
 ![member_overview](img/show_hide_members.png)
 
