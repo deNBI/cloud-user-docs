@@ -2,6 +2,12 @@
 
 The de.NBI Cloud is fully funded by the federal ministry of education and research. It is free for all academic life science research projects.
 
+### I cannot access my virtual machine?
+
+Make sure that you use the correct SSH key!
+If you have changed your SSH key in the portal since creating the machine, it will not be automatically changed on this machine. The connection to this VM still requires the key that was set at the time of creation. The private key is always used to connect to the machine.
+You can find more about SSH keys [here](./simple_vm/keypairs/#ssh-keys-and-sharing-access).
+
 ### How can I acknowledge the de.NBI Cloud in publications?
 
 See [here](../citation_and_publication/#citation-information) for more information.
