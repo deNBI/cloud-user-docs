@@ -57,7 +57,8 @@ By default, only admins of a project see all project members. This option can be
 the "Show/Hide Member Names" button (as seen below). If the option is enabled, this is also indicated by a "(hidden)"
 next to "Full Name" in the header of the member table.
 
-Also by default, all project members are able to start machines as soon as the project resources are available.
+Also all project members are able to start machines as soon as the project resources are available.
+However, the startup of machines by participants of workshops who are not administrators is suspended by default.
 Administators of SimpleVM projects are able to prevent machines from being started by non-administrators or to allow this again after the restriction has been made. The "Allow/Prevent starting of machines" button can be used for this purpose.
 
 ![member_overview](img/show_hide_members.png)
