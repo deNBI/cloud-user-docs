@@ -71,6 +71,7 @@ machines later on, if they lose their private key.
 ### Access to machines
 
 !!! Info
+    By default, workshop participants are not allowed to start machines on their own. This restriction can be waived in the project overview.
     
 
 ## Trouble Shooting
