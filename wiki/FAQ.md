@@ -3,9 +3,18 @@ The de.NBI Cloud is fully funded by the federal ministry of education and resear
 Each project running in the de.NBI Cloud requires a Principal Investigator of a German university or research institution as project owner. 
 
 ### I cannot access my virtual machine?
+At first try to restart the machine.
+If this does not bring the desired success, the reasons can be manifold.
+
 Make sure that you use the correct SSH key!
 If you have changed your SSH key in the portal since creating the machine, it will not be automatically changed on this machine. The connection to this VM still requires the key that was set at the time of creation. The private key is always used to connect to the machine.
-You can find more about SSH keys [here](./simple_vm/keypairs/#ssh-keys-and-sharing-access).
+
+You can find more about SSH keys [here](./simple_vm/keypairs.md#ssh-keys-and-sharing-access).
+
+Maintenance may be performed at the site where your machines are running. Occasionally, malfunctions also occur during regular service.
+Check your project site's [Facility News](https://cloud.denbi.de/news/facility-news/) page - downtimes are usually announced on this page.
+In addition, we have a [status page](https://status.cloud.denbi.de/status/) where you can check the respective services.
+
 
 ### My VM is stuck in "build" or "checking connection" status? What does this mean?
 An error may have occurred while creating the machine. If the machine is not available even after a longer period of time, feel free to contact us so that we can take a look at the situation.
@@ -18,16 +27,15 @@ Flavor determine the hardware resources available for their virtual machine. Dur
 Applications or more complex pipelines that require high memory or compute should be run on flavors with more VCPUs and/or RAM. For certain use cases from the fields of artificial intelligence or data mining, GPU flavors can be useful. This is also true if CUDA is part of your pipeline. 
 
 ### The resources available to my project are not sufficient. How can I apply for more resources?
-As an administrator of your project, you can submit a [modification request](./portal/modification/#resource-modifications) in the [project overview](./portal/project_overview.md).
+As an administrator of your project, you can submit a [modification request](./portal/modification.md#resource-modifications) in the [project overview](./portal/project_overview.md).
 
 ### My project is about to expire. Can I extend it? What happens to my virtual machines?
-Project [extension requests](./portal/modification/#lifetime-extensions) can also be submitted in the project overview. 
+Project [extension requests](./portal/modification.md#lifetime-extensions) can also be submitted in the project overview. 
 When the project expires, your virtual machines are not automatically deleted. Before any steps of this kind are taken, a member of the cloud administration will contact you in any case.
 
 ### I am confused about what project type suits best?
 If the information on the Project Type Overview page is not sufficient, more information on project types is available on our [website](https://cloud.denbi.de/about/project-types/). This information is also linked on the Project Type Overview page.
 
-### I am unable to connect to my virtual machines. What can be the reason for this?
 Maintenance may be performed at the site where your machines are running. Occasionally, malfunctions also occur during regular service.
 Check your project site's [Facility News](https://cloud.denbi.de/news/facility-news/) page - downtimes are usually announced on this page.
 In addition, we have a [status page](https://status.cloud.denbi.de/status/) where you can check the respective services.
