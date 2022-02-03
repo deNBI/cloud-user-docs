@@ -27,7 +27,7 @@ Keep in mind here that the number of machines available is tied to the resources
 ### Participants and their virtual machines
 
 To add participants to your project, use the corresponding function in the [project overview](./portal/project_overview)
-[!add_members_ws](./img/workshop/workshop_add_members.png)
+![add_members_ws](./img/workshop/workshop_add_members.png)
 
 ## Start virtual machines for your participants
 
