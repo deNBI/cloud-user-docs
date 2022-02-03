@@ -5,7 +5,7 @@ also some good general practices.
 
 ## Allocation and management
 
-In order to offer a workshop and receive the necessary resources, you must submit a project application. To do this, select the SimpleVM project type and mark the Workshop item in the corresponding application. Further information about the application process can be found under [Allocation](./portal/allocation). 
+In order to offer a workshop and receive the necessary resources, you must submit a project application. To do this, select the SimpleVM project type and mark the Workshop item in the corresponding application. Further information about the application process can be found under [Allocation](./portal/allocation.md). 
 ![allocation_workshop](./img/workshop/checkbox.png)
 
 ### Create a new workshop
@@ -26,7 +26,7 @@ Keep in mind here that the number of machines available is tied to the resources
 
 ### Participants and their virtual machines
 
-To add participants to your project, use the corresponding function in the [project overview](./portal/project_overview).
+To add participants to your project, use the corresponding function in the [project overview](./portal/project_overview.md).
 ![add_members_ws](./img/workshop/workshop_add_members.png)
 
 ## Start virtual machines for your participants
