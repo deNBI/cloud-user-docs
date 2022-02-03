@@ -51,7 +51,7 @@ machine.
 It is advised to add your participants to your project a couple of days beforehand. This will help with a smoother 
 start of your workshop. They will need to have or make an account for the de.NBI portal in order for you to add them. 
 If you are not sure if they have an account you can send your participants the [wiki site](../registration.md) where 
-the registration process is explained.
+the registration process is explained. 
 
 ### SSH keys
 !!! Info
@@ -67,6 +67,13 @@ machines later on, if they lose their private key.
 !!! Tip
     Make sure the admins of your project also have their SSH key set.
 
-##Trouble Shooting
+
+### Access to machines
+
+!!! Info
+    By default, workshop participants are not allowed to start machines on their own. This restriction can be waived in the project overview.
+    
+
+## Trouble Shooting
 If you experience troubles, have feedback on our services or have a special request please do not hesitate to contact 
 us under cloud-portal-support@denbi.de.
