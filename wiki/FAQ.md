@@ -1,3 +1,5 @@
+## General
+
 ### How much do I have to pay for a de.NBI Cloud project? Who can use the cloud?
 The de.NBI Cloud is fully funded by the federal ministry of education and research. It is free for all academic life science research projects.
 Each project running in the de.NBI Cloud requires a Principal Investigator of a German university or research institution as project owner. 
@@ -16,21 +18,15 @@ Check your project site's [Facility News](https://cloud.denbi.de/news/facility-n
 In addition, we have a [status page](https://status.cloud.denbi.de/status/) where you can check the respective services.
 
 
-### My VM is stuck in "build" or "checking connection" status? What does this mean?
-An error may have occurred while creating the machine. If the machine is not available even after a longer period of time, feel free to contact us so that we can take a look at the situation.
-
-### My machine is marked as "NOT FOUND". What does this imply?
-The machine may no longer exist in OpenStack, or the connection to the facility or the associated client may not be possible at the moment. If you have any questions regarding your virtual machine, please feel free to contact us.
-
 ### What are flavors? Which flavor should I choose for my VM?
-Flavor determine the hardware resources available for their virtual machine. During the process of starting the VM, you will see the flavors that are available to you. 
-Applications or more complex pipelines that require high memory or compute should be run on flavors with more VCPUs and/or RAM. For certain use cases from the fields of artificial intelligence or data mining, GPU flavors can be useful. This is also true if CUDA is part of your pipeline. 
+Flavor determine the hardware resources available for their virtual machine. During the process of starting the VM, you will see the flavors that are available to you.
+Applications or more complex pipelines that require high memory or compute should be run on flavors with more VCPUs and/or RAM. For certain use cases from the fields of artificial intelligence or data mining, GPU flavors can be useful. This is also true if CUDA is part of your pipeline.
 
 ### The resources available to my project are not sufficient. How can I apply for more resources?
 As an administrator of your project, you can submit a [modification request](./portal/modification.md#resource-modifications) in the [project overview](./portal/project_overview.md).
 
 ### My project is about to expire. Can I extend it? What happens to my virtual machines?
-Project [extension requests](./portal/modification.md#lifetime-extensions) can also be submitted in the project overview. 
+Project [extension requests](./portal/modification.md#lifetime-extensions) can also be submitted in the project overview.
 When the project expires, your virtual machines are not automatically deleted. Before any steps of this kind are taken, a member of the cloud administration will contact you in any case.
 
 ### I am confused about what project type suits best?
@@ -40,7 +36,7 @@ Maintenance may be performed at the site where your machines are running. Occasi
 Check your project site's [Facility News](https://cloud.denbi.de/news/facility-news/) page - downtimes are usually announced on this page.
 In addition, we have a [status page](https://status.cloud.denbi.de/status/) where you can check the respective services.
 
-### Where can I find the support contact details? 
+### Where can I find the support contact details?
 Check our [support](https://cloud.denbi.de/support/) page, it lists the email addresses of the facilities.
 
 ### Are there any testimonials about working with the de.NBI Cloud?
@@ -51,6 +47,16 @@ See [here](../citation_and_publication/#citation-information) for more informati
 
 ### Where can I find the terms of use and privacy policy?
 Take a look [here](https://cloud.denbi.de/about/policies/).
+
+## SimpleVM
+
+### My VM is stuck in "build" or "checking connection" status? What does this mean?
+An error may have occurred while creating the machine. If the machine is not available even after a longer period of time, feel free to contact us so that we can take a look at the situation.
+
+### My machine is marked as "NOT FOUND". What does this imply?
+The machine may no longer exist in OpenStack. If you have any questions regarding your virtual machine, please feel free to contact us.
+
+## Miscellaneous
 
 ### I can not build docker images and can not download packages from inside of the container.
 
