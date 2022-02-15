@@ -5,7 +5,7 @@ also some good general practices.
 
 ## Allocation and management
 
-In order to offer a workshop and receive the necessary resources, you must submit a project application. To do this, select the SimpleVM project type and mark the Workshop item in the corresponding application. Further information about the application process can be found under [Allocation](./portal/allocation.md). 
+In order to offer a workshop and receive the necessary resources, you must submit a project application. To do this, select the SimpleVM project type and mark the Workshop item in the corresponding application. Further information about the application process can be found under [Allocation](../portal/allocation.md). 
 ![allocation_workshop](./img/workshop/checkbox.png)
 
 ### Create a new workshop
@@ -26,13 +26,13 @@ Keep in mind here that the number of machines available is tied to the resources
 
 ### Participants and their virtual machines
 
-To add participants to your project, use the corresponding function in the [project overview](./portal/project_overview.md).
+To add participants to your project, use the corresponding function in the [project overview](../portal/project_overview.md).
 ![add_members_ws](./img/workshop/workshop_add_members.png)
 
 ## Start virtual machines for your participants
 
 In the sidebar you can find the menu item "Add workshop VMs". Go there and once again select the corresponding project and the desired workshop you have created in the 
-Once you select a workshop, you will see a form similiar to the [New Instance](./simple_vm/new_instance.md) form.  
+Once you select a workshop, you will see a form similiar to the [New Instance](./new_instance.md) form.  
 
 ![new_instance_workshop](./img/workshop/workshop_new_vms.png)
 You will need to select a flavor, an image, a research-environment and the participants you want to start a virtual machine for. 
@@ -62,7 +62,7 @@ Here you are also able to view which machines and which Research Environments yo
 ### Preparation
 It is advised to add your participants to your project a couple of days beforehand. This will help with a smoother 
 start of your workshop. They will need to have or make an account for the de.NBI portal in order for you to add them. 
-If you are not sure if they have an account you can send your participants the [wiki site](./registration.md) where 
+If you are not sure if they have an account you can send your participants the [wiki site](../registration.md) where 
 the registration process is explained. 
 
 ### SSH keys
