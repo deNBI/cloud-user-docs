@@ -1,6 +1,6 @@
 # de.NBI cloud at Bielefeld University
 
-The Bielefeld cloud site currently has OpenStack Queens installed. That means that the general descriptions with 
+The Bielefeld cloud site currently has OpenStack Train installed. That means that the general descriptions with 
 screenshots based on OpenStack Newton differs from our installation. 
 
 ## Contact
@@ -59,7 +59,7 @@ export ftp_proxy=proxy.cebitec.uni-bielefeld.de:3128
 ### MTU settings
 
 We make use of a network virtualization technology called Virtual Extensible LAN (VXLAN). The MTU value provided 
-to the network interfaces is  1450 and therefore differs from an expected default *value* (e.g. 1500). You have to 
+to the network interfaces is 1450 and therefore differs from an expected default *value* (e.g. 1500). You have to 
 consider this if running docker or any other container technology.
 
 ## Images
@@ -75,9 +75,9 @@ the cloud site Bielefeld:
 ### Ubuntu apt mirror
 
 We run an apt mirror for Ubuntu LTS releases (18.04 and 20.04) to speed up package download. The mirror is available 
-at the Bielefeld cloud site through the external (http[s]://apt-cache.bi.denbi.de:9999 or http://129.70.51.2:9999) and c
-ebitec (http://172.21.40.2:9999) network.
-This mirror is synced every midnight with the official Canonical repositories.
+at the Bielefeld cloud site through the external (http://apt-cache.bi.denbi.de:9999 or http://129.70.51.2:9999) and cebitec
+(http://172.21.40.2:9999) network.
+This mirror is synced every midnight with the official Canonical/Debian repositories.
 
 ## Object storage
 
@@ -215,23 +215,113 @@ We use cryptographic methods to protect user data stored on our infrastructure:
 
 - Client connections to our OpenStack Dashboard and Openstack API 
   are encrypted using TLS
-- Local disks of instances are located on encrypted devices (LUKS).
-- Cloud storage  is LUKS encrypted (work in progress)
+- Local disks of instances are located on encrypted devices (LUKS)
+- Cloud storage is LUKS encrypted (work in progress)
 
-## Known Problems
+### Regular vulnerability scans
 
-### Issues after maintenance September 2021
+We are scanning our external reachable instances regularly for vulnerability's in order to prevent
+any security incidents. These scans are scheduled daily around midnight and are non-disruptive.
 
-After a major maintenance operation (15.09.2021), we noticed some recurring issues:
+Vulnerabilities are classified either as Low, Middle or High.
 
-- In a few cases, instances don't have any network capabilities when launched. Sometimes, dhcp requests from instances are not accordingly replied to. Please write us a mail including the affected instances and we will restore connectivity as soon as possible.
-- Automatic DNS A-records following the scheme `<instance_name>.<project_name>.projects.bi.denbi.de` are removed due to incompatibility with the new setup. If you wish to have custom A-records, write us a mail with the desired name and the associate FloatingIP.
+If we detect an instance with a **HIGH** vulnerability:
+
+- We immediately disconnect any network connectivity ingress and egress
+- We send you a detailed report about our findings
+- We reach out to you and specify the necessary actions in order to fix this issue and restore connectivity.
+
+If we detect an instance with a **MEDIUM** vulnerability:
+
+- The instance will continue to exist and connect to the internet as usually UNLESS this issue is not fixed in a specified time
+- For this, you will also be contacted by us with an attached report
+  - These reports also give hints on how to fix the listed vulnerability
+- You can contact us if you need help in resolving a vulnerability
+
+
+## Current Known Problems
+
+- Spawning large GPU instances can fail after 10~ minutes. These instance have special requirements for main-memory and spawning them can therefore cause timeouts. The solution is simply to try again or pick a flavor which requires less memory. If spawning GPU-instances fail repeatedly, please contact us. 
 
 If you notice any issues which are not part of this list, don't hesitate to contact us.
 
-### Known minor issues
+## Frequently Asked Questions (F.A.Q)
 
-Our current setup has some known problems.
+### Automatic A-Records are not created
 
-- Suspending and Shelving instances has been disabled for regular users. Please use the snapshot 
-  functionality in order to save up on resources.
+Automatic DNS A-records following the scheme `<instance_name>.<project_name>.projects.bi.denbi.de` are removed due to
+incompatibility with the new setup. If you wish to have custom A-records, write us a mail with the desired
+name and the associate FloatingIP.
+
+### I can't connect to my instance via SSH. Why?
+
+This can have many causes. The first crucial troubleshooting-step is to examine the error message when trying
+to connect to an instance via an ssh client.
+
+If the client times out or throws an error like `Destination not reachable`:
+
+- Make sure that the instance is running and in an `ACTIVE` state.
+- Make sure that the instance has a floating-ip attached to it. You can't ssh into an instance which only has a private ip.
+- Check the SecurityGroups of your project and allow ingress port for SSH (Port 22).
+  - You can check this in the OpenStack-Dashboard: Project -> Network -> Security Groups.
+- You are using a broken snapshot or image which is not able to configure its internal network configuration via `cloud-init`.
+- There may be network issues on our side.
+
+If you are receiving `Connection refused`:
+
+- Network connectivity to your instance is given and the internal ssh-server is running, but the instance itself is not allowing your connection.
+
+- You are using a wrong or too open SSH-Key. 
+  - Make sure to use the correct private key-file and that the key on your local machine has correct permissions. Usually only the logged-in user should have access to it. The OpenSSH-Client won't try keys with too open permissions.
+
+- You are using the wrong remote user.
+  - If you are using an ubuntu based image or snapshot, the remote user is `ubuntu`. For debian it is `debian`.
+
+- The instance is stuck in maintenance-mode.
+  - See [here](Bielefeld.md#my-instance-is-stuck-in-maintenance-mode-while-booting) on how to resolve this.
+
+- Something is misconfigured inside of your instance.
+  - The public key in `/home/ubuntu/.ssh/authorized_keys` is missing.
+  - The permissions are broken or too open in `/home/ubuntu/` or `/home/ubuntu/.ssh/`. (Too open eg. with `chmod 777`).
+  - In these cases, you are completely locked out and you won't be able to access your instance in some way again. In rare and urgent cases, we can manually repair this but for this we need your explicit consent to do so.
+  
+### My instance is stuck in maintenance mode while booting.
+
+When using a regular OpenStack-Project, you can check this by opening the VNC-Console of the instance. 
+Click on your instance on the OpenStack-Dashboard and select `Console` in the tab-menu.
+
+![](img/bielefeld/vncconsole.png)
+
+You may confirm the maintenance mode by looking at the last messages in the console:
+
+![](img/bielefeld/vncconsole2.png)
+
+You can then continue the boot process by pressing Control-D.
+If the console is not receiving your keystroke, click on the bar beforehand which states `Connected(encrypted) to: ...`.
+
+You should then scan and repair all your filesystems. You can list all your connected filesystems with `lsblk`.
+Afterwards perform a check and repair all issues with (replace the last character with the disk of your choice):
+```shell
+sudo fsck.ext4 /dev/vd[a,b,c]
+```
+
+If you are using a SimpleVM-Project, you are not able to access this console. Please contact the [Cloud-Helpdesk](https://cloud.denbi.de/portal/webapp/#/help).
+
+### I can't suspend or shelve my instance
+
+Shelving and suspending is disabled on this installation. Please use the snapshot-functionality instead.
+
+### My instance is suddenly listed as `Shut Off` in the dashboard. Why?
+
+Instances in the cloud can crash like any other machine and therefore can go offline.
+This can also indicate an issue with our underlying compute infrastructure.
+
+You can try to re-start (Hardreboot) your instance in the dashboard. If this fails for some reason, then there
+is probably an issue with the underlying compute infrastructure. In this case, please contact us.
+
+If your instance is starting up fine, you can check some log-files which may give you an indication on why the
+instance went offline. They are usually located here on your instance:
+
+- `/var/log/kern.log`
+- `/var/log/syslog`
+
