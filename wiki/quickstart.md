@@ -163,7 +163,7 @@ Click on the **Create Router** button (green box). A form should appear:
 
 ----
 
-Fill in the **Router Name** and select the **external_network** for the **External Network**. Click on the blue button **Create Router**. Your network topology should looks like this:
+Fill in the **Router Name** and select the **external** for the **External Network**. Click on the blue button **Create Router**. Your network topology should looks like this:
 
 ----
 
