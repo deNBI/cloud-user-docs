@@ -18,3 +18,4 @@ http://BIBIGRID_MASTER/ganglia
 https://support.rstudio.com/hc/en-us/categories/200035113-Documentation
 https://www.vaultproject.io/api/secret/kv/kv-v2
 https://www.terraform.io/downloads.html
+http://apt-cache.bi.denbi.de:9999/
