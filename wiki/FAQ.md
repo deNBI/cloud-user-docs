@@ -1,6 +1,6 @@
 ### How much do I have to pay for a de.NBI Cloud project?
 
-The de.NBI Cloud is fully funded by the federal ministry of education and research. It is free for all academic life science research projects.
+You don't have to pay for a de.NBI Cloud project!
 
 ### How can I acknowledge the de.NBI Cloud in publications?
 
