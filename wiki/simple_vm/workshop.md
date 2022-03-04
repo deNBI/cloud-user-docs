@@ -1,32 +1,45 @@
 # Workshops
+
 On this page we will show you how to create a workshop, where to get more information on your workshop and 
 also some good general practices.
-!!! Info
-    To manage your workshop via the portal, you will need an approved SimpleVM project where you chose that you would 
-    like to conduct a workshop. Only admins of the project are allowed to manage workshops.
-## Create a new workshop
+
+## Allocation and management
+
+In order to offer a workshop and receive the necessary resources, you must submit a project application. To do this, select the SimpleVM project type and mark the Workshop item in the corresponding application. Further information about the application process can be found under [Allocation](../portal/allocation.md). 
+![allocation_workshop](./img/workshop/checkbox.png)
+
+### Create a new workshop
 We offer you the ability to manage your workshops more conveniently. You may create a workshop and start multiple virtual 
 machines for your participants with just a few clicks. 
 
-You will find the New Workshop button on the sidebar (a SimpleVM project for workshops which you are an admin of is required 
-for this button to show).  
+As soon as your application got approved, all project administrators are able to create and manage workshops within the portal. The corresponding functions are then linked as separate menu items in the sidebar for administrators. 
+![new_workshop_sidebar](./img/workshop/new_workshop_sidebar.png)
 
-![new_workshop_button](./img/workshop/new_workshop_button.png)
-
-Here you may choose your SimpleVM project and then either select an existing workshop or create a new one. There is no limit 
-on how many workshops you may create with your SimpleVM project.  
-
-![create__or_select_workshop](./img/workshop/workshop_select.png)
+Go to "Manage Workshops" to create your workshop.
+Then select the corresponding project in which the workshop is to be started. Only projects for which you can start workshops are displayed in the selection. If you are a member of other projects for which the workshop functionality has not been requested, these projects will not be displayed here.
+Click on "New Workshop" to enter the desired name and shortname.
+You can create as many workshops as you want here, and use them to create different configurations.
+Keep in mind here that the number of machines available is tied to the resources from the project application.
+![create_or_select_workshop](./img/workshop/workshop_select.png)
 !!! Note
     The shortname of your workshop will be used, inter alia, for naming of virtual machines and research environment links.
-### Start virtual machines for your participants
-Once you select a workshop, you will see a form similiar to the [New Instance](new_instance.md) form.  
+
+### Participants and their virtual machines
+
+To add participants to your project, use the corresponding function in the [project overview](../portal/project_overview.md).
+![add_members_ws](./img/workshop/workshop_add_members.png)
+
+## Start virtual machines for your participants
+
+In the sidebar you can find the menu item "Add workshop VMs". Go there and once again select the corresponding project and the desired workshop you have created in the 
+Once you select a workshop, you will see a form similiar to the [New Instance](./new_instance.md) form.  
 
 ![new_instance_workshop](./img/workshop/workshop_new_vms.png)
-You will need to select a flavor, an image, a research-environment and the participants you want to start a virtual machine 
-for. You may also start virtual machines for your admins and at participant selection you will see an icon if a virtual 
-machine is already started for the participant. You may start as many virtual machines for a participant as you have resources.  
-
+You will need to select a flavor, an image, a research-environment and the participants you want to start a virtual machine for. 
+!!! Note
+    Note that there are also images available that already contain a running Research Environment.
+You may also start virtual machines for your admins and at participant selection you will see an icon if a virtual machine is already started for the participant. You may start as many virtual machines for a participant as you have resources.
+ 
 ![select_users](./img/workshop/workshop_select_user.png)
 The machines and the research-environment links will be named automatically and will have the form 
 `<WORKSHOP-SHORTNAME><PARTICIPANT-LASTNAME><PARTICIPANT-FIRSTNAME>` and will be truncated to a maximum of 25 characters.  
@@ -34,14 +47,13 @@ We will place the public SSH key of every admin of your project on every started
 SSH access to every started machine.  
 The research-environment will be accessable by the participant and the admin who started the virtual machine.  
 
-Once you selected everything you need and confirmed the checkboxes at the bottom of the for, you may start the virtual machines 
-and you will get taken to the instance overview, where you will find more information about the status of the virtual machine.  
+Once you selected everything you need and confirmed the checkboxes at the bottom of the for, you may start the virtual machines and you will get taken to the instance overview, where you will find more information about the status of the virtual machines.
 
 ![vm_overview](./img/workshop/workshop_vm_ready.png)
-## Workshop overview
-You may find an overview of your created workshops at your [project overview](../portal/project_overview.md). Here you will find 
-the participants name, the participants preferred E-Mail address and the link to the research environment of the participants virtual 
-machine.  
+## Workshop and virtual machine overview
+You may find an overview of your created workshops at the workshop management. Go to "Manage workshops" again and after selecting the desired workshop you have created you will find an overview of your participants and their preferred E-mail adresses. 
+
+Here you are also able to view which machines and which Research Environments you have started for which participants and whether the machines are currently running. In addition, the links to the Research Environments are available. You can send the necessary information to each individual user by mail or copy it from this overview. The corresponding mail can also be sent simultaneously to all users for whom a VM was started by clicking on "Send VM Info Mails". 
 
 ![workshop_overview](./img/workshop/workshop_project_overview.png)
 
