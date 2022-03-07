@@ -193,7 +193,7 @@ Download the charm you want to edit from the charmstore by pressing Download .zi
 Now extract the zip file and open a terminal in the charm folder.
 
 ### Edit charm
-If you want to add layers (for example [docker-layer](https://jaas.ai/u/lazypower/docker/23)) to the charm you have to add
+If you want to add layers (for example [docker-layer](https://charmhub.io/lazypower-docker)) to the charm you have to add
 ```includes: ['layer:docker']```  to the other layers in the layer.yaml file. This will install docker+docker-compose to your charm.
 
 !!! Note
