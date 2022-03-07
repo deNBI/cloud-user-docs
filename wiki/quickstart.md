@@ -422,25 +422,25 @@ Now find the entry that corresponds to the volume you have attached previously. 
 Format the empty volume with a filesystem (e.g. `ext4` or `xfs`):
 
 ```BASH
-mkfs.ext4 /dev/vdx
+sudo mkfs.ext4 /dev/vdx
 ```
 
 Create a mountpoint for the new volume using
 
 ~~~BASH
-mkdir -p /mnt/volume
+sudo mkdir -p /mnt/volume
 ~~~
 
 Check that you have the correct permissions for this directory, otherwise set them with the follwoing command
 
 ~~~BASH
-chmod 777 /mnt/volume/
+sudo chmod 777 /mnt/volume/
 ~~~
 
 And mount the Cinder Volume under the created directory
 
 ~~~
-mount /dev/device_name /mnt/volume
+sudo mount /dev/device_name /mnt/volume
 ~~~
 
 Now you should see your device by executing the command
