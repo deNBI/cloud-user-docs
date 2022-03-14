@@ -58,6 +58,7 @@ nav:
     - 'Profile Page': portal/user_information.md
     - 'Using Vault': portal/vault_user.md
     - 'Cloud Credits': portal/credits.md
+    - 'Personal Data': portal/personal_data.md
   - 'Simple VM':
       - 'Group Permissions': simple_vm/permissions.md
       - 'New instance': simple_vm/new_instance.md

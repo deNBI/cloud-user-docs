@@ -41,6 +41,7 @@ nav:
       - 'Snapshots': portal/snapshots.md
       - 'Customization': portal/customization.md
     - 'User Information': portal/user_information.md
+    - 'Personal Data': portal/personal_data.md
   - 'Registration' : registration.md
   - 'OpenStack Quickstart' : 'quickstart.md'
   - 'Concept' : 
