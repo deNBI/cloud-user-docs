@@ -16,5 +16,11 @@ https://wiki.x2go.org/doku.php/wiki:advanced:desktopbindings
 http://BIBIGRID_MASTER/ganglia
 /https://github.com/deNBI/cloud-user-docs./
 https://support.rstudio.com/hc/en-us/categories/200035113-Documentation
-https://www.vaultproject.io/api/secret/kv/kv-v2
+https://www.vaultproject.io/api/secret/kv/kv-v2.html
+https://www.vaultproject.io/docs/secrets/kv/kv-v2
+https://www.vaultproject.io/docs/secrets/kv/kv-v2.html
+https://www.vaultproject.io/api/secret/kv/kv-v2.html#configure-the-kv-engine
+https://www.terraform.io/downloads
 https://www.terraform.io/downloads.html
+http://apt-cache.bi.denbi.de:9999/
+http://apt-cache.bi.denbi.de:9999
