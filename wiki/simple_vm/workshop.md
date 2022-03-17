@@ -59,7 +59,7 @@ Here you are also able to view which machines and which Research Environments yo
 
 ## Prepare data for your participants
 Often Workshop participants need access to the same data. Unfortunately, it is not yet possible to create volume snapshots for SimpleVM projects. However, since this is an important feature for the workshops to provide the same data to the participants and a manual creation of the individual volumes would be very time-consuming for the workshop organizer, we offer as long as the volume snapshot feature is not yet available, that we create multiple copies of a volume prepared by you and assign them to your project.
-Please contact us by mail at  <a href="cloud-helpdesk@denbi.de">cloud-helpdesk@denbi.de</a> .
+Please contact us by mail at cloud-helpdesk@denbi.de.
 
 
 ## Best Practices
