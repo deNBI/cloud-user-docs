@@ -1,16 +1,12 @@
 ## Profile
-
 The profile page can be used to manage your personal data.
 
 ### Profile Information
-
 Personal data such as the elixir ID and the elixir login can be viewed on this page.
 Your preferred e-mail address can also be changed here. 
 On this page you will as well find your public SSH-Key (if it is already stored).
 
-
 ### SSH Key
-
 ![setcopypublickey](img/profile_page.png)
 
 You have the possibility to view, copy and deposit your public ssh key. An uploaded public key is required for starting machines. 
