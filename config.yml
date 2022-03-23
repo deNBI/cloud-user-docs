@@ -94,6 +94,7 @@ nav:
     - 'Reverse Proxy with Elixir AAI': Tutorials/Elixir_AAI/Elixir_AAI.md
     - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
+    - 'Persistent SSH Sessions' : Tutorials/Persistent_SSH_Sessions/index.md
     - 'SimpleVM File Transfer' : Tutorials/File_Transfer_Methods/index.md
     - 'Theia Web IDE': Tutorials/TheiaIde/index.md
     - 'UserData' : Tutorials/UserData/index.md
