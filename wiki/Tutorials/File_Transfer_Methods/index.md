@@ -46,25 +46,35 @@ scp -i mykeyfile -P 30000 ubuntu@111.222.333.444:analysis/input/data.csv data.cs
 ```
 
 ## <a name="SSHFS"></a> 2. SSHFS -- filesystem client based on ssh 
-SSHFS allows to mount a remote file system like a normal file system. The benefits of using SSHFS is that the file system remains available as long it is mounted. Furthermore, as the remote file system is mounted like a normal local file system, you can work on remote files like you work with local files by using default file access and transfer tools like ``ls``, ``cp`` and ``mv``. You basically don't have to think about if a file is on a remote or on a local machine. Furthermore modern graphical file managers like Nautilus, Thunar etc. recognize the mounted file system so you can access the remote file system with the graphical file manager.
+SSHFS allows to mount a remote file system like a normal file system. The benefits of using SSHFS is that the file 
+system remains available as long it is mounted. Furthermore, as the remote file system is mounted like a normal local 
+file system, you can work on remote files like you work with local files by using default file access and transfer tools 
+like ``ls``, ``cp`` and ``mv``. You basically don't have to think about if a file is on a remote or on a local machine. 
+Furthermore modern graphical file managers like Nautilus, Thunar etc. recognize the mounted file system so you can access 
+the remote file system with the graphical file manager.
+
+!!! note
+    Files mounted with SSHFS are accessed through the internet. Therefore reading and writing can at most be as fast as 
+    the network speed, which in most cases is too slow. We strongly advise against using SSHFS as an external harddrive 
+    or volume alternative. Instead we advise to create and attach a volume to your remote server (via the portal if you have 
+    SimpleVM project or the openstack dashboard if you have an Openstack project) and transfer your files with scp, rsync 
+    or another suitable method.
 
 ### Installation
-There are two ways to use SSHFS:
+Install SSHFS on your local machine and mount the remote file system of the virtual machine on the local machine. 
+This requires permission to install software and to mount file systems on the user level on your local machine.
 
-Option 1: Install SSHFS on your local machine and mount the remote file system of the virtual machine on the local machine. This requires permission to install software and to mount file systems on the user level on your local machine. 
-
-Option 2: Install SSHFS in the remote virtual machine in the Cloud and mount the file system from the local machine in the remote virtual machine. This option allows the benefits of using SSHFS on local machines which do not allow the installation of software or mounting of file systems. We will focus on this option in this tutorial.
-
-In general SSHFS is installed via:
+On an Ubuntu system SSHFS is installed via:
 
 ```
 sudo apt install sshfs
 ```
 
 ### Usage
-First we need to install SSHFS on the remote virtual machine
+First we need to install SSHFS on the local machine.
 
-We create a directory as a mount point from which the mounted file system will be available. You can choose any direcotry name, but here we call it ``remotefs``.
+We create a directory as a mount point from which the mounted file system will be available. You can choose any 
+direcotry name, but here we call it ``remotefs``. Our working directory in this case is ``/home/ubuntu/``.
 
 ```
 mkdir remotefs
@@ -76,13 +86,17 @@ Now we can mount the remote file system with SSHFS. The general command looks li
 sshfs <user>@<hostname>:</absolute/path/to/remote/directory> <mountpoint> -o IdentityFile=</absolute/path/to/identity_file> -p <portnumber>
 ```
 
-Let's try a real world example: You want to access your local data directory ``/home/localuser/analysis`` by mounting it in the remote virtual machine in the directory ``/home/ubuntu/analysis``. 
+Let's try a real world example: You want to access a remote data directory ``/home/ubuntu/analysis`` by mounting it 
+in the local directory ``/home/ubuntu/remotefs``. 
 
 ```
-sshfs user@111.222.333.444:/home/user/analysis remotefs -p 30000
+sshfs ubuntu@<IP>:/home/ubuntu/analysis remotefs -p <PORT> ``-o IdentityFile=/home/ubuntu/mykeyfile``
 ```
+where ``<IP>`` the IP of the gateway machine and ``<PORT>`` is the PORT opened for your virtual machine. If you are a 
+SimpleVM user you may find this information on ``How to connect`` of your virtual machine on the instance overview.
 
-In this case SSHFS will ask for local-user's password. In case you allowed connecting with a public/private key you have to provide the public key with ``-o IdentityFile=/home/ubuntu/mykeyfile``. It is important to give the absolute path to the public key file.
+In case you allowed connecting with a public/private key you have to provide the public key with 
+``-o IdentityFile=/home/ubuntu/mykeyfile``. It is important to give the absolute path to the public key file.
 
 To unmount the mounted file system use this command
 
@@ -90,7 +104,8 @@ To unmount the mounted file system use this command
 fusermount -u <mountpoint>
 ```
 
-Hint: If you mounted the remote file system in a subdirectory like ``subdir/remotefs`` you have to give the same path to fusermount to unmount it (e.g. ``fusermount -u subdir/remotefs``)
+Hint: If you mounted the remote file system in a subdirectory like ``subdir/remotefs`` you have to give the same path 
+to fusermount to unmount it (e.g. ``fusermount -u subdir/remotefs``).
 
 
 ### <a name="Rsync"></a> 3. RSYNC -- a fast, versatile, remote (and local) file-copying tool 
