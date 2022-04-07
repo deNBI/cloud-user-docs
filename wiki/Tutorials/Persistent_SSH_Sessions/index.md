@@ -1,4 +1,4 @@
-# Persistent SSH Sessions
+# Persistent Terminal Sessions
 When you connect to your vm via ssh a session is created. <br>
 A problem with this is that all programs you start during this session will also be terminated when you close your SSH connection.
 <br><br>To work around this problem there are ways to create persistent sessions.<br>
