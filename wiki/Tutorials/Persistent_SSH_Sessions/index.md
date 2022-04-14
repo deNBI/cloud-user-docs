@@ -41,7 +41,8 @@ There are screens on:
         616612.session_two      (23.03.2022 13:40:22)   (Attached)
         616541.session_name     (23.03.2022 13:40:15)   (Detached)
 ```
-Pressing: <kbd>Ctrl</kbd> + <kbd>A</kbd>,  <kbd>d</kbd> (detaching Session)
+Pressing: <kbd>Ctrl</kbd> + <kbd>a</kbd>,  <kbd>d</kbd> (detaching Session)
+Consider here to first press <kbd>Ctrl</kbd> + <kbd>a</kbd> and then pressing <kbd>d</kbd>.
 
 ```bash
 $ screen -ls
@@ -60,6 +61,17 @@ There are screens on:
         616541.session_name     (23.03.2022 13:40:15)   (Attached)
 
 ```
+
+Attach a Session via name:
+
+Make sure to use an unambiguous parameter to reattach an existing session.
+E.g. use: 
+```bash
+$ screen -r session_t
+```
+to attach to the session named "session_two", as it is only session beginning with "session_t".
+Using "session_" as a paramater would be ambigious as both "session_two" and "session_name" begin with this substring.
+This would not lead to an attachment of any session.
 
 This way you can easily create persistent sessions with screen that are independent of the ssh session.<br> Screen also offers other useful features such as the creation of several windows.
 
