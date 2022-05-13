@@ -49,7 +49,7 @@ as a command once you logged into your virtual machine.
 ## Research environments
 
 Here you may find a selection of research environments you will be able to use over your web browser, e.g. 
-[RStudio](#rstudio), [Apache Guacamole](#apache-guacamole) or [Theia IDE](#theia-ide). More research environments might 
+[JupyterLab](#jupyterlab), [RStudio](#rstudio), [Apache Guacamole](#apache-guacamole) or [Theia IDE](#theia-ide). More research environments might 
 be added in the future.  
 You will need to select a template of the research environment you wish to install and a namespace, which will be part 
 of the URL under which you will have access to your research environment. 
@@ -72,6 +72,26 @@ and/or on the [detail page](./instance_detail.md) of your virtual machine.
 If you are not already logged in with your ELIXIR account, you will be prompted to log in with your ELIXIR account, 
 as only the one who started the virtual machine will be allowed to access the research environment.
 
+
+### JupyterLab
+From the project page:
+>[JupyterLab](https://jupyter.org/) is the latest web-based interactive development environment for notebooks, code, and data. Its flexible interface allows users to configure and arrange workflows in data science, scientific computing, computational journalism, and machine learning. A modular design invites extensions to expand and enrich functionality.
+
+To access your JupyterLab research environment, please follow the link you may find after starting your virtual machine, 
+in the instance overview and/or on the detail page of your virtual machine. You will be prompted to log in with your 
+ELIXIR account if you have not done it already. Afterwards you will be prompted to log in to JupyterLab with a Token.
+
+![rstudio_login](./img/customization/jupyterlab_login.png)  
+
+#### Login Token
+
+Use the following Token:  
+```
+simplevm
+```
+
+Now you are able to work with JupyterLab via web browser!  
+![rstudio_resenv](./img/customization/jupyterlab_resenv.png)  
 ### RStudio
 From the project page:
 >[RStudio](https://rstudio.com/products/rstudio/) is an integrated development environment (IDE) for R. It includes a 
@@ -127,6 +147,11 @@ Use the following credentials:
 ```
 Username: denbi  
 Password: denbi
+```
+
+It may happen that in case of inactivity the password for the ubuntu user is requested which is: 
+```
+ogvkyf
 ```
 Now you are able to work with Apache Guacamole via web browser!  
 ![guacamole_resenv](./img/customization/guacamole_resenv.png)  
