@@ -3,6 +3,8 @@
 On this page we guide you through the options you have when starting a virtual machine.  
 If you are a member of a simple vm project you can start a virtual machine at the "New Instance" tab.  
 You may need to reload the website if you can not see the tab.
+Please keep in mind that there is a possibility that you will be notified on this page that you are not allowed to start a machine.
+In this case, the administrators of the respective project have restricted the starting of machines for non-administrators.
 
 ## Mandatory configuration
 ![overview_one](./img/new_instance/new_instance_overview_one.png)

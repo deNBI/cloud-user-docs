@@ -21,10 +21,10 @@ If you find that a News should not be available anymore for whatever reason, you
 If you need to edit a News for whatever reason, please select the News you wish to edit from the list. You may change the Title, the Newstext, the Message of the Day, the Tags and the facilities the News is connected to. The News has to be connected to at least one Facility! Please note that the facility id and its public name which is set in the database will be appended automatically if you edit them out!  
 What an Admin is not allowed to edit is the ID, the Author and the Timestamp of the News.  
 If you are happy with your changes, click the `Update News` button at the bottom. A Modal will open, asking you to verify your decision. You may edit and update a News as often as you wish.
-## Requesting News
-News can be found on `https://cloud.denbi.de/category/facility/`. To show the news of one specific compute center you can use the specific url of the facility. E.g. `https://cloud.denbi.de/category/facility/bielefeld/`. 
-You can also show all news with a specific tag. Therefore you can use the `/tag/<tag>` url for. E.g. `https://cloud.denbi.de/tag/update/` to get all news which are tagged with `update`.
-[![overview_page](images/overview_page.png)](https://cloud.denbi.de/category/facility/)
+## See Live News
+News can be found on `https://cloud.denbi.de/news/facility-news/`. To show the news of one specific compute center you can use the specific url of the facility. E.g. `https://cloud.denbi.de/news/facility-news/bielefeld/`. 
+
+[![overview_page](images/overview_page.png)](https://cloud.denbi.de/news/facility-news/)
 
 ## Message of the Day
 You can get News in a specific Message of the Day format. To do this, you need to send a request to the Message of the day URL of the facility. You will receive a string which contains the current Message of the Day of the coresponding facility and a link to the full news article.

@@ -14,29 +14,13 @@ Log in with OIDC as method and leave the role field blank.
 ## Reading a secret
 After logging in you should see the 'Secrets' tab.  
 ![secrets_overview](../cloud_admin/images/vault/secrets_overview.png)  
-To access a secret, copy the URL with the compute center you want to access and add your Elixir ID at the end:  
+To access a secret, click on the compute center you want to access and put in your Elixir ID at the View secret prompt:  
+![secrets_path](../cloud_admin/images/vault/secrets_path.png)  
+If there is no secret which you are allowed to read at this path, you will get a 404 error.  
 
-!!! danger "Access a secret"
-    Make sure that you are logged in to ELIXIR before you copy the link into the address bar, otherwise the process will not work.
- 
-```
-Format:
-https://cloud.denbi.de/ui/vault/secrets/<COMPUTE CENTER>/show/<YOUR ELIXIR ID>  
-```
-```
-Example:
-https://cloud.denbi.de/ui/vault/secrets/bielefeld/show/b70a5363fe253d6b083ed81af01641e1d34ea97b@elixir-europe.org  
-```
-```
-List of URLS with compute center:  
-Giessen:  
-https://cloud.denbi.de/ui/vault/secrets/giessen/show/  
-Bielefeld:  
-https://cloud.denbi.de/ui/vault/secrets/bielefeld/show/  
-Tübingen:
-https://cloud.denbi.de/ui/vault/secrets/tuebingen/show/
-```
-To get your Elixir ID, please visist the [Profile page](https://cloud.denbi.de/portal/webapp/#/userinfo) of the portal. There you will find your Elixir ID.
+!!! info
+    To get your Elixir ID, please visist the [Profile page](https://cloud.denbi.de/portal/webapp/#/userinfo) of the 
+    portal. There you will find your Elixir ID.
 
 ![user2_version_2](../cloud_admin/images/vault/user2_version2.png)  
 Click on the eye-icon to read the secret value or click on the copy button next to it to copy the secret value directly.

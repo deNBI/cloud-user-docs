@@ -5,10 +5,20 @@ Images are files that contain a bootable operating system, e.g. Linux derivative
 
 ## Snapshots
 A snapshot is an exact copy of your virtual machine. A snapshot of an instance can be used as the basis of an instance and booted up at a later time. 
+
+!!! Info 
+    A snapshot also preserves the full state of RAM, therefore only snapshots up to a maximum of 256 GB RAM are supported.
+
+
 ### Create Snapshot
 After starting a machine you can go to the [instance overview](instance_overview.md#9-actions) tab and create a snapshot.  
 A window opens where you can enter a name for your snapshot and confirm it by pressing Create Snapshot.  
 ![create snapshot](./img/snapshots/create_snapshot.png)
+
+!!! danger "Creating a snapshot of a running instance"
+    Creating a snapshot of a running instance can lead to inconsistencies, lost data and ultimately a non-functioning and
+    unrecoverable snapshot. We recommend to stop your instance before creating a snapshot.
+
 ### View Snapshots
 ![overview](./img/snapshots/overview.png)  
 

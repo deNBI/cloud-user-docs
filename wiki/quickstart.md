@@ -60,7 +60,7 @@ Next, we have to setup SSH to login to our instances after they are launched. Go
 ![access_security](img/User/access_and_security_0_keys.png)
 
 ----
-If you do not have an SSH key or you are not sure whether you have one, please generate one by following the instructions based on your operating system (**Windows**/**Linux**) in the next [Generate SSH-Keys](quickstart.md#Generate-SSH-Keys) section. You can import your SSH Key by clicking on **Import Key Pair** (right button in the yellow box)(e.g.: .pub in Linux or .key in Windows). 
+If you do not have an SSH key or you are not sure whether you have one, please generate one by following the instructions based on your operating system (**Windows**/**Linux**) in the next [Generate SSH-Keys](quickstart.md#generate-ssh-keys) section. You can import your SSH Key by clicking on **Import Key Pair** (right button in the yellow box)(e.g.: .pub in Linux or .key in Windows). 
 Afterwards, your key should be listed on the key overview page. In chapter [ Getting Access to the Instance](quickstart.md#getting-access-to-the-instance) we will use this key. 
 
 ## Generate SSH-Keys
@@ -97,7 +97,7 @@ tYYIJnQd73vdO/XULbrEnYahp2DSfJL+GDHoymOxYj+3YTQOAxmTGnje1ZjCvwZ2
 ljWpr6NDdPsCd+5uURFnQ2zdjg6G62/5JU5WPZAZZgfKhrE7qw==
 ---- END SSH2 PUBLIC KEY ----
 ~~~
-When setting your key on the [User Information page](portal/user_information.md#SSH-Key), you need to add 'ssh-rsa' infront and can add a comment after your key, so it would look like this:
+When setting your key on the [User Information page](portal/user_information.md#ssh-key), you need to add 'ssh-rsa' infront and can add a comment after your key, so it would look like this:
 ~~~BASH
 ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEA0DX7jcuqlsCXw51r4RYGkKeu78P9RXqx9VmQ
 1bwQl+is2BxZJWZCYibY1x5FfAkKZio+KSG3TRdWMq0JLciWcUTpKfQPduAkUXYX
@@ -114,6 +114,23 @@ PS C:\Users\myusername> ssh-keygen.exe -t rsa -f new_id
 ~~~
 which will produce the files new_id and new_id.pub in the directory C:\Users\myusername.
 
+Similarly, to create an ECDSA key, you can do the following, since it is recommended to use a key length of 521:
+
+**Linux**
+
+~~~BASH
+ssh-keygen -t ecdsa -b 521 -f keyname
+~~~
+
+Your generated public key will then look something like this:
+
+~~~BASH
+ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAH3liBXX2P2H20VGrtuR9lnEoA9h7LvhbUfWaKVT9MWTiu9h7zSPcvAZTjGletDBdbhWpEp3LnjnuwcOeteHj9TsgCiuZSjvuGw8sT7DE6xReUq8jTG34n2hKmemOU9DHPJJFDdipDTAqkhxFAkBv+QGqoV9pSPHAN/m8LOnh9cQts29w== username@host
+~~~
+
+**Windows**
+
+As mentioned above, on Windows you can use PowerShell to achieve the same result.
 
 # Creating a Router and a Network
 
@@ -146,7 +163,7 @@ Click on the **Create Router** button (green box). A form should appear:
 
 ----
 
-Fill in the **Router Name** and select the **external_network** for the **External Network**. Click on the blue button **Create Router**. Your network topology should looks like this:
+Fill in the **Router Name** and select the **external** for the **External Network**. Click on the blue button **Create Router**. Your network topology should looks like this:
 
 ----
 
@@ -199,7 +216,7 @@ Select your **Subnet** and click on the blue **Submit** button. Your topology gr
 
 ----
 
-**For further reading visit our [Networking](../Concept/basics/#network) section**
+**For further reading visit our [Networking](Concept/basics.md#network) section**
 
 # Launching an Instance
 
@@ -387,35 +404,43 @@ Here you can create a new volume entering the following parameters
 Then click `create volume` and your volume will appear in the list of volumes with the status **Available**.
 Now you have to attach the just created volume to your VM. This is done by changing to the `instance`section under the `compute` section and clicking on the arrow on the right side belonging to your VM.
 Choose `Attach Volume` and choose the just created volume. Now your volume is connected to your VM similar to connecting a hard drive via USB with your computer.
-Now you have to login into your VM, format and mount the volume. You will find your volume with the command
+In order to use the new volume you need to create a filesystem and mount it.
 
-~~~BASH
+To be able to place files onto your newly attached volume there needs to be a file system on it. This process of file system generation is also called "formatting the device".
+First, use this command to list all the block devices connected to your VM:
+
+```BASH
 lsblk
-~~~
+```
 
-This command will list all your block devices connected to your VM.
-Chose the correct device (mostly the name will be the second entry, you can orientate oneself on the SIZE parameter) and format it with a filesystem if you are using this volume for the first time. Common filesystems are ext4 or xfs.
+Now find the entry that corresponds to the volume you have attached previously. On most VMs it's the second item in the list, but you absolutely should verify that using its SIZE as well as through the fact that its MOUNTPOINTS should be empty.
+
+!!! Danger "Formatting any device WILL DESTROY ALL THE DATA already on it!"
+    New data disks (e.g. volumes) need to be formatted EXACTLY ONCE to use them.
+    NEVER apply this command to an ALREADY FORMATTED DISK if you value the data on that disk.
+
+Format the empty volume with a filesystem (e.g. `ext4` or `xfs`):
+
+```BASH
+sudo mkfs.ext4 /dev/vdx
+```
+
+Create a mountpoint for the new volume using
 
 ~~~BASH
-mkfs.ext4 /dev/device_name
-~~~
-
-After the formating you have to create a mountpoint
-
-~~~BASH
-mkdir -p /mnt/volume
+sudo mkdir -p /mnt/volume
 ~~~
 
 Check that you have the correct permissions for this directory, otherwise set them with the follwoing command
 
 ~~~BASH
-chmod 777 /mnt/volume/
+sudo chmod 777 /mnt/volume/
 ~~~
 
 And mount the Cinder Volume under the created directory
 
 ~~~
-mount /dev/device_name /mnt/volume
+sudo mount /dev/device_name /mnt/volume
 ~~~
 
 Now you should see your device by executing the command

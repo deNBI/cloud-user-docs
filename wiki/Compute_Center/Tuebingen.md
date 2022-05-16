@@ -491,9 +491,9 @@ The output should look be similar to the following:
     link/ether fa:16:3e:XX:XX:XX brd ff:ff:ff:ff:ff:ff
 ```
 
-4. After that create a new configuration file with the following command:
+4. After that create a new configuration file with the following command and name (you can also use other names but make sure that it is named with 01 in front to be executed before other config files):
 ```
-sudo vi
+sudo vi /etc/netplan/01-second-if.yaml
 ```
 Enter the following content depending on the interface name ens6 or ens4 or ... and the corresponding MAC address.
 ```
@@ -523,9 +523,9 @@ ip a
 which should print out a similar output as shown above for the centos7 section.
 The made changes here are directly persistent.
 
-## Install CUDA Driver for NVIDIA V100
-The following installation instructions help you if you want to install the NVIDIA CUDA drivers for the available NVIDIA V100 GPUs.
-It is assumed that you have a running VM with one or more GPUs attached already running. Otherwise please launch VM using one of the GPU flavors if GPUs are available for your project. The instructions are made for CentOS 7 and Ubuntu. We also offer existing images with CUDA already installed (CentOS 7.8 CUDA 11.0 2020-07-31, Ubuntu 18.04.4 LTS CUDA 11.0 2020-07-24, Ubuntu 20.04 LTS CUDA 11.0 2020-07-31).
+## Install CUDA Driver for NVIDIA V100 or NVIDIA RTX A6000
+The following installation instructions help you if you want to install the NVIDIA CUDA drivers for the available NVIDIA V100 GPUs or the NVIDIA RTX A6000 GPUs (CUDA 11.4 required).
+It is assumed that you have a running VM with one or more GPUs attached already running. Otherwise please launch VM using one of the GPU flavors if GPUs are available for your project. The instructions are made for CentOS 7 CentOS 8 and Ubuntu. We also offer existing images with CUDA already installed (CentOS 7.8 CUDA 11.0 2020-07-31, CentOS 7.9 CUDA 11.4 2021-07-01, CentOS 8.4 CUDA 11.4 2021-07-01, Ubuntu 18.04.4 LTS CUDA 11.0 2020-07-24, Ubuntu 20.04 LTS CUDA 11.0 2020-07-31).
 
 ### CentOS 7
 1. Update the existing installation
@@ -566,14 +566,99 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 sudo reboot
 ```
 
-7. Login again and download the CUDA installer (11.0)
+7. Login again and download the CUDA installer (11.0 or higher)
 ```
 http://developer.download.nvidia.com/compute/cuda/11.0.2/local_installers/cuda_11.0.2_450.51.05_linux.run
 ```
 
 8. Run the installer and type in `accept` and go down to install and hit enter
 ```
-cuda_11.0.2_450.51.05_linux.run
+sudo sh cuda_11.0.2_450.51.05_linux.run
+```
+
+9. If the installation has finished you can check if everything works by running the following command
+```
+nvidia-smi
+```
+
+That should print out something similar to the following output depending on the number of GPUs requested
+```
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 450.51.05    Driver Version: 450.51.05    CUDA Version: 11.0     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Tesla V100-SXM2...  Off  | 00000000:00:05.0 Off |                    0 |
+| N/A   31C    P0    37W / 300W |      0MiB / 32510MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+```
+10. In order to use for example `nvcc` please make sure the cuda directory `/usr/local/cuda` is in your path
+```
+export PATH=/usr/local/cuda/bin:$PATH
+```
+```
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+```
+
+### CentOS 8
+1. Update the existing installation
+```
+sudo yum update
+```
+
+2. Install development tools
+```
+sudo yum groupinstall "Development Tools"
+```
+
+3. Install additional, required tools, please execute the commands after an other
+```
+sudo yum install kernel-devel 
+sudo yum epel-release
+sudo yum wget htop vim pciutils dkms
+```
+
+4. Next we need to disable the Linux kernel default driver for GPU cards in. For this open the file `/etc/default/grub` with vim for example and add
+the parameter `nouveau.modeset=0` to the line starting with `GRUB_CMDLINE_LINUX=`. The line should be similar to the following example:
+```
+GRUB_TIMEOUT=1
+GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
+GRUB_DEFAULT=saved
+GRUB_DISABLE_SUBMENU=true
+GRUB_TERMINAL="serial console"
+GRUB_SERIAL_COMMAND="serial"
+GRUB_CMDLINE_LINUX="console=tty0 crashkernel=auto net.ifnames=0 console=ttyS0 nouveau.modeset=0"
+GRUB_DISABLE_RECOVERY="true"
+```
+
+5. Make the changes effective
+```
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+```
+
+6. Reboot the VM
+```
+sudo reboot
+```
+
+7. Login again and download the CUDA installer (11.4)
+```
+wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda_11.4.0_470.42.01_linux.run
+```
+
+8. Run the installer and type in `accept` and go down to install and hit enter
+```
+sudo sh cuda_11.4.0_470.42.01_linux.run
 ```
 
 9. If the installation has finished you can check if everything works by running the following command

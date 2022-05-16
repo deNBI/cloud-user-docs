@@ -11,16 +11,22 @@ theme:
 repo_name: 'deNBI/cloud-user-docs'
 repo_url: 'https://github.com/deNBI/cloud-user-docs'
 edit_uri: blob/master/wiki/
+use_directory_urls: true
+site_url: !ENV [SITE_URL, 'https://cloud.denbi.de/wiki/']
 plugins:
  - search
 markdown_extensions:
   - admonition
   - codehilite
   - footnotes
+  - tables
   - toc:
       permalink: true
   - pymdownx.betterem:
       smart_enable: all
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
@@ -52,7 +58,9 @@ nav:
     - 'Profile Page': portal/user_information.md
     - 'Using Vault': portal/vault_user.md
     - 'Cloud Credits': portal/credits.md
+    - 'Personal Data': portal/personal_data.md
   - 'Simple VM':
+      - 'Group Permissions': simple_vm/permissions.md
       - 'New instance': simple_vm/new_instance.md
       - 'Instance overview': simple_vm/instance_overview.md
       - 'Instance details': simple_vm/instance_detail.md
@@ -61,6 +69,7 @@ nav:
       - 'SSH keys and sharing access': simple_vm/keypairs.md
       - 'Volumes': simple_vm/volumes.md
       - 'Images/Snapshots': simple_vm/snapshots.md
+      - 'Backuping data': simple_vm/backup.md
       - 'Customization': simple_vm/customization.md
       - 'Concurrent Guacamole sessions': simple_vm/guacamole.md
       - 'Concurrent RStudio sessions': simple_vm/rstudio.md
@@ -75,14 +84,18 @@ nav:
   - 'Tutorials' :
     - 'Access de.NBI Virtual Machines from Windows 10' : Tutorials/Win10_SSH/index.md
     - 'Access a SimpleVM with Mosh' : Tutorials/Mosh/index.md
-    - 'SimpleVM File Transfer' : Tutorials/File_Transfer_Methods/index.md
     - 'Ansible Automation' : Tutorials/Ansible/index.md
     - 'Bibigrid' : Tutorials/BiBiGrid/index.md
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
+    - 'Hybridcloud' : Tutorials/Hybridcloud/index.md
     - 'Install latest CUDA version' : Tutorials/CUDA/index.md
+    - 'Kubermatic' : Tutorials/Kubermatic/index.md
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
+    - 'Reverse Proxy with Elixir AAI': Tutorials/Elixir_AAI/Elixir_AAI.md
     - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
+    - 'Persistent SSH Sessions' : Tutorials/Persistent_SSH_Sessions/index.md
+    - 'SimpleVM File Transfer' : Tutorials/File_Transfer_Methods/index.md
     - 'Theia Web IDE': Tutorials/TheiaIde/index.md
     - 'UserData' : Tutorials/UserData/index.md
     - 'Using X2GO': Tutorials/X2GO/x2go.md
@@ -95,8 +108,8 @@ nav:
     - 'Tuebingen' : Compute_Center/Tuebingen.md
     - 'Freiburg' : Compute_Center/Freiburg.md
     - 'Berlin' : Compute_Center/Berlin.md
+    - 'EMBL' : Compute_Center/EMBL.md
   - 'Cloud Admin':
-    - 'Jenkins + Haproxy with JuJu': cloud_admin/juju_jenkins.md
     - 'Configure OpenStack to use Elixir AAI via OpenID Connect': cloud_admin/elixir_OIDC.md
     - 'Register your identity provider for ELIXIR': cloud_admin/identity_provider.md
     - 'News management': cloud_admin/news_management.md

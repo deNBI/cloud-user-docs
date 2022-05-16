@@ -20,6 +20,10 @@ Here you will find some actions you can execute:
 * Detach volume: detaches an in-use volume from an existing virtual machine.
 * Extend volume: extends the size of the volume if your project has enough ressources left. For more information, please see [below](#extend-a-volume).
 * Delete volume: deletes the volume and all its data.
+
+!!! info "Attaching and detaching"
+    Attaching and detaching volumes is only possible, when the machine the volume is attached or shall be attached to is running.
+
 ## Create a volume
 There are two ways to create a volume:
 
@@ -28,26 +32,33 @@ There are two ways to create a volume:
 2. At the Volume tab you can choose to create a volume.
 ![create_volume](./img/volumes/create_and_attach.png)
 
-In order to use the Volume you need to [mount](#mount-a-volume) it.
+In order to use the new volume you need to create a filesystem and [mount](#mount-a-volume) it.
 
-## Mount a volume
+## Create the volume file system (once)
 
-In order to mount a volume connect via ssh to your machine.
-You will find your volume with the command
+To be able to place files onto your newly attached volume there needs to be a file system on it. This process of file system generation is also called "formatting the device".
+First, use this command to list all the block devices connected to your VM:
 
 ```BASH
 lsblk
 ```
 
-This command will list all your block devices connected to your VM.
-Chose the correct device (mostly the name will be the second entry, you can orientate oneself on the SIZE parameter) and format it with a filesystem if you are using this volume for the first time.
-Common filesystems are ext4 or xfs.
+
+Now find the entry that corresponds to the volume you have attached previously. On most VMs it's the second item in the list, but you absolutely should verify that using its SIZE as well as through the fact that its MOUNTPOINTS should be empty.
+
+!!! Danger "Formatting any device WILL DESTROY ALL THE DATA already on it!"
+    New data disks (e.g. volumes) need to be formatted EXACTLY ONCE to use them.
+    NEVER apply this command to an ALREADY FORMATTED DISK if you value the data on that disk.
+
+Format the volume with a filesystem (e.g. `ext4` or `xfs`):
 
 ```BASH
-mkfs.ext4 /dev/device_name
+mkfs.ext4 /dev/vdx
 ```
 
-After the formating you have to create a mountpoint
+## Mount a volume
+
+Create a mountpoint using
 
 ```BASH
 mkdir -p /vol/volume
@@ -56,7 +67,7 @@ mkdir -p /vol/volume
 Check that you have the correct permissions for this directory, otherwise set them with the follwoing command
 
 ```BASH
-chmod 777 /vol/volume
+sudo chmod 777 /vol/volume
 ```
 
 And mount the Cinder Volume under the created directory

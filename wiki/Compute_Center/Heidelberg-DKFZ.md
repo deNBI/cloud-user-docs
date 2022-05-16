@@ -132,6 +132,73 @@ using it:
 
     sudo mount /dev/vdb /mnt
 
+### Create and configure a NFS share for your project
+In case you need a NFS share to store big amounts of data and share it within
+your project, you can use OpenStack to create and manage the share.
+
+#### Create a NFS share
+To create a NFS share choose the section **Shares** and click on **Create
+Share**. In the popup you have to provide the following information:
+
+  **Share Name:**
+  - Provide a share name.
+
+  **Share Protocol:**
+  - Please use the preselected "NFS" as protocol.
+
+  **Size (GiB):**
+  - Provide the size of the share. Info: You have an overall quota for NFS
+  shares on your project. Please make sure that you set the size below the
+  project quota.
+
+  **Share Type:**
+  - Please select "isilon-denbi".
+
+  **Availability Zone:**
+  - Please select "nova".
+
+#### Manage access rules for your NFS share
+After the creation of a NFS share, the share will not be accessible by anyone
+. To grant your VMs access to the share you have to configure the access rules.
+
+**Important: Please make sure to keep the access rule list of your NFS share up
+ to date**, so that only your VMs can access the share.
+
+To manage the access rules click on the **arrow** on the right side of your
+newly created NFS share and choose **Manage rules**. Now you have to choose
+**Add rule**. In the popup you have to provide the following information:
+
+  **Access Type:**
+  - Select ip to allow a certain VM access to the share.
+
+  **Access Level:**
+  - Choose **read-write** or **read-only** appropriate to your needs. In some
+   cases it may make sense that specific VMs just get read-only permissions.
+
+  **Access to**
+  - Please fill in the floating ip address of your VM you want to grant access to the NFS share.
+
+#### Access your NFS share
+In order to use your created NFS share you have to mount it to your VMs.
+Click on the created share in the **Shares** section of the OpenStack
+dashboard to get information about the complete mount path. Under the
+**Export locations** section you will find the complete path to your NFS share.
+
+You can mount the share with the following command:
+
+    sudo mount -o vers=4.0 manila-prod.isi2.denbi.dkfz.de:/ifs/denbi/prod/YOUR-SHARE /mnt/
+
+Alternatively you can add the mount path to the "/etc/fstab". Make sure that
+you use NFS version 4.0.
+
+Please make sure that your user (depending on the used distribution: centos,
+debian, ubuntu) is the owner of the NFS share. Therefore run the following
+command to set the user as owner of the NFS share:
+
+    sudo chown centos:centos /mnt/
+
+**Hint** This example is for a Centos based image.
+
 ### Distribution logins
 Please be aware that our images are shipped with the standard users for the
 respective Linux distribution. Here you  can see a list of standard users for
@@ -233,6 +300,82 @@ Therefore set your environment variables for the http/https proxy:
 
 Now, if you have an active SOCKS connection to the jumphost, you should be
 able to use the OpenStack API from your local machine.
+
+### Terraform
+
+#### Prerequisites
+Install Terraform either via your distribution or by downloading it from the [website](https://www.terraform.io/downloads.html).
+
+
+Similar to using the OpenStack CLI you will need a proper ssh config to use a SOCKS proxy as described above. To be able to use Terraform please download the openstack.rc file (v3) for your OpenStack project, source it and export the SOCKS proxy in your shell environment:
+```bash
+source openrc.sh
+export https_proxy=socks5://localhost:7777
+export http_proxy=socks5://localhost:7777
+```
+
+Please make sure to **use socks5** instead of socks5h as you might would use with the OpenStack CLI.
+
+
+Furthermore we have to tell Terrafrom which providers we want to use. Therefor create a `versions.tf` file in your working directory with the following content if you use Terraform >= 0.13:
+```
+terraform {
+  required_providers {
+    openstack = {
+      source = "terraform-provider-openstack/openstack"
+    }
+  }
+  required_version = ">= 0.13"
+}
+```
+
+
+#### Basic Terraform example
+We will create a `main.tf` file containing some basic tasks like uploading our public ssh key, creating a new sandbox VM and also attaching a floating ip address to the newly created VM.
+```
+# Deploy public ssh key
+resource "openstack_compute_keypair_v2" "ssh-key" {
+  name       = "ssh-key"
+  public_key = "PUT_YOUR_PUBLIC_KEY_HERE"
+}
+
+
+# Deploy sandbox VM
+resource "openstack_compute_instance_v2" "sandbox-vm" {
+  name            = "sandbox"
+  image_name      = "IMAGE_NAME"
+  flavor_name     = "FLAVOR_NAME"
+  key_pair        = "ssh-key"
+  security_groups = ["default"]
+
+  network {
+    name = "NETWORK_NAME"
+  }
+}
+
+
+resource "openstack_networking_floatingip_v2" "fip" {
+  pool = "public"
+}
+
+
+# Associate floating ip
+resource "openstack_compute_floatingip_associate_v2" "fip" {
+  floating_ip = "${openstack_networking_floatingip_v2.fip.address}"
+  instance_id = "${openstack_compute_instance_v2.sandbox-vm.id}"
+}
+```
+
+The configuration can be verified with `terraform validate`. Please also make sure to run `terraform init` if you are starting in a fresh directory so that the latest OpenStack plugins will be available.
+
+#### Working with Terraform
+To apply a Terraform configuration simply run `terraform apply`. You will see an overview of the tasks to do. You have to confirm the listed actions by typing `yes`.
+
+Each time you change the `main.tf` configuration file and run `terraform apply` you will see which changes to the current state of your infrastructure will be applied.
+
+To get a complete overview of the current state you can run `terraform show`.
+
+You can destroy all resources defined in your configuration file with the `terraform destroy`. Terraform will list all resources which will be deleted. You have to confirm the listed actions by typing `yes`. Terraform will not touch any OpenStack resources that were defined outside of your Terraform configurations.
 
 ### Adding multiple SSH-Keys
 To access your VM you have to provide a public ssh-key. In the deployment
