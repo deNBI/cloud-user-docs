@@ -26,6 +26,11 @@ The public key part will be automatically set for you and you are able to downlo
 If you do not save the private key generated for you, it will be irretrievably lost. We do not save the generated private keys for you. If you have cancelled or forgotten to download the key, you must repeat the process with a new key.
 Please note that you will have to change the permissions of the key file as written in the notification you just confirmed.
 
+#### Supported formats
+
+In case you upload a key yourself, please note that we currently only support the following formats: RSA and ECDSA (SHA2, NIST P256, P384 or P521).
+As mentioned above, regard the [instructions](../quickstart.md#generate-ssh-keys) to generate a supported key.
+
 ### Link Accounts to LifeScience (formerly Elixir)
 
 On your [profile page](https://profile.aai.lifescience-ri.eu/profile/identities) you can link multiple accounts to your existing LifeScience-account.
