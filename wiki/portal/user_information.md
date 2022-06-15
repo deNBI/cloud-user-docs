@@ -27,27 +27,28 @@ Please note that you will have to change the permissions of the key file as writ
 In case you upload a key yourself, please note that we currently only support the following formats: RSA and ECDSA (SHA2, NIST P256, P384 or P521).
 As mentioned above, regard the [instructions](../quickstart.md#generate-ssh-keys) to generate a supported key.
 
-### Link Accounts to ELIXIR
+### Link Accounts to LifeScience (formerly Elixir)
 
-On the profile page you can link multiple accounts to your existing ELIXIR-account.
-By clicking on the button `Link accounts` you will be redirected to the [ELIXIR profile-page](https://perun.elixir-czech.cz/fed/profile/#identities "ELIXIR profile"). If you are not yet logged in to ELIXIR, please do so to be redirected to the page mentioned. Click on `My linked accounts` in the menu to see and manage your accounts linked to your ELIXIR account. 
-To link another account click on `Link a new account` below `My linked accounts`. 
+On your [profile page](https://profile.aai.lifescience-ri.eu/profile/identities) you can link multiple accounts to your existing LifeScience-account.
+If you are not yet logged in to LifeScience, please do so to be redirected to the page mentioned. 
+Click on `Linkes identities` in the menu to see and manage your accounts linked to your LifeScience account. 
+To link another account click on `Add` below `Linked identities`. 
 ![accountlinkingpage](img/linked_accounts.png)
 
-You will be redirected to the ELIXIR login-page. 
+You will be redirected to the LifeScience login-page. 
 
-![elixirlogin](img/elixir_login.png)
+![elixirlogin](img/lifescience_login.png)
 
-Log in to the account that you want to link to your ELIXIR account. In the example shown this is done with ORCID.
+Log in to the account that you want to link to your LifeScience account. In the example shown this is done with ORCID.
 After you have signed up for the desired service, you will usually be asked to confirm/authorize the linking of the account.
  
 ![authorizeorcid](img/authorize_linking.png)
 
-Once this is done, you will be redirected to the ELIXIR profile page, where you will receive a confirmation of the successful linking of your account. 
+Once this is done, you will be redirected to the LifeScience profile page, where you will receive a confirmation of the successful linking of your account. 
 
 ![confirmlinking](img/success_linking.png)
 
-To remove a linked account click on the red button next to the listed account.
+To remove a linked account click on `Remove` below `Linked identities`.
 
 ### Newsletter
 
