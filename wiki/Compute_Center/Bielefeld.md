@@ -64,8 +64,8 @@ consider this if running docker or any other container technology.
 
 ## Images
 
-We provide some preconfigured cloud images on top of Ubuntu LTS (18.04, 20.04, and 22.04) and Debian (10 and 11). 
-These images are preconfigured to adapt a running instance to the cloud site Bielefeld:
+Preconfigured cloud images are available for Ubuntu LTS (18.04, 20.04, and 22.04) and Debian (10 and 11). 
+These images apply some auto-configuration on boot specific to the cloud site Bielefeld:
 
 - make use of a local apt-mirror by default
 - set proxy for the environment, apt and docker if necessary
