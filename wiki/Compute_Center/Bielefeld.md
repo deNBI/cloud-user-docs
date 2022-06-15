@@ -64,17 +64,17 @@ consider this if running docker or any other container technology.
 
 ## Images
 
-We provide some preconfigured cloud images on top of the Ubuntu LTS (18.04 and 20.04) and Debian (10). These 
-images are able to run on other cloud sites without any further modifications and come with a 
-script `/usr/local/bin/de.NBI_Bielefeld_environment.sh` that adapts a running instance to 
-the cloud site Bielefeld:
+Preconfigured cloud images are available for Ubuntu LTS (18.04, 20.04, and 22.04) and Debian (10 and 11). 
+These images apply some auto-configuration on boot specific to the cloud site Bielefeld:
 
-- set proxy for environment, apt and docker if necessary
-- make use of apt-mirror
+- Site-local APT mirror is used as default
+- If needed, APT, Docker and the environment are configured to use the local proxy
+
+All images are able to run on other cloud sites without any further modifications.
 
 ### Ubuntu apt mirror
 
-We run an apt mirror for Ubuntu LTS releases (18.04 and 20.04) to speed up package download. The mirror is available 
+We run an apt mirror for Ubuntu LTS releases (18.04, 20.04 and 22.04) to speed up package download. The mirror is available 
 at the Bielefeld cloud site through the external (http://apt-cache.bi.denbi.de:9999 or http://129.70.51.2:9999) and cebitec
 (http://172.21.40.2:9999) network.
 This mirror is synced every midnight with the official Canonical/Debian repositories.
