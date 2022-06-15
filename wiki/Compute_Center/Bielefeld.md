@@ -67,8 +67,8 @@ consider this if running docker or any other container technology.
 Preconfigured cloud images are available for Ubuntu LTS (18.04, 20.04, and 22.04) and Debian (10 and 11). 
 These images apply some auto-configuration on boot specific to the cloud site Bielefeld:
 
-- make use of a local apt-mirror by default
-- set proxy for the environment, apt and docker if necessary
+- Site-local APT mirror is used as default
+- If needed, APT, Docker and the environment are configured to use the local proxy
 
 All images are able to run on other cloud sites without any further modifications.
 
