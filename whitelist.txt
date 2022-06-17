@@ -24,3 +24,4 @@ https://www.terraform.io/downloads
 https://www.terraform.io/downloads.html
 http://apt-cache.bi.denbi.de:9999/
 http://apt-cache.bi.denbi.de:9999
+https://www.puttygen.com/download-putty#PuTTY_for_windows
