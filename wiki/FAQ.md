@@ -17,7 +17,6 @@ Maintenance may be performed at the site where your machines are running. Occasi
 Check your project site's [Facility News](https://cloud.denbi.de/news/facility-news/) page - downtimes are usually announced on this page.
 In addition, we have a [status page](https://status.cloud.denbi.de/status/) where you can check the respective services.
 
-
 ### What are flavors? Which flavor should I choose for my VM?
 Flavor determine the hardware resources available for their virtual machine. During the process of starting the VM, you will see the flavors that are available to you.
 Applications or more complex pipelines that require high memory or compute should be run on flavors with more VCPUs and/or RAM. For certain use cases from the fields of artificial intelligence or data mining, GPU flavors can be useful. This is also true if CUDA is part of your pipeline.
