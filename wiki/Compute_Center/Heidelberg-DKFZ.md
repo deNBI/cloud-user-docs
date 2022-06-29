@@ -57,7 +57,7 @@ and can connect to VMs without any floating ip address.
 
 ### Connect to your VMs
 #### Prerequisites
-None of your VMs will be directly visible and accessible from the internet. Therefore, please make sure that you add your public ssh key to the [central portal](https://cloud.denbi.de/). This is important as you will login to our jumphost first before connecting to your VMs. The jumphost account will only be created after adding a public ssh key to the central portal.
+None of your VMs will be directly visible and accessible from the internet. Therefore, please make sure that you add your public ssh key to the [central portal](https://cloud.denbi.de/). This is important as you will login to our jumphost first before connecting to your VMs. The jumphost account will only be created after adding a public ssh key to the central portal and you must be a member of a project that is located at the Heidelberg DKFZ.
 
 #### Linux-based host
 To connect to one of your VMs, you have to use our jumphost denbi-jumphost-01.denbi.dkfz-heidelberg.de with your elixir login name (not your elixir id!):
