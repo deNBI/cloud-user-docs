@@ -245,7 +245,7 @@ Share**. In the popup you have to provide the following information:
   project quota.
 
   **Share Type:**
-  - Please select "default" (or dmz, if you want to use a share from a server within the dmz)
+  - Please select "isilon-denbi" (or dmz, if you want to use a share from a server within the dmz)
   
   **Availability Zone:**
   - Please select "nova".
