@@ -8,7 +8,7 @@ anything and do not give any guarantees. Keep this in mind and try to make your 
 
 ## How to get in contact with us
 In case you have questions or want to give us any kind of feedback, please 
-contact us via <it.digitalhealth@charite.de>.
+contact us via <denbi-cloud@bih-charite.de>.
 
 ## Access to the de.NBI Cloud Berlin
 ### OpenStack Dashboard
