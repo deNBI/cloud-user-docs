@@ -69,7 +69,7 @@ To access your research environment, follow the Link you will find on the [insta
 and/or on the [detail page](./instance_detail.md) of your virtual machine.  
 ![resenv_link](./img/instance_detail/detail_resenv.png)
 
-If you are not already logged in with your ELIXIR account, you will be prompted to log in with your ELIXIR account, 
+If you are not already logged in with your LifeScience account, you will be prompted to log in with your LifeScience account, 
 as only the one who started the virtual machine will be allowed to access the research environment.
 
 
@@ -79,7 +79,7 @@ From the project page:
 
 To access your JupyterLab research environment, please follow the link you may find after starting your virtual machine, 
 in the instance overview and/or on the detail page of your virtual machine. You will be prompted to log in with your 
-ELIXIR account if you have not done it already. Afterwards you will be prompted to log in to JupyterLab with a Token.
+LifeScience account if you have not done it already. Afterwards you will be prompted to log in to JupyterLab with a Token.
 
 ![rstudio_login](./img/customization/jupyterlab_login.png)  
 
@@ -100,7 +100,7 @@ From the project page:
 
 To access your RStudio research environment, please follow the link you may find after starting your virtual machine, 
 in the instance overview and/or on the detail page of your virtual machine. You will be prompted to log in with your 
-ELIXIR account if you have not done it already. Afterwards you will be prompted to log in to RStudio.  
+LifeScience account if you have not done it already. Afterwards you will be prompted to log in to RStudio.  
 ![rstudio_login](./img/customization/rstudio_login.png)  
 
 #### Login credentials
@@ -138,7 +138,7 @@ From the project page:
 
 To access your Apache Guacamole research environment, please follow the link you may find after starting your virtual 
 machine, in the instance overview and/or on the detail page of your virtual machine. You will be prompted to log in 
-with your ELIXIR account if you have not done it already. Afterwards you will be prompted to log in to Apache Guacamole.  
+with your LifeScience account if you have not done it already. Afterwards you will be prompted to log in to Apache Guacamole.  
 ![guacamole_login](./img/customization/guacamole_login.png)  
 
 #### Login credentials
@@ -173,5 +173,5 @@ More information regarding Theia IDE can be found on our [tutorial page](../../T
 
 To access your Apache Guacamole research environment, please follow the link you may find after starting your virtual 
 machine, in the instance overview and/or on the detail page of your virtual machine. You will be prompted to log in with 
-your ELIXIR account if you have not done it already. Now you are able to work with Theia IDE via web browser!  
+your LifeScience account if you have not done it already. Now you are able to work with Theia IDE via web browser!  
 ![theiaide_resenv](./img/customization/theiaide_resenv.png)
