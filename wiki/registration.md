@@ -67,7 +67,7 @@ After the registration you might want to [apply](../portal/allocation/) for a de
 access to an already existing Cloud project through
 the [invitation function](../portal/project_overview/#member-management).
 
-### Confirming all worked
+### Log into the de.NBI Portal
 
 Check if you can access the deNBI cloud services by going to [https://cloud.denbi.de](https://cloud.denbi.de), and
 press 'Login'
