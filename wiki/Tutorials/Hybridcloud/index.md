@@ -112,7 +112,9 @@ VPN node in Gießen. `AllowedIPs` signifies which packages will be let through
 our interface. Of course we want to accept all packages from inside our VPN
 therefore we add `10.0.0.0/24` but since only the VPN node is part of the VPN
 we wouldn't be able to receive packages from the worker nodes in Gießen without
-also allowing the local subnet.
+also allowing the local subnet. Lastly `Endpoint` specifies the public IP and UDP 
+port of the respective remote host which Wireguard will use to establish the
+VPN connection.
 
 
 ~~~
@@ -126,6 +128,7 @@ ListenPort = 51820
 [Peer]
 PublicKey = <publickey of VPN node>
 AllowedIPs = 10.0.0.0/24, <subnet in Gießen>
+Endpoint = <public ip and port of master node in Gießen>
 
 PersistentKeepalive = 25
 ~~~
@@ -142,6 +145,7 @@ ListenPort = 51820
 [Peer]
 PublicKey = <publickey of master node>
 AllowedIPs = 10.0.0.0/24, <subnet in Bielefeld>
+Endpoint = <public ip and port of master node in Bielefeld>
 
 PersistentKeepalive = 25
 ~~~
