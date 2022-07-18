@@ -125,7 +125,7 @@ ListenPort = 51820
 
 [Peer]
 PublicKey = <publickey of VPN node>
-AllowedIPs = 10.0.0.0/24 <subnet in Gießen>
+AllowedIPs = 10.0.0.0/24, <subnet in Gießen>
 
 PersistentKeepalive = 25
 ~~~
@@ -141,7 +141,7 @@ ListenPort = 51820
 
 [Peer]
 PublicKey = <publickey of master node>
-AllowedIPs = 10.0.0.0/24 <subnet in Bielefeld>
+AllowedIPs = 10.0.0.0/24, <subnet in Bielefeld>
 
 PersistentKeepalive = 25
 ~~~
