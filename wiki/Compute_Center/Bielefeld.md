@@ -216,7 +216,7 @@ We use cryptographic methods to protect user data stored on our infrastructure:
 - Client connections to our OpenStack Dashboard and Openstack API 
   are encrypted using TLS
 - Local disks of instances are located on encrypted devices (LUKS)
-- Cloud storage is LUKS encrypted (work in progress)
+- Cloud storage is LUKS encrypted
 
 ### Regular vulnerability scans
 
@@ -280,10 +280,10 @@ If you are receiving `Connection refused`:
 - The instance is stuck in maintenance-mode.
   - See [here](Bielefeld.md#my-instance-is-stuck-in-maintenance-mode-while-booting) on how to resolve this.
 
-- Something is misconfigured inside of your instance.
+- Something is misconfigured inside your instance.
   - The public key in `/home/ubuntu/.ssh/authorized_keys` is missing.
   - The permissions are broken or too open in `/home/ubuntu/` or `/home/ubuntu/.ssh/`. (Too open eg. with `chmod 777`).
-  - In these cases, you are completely locked out and you won't be able to access your instance in some way again. In rare and urgent cases, we can manually repair this but for this we need your explicit consent to do so.
+  - In these cases, you are completely locked out, and you won't be able to access your instance in some way again. In rare and urgent cases, we can manually repair this but for this we need your explicit consent to do so.
   
 ### My instance is stuck in maintenance mode while booting.
 
