@@ -25,3 +25,8 @@ https://www.terraform.io/downloads.html
 http://apt-cache.bi.denbi.de:9999/
 http://apt-cache.bi.denbi.de:9999
 https://www.puttygen.com/download-putty#PuTTY_for_windows
+https://doku.tid.dfn.de/de:edugain#edugain_interfederation
+https://doku.tid.dfn.de/en:registration
+https://status.cloud.denbi.de/status/
+https://wiki.aai.dfn.de/de:edugain#edugain_interfederation
+https://wiki.aai.dfn.de/en:registration
