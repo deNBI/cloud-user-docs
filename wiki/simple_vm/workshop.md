@@ -93,4 +93,4 @@ machines later on, if they lose their private key.
 
 ## Trouble Shooting
 If you experience troubles, have feedback on our services or have a special request please do not hesitate to contact 
-us under cloud-portal-support@denbi.de.
+us under cloud-helpdesk@denbi.de.
