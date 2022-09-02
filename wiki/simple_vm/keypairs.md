@@ -73,7 +73,7 @@ This opens the file in which all your keys are saved who have access to your vir
 Copy the public key of the person you want to add (important- not the private key) and add it to the line after your key to the file.
 Using CTRL-X you can close the file. When you are closing the file you are asked whether you want to save your changes. Please confirm this.
 
-Now the other user can access your virtual machine. If you run into troubles please contact us via cloud-portal-support@deNBI.de.
+Now the other user can access your virtual machine. If you run into troubles please contact us via cloud-helpdesk@denbi.de.
 
 ##Reminder
 Please only add the ssh key of people you trust. Furthermore, you are still responsible for the virtual machine if you share your
