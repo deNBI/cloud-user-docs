@@ -2,6 +2,10 @@
 Welcome to the de.NBI Cloud site Tübingen. In the following we will
 give you a basic introduction how to use our cloud site.
 
+## How to get in contact with us
+In case you have questions or want to give us any kind of feedback, please
+contact us via <denbi@zbv.uni-tuebingen.de>.
+
 ## General concept of the de.NBI Cloud Tübingen
 A cloud like the one you will use here can be seen as computing resources which are available on demand.
 You can get much more compute cores (CPU), main memory (RAM) and also storage capacity than you have
