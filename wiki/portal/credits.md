@@ -13,7 +13,7 @@ where you may see your used and allocated CCs and how to request more CCs.
 
 !!! info "Subject to change"
     The usage of Cloud Credits is still in its beginning and therefore subject to change.  
-    If you got questions which are not covered on this page or encounter an error, please contact us at cloud@denbi.de.
+    If you got questions which are not covered on this page or encounter an error, please contact us at cloud-helpdesk@denbi.de.
 
 ## Your Cloud Credits overview
 At your project overview you will see an overview of your 'used Cloud Credits' and 'granted Cloud Credits'. Your used CCs 
