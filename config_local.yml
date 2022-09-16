@@ -30,44 +30,71 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tilde
 nav:
-  - 'Home' : 'index.md'
-  - 'Portal' : 
-    - 'Allocation': portal/allocation.md
-    - 'Modification': portal/modification.md
-    - 'Project Overview': portal/project_overview.md
-    - 'Simple VM': 
-      - 'Project': portal/simple_vm_project.md
-      - 'Volumes': portal/volumes.md
-      - 'Snapshots': portal/snapshots.md
-      - 'Customization': portal/customization.md
-    - 'User Information': portal/user_information.md
-    - 'Personal Data': portal/personal_data.md
+  - 'Home' : index.md
   - 'Registration' : registration.md
-  - 'OpenStack Quickstart' : 'quickstart.md'
-  - 'Concept' : 
-    - 'OpenStack Basics' : Concept/basics.md
+  - 'Citation and publication': citation_and_publication.md
+  - 'Portal' :
+    - 'Allocation': portal/allocation.md
+    - 'Resource/Lifetime Modifications': portal/modification.md
+    - 'Project Overview': portal/project_overview.md
+    - 'Profile Page': portal/user_information.md
+    - 'Using Vault': portal/vault_user.md
+    - 'Cloud Credits': portal/credits.md
+    - 'Personal Data': portal/personal_data.md
+  - 'Simple VM':
+      - 'Group Permissions': simple_vm/permissions.md
+      - 'New instance': simple_vm/new_instance.md
+      - 'Instance overview': simple_vm/instance_overview.md
+      - 'Instance details': simple_vm/instance_detail.md
+      - 'Cluster' :
+        - 'Cluster': simple_vm/Cluster/index.md
+        - 'New cluster': simple_vm/Cluster/new_cluster.md
+        - 'Cluster overview': simple_vm/Cluster/cluster_overview.md
+      - 'SSH keys and sharing access': simple_vm/keypairs.md
+      - 'Volumes': simple_vm/volumes.md
+      - 'Images/Snapshots': simple_vm/snapshots.md
+      - 'Backuping data': simple_vm/backup.md
+      - 'Customization': simple_vm/customization.md
+      - 'Concurrent Guacamole sessions': simple_vm/guacamole.md
+      - 'Concurrent RStudio sessions': simple_vm/rstudio.md
+      - 'Workshops': simple_vm/workshop.md
+  - 'OpenStack Quickstart' : quickstart.md
   - 'Security' : security.md
+  - 'Concept' :
+    - 'OpenStack Basics' : Concept/basics.md
+    - 'OpenStack Components' : Concept/openstack.md
+    - 'Flavors' : Concept/flavors.md
+    - 'Images' : Concept/images.md
   - 'Tutorials' :
     - 'Access de.NBI Virtual Machines from Windows 10' : Tutorials/Win10_SSH/index.md
-    - 'Access a Simple VM with Mosh' : Tutorials/Mosh/index.md
-    - 'SimpleVM File Transfer' : Tutorials/File_Transfer_Methods/index.md
+    - 'Access a SimpleVM with Mosh' : Tutorials/Mosh/index.md
+    - 'Ansible Automation' : Tutorials/Ansible/index.md
     - 'Bibigrid' : Tutorials/BiBiGrid/index.md
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
+    - 'Hybridcloud' : Tutorials/Hybridcloud/index.md
+    - 'Install latest CUDA version' : Tutorials/CUDA/index.md
+    - 'Kubermatic' : Tutorials/Kubermatic/index.md
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
-    - 'UserData' : Tutorials/UserData/index.md
+    - 'Reverse Proxy with Elixir AAI': Tutorials/Elixir_AAI/Elixir_AAI.md
     - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
+    - 'Persistent SSH Sessions' : Tutorials/Persistent_SSH_Sessions/index.md
+    - 'SimpleVM File Transfer' : Tutorials/File_Transfer_Methods/index.md
     - 'Theia Web IDE': Tutorials/TheiaIde/index.md
+    - 'UserData' : Tutorials/UserData/index.md
+    - 'Using X2GO': Tutorials/X2GO/x2go.md
   - 'FAQ' : 'FAQ.md'
   - 'Compute Center Specific' :
     - 'Giessen' : Compute_Center/Giessen.md
     - 'Bielefeld' : Compute_Center/Bielefeld.md
-    - 'Heidelberg' : Compute_Center/Heidelberg.md
+    - 'Heidelberg Uni' : Compute_Center/Heidelberg.md
+    - 'Heidelberg DKFZ' : Compute_Center/Heidelberg-DKFZ.md
     - 'Tuebingen' : Compute_Center/Tuebingen.md
     - 'Freiburg' : Compute_Center/Freiburg.md
-    - 'Heidelberg DKFZ' : Compute_Center/Heidelberg-DKFZ.md
     - 'Berlin' : Compute_Center/Berlin.md
-  - 'Cloud Admin': 
+    - 'EMBL' : Compute_Center/EMBL.md
+  - 'Cloud Admin':
     - 'Configure OpenStack to use Elixir AAI via OpenID Connect': cloud_admin/elixir_OIDC.md
     - 'Register your identity provider for ELIXIR': cloud_admin/identity_provider.md
-    - 'News Management': cloud_admin/news_management.md
+    - 'News management': cloud_admin/news_management.md
+    - 'Vault management': cloud_admin/vault_admin.md

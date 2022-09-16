@@ -19,6 +19,13 @@ docker run -it -v "$(pwd)/wiki:/srv_root/docs/wiki" -v "$(pwd)/config.yml:/confi
 Please install the libraries used in the production instance:
 https://github.com/deNBI/mkdocsWebhook/blob/master/Dockerfile#L4
 
+For a quick start you can also use pip to install both mkdocs and mkdocs-material:
+
+~~~BASH
+pip install mkdocs
+pip install mkdocs-material
+~~~
+
 ~~~BASH
 mkdocs serve -f config_local.yml
 ~~~
