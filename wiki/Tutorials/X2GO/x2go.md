@@ -2,7 +2,7 @@
 X2Go allows you to start your own desktop in the de.NBI Cloud which you can access from any operating system (Windows, Linux, MacOS).
 
 !!! Guacamole
-    Please note, that as an alternative we offer [Apache Guacamole](../../simple_vm/customization.md#apache-guacamole), which can easily be started in SimpleVM.
+    Note: Support for X2Go in SimpleVM may be considered obsolete. It is strongly recommended to use Guacamole [Apache Guacamole](../../simple_vm/customization.md#apache-guacamole), which can easily be started in SimpleVM!
 
 ## Installation
 
