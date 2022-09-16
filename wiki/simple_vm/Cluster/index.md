@@ -7,7 +7,7 @@ In addition to single machines, SimpleVM users are also able to start entire clu
 Our cluster feature enables the orchestration of several virtual machines in order to distribute the tasks to individual instances. In our system, we distinguish between the master instance and the worker nodes. The flavour of the individual nodes and the flavour of the master instance can differ, only the image is the same for all instances. 
 The instances are connected to each other and can thus exchange data. 
 
-In SimpleVM, it is possible to expand the clusters with additional machines depending on the resources required, or to remove nodes that are no longer needed from the cluster - we call this up- and down-scaling. The instructions for this procedure can be found on the [wiki page](./cluster_overview.md#3-scale-up) of the instance overview.
+In SimpleVM, it is possible to expand the clusters with additional machines depending on the resources required, or to remove nodes that are no longer needed from the cluster - we call this up- and down-scaling. The instructions for this procedure can be found on the [wiki page](./cluster_overview.md#3-scale-up) of the cluster overview.
 
 
 ## Shared directories
