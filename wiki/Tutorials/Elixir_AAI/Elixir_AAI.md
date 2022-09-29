@@ -14,9 +14,9 @@ In this section you can see an illustration of our finished architecture.
 ## What do we need before we start?
 1. We need a running virtual instance that is accessible from the web. You can find a tutorial on how to create one in the de.NBI wiki: <https://cloud.denbi.de/wiki/simple_vm/new_instance/>. The hardware specs we used for this project are: OS: Ubuntu 18.04 LTS; RAM: 4GB; HDD: 20 GB. 
 2. You need a registered Elixir client. You can register here: <https://elixir-europe.org/register>. After the registration you can access your personal profile via this link: <https://perun.elixir-czech.cz/fed/profile/>. Here you can find e.g . your personal Elixir client ID. 
-3. Create an Elixir service you will use to authenticate at the reverse proxy later on. This service can be registered here: <https://spreg.aai.elixir-czech.cz/spreg/auth/requests/new>. 
+3. Create an Elixir service you will use to authenticate at the reverse proxy later on. This service can be registered here: <https://spreg-legacy.aai.elixir-czech.org/spreg/auth/requests/new>. 
 4. To be able to access the services in the test environment, you need to register to a special "virtual organization" representing this environment. You can register at: <https://perun.elixir-czech.cz/fed/registrar/?vo=elixir_test>. Note: The membership in this VO is valid for one month and has to be extended to be able to use the test environment in the future. 
-5. You can find your Elixir service information here: <https://spreg.aai.elixir-czech.cz/spreg/auth/facilities/myServices>. Later on you will need your `Client ID`, `Client Secret` and `Redirect URIs` which can be found under your generated Service -> SAML/OIDC. 
+5. You can find your Elixir service information here: <https://spreg-legacy.aai.elixir-czech.org/spreg/auth/facilities/myServices>. Later on you will need your `Client ID`, `Client Secret` and `Redirect URIs` which can be found under your generated Service -> SAML/OIDC. 
 
 ## Configure the virtual instance to serve as a reverse proxy
 ​The following section guides you through the process of configuring your virtual instance to serve as a reverse proxy. All steps listed in the following have to be executed on the instance.
