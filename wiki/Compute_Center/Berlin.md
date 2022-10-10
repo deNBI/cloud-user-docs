@@ -18,6 +18,8 @@ dashboard is available [here](https://denbi-cloud.bihealth.org).
 To access your project, use Elixir as authentication provider. After 
 authentication you will be redirected to the OpenStack dashboard.
 
+**Hint:** We block access severall countrys in our firewall. In case you have problems to reach our dashboard or can not access our jumphost from outside of Germany, please get in contact with us!
+
 ### Deploy your VMs
 The networks are already preconfigured, so you can directly start and deploy 
 your VMs. Therefore go to **Project - Compute - Instances** and choose the 
