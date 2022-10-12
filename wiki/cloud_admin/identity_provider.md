@@ -40,4 +40,4 @@ Any conditions that must be met by the provider are listed on the [DFN eduGAIN p
 Elixir unites Europe`s leading life science organisations and offers for services and identity providers an authentication and authorization infrastructure (Elixir-AAI).
 The infrastructure offers participating services and identity providers additional functionality like group management or a dataset authorization system. 
 The de.NBI Cloud is fully integrated with Elixir AAI. A user can use his university account to access the cloud and any other service provided by de.NBI Cloud.
-Elixir lists all idenity providers on a [test page](https://perun.elixir-czech.cz/attribute-check/). If your identity provider is not listed you can contact Elixir AAI support (aai-contact@elixir-europe.org).
+If your identity provider is not listed you can contact Elixir AAI support (support@aai.lifescience-ri.eu).
