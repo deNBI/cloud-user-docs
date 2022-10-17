@@ -1,7 +1,7 @@
 # X2Go 
 
 !!! Deprecated
-    We recommend to use [Apache Guacamole](../../simple_vm/customization.md#apache-guacamole) instead. This applies only for our SimpleVM project type and does not affect OpenStack. We offer to install it on your virtual machines with a single click while starting up. It allows you to use the user interface of your machine at any time without an additional client via your favourite web browser - no further configuration on your part is necessary. Please have in mind, that the usage of Guacamole is only possible, when selected during creation of a virtual machine! Consider our [Backup article](../backup.md) to use your existing data and tools on a new machine. 
+    We recommend to use [Apache Guacamole](../../simple_vm/customization.md#apache-guacamole) instead. This applies only for our SimpleVM project type and does not affect OpenStack. We offer to install it on your virtual machines with a single click while starting up. It allows you to use the user interface of your machine at any time without an additional client via your favourite web browser - no further configuration on your part is necessary. Please have in mind, that the usage of Guacamole is only possible, when selected during creation of a virtual machine! Consider our [Backup article](../../simple_vm/backup.md) to use your existing data and tools on a new machine. 
 
 X2Go allows you to start your own desktop in the de.NBI Cloud which you can access from any operating system (Windows, Linux, MacOS).
 
