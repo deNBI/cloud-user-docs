@@ -22,7 +22,8 @@ As stated on the Shibboleth [website](https://www.shibboleth.net/products/identi
 
 ## Step 1: Registration in the DFN
 
-The [DFN](https://www.dfn.de/) aims to build an authentication federation ([DFN AAI](https://www.aai.dfn.de/en/)) of research institutes and universities and provides a service for aggregating multiple
+The [DFN](https://www.dfn.de/) aims to build an authentication federation ([DFN AAI](https://www.aai.dfn.de/index.en.html)) of research institutes and 
+universities and provides a service for aggregating multiple
 identity providers. This information can later be used by relying services to offer a user to choose his home institutional account.
 The condition for participating with your Shibboleth installation as an identity provider in the DFN AAI is explained on the [DFN registration site](https://wiki.aai.dfn.de/en:registration)
 
