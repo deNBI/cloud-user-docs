@@ -48,6 +48,11 @@ is a good enough first point of contact.
 
 ##Sharing Access
 If you want to share access to one of your virtual machines the person you want to share it to needs to give you their public ssh key.
+
+!!! info
+If set, you can easily find the public key of another project member via the project overview in the members list. 
+![img.png](img/project_overview_pub_key.png)
+
 If they do not have a ssh key pair yet, they need to generate it, e.g., using ssh-keygen. After you have obtained their public key you need to
 add the key to your virtual machine.
 
