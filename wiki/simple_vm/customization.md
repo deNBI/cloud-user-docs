@@ -1,177 +1,223 @@
 # Customization
-Currently we offer the following ways of customizing your virtual machine at startup  
-  - [Conda packages](#conda)  
-  - [Research environments](#research-environments)
-  
+
+You may customize your virtual machine at launch:<br>
+  - [With Conda packages](#conda)
+  - [With a Research environment](#research-environments)
+
 ## Conda
 
-From the project page:
 >[Conda](https://docs.conda.io/projects/conda/en/latest/index.html) is an open-source package management system and 
 >environment management system that runs on Windows, macOS, and Linux. Conda quickly installs, runs, and updates 
 >packages and their dependencies. Conda easily creates, saves, loads, and switches between environments on your local 
->computer. It was created for Python programs but it can package and distribute software for any language.  
+>computer. It was created for Python programs but it can package and distribute software for any language.
 
-!!! Responsibility
-    All Conda tools are created, provided and maintained by third parties. The de.NBI cloud is not responsible for the 
-    functionality of the packages provided. In case of problems during installation or use, please contact the developers 
-    of the respective packages.
+???+ info "Responsibility for conda tools"
+    Third parties create and support all conda tools. The de.NBI cloud isn't responsible for the 
+    capability of the packages provided. 
+    If problems occur during installation or use, please contact the developers of the respective packages.
 
-You may choose from a list of Bioconda, Anaconda and Condaforge tools. You may filter for name, version und build version 
-to find the tools you need.  
-Click on the green plus sign to add the tool or click on the red minus sign to remove the tool from your selection of tools.  
+### Choose tools and packages
+
+Choose from a list of Bioconda, Anaconda, and Condaforge tools to install automatically at vm launch.
+Filter by name to find the tools you need.<br>
+Click on the green plus sign to add the tool or click the red minus sign to remove the tool from your
+selection of tools.<br>
+
 ![conda_table_with_selections](./img/new_instance/new_instance_conda.png)
-When you are happy with your selection, we need your confirmation about the install process which will proceed.  
+
+After choosing your tools and packages, you need to read and confirm the proceeding installation process.
+
 ![conda_confirmation_needed](./img/new_instance/new_instance_okay.png)
 
 ### Installation process
 
-!!! Minoconda3
-    Miniconda3 will be installed, which is a lightweight package manager, not the full (~1500 package) Anaconda set of tools. 
+??? info "Minoconda3"
+    Miniconda3 will install, which is a lightweight package manager.
+    We decided against the full Anaconda set of tools due to its size with over 1500 packages.<br>
     If you wish to install Anaconda, you will have to choose it from the list of packages.
 
-We will create a temporary private and public key pair which will be used to access your virtual machine at startup. 
-Then we will install your selection with [Ansible](https://docs.ansible.com/ansible/latest/index.html). 
-At the end of the installation process we will remove the temporary key from your machine and copy your public key onto it, 
-regardless of whether the installation of your selection will succeed or fail.  
-Also you will be able to download the installation logs (as pdf or txt file) and look into the them if you wish 
-[here](./instance_detail.md#ansible-logs).
+We create a temporary private and public key pair to access your virtual machine at launch, and to
+install your selection with [Ansible](https://docs.ansible.com/ansible/latest/index.html).
+At the end of the installation process we remove the temporary key from your vm and copy your public key onto it,
+regardless of whether the installation of your selection succeeds or fails.<br>
+You may download the installation logs as a PDF or TXT file [here](./instance_detail.md#ansible-logs) 
+to look into them.
 
 ### Environment
 
-A [Conda environment](https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html) named 'denbi' 
-will be created. You may find your selection of tools in this environment. For your convenience, we initialize the .bashrc 
-for conda and create an alias, so that you may load the 'denbi' environment simply by running 
-~~~BASH
-$ denbi
+You get a [Conda environment](https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html) 
+named 'denbi'.
+You may find your selection of tools in this environment.
+For your convenience, the installation process initializes the `.bashrc` for conda and creates an alias, 
+so that you may load the 'denbi' environment by running the command in your vm:
+~~~shell
+denbi
 ~~~
-as a command once you logged into your virtual machine.
 
 ## Research environments
 
-Here you may find a selection of research environments you will be able to use over your web browser, e.g. 
-[JupyterLab](#jupyterlab), [RStudio](#rstudio), [Apache Guacamole](#apache-guacamole) or [Theia IDE](#theia-ide). More research environments might 
-be added in the future.  
-You will need to select a template of the research environment you wish to install and a namespace, which will be part 
-of the URL under which you will have access to your research environment. 
-![resenv_selection_filled](./img/new_instance/new_instance_resenv_name.png)  
+You may find a selection of research environments here you may use over your web browser, e.g., 
+[JupyterLab](#jupyterlab), [RStudio](#rstudio), [Apache Guacamole](#apache-guacamole) or [Theia IDE](#theia-ide). 
+In the future, you may find more research environments added.<br>
 
-You may also choose the `No install` option if you already installed a research environment (e.g. when starting
-a new instance from a previous snapshot). This option will only take the necessary steps for access.
+### Select a research environment
 
-!!! Installation
-    Similiar to the [installation process of Conda](#conda), we will create a temporary rsa-keypair which will be used 
-    to install your research environment via Ansible. Afterwards we remove the temporary key and copy your public key 
-    onto your virtual machine, whether the process succeeds or fails. Afterwards you may download and look into the 
-    installation logs if you wish to.
+![resenv_pre_build_images](./img/customization/resenv_images.png)
+![resenv_selection_filled](./img/new_instance/new_instance_resenv_name.png)
 
-##### Where to find the URL
-To access your research environment, follow the Link you will find on the [instance overview](./instance_overview.md) 
-and/or on the [detail page](./instance_detail.md) of your virtual machine.  
+To start a research environment on your virtual machine, either select a pre-build image provided by de.NBI from the 
+“Research Environment” tab or select a base image and a research environment template. 
+By using a template, the research environment installs at vm launch.<br>
+Either way, name your research environment or click to generate a random name. 
+This name appears in the unique URL used to access your research environment.
+
+???+ tip "Pre-build images versus base image with a template"
+    Virtual machines with pre-build images start faster than base images with a selected template.
+
+
+??? info "Installation process"
+    Like the [installation process of Conda](#conda), we create a temporary rsa-keypair, which we use 
+    to install your research environment via Ansible.
+    Afterward, we remove the temporary key and copy your public key 
+    onto your virtual machine, whether the process succeeds or fails.
+    When the process finishes, you may download and look into the installation logs.
+
+### Find your research environment URL
+
+To access your research environment, follow the Link you find on the [instance overview](./instance_overview.md) 
+or on the [detail page](./instance_detail.md) of your virtual machine.
+
 ![resenv_link](./img/instance_detail/detail_resenv.png)
 
-If you are not already logged in with your LifeScience account, you will be prompted to log in with your LifeScience account, 
-as only the one who started the virtual machine will be allowed to access the research environment.
-
+A LifeScience login prompt appears if you haven't already logged in with your LifeScience account.<br>
+If you don't grant access to other members of your project via the detail page, 
+only the person who started the vm may access the research environment.
 
 ### JupyterLab
-From the project page:
->[JupyterLab](https://jupyter.org/) is the latest web-based interactive development environment for notebooks, code, and data. Its flexible interface allows users to configure and arrange workflows in data science, scientific computing, computational journalism, and machine learning. A modular design invites extensions to expand and enrich functionality.
 
-To access your JupyterLab research environment, please follow the link you may find after starting your virtual machine, 
-in the instance overview and/or on the detail page of your virtual machine. You will be prompted to log in with your 
-LifeScience account if you have not done it already. Afterwards you will be prompted to log in to JupyterLab with a Token.
+>[JupyterLab](https://jupyter.org/) is the latest web-based interactive development environment for notebooks, code, 
+> and data. Its flexible interface allows users to configure and arrange workflows in data science, scientific 
+> computing, computational journalism, and machine learning. A modular design invites extensions to expand and 
+> enrich functionality.
 
-![rstudio_login](./img/customization/jupyterlab_login.png)  
+To access your JupyterLab research environment, follow the link you find, after starting your virtual machine, 
+in the instance overview or on the detail page of your virtual machine.
+A LifeScience login prompt appears if you haven't already logged in with your LifeScience account.<br>
+Afterward a prompt to log in to JupyterLab with a Token shows.
+
+![jupyterlab_login](./img/customization/jupyterlab_login.png)
 
 #### Login Token
 
-Use the following Token:  
+Use the following Token:
 ```
 simplevm
 ```
 
-Now you are able to work with JupyterLab via web browser!  
-![rstudio_resenv](./img/customization/jupyterlab_resenv.png)  
+Now you can work with JupyterLab via web browser.
+
+![rstudio_resenv](./img/customization/jupyterlab_resenv.png)
+
 ### RStudio
-From the project page:
+
 >[RStudio](https://rstudio.com/products/rstudio/) is an integrated development environment (IDE) for R. It includes a 
 >console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, 
->debugging and workspace management.  
+>debugging and workspace management.
 
-To access your RStudio research environment, please follow the link you may find after starting your virtual machine, 
-in the instance overview and/or on the detail page of your virtual machine. You will be prompted to log in with your 
-LifeScience account if you have not done it already. Afterwards you will be prompted to log in to RStudio.  
-![rstudio_login](./img/customization/rstudio_login.png)  
+To access your RStudio research environment, follow the link you find, after starting your virtual machine, 
+in the instance overview or on the detail page of your virtual machine.
+A LifeScience login prompt appears if you haven't already logged in with your LifeScience account.<br>
+Afterward a prompt to log in to RStudio shows.
+
+![rstudio_login](./img/customization/rstudio_login.png)
 
 #### Login credentials
 
-Use the following credentials:  
+Use the following credentials:
 ```
-Username: ubuntu  
+Username: ubuntu
 Password: simplevm
 ```
-If these credentials do not work, please try the deprecated (since 16.03.2020) credentials:
+If these credentials don't work, use the deprecated credentials (since 16.03.2020):
 ```
-Username: ubuntu  
+Username: ubuntu
 Password: ogvkyf
 ```
-Now you are able to work with RStudio via web browser!  
-![rstudio_resenv](./img/customization/rstudio_resenv.png)  
+Now you can work with RStudio via web browser.
+
+![rstudio_resenv](./img/customization/rstudio_resenv.png)
 
 #### Multiple users and concurrent sessions
 
-If you want to allow other users access to your research environment, you need to add them to the allowed list of users
-which you may find at the [detail page](./instance_detail.md#user-management). **Please note that this does not automatically
-allow for concurrent sessions, which means that your session will be terminated once another allowed user logs in with
-the same credentials.** To allow for concurrent sessions, please refer to this [guide](./rstudio.md).  
+To grant other users access to your research environment, add them to the allowed list of users.
+You may find the list on the [detailed page](./instance_detail.md#user-management).
+
+???+ warning "Concurrent sessions"
+    This doesn't automatically allow for concurrent sessions, i.e., your session terminates 
+    once another user logs in with the same credentials.<br>
+    For concurrent sessions, see this [guide](./rstudio.md).
+
+
 
 ### Apache Guacamole
 
-From the project page:
 > [Apache Guacamole](https://guacamole.apache.org/) is a clientless remote desktop gateway. It supports standard 
 >protocols like VNC, RDP, and SSH. We call it clientless because no plugins or client software are required. Thanks to 
->HTML5, once Guacamole is installed on a server, all you need to access your desktops is a web browser.  
+>HTML5, once Guacamole is installed on a server, all you need to access your desktops is a web browser.
 
-!!! Info
-    After rebooting or turning from shutoff to active, it will take about 15 minutes until you are able to access your 
-    Apache Guacamole research environment.
+???+ info "Rebooting a guacamole vm"
+    After rebooting your vm or turning your vm from shutoff to active, 
+    it takes about 15 minutes until you may access your Apache Guacamole research environment.
 
-To access your Apache Guacamole research environment, please follow the link you may find after starting your virtual 
-machine, in the instance overview and/or on the detail page of your virtual machine. You will be prompted to log in 
-with your LifeScience account if you have not done it already. Afterwards you will be prompted to log in to Apache Guacamole.  
-![guacamole_login](./img/customization/guacamole_login.png)  
+To access your Apache Guacamole research environment, follow the link you find, after starting your virtual machine, 
+in the instance overview or on the detail page of your virtual machine.
+A LifeScience login prompt appears if you haven't already logged in with your LifeScience account.<br>
+Afterward a prompt to log in to Apache Guacamole shows.
+
+![guacamole_login](./img/customization/guacamole_login.png)
+
+After logging in, choose a keyboard layout.
+
+![guacamole_keyboard_layout](./img/customization/guacamole_keyboard_layout.png)
 
 #### Login credentials
 
-Use the following credentials:  
+Use the following credentials:
 ```
-Username: denbi  
+Username: denbi
 Password: denbi
 ```
 
-It may happen that in case of inactivity the password for the ubuntu user is requested which is: 
-```
-ogvkyf
-```
-Now you are able to work with Apache Guacamole via web browser!  
-![guacamole_resenv](./img/customization/guacamole_resenv.png)  
+???+ info "Password prompt on inactivity"
+    It may happen that, because of inactivity, a prompt for the password of the ubuntu user shows: 
+    ```
+    ogvkyf
+    ```
+
+Now you can work with Apache Guacamole via web browser.
+
+![guacamole_resenv](./img/customization/guacamole_resenv.png)
 
 #### Multiple users and concurrent sessions
 
-If you want to allow other users access to your research environment, you need to add them to the allowed list of users
-which you may find at the [detail page](./instance_detail.md#user-management). **Please note that this does not automatically
-allow for concurrent sessions, which means that your session will be terminated once another allowed user logs in with
-the same credentials.** To allow for concurrent sessions, please refer to this [guide](./guacamole.md).  
+To grant other users access to your research environment, add them to the allowed list of users.
+You may find the list on the [detailed page](./instance_detail.md#user-management).
 
-### Theia IDE
+???+ warning "Concurrent sessions"
+    This doesn't automatically allow for concurrent sessions, i.e., your session terminates
+    once another user logs in with the same credentials.<br>
+    For concurrent sessions, see this [guide](./guacamole.md).
 
-From the project page:
+### TheiaIDE
+
 > [Eclipse Theia](https://theia-ide.org/) is an extensible platform to develop full-fledged multi-language Cloud & 
->Desktop IDE-like products with state-of-the-art web technologies.  
+>Desktop IDE-like products with state-of-the-art web technologies.
 
-More information regarding Theia IDE can be found on our [tutorial page](../../Tutorials/TheiaIde/#theia-ide).  
+Find more information on TheiaIDE on the [tutorial page](../Tutorials/TheiaIde/index.md).
 
-To access your Apache Guacamole research environment, please follow the link you may find after starting your virtual 
-machine, in the instance overview and/or on the detail page of your virtual machine. You will be prompted to log in with 
-your LifeScience account if you have not done it already. Now you are able to work with Theia IDE via web browser!  
+To access your TheiaIDE research environment, follow the link you may find, after starting your virtual machine, 
+in the instance overview or on the detail page of your virtual machine.
+A LifeScience login prompt appears if you haven't already logged in with your LifeScience account.<br>
+Now you can work with Theia IDE via web browser.
+
 ![theiaide_resenv](./img/customization/theiaide_resenv.png)
