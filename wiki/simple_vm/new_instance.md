@@ -1,90 +1,135 @@
 # Starting a virtual machine
 
-On this page we guide you through the options you have when starting a virtual machine.  
-If you are a member of a simple vm project you can start a virtual machine at the "New Instance" tab.  
-You may need to reload the website if you can not see the tab.
-Please keep in mind that there is a possibility that you will be notified on this page that you are not allowed to start a machine.
-In this case, the administrators of the respective project have restricted the starting of machines for non-administrators.
+To start a virtual machine, you need to belong to a SimpleVM project.
+If you can't see the “New Instance” button in the sidebar on the left, you either need to reload the page,
+or you don't belong to a SimpleVM project.
+
+A message informs you if you can't start a virtual machine. This can happen if:
+
+- You haven't enough resources:
+    - Delete running virtual machines to free resources.
+    - An administrator of your project can [request more resources](../portal/modification.md).
+- Members of your project may not launch virtual machines:
+    - Ask an administrator of your project to start a virtual machine for you.
+    - Ask an administrator of your project to change the appropriate setting.
 
 ## Mandatory configuration
+
 ![overview_one](./img/new_instance/new_instance_overview_one.png)
 
-### 1. Overview
-Here you get an overview of your allocated ressources and how much of it is currently in use. If your allocated 
-ressources do not allow to start a virtual machine, your PI may request more ressources.
+### 1. Selected project
 
-### 2. Name
-Here you may name your virtual machine or use a randomly generated name. An unique id will be appended after starting 
-your virtual machine.
+This select shows the selected project for which you want to start a new virtual machine and only shows when
+you belong to more than one project.
 
-### 3. Flavor
-Here you may choose the flavor for you virtual machine. Flavors dictate the ressources your virtual machine will be 
-started with. For more information about flavors please visit the [flavor wiki page](../Concept/flavors.md).
+### 2. Used and allocated resources
 
-#### Information for ephemeral flavors:
-Ephemeral storage is additional disk space for the operating system and temporary data such as cache, buffers, session 
-data and other. This type of storage is already available as an additional disk when the VM is started.  The data on the 
-ephemeral disk is not lost by restarting a paused machine. However, unlike volumes of the Object Storage type, the data is 
-irretrievably deleted without additional backup on a volume as soon as the instance is deleted/terminated. When creating a 
-snapshot of an instance, the data on the ephemeral disk is not included! 
+This line shows the resources used in your project and the resources available.
 
-Ephemeral storage suits best for temporary data that changes often or is consistently replicated across your environment. 
-It offers faster access and faster loading of data.
-[Object storage volumes](#volumes) are best suited for data that must be persistent.
+### 3. Name of your virtual machine
 
-### 4. Image
-Here you may choose the image your virtual machine will be started with. Images are basically the operating system and 
-tool packages which will be installed on your virtual machine. The images listed here are the ones provided by de.NBI 
-and your created snapshots. For more information about images and snapshots, please visit the [wiki page](./snapshots.md).
+Name your virtual machine here or generate a random name. 
+After starting your virtual machine, a unique ID appends to the name.
 
-### Volumes
-Here you may create, attach and mount a new volume or attach and mount an already existing volume.  
-For more information about volumes, please visit the [volume wiki](./volumes.md) page.
+### 4. Flavor selection
 
-Click on `New Volume` and you will see:
-![vol_new](./img/new_instance/new_instance_vol_new.png)  
-You may name your volume, choose its mountpath, which is the path to the data saved on the volume and choose the amount 
-of storage.  
+Choose the flavor of your virtual machine.
+Click on a tab to switch between flavor types or use the filter to search by name.
+A flavor sets the resources of your virtual machine.<br>
+See [here](../Concept/flavors.md) for more information about flavors.
 
-Click on `Attach existing Volume` and you will see:
-![vol_ex](./img/new_instance/new_instance_vol_ex.png)
-You may choose its mountpath, which is the path to the data saved on the volume.  
+#### About ephemeral flavors
 
-After adding a volume you will see an overview of your chosen volumes:
-![vol_done](./img/new_instance/new_instance_vol_done.png)
+Ephemeral flavors offer extra disk space. 
+That extra disk space mounts to the virtual machine when it starts and offers faster access than a volume.<br>
+Contrary to a volume, data on an ephemeral don't remain when you delete your virtual machine.
+Data on an ephemeral remain when you reboot or pause your vm.
+Further, snapshotting a vm doesn't persist data from an ephemeral.<br>
+Therefore, you should use ephemeral storage for temporary data that often changes
+(e.g. cache, buffers, or session data) or data often replicated across your environment.
+If you need to persist data from an ephemeral, [create a backup on a volume](./backup.md).<br>
+Use [block storage volumes](#volumes) for data that must persist.
+
+???+ danger "Backup important data from an ephemeral"
+    Ephemeral storage is a fleeting storage. 
+    All data will be irretrievably lost when you delete your vm.
+    If you need to persist any data from an ephemeral, [create a backup on a volume](./backup.md).
+
+### 5. Image selection
+
+Choose the image your virtual machine starts with.
+An image includes the operating system and tool packages installed on your vm.<br>
+You may choose between base images provided by de.NBI, pre-build images containing a Research Environment
+provided by de.NBI, or one of your snapshots.
+Click on a tab to switch between them or use the filter to search by name.<br>
+For more information about images and snapshots, see [here](./snapshots.md).
 
 ## Optional configuration
-![overview_two](./img/new_instance/new_instance_overview_two.png)
 
+### Volumes
 
-### 1. Conda tools
+Create, attach, and mount a new volume or attach and mount an already existing volume.<br>
+If you want to know more about volumes, see [here](./volumes.md) page.
+
+#### New volume
+
+![vol_new](./img/new_instance/new_instance_vol_new.png)<br>
+Name your volume.<br>
+Input a mount path.
+This is the absolute path where you may find the volume on your virtual machine.<br>
+Choose the amount of storage.<br>
+Either discard or add the volume to your vm configuration.
+
+#### Attach existing volume
+
+![vol_ex](./img/new_instance/new_instance_vol_ex.png)
+Input a mount path.
+This is the absolute path where you may find the volume on your virtual machine.<br>
+Either discard or add the volume to your vm configuration.
+
+#### Overview of your attached volumes
+
+After adding a volume, you see an overview of the name, the mount path, and the storage in GB of your chosen volumes:
+![vol_done](./img/new_instance/new_instance_vol_done.png)
+
+### Conda tools
+
 ![conda](./img/new_instance/new_instance_conda.png)
-Here you may choose multiple conda, bioconda and anaconda tools which will be installed on your machine at startup. 
-For more information, please visist the [customization wiki page](./customization.md#conda).
+You may choose conda, bioconda, and anaconda tools, which install on your machine at launch.
+To add a tool, you may filter by name, and click the green plus button.<br>
+For more information, see the [customization wiki page](./customization.md#conda).
 
-### 2. Research environments
+### Browser-based Research environments
+
 ![resenv](./img/new_instance/new_instance_resenv_name.png)
-Here you may choose from different browser based research environments respectively web IDEs, which will be installed 
-on your machine at startup. For more information, please visist the [customization wiki page](./customization.md#research-environments).
+Choose from a variety of browser-based research environments, respectively web IDEs, which install 
+on your machine at launch.<br>
+For more information, see the [customization wiki page](./customization.md#research-environments).
 
-### 3. Grant Access for project members
+### Grant access for project members
+
 ![add_users](./img/new_instance/add_users_to_vm.png)
-When you start a virtual machine, you are able to grant access to it for any other member of your project.
-You can grant access only to members of your project who already have an SSH key stored in the portal. 
-This is displayed for members who have not stored a key. You can find out how to set an SSH key 
-[here](../portal/user_information.md#ssh-key).
-After starting the machine, you and all added members can connect to the machine with their respective keys. 
-Note that all users on the machine have the same rights and do not have separate home directories.
-Only the person who initially started the machine can stop, restart or delete it.  
+Grant members of your project SSH access to your virtual machine.<br>
+You can't grant access to members without an SSH key stored in the portal.
+The column “Public Key Set” displays whether they have an SSH key stored.
+Find out how to set an SSH key [here](../portal/user_information.md#ssh-key).<br>
+Each granted member can access your virtual machine with their respective private key.
 
-### 4. Optional parameters
+???+ info "Granted members and permissions"
+    All users connected to your vm have the same permissions and don't have separate home directories.<br>
+    Only the person who initially started the machine can stop, restart, or delete it.
+
+### Optional parameters
+
 ![optionals](./img/new_instance/new_instance_optional.png)
-Here may find some additional options for your virtual machine.
+
 #### MOSH / UDP ports
-Here you are able to open UDP ports and have MOSH installed on your virtual machine. Open UDP ports allow for better 
-mobile usage and MOSH is used/needed to connect to your virtual machine via UDP. For more information on using UDP ports 
-and MOSH, please visist the [respective wiki page](../Tutorials/Mosh/index.md).
+
+You may open UDP ports and have `MOSH` installed on your virtual machine.
+Open UDP ports offer better mobile usage when using `MOSH`.<br>
+For more information on UDP ports and MOSH, see the [MOSH wiki page](../Tutorials/Mosh/index.md).
 
 ## Start VM
-Here you finally may start your virtual machine. After a short time, you will be redirected to the 
-[Instance Overview](./instance_overview.md) page.
+
+Read and confirm some acknowledgments and start your virtual machine.<br>
+After a short time, the page redirects you to the [Instance Overview](./instance_overview.md) page.
