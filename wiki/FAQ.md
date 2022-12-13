@@ -15,7 +15,7 @@ You can find more about SSH keys [here](./simple_vm/keypairs.md#ssh-keys-and-sha
 
 Maintenance may be performed at the site where your machines are running. Occasionally, malfunctions also occur during regular service.
 Check your project site's [Facility News](https://cloud.denbi.de/news/facility-news/) page - downtimes are usually announced on this page.
-In addition, we have a [status page](https://status.cloud.denbi.de/status/) where you can check the respective services.
+In addition, we have a [status page](https://status.cloud.denbi.de/status/default) where you can check the respective services.
 
 ### What are flavors? Which flavor should I choose for my VM?
 Flavor determine the hardware resources available for their virtual machine. During the process of starting the VM, you will see the flavors that are available to you.
@@ -33,7 +33,7 @@ If the information on the Project Type Overview page is not sufficient, more inf
 
 Maintenance may be performed at the site where your machines are running. Occasionally, malfunctions also occur during regular service.
 Check your project site's [Facility News](https://cloud.denbi.de/news/facility-news/) page - downtimes are usually announced on this page.
-In addition, we have a [status page](https://status.cloud.denbi.de/status/) where you can check the respective services.
+In addition, we have a [status page](https://status.cloud.denbi.de/status/default) where you can check the respective services.
 
 ### Where can I find the support contact details?
 Check our [support](https://cloud.denbi.de/support/) page, it lists the email addresses of the facilities.
