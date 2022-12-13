@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run Docker#
-        run: docker run -v "$(pwd):/srv_root/docs"  -p "8000:8000" -e ENABLED_HTMLPROOFER=True -e SITE_URL=https://cloud.denbi.de/wiki/ --entrypoint="mkdocs" denbicloud/mkdocswebhook:2.5.0 serve -f /srv_root/docs/config.yml
+        run: docker run -v "$(pwd):/srv_root/docs"  -p "8000:8000" -e ENABLED_HTMLPROOFER=True -e SITE_URL=https://cloud.denbi.de/wiki/ --entrypoint="mkdocs" denbicloud/mkdocswebhook:2.5.0 build -f /srv_root/docs/config.yml
       - name: Rocket.Chat Notification
         uses: RocketChat/Rocket.Chat.GitHub.Action.Notification@master
         if: ${{ failure() }}
