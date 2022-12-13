@@ -57,7 +57,7 @@ denbi
 ## Research environments
 
 You may find a selection of research environments here you may use over your web browser, e.g., 
-[JupyterLab](#jupyterlab), [RStudio](#rstudio), [Apache Guacamole](#apache-guacamole) or [Theia IDE](#theia-ide). 
+[JupyterLab](#jupyterlab), [RStudio](#rstudio), [Apache Guacamole](#apache-guacamole) or [Theia IDE](#theiaide). 
 In the future, you may find more research environments added.<br>
 
 ### Select a research environment
