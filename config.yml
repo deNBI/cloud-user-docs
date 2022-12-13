@@ -32,12 +32,12 @@ site_url: !ENV [SITE_URL, 'https://cloud.denbi.de/wiki/']
 plugins:
   - search
   - glightbox
-  - git-revision-date
+  - git-revision-date-localized
   - htmlproofer:
       enabled: !ENV [ENABLED_HTMLPROOFER,False]
       raise_error: True
       raise_error_excludes:
-        -1: ["https://login.elixir-czech.org/oidc/","https://spreg-legacy.aai.elixir-czech.org/spreg/auth/requests/new","https://spreg-legacy.aai.elixir-czech.org/spreg/auth/facilities/myServices","http://BIBIGRID_MASTER/ganglia"]
+        -1: ["http://169.254.169.254","https://login.elixir-czech.org/oidc/","https://spreg-legacy.aai.elixir-czech.org/spreg/auth/requests/new","https://spreg-legacy.aai.elixir-czech.org/spreg/auth/facilities/myServices","http://BIBIGRID_MASTER/ganglia"]
 markdown_extensions:
   - abbr
   - attr_list
