@@ -9,12 +9,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Run Docker
-        run: docker run  -e SITE_URL=https://cloud.denbi.de/wiki/ -v $(pwd)/wiki:/srv_root/docs/wiki -v $(pwd)/html:/var/www/html/wiki -v $(pwd)/config.yml:/config.yml -p "8000:8000"  --entrypoint="mkdocs" denbicloud/mkdocswebhook:2.4.0 build --strict --clean -f /config.yml
-      - name: Run Html-proofer
-        run: |
-          docker run --name html-proofer -v $(pwd)/whitelist.txt:/whitelist.txt -v $(pwd)/html:/html klakegg/html-proofer --file-ignore /html/404.html --url-ignore $(cat whitelist.txt | tr '\n' ',') --empty_alt_ignore /html
-          
+      - name: Run Docker#
+        run: docker run -v "$(pwd):/srv_root/docs"  -p "8000:8000" -e ENABLED_HTMLPROOFER=True -e SITE_URL=https://cloud.denbi.de/wiki/ --entrypoint="mkdocs" denbicloud/mkdocswebhook:2.5.0 build -f /srv_root/docs/config.yml
       - name: Rocket.Chat Notification
         uses: RocketChat/Rocket.Chat.GitHub.Action.Notification@master
         if: ${{ failure() }}

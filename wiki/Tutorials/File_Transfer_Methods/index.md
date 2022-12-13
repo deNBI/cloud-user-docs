@@ -4,9 +4,9 @@ At some point you want to use your own data in the de.NBI Cloud or you would lik
 ## Different tools for different use cases
 There are different tools for copying files from/to the de.NBI Cloud each for different use cases. Under Linux you can choose between different comman line tools. Some of them can also be used with a graphical user interface (GUI) by using a file manager. For Windows users it may be best to use a GUI tool like [WinSCP](https://winscp.net/eng/index.php). This tutorial will cover the following Linux tools:
 
-1. [scp](#SCP) -- secure copy (remote file copy program)
-2. [sshfs](#SSHFS) -- filesystem client based on ssh 
-3. [rsync](#Rsync) -- a fast, versatile, remote (and local) file-copying tool 
+1. [scp](#1-scp-secure-copy-remote-file-copy-program) -- secure copy (remote file copy program)
+2. [sshfs](#2-sshfs-filesystem-client-based-on-ssh) -- filesystem client based on ssh 
+3. [rsync](#3-rsync-a-fast-versatile-remote-and-local-file-copying-tool) -- a fast, versatile, remote (and local) file-copying tool 
 
 ## <a name="SCP"></a> 1. SCP -- secure copy (remote file copy program)
 Secure Copy (SCP) is, as you already guessed, a command line tool for copying files from/to remote devices. It is based on the Secure Shell (SSH), which you already used to connect to your virtual machine. SCP will establish a connection to the remote machine, transfer the file(s) and close the connection afterwards. If you want to transfer more files you have to start SCP again.
