@@ -1,52 +1,87 @@
 # Instance detail
-Here we will guide you through the virtual machine detail page.
+
+The detail page offers more information about a virtual machine and extra actions.
 
 ## General information
+
 ![general](./img/instance_detail/detail_general.png)
-Here you will find various information about the virtual machine.  
 
-1. You will find the name, when and by whom it was created, which project it belongs to, the elixir id of the user who 
-started the VM and the unique openstack id of the virtual machine.  
+1. The name, who created it and when, their Elixir ID, what project the vm belongs to, and the unique OpenStack 
+ID of the virtual machine.
+2. How you can access the virtual machine.
+3. Actions you can perform:
+    * Stop VM<br>
+      Shutoff the virtual machine. You may resume it afterward, but you can't access it while in "SHUTOFF" state.
+    * Reboot VM<br>
+      [Soft or hard](https://docs.openstack.org/mitaka/user-guide/cli_reboot_an_instance.html) reboot your virtual 
+      machine.
+    * Create Snapshot<br>
+      Take a snapshot of the virtual machine. 
+      See [here](snapshots.md) for more information.
+    * Delete VM<br> 
+      Delete the virtual machine. Any attached volume gets detached but not deleted.
+    * Resume/Restart VM<br> 
+      Boot up the "SHUTOFF" virtual machine.
 
-2. Further you will find information on how to connect to your virtual machine and  
-
-3. some actions you can execute:  
-    * Stop VM: this will shutoff the virtual machine, also setting the status to 'SHUTOFF'. It will be resumable, 
-    but you will not be able to interact with it in any form while it is shutoff.  
-    * Reboot VM: this will either soft reboot or hard reboot your virtual machine. From 
-    [openstack](https://docs.openstack.org/mitaka/user-guide/cli_reboot_an_instance.html): A soft reboot attempts a 
-    graceful shut down and restart of the instance. A hard reboot power cycles the instance.  
-    * Create Snapshot: this will let you take a snapshot of the virtual machine, allowing to boot a new virtual 
-    machine with it. For more information on snapshots please visist the respective wiki page.  
-    * Delete VM: this will delete the virtual machine and everything on it. If a volume is attached, it will 
-    get detached but not deleted!  
-    * Restart VM: this will boot up your shutoff virtual machine.  
 ## Flavor information
+
 ![flavor](./img/instance_detail/detail_flavor.png)
-Here you will find information about the ressources the virtual machine uses. For more information on flavors, 
-please visist the [flavor wiki page](../Concept/flavors.md).
+
+Get information about the resources the vm uses. For more information on flavors, 
+see the [flavors](../Concept/flavors.md) wiki page.
+
 ## Image information
+
 ![image](./img/instance_detail/detail_image.png)
-Here you will find some information about the image the VM was started with. To find more information about images, 
-please visist the [respective wiki page](./snapshots.md).
-## Installed Conda Packages
+
+Get information about the image the VM runs on. To find more information about images and snapshots, 
+see the [image and snapshots](./snapshots.md) wiki page.
+
+## Conda packages
+
 ![conda](./img/instance_detail/detail_conda.png)
-If conda tools were chosen, you will find an overview of the tools and packages which were installed when starting the 
-machine. For more information, please visist the [customization wiki page](./customization.md#conda).
-## Attached Volumes
+
+Get an overview of the tools and packages installed on the virtual machine at launch.
+For more information, see the [customization](./customization.md#conda) wiki page.
+
+## Attached volumes
+
 ![volumes](./img/instance_detail/detail_volume.png)
-If at least one volume is attached, you will find information about the attached volumes. Here you will find the name, 
-the unique id, the path it was initially mounted to, the device and the storage capacity. For more information on volumes, 
-please visit the [respective wiki page](./volumes.md).
+
+Get information about attached volumes or detach an attached volume.<br>
+Find the name, the unique OpenStack ID, the path initial mount path, the device name, and the storage capacity. 
+For more information on volumes, see the [volume](./volumes.md) wiki page.
+
+## Attachable volumes
+
+![volumes_attachable](./img/instance_detail/attachable_volumes.png)
+
+Get information about attachable volumes and attach them with one click.<br>
+Find the name, the unique OpenStack ID, the status, and the storage capacity.
+For more information on volumes, see the [volume](./volumes.md) wiki page.
+
 ## Research environment
+
 ![resenv](./img/instance_detail/detail_resenv.png)
-If a browser based research environment was installed, you will find the URL and some information about the installed 
-research environment here. For more information, please visist the [customization wiki page](./customization.md#research-environments).
+
+Get information about the installed browser-based research environment. 
+For more information, see the [customization](./customization.md#research-environments) wiki page.
+
 ### User management
+
 ![user_management](./img/instance_detail/user_management.png)
-Here you may configure which users are allowed to connect to your research environment. Please note, that this does not
-automatically allow for concurrent sessions for some research environments. To allow concurrent sessions, please consult
-the specific section of your chosen research environment [concurrent sessions guide](./customization.md#research-environments).
+
+Grant and revoke access to the research environment. 
+To grant access, a user has to be a member of the project.
+
+???+ warning "Concurrent sessions"
+    This doesn't automatically enable concurrent sessions, i.e., your session terminates
+    once another user logs in with the same credentials.
+    For information on concurrent sessions, see the specific 
+    section of the [research environment](customization.md#research-environments).
+
 ## Ansible logs
+
 ![ansible_logs](./img/instance_detail/ansible_logs.png)
-Here you may download the ansible logs of your installation as pdf or txt.
+
+Download the ansible logs of the installation that ran at launch. Download as PDF or txt file.

@@ -1,105 +1,165 @@
 # Cluster overview
 
-On this page we guide you through the cluster overview.
+On the `Cluster Overview` you can list clusters, get more information, and manage them.
 
-## Layout
-![layout](../img/cluster_overview/cluster_overview_general.png)
+## Filter and pagination
 
-### 1. General Cluster information
-In the first row you will find the id of your cluster and its current status (clicking on the name will take you to the detail page of the respective cluster), the project it belongs to (clicking on the project name will take you to the project management page of the respective project), the name of the creator and the date it was created at.
-### 2. How to connect
-Clicking this button will show you commands and information on how to connect to the master instance of your cluster.
-### 3. Scale-Up
-It is possible to expand a cluster and add more workers by clicking on scale-up.
-This will open a modal where you have to specify which batch should be expanded.
+![cluster_filter_and_pagination](../img/cluster_overview/pagination.png)
 
-![scale-up](../img/cluster_overview/scaling_up.png)
+You can filter all clusters:
 
-Therefore it is calculated how many maximum workers are possible in each batch.
+- By checked status
+- By name of the cluster owner
+- By project name
+- By Elixir ID of the cluster owner
+- By cluster name
 
-**This will only initiate the start of the workers.
-The cluster has to be configured correctly, so please wait until all new workers are active in the cluster detail overview until you configure the cluster!**
+Click `Filter`.<br>
+You can set how many clusters you want to see on a page and scroll through the pages.
 
-####  Configuring Master
-For the cluster to use the new workers the master must be reconfigured.
-Therefore  you have to do the following steps:
+## Cluster information card
 
+![cluster_card](../img/cluster_overview/card_overview.png)
 
-##### 1. Download a script:
+See the name, the status, the project, and the creator of the cluster.<br>
+Click on the name to get to the [Detail page](cluster_detail.md). Click on the project name to get
+to the [Project overview](../../portal/project_overview.md).
 
+## How to connect
 
-```BASH
-wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/scaling.py
-```
+![how_to_connect](../img/cluster_overview/how_to_connect.png)
 
-You are able to check the version of the script by entering 
-```BASH
-python3 scaling.py -v
-```
+Click `How to connect`.
+A list with connection information opens depending on your cluster configuration.<br>
 
-##### 2. Now the downloaded script has to be executed:
+???+ info "SSH"
+    The SSH command tells you how to connect to your master node.
 
-```BASH
-python3 scaling.py 
-```
+## Scale-Up your cluster
 
-When the script has run, your cluster is properly configured again and the new workers can be used!
+To expand your cluster and add more workers, click `Scale-up`.
 
-You can check with the command _sinfo_ if the worker has been added correctly!
+![scale-up](../img/cluster_overview/scale_up_modal.png)
 
-**If the new worker is still missing you can try to restart slurm with the following command:**
-```BASH
-sudo /etc/init.d/slurmctld restart
-```
-**If the worker is still missing after the command has been executed something went wrong and you should contact the support.**
+A modal opens where you can specify the batch you want to expand or add a new worker batch.
+Click `Add new Worker Batch` to add a new worker batch where you can specify the flavor, and the worker number.
+<br>
+<br>
+**This process only starts the worker nodes. You have to configure your cluster before your cluster
+can use the new worker nodes.**
 
+???+ fail "Wait until active before configuring"
+    You have to wait until your worker nodes have the active status
+    before you continue to configure your cluster.
 
+###  Configure your cluster
 
+Your have to reconfigure your master node to use the new worker nodes.
+A modal opens after starting your new worker nodes, which shows you the necessary steps.
 
-### 4. Scale-Down
-If you want to use less resources with your cluster you can also scale down your cluster by clicking the scale-down button.
-<br>This will open a modal where you have to specify which workers should be deleted.
+![successful_scaling](../img/cluster_overview/scale_successful.png)
 
-![scale-down](../img/cluster_overview/scaling_down.png)
-
-Once you have selected which batches should be scaled down and confirmed, these machines are deleted.<br>
-**Your cluster must still be configured!**.
-
-Therefore  you have to do the following steps:
-
-##### 1. Download a script:
-
+Connect to your master instance with SSH.<br>
+Download the scaling script:
 
 ```BASH
-wget https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/scaling.py
+wget -O scaling.py https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/scaling.py
 ```
 
-You are able to check the version of the script by entering 
-```BASH
-python3 scaling.py -v
-```
-
-##### 2. Now the downloaded script has to be executed:
+Run the scaling script:
 
 ```BASH
 python3 scaling.py 
 ```
 
-When the script has run, your cluster is properly configured again!
+The scaling script requests a password.
+If you already closed the modal or have no access to the password shown in the modal, 
+you can generate a new password.<br>
+Click `Generate Password` at the bottom of the cluster information card. A modal opens with a
+new generated password.
 
+![generate_password_modal](../img/cluster_overview/password_modal.png)
 
-You can check with the command _sinfo_ if the workers have been removed correctly!
+You can use the new workers after you ran the script.<br>
+You can test with the command `sinfo` if the script added your workers correctly.
 
-**If the  workers are still there you can try to restart slurm with the following command:**
+**If the new worker is still missing, you can try to restart slurm:**
+
 ```BASH
 sudo /etc/init.d/slurmctld restart
 ```
-**If the workers are still there after the command has been executed something went wrong and you should contact the support.**
 
+???+ question "Your worker is still missing"
+    If your worker is still missing after you ran the command, something went wrong.
+    Contact the support at [cloud-helpdesk@denbi.de](mailto:cloud-helpdesk@denbi.de).
 
+## Scale-Down your cluster
 
+To reduce your cluster and remove workers, click `Scale-Down`.
 
-### 5. Delete Cluster
-This will delete the cluster and every vm belonging to it. If a volume is attached to a vm, it will get detached but not deleted!  
+![scale-down](../img/cluster_overview/scale_down_modal.png)
 
+A modal opens where you can select the batches you want to reduce, and the number of workers
+you want to remove.
+<br>
+<br>
+**This process only removes the worker nodes. You have to configure your cluster before your cluster
+recognizes the removed worker nodes.**
 
+???+ fail "Wait until deleted before configuring"
+    You have to wait until your worker nodes have the deleted status
+    before you continue to configure your cluster.
+
+###  Configure your cluster
+
+Your have to reconfigure your master node to recognize the removed worker nodes.
+A modal opens after removing the worker nodes, which shows you the necessary steps.
+
+![successful_down_scaling](../img/cluster_overview/scale_down_successful.png)
+
+Connect to your master instance with SSH.<br>
+Download the scaling script:
+
+```BASH
+wget -O scaling.py https://raw.githubusercontent.com/deNBI/user_scripts/master/bibigrid/scaling.py
+```
+
+Run the scaling script:
+
+```BASH
+python3 scaling.py 
+```
+
+The scaling script requests a password.
+If you already closed the modal or have no access to the password shown in the modal,
+you can generate a new password.<br>
+Click `Generate Password` at the bottom of the cluster information card. A modal opens with a
+new generated password.
+
+![generate_password_modal](../img/cluster_overview/password_modal.png)
+
+You can test with the command `sinfo` if the script removed your workers correctly.
+
+**If your workers aren't removed, you can try to restart slurm:**
+
+```BASH
+sudo /etc/init.d/slurmctld restart
+```
+
+???+ question "Your workers aren't removed"
+    If your workers aren't removed after you ran the command, something went wrong.
+    Contact the support at [cloud-helpdesk@denbi.de](mailto:cloud-helpdesk@denbi.de).
+
+## Stop your cluster
+
+To stop your cluster, click `Stop`. A modal opens, asking you to confirm your action.
+
+![stop_cluster_modal](../img/cluster_overview/stop_modal.png)
+
+## Delete your cluster
+
+To delete your cluster, click `Delete`. A modal opens, asking you to confirm your action.
+
+![delete_cluster_modal](../img/cluster_overview/delete_modal.png)
+
+If you have volumes attached to a node of your cluster, they get detached but not deleted.
