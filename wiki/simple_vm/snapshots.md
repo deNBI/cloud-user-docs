@@ -1,31 +1,59 @@
-# Images and Snapshots
+# Images and snapshots
 
-## Images
-Images are files that contain a bootable operating system, e.g. Linux derivatives. Each of the different compute center provide a selection of Images you may use to boot up a virtual machine. If you want more behind-the-scenes information, please visit the respective wiki page.
+You use an image, or a snapshot, to boot your virtual machine.
 
-## Snapshots
-A snapshot is an exact copy of your virtual machine. A snapshot of an instance can be used as the basis of an instance and booted up at a later time. 
+## Image
 
-!!! Info 
-    A snapshot also preserves the full state of RAM, therefore only snapshots up to a maximum of 256 GB RAM are supported.
+Images contain a bootable operating system, for example, a Linux derivative as Ubuntu or CentOS.
+They can have further collections of tools, packages, and configurations, for example RStudio or Apache Guacamole.<br>
+While each cloud site provides a selection of images you can use to boot up a virtual machine,
+de.NBI provides the same selection of images for every cloud site.
+
+## Snapshot
+
+A snapshot is an exact copy of your virtual machine.
+You use the snapshot of an instance as the basis for another instance.<br>
+A typical workflow can be:
+
+- To create a virtual machine based on a de.NBI provided image, to configure
+  the virtual machine with needed tools and packages, and to create a snapshot from that configuration.
+  Afterward, you launch new virtual machines based on the snapshot, so that you don't need to configure
+  it every time.
+- To configure a virtual machine for a workshop, create a snapshot of that machine, and afterward, launch a virtual 
+  machine for every user based on that snapshot.
+- Save your configuration and data on your root disk to continue your work later.
+
+???+ info "Snapshot limitation"
+    A snapshot preserves the full state of RAM. Therefore, you can only snapshot a virtual machine with up to a 
+    maximum of 256 GB RAM.
 
 
-### Create Snapshot
-After starting a machine you can go to the [instance overview](instance_overview.md#9-actions) tab and create a snapshot.  
-A window opens where you can enter a name for your snapshot and confirm it by pressing Create Snapshot.  
+### Create a snapshot
+
+After starting a machine you can go to the [instance overview](instance_overview.md#9-action-on-one-machine) tab 
+and create a snapshot, or you create one on the [detail page](instance_detail.md#general-information).
+A window opens where you can enter a name for your snapshot. Confirm to create a snapshot.
+
 ![create snapshot](./img/snapshots/create_snapshot.png)
 
-!!! danger "Creating a snapshot of a running instance"
-    Creating a snapshot of a running instance can lead to inconsistencies, lost data and ultimately a non-functioning and
-    unrecoverable snapshot. We recommend to stop your instance before creating a snapshot.
+???+ danger "Don't create a snapshot of a running instance"
+    Creating a snapshot of a running instance can lead to inconsistencies, lost data and a non-functioning and
+    unrecoverable snapshot. 
+    Stop your instance before creating a snapshot.
 
-### View Snapshots
+### View snapshots
+
 ![overview](./img/snapshots/overview.png)  
 
-1. Here you may set how many snapshots you want to see per page and scroll through the pages.
-2. Here you may filter your list of snapshots. In the text field you may filter by name, project name and the snapshot openstackid.
-3. Here you will find some actions which will be run on all snapshots selected by the checkbox you will find at the right of each snapshot. Also you may choose to select all snapshots by clicking 'Select all'.
-4. Here you will find some information about your snapshot: the name of the snapshot, the project name and the status.
-5. Here you may delete the snapshot.
-### Start Snapshot
-After the snapshot is successfully created you can go to the [new instance](./new_instance.md) tab and choose the created snapshot as an image to start a vm. ![startvm](./img/snapshots/startsnap.png)
+1. Set how many snapshots you want to see on a page and scroll through the pages.
+2. Filter your list of snapshots. Filter by name, project name and the OpenStack ID of the snapshot.
+3. Perform an action on all selected snapshots. 'Select all' to select all snapshots or `select` specific snapshots.
+4. Information about your snapshot: the name of the snapshot, the project name, and the status.
+5. Delete the snapshot.
+
+### Boot from a snapshot
+
+After you successfully created the snapshot, you can go to the [new instance](./new_instance.md#5-image-selection) 
+tab and choose your created snapshot as an image to start a vm. 
+
+![start_vm_from_snap](./img/snapshots/startsnap.png)

@@ -24,6 +24,7 @@ theme:
   favicon: 'img/denbi.svg'
   features:
     - navigation.top
+    - navigation.indexes
 repo_name: 'deNBI/cloud-user-docs'
 repo_url: 'https://github.com/deNBI/cloud-user-docs'
 edit_uri: blob/master/wiki/
@@ -39,11 +40,13 @@ plugins:
       raise_error_excludes:
         -1: ["http://169.254.169.254","https://login.elixir-czech.org/oidc/","https://spreg-legacy.aai.elixir-czech.org/spreg/auth/requests/new","https://spreg-legacy.aai.elixir-czech.org/spreg/auth/facilities/myServices","http://BIBIGRID_MASTER/ganglia"]
         400: ["http://169.254.169.254"]
+        500: ["https://cloud.denbi.de/register", "https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=elixir_test"]
 markdown_extensions:
   - abbr
   - attr_list
   - admonition
   - codehilite
+  - def_list
   - footnotes
   - tables
   - toc:
@@ -57,6 +60,7 @@ markdown_extensions:
   - pymdownx.critic
   - pymdownx.details
   - pymdownx.inlinehilite
+  - pymdownx.keys
   - pymdownx.magiclink
   - pymdownx.mark
   - pymdownx.smartsymbols
@@ -77,6 +81,27 @@ extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/denbiOffice
+      name: de.NBI on Twitter
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/denbiCloud
+      name: de.NBI Cloud on Twitter
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/de-nbi/
+      name: de.NBI on LinkedIN
+    - icon: fontawesome/brands/github
+      link: https://github.com/deNBI/
+      name: de.NBI on GitHub
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/channel/UCgZ5PU3CyD4c8yxxzJi130g?view_as=subscriber
+      name: de.NBI on YouTube
+    - icon: fontawesome/brands/wikipedia-w
+      link: https://en.wikipedia.org/wiki/German_Network_for_Bioinformatics_Infrastructure
+      name: de.NBI on Wikipedia
+
 nav:
   - 'Home' : index.md
   - 'Registration' : registration.md
@@ -90,18 +115,20 @@ nav:
     - 'Cloud Credits': portal/credits.md
     - 'Personal Data': portal/personal_data.md
   - 'Simple VM':
+      - simple_vm/index.md
       - 'Group Permissions': simple_vm/permissions.md
       - 'New instance': simple_vm/new_instance.md
       - 'Instance overview': simple_vm/instance_overview.md
       - 'Instance details': simple_vm/instance_detail.md
       - 'Cluster' :
-        - 'Cluster': simple_vm/Cluster/index.md
-        - 'New cluster': simple_vm/Cluster/new_cluster.md
-        - 'Cluster overview': simple_vm/Cluster/cluster_overview.md
+          - simple_vm/Cluster/index.md
+          - 'New cluster': simple_vm/Cluster/new_cluster.md
+          - 'Cluster overview': simple_vm/Cluster/cluster_overview.md
+          - 'Cluster detail': simple_vm/Cluster/cluster_detail.md
       - 'SSH keys and sharing access': simple_vm/keypairs.md
       - 'Volumes': simple_vm/volumes.md
       - 'Images/Snapshots': simple_vm/snapshots.md
-      - 'Backuping data': simple_vm/backup.md
+      - 'Backup data': simple_vm/backup.md
       - 'Customization': simple_vm/customization.md
       - 'Concurrent Guacamole sessions': simple_vm/guacamole.md
       - 'Concurrent RStudio sessions': simple_vm/rstudio.md
