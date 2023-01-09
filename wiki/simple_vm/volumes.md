@@ -1,135 +1,244 @@
 # Volumes
-Volumes are additional disk space you may create, attach and detach to and from virtual machines.
-## Layout
-![general](./img/volumes/general.png)
-### 1. Create and attach a volume
-Here you may create and attach a new volume. For more information, please see [below](#create-a-volume).
-### 2. Pagination
-Here you may set how many volumes you want to see per page and scroll through the pages.
-### 3. Filter
-Here you may filter your list of volumes. In the text field you may filter by volume name, volume openstackid, project name and virtual machine name.
-### 4. Actions
-Here you will find some actions which will be run on all volumes selected by the checkbox you will find at the right of each volume. Also you may choose to select all volumes by clicking 'Select all'.
-### 5. Information
-Here you will find some information regarding the volume: the project it belongs to, the virtual machine it is attached to, the name of the volume, the status of the volume and the storage size.
-### 6. Actions
-![actions](./img/volumes/actions.png)
-Here you will find some actions you can execute:  
 
-* Attach volume: attaches an available volume to an existing virtual machine.
-* Detach volume: detaches an in-use volume from an existing virtual machine.
-* Extend volume: extends the size of the volume if your project has enough ressources left. For more information, please see [below](#extend-a-volume).
+Volumes offer extra disk space for your virtual machine.
+You can create new volumes on the volume overview page or when starting a new virtual machine. 
+You can attach and detach volumes on the volume overview or on the instance overview, or their detail page.
+
+## Layout
+
+![general](./img/volumes/general.png)
+
+### 1. Create and attach a volume
+
+Create and attach a new volume. For more information, see [Create a volume](#create-a-volume).
+
+### 2. Pagination
+
+Set how many volumes you want to see on a page and scroll through the pages.
+
+### 3. Filter volumes
+
+Filter the list of volumes.<br>
+Filter by volume name, OpenStack ID of a volume, project name and virtual machine name.
+
+### 4. Action on multiple volumes
+
+Perform an action on all selected volumes.<br>
+`Select all` for all volumes or `select` specific volumes.
+
+### 5. Volume information
+
+- The project it belongs to.
+- The attached vm. Click to get to the [detail page](instance_detail.md) of the vm.
+- The name of the volume.
+- The status of the volume.
+- The storage size of the volume.
+
+### 6. Action on one volume
+
+![actions](./img/volumes/actions.png)
+
+Perform an action on one volume.
+
+* Attach volume<br>
+  Attach an available volume to an existing virtual machine.
+* Detach volume<br> 
+  Detach an in-use volume from an existing virtual machine.
+* Extend volume<br> 
+  Extend the size of the volume if your project has enough resources left. 
+  You usually have to configure the volume on the virtual machine after extending it.
+  For more information, see [Extend a volume](#extend-a-volume).
 * Delete volume: deletes the volume and all its data.
 
 !!! info "Attaching and detaching"
-    Attaching and detaching volumes is only possible, when the machine the volume is attached or shall be attached to is running.
+    You can attach and detach volumes to and from an active virtual machine.
 
 ## Create a volume
-There are two ways to create a volume:
 
-1. When starting a virtual machine you can choose to start a volume, see the respective wiki page. The volume is automatically mounted this way.
+You have two ways to create a volume:
 
-2. At the Volume tab you can choose to create a volume.
+1. When you crate a vm, you can create a [New volume](new_instance.md#new-volume). 
+   The volume gets automatically mounted this way.
+2. At the Volume tab choose to create a volume.
+
 ![create_volume](./img/volumes/create_and_attach.png)
 
-In order to use the new volume you need to create a filesystem and [mount](#mount-a-volume) it.
+To use the new volume, you need to create a filesystem and mount it. See [mount a volume](#mount-a-volume).
 
-## Create the volume file system (once)
+### Create the volume file system
 
-To be able to place files onto your newly attached volume there needs to be a file system on it. This process of file system generation is also called "formatting the device".
+???+ warning "Do that only once"
+    Read carefully. Do this step only once after you created your volume by using the `Create & Attach volume`
+    dialog. Repeating this step can destroy all the data on your volume.
+
+To place files onto your new volume, there needs to be a file system on it.
+To generate a file system, you need to "format the device".<br>
 First, use this command to list all the block devices connected to your VM:
 
-```BASH
-lsblk
+```shell
+lsblk -o NAME,SIZE,MOUNTPOINT,FSTYPE,TYPE | egrep -v "^loop"
 ```
 
+You get a list like this:
 
-Now find the entry that corresponds to the volume you have attached previously. On most VMs it's the second item in the list, but you absolutely should verify that using its SIZE as well as through the fact that its MOUNTPOINTS should be empty.
+| NAME    |  SIZE | MOUNTPOINT | FSTYPE | TYPE |
+|:--------|------:|:-----------|:-------|:----:|
+| vda     |   50G |            |        | disk |
+| └─vda1  | 49.9G | /          | ext4   | part |
+| └─vda14 |    4M |            |        | part |
+| └─vda15 |  106M | /boot/efi  | vfat   | part |
+| vdb     |   50G | /mnt       | ext4   | disk |
+| vdc     |    1G | [SWAP]     | swap   | disk |
+| vdd     |  300G | /vol/data  | ext4   | disk |
+| vde     |  500G |            |        | disk |
 
-!!! Danger "Formatting any device WILL DESTROY ALL THE DATA already on it!"
-    New data disks (e.g. volumes) need to be formatted EXACTLY ONCE to use them.
-    NEVER apply this command to an ALREADY FORMATTED DISK if you value the data on that disk.
+You get shown the name, the size, the mountpoint, and the file system type from all connected block devices.
 
-Format the volume with a filesystem (e.g. `ext4` or `xfs`):
+???+ tip "What do the columns tell?"
+    The column `NAME` tells you the name of the block device. When you perform an action on it, you typically
+    prepend `/dev`. For example, to unmount the volume vdd, you use `sudo umount /dev/vdd`.
+    Parts of one disk have a number at the end. See the column `TYPE`.<br>
+    The column `SIZE` tells you the size of the block device in human-readable format `M`, `G`, `T`, and so on.<br>
+    The column `MOUNTPOINT` tells you where you find the data from that block device. When empty, you need to
+    mount the device.<br>
+    The column `FSTYPE` tells you the file system type of the block device. Many file system types exist.
+    If you want to use a block device, but the fstype is empty, you need to format it.
 
-```BASH
+???+ info "What devices does the output show?"
+    One block device, usually vda, is your root disk. It has your operating system and all relevant files. 
+    You can identify it by its mountpoint `/`. You must not alter the block device containing your root disk,
+    you may damage your virtual machine irreversibly.
+    Only alter it if you know what you do.<br>
+    One block device, identified by fstype `swap`, is your swap disk or swap file.<br>
+    One block device can show up at the mountpoint `/mnt`. This is typically the ephemeral disk, which shows only
+    when you start a flavor with an ephemeral.<br>
+    You can identify the volumes created, attached, and mounted when creating a vm, by comparing the size
+    and mountpoint of the block device. Further, it shows the fstype `ext4`.
+
+The volume you look for has an empty `FSTYPE`, an empty `MOUNTPOINT` and the `SIZE` should compare to the size of 
+the volume you created and attached. The size can differ a bit because of differences in Bit and Byte.<br>
+In the table from the example output, the device you look for would be vde.
+
+!!! Danger "Formatting a device `DESTROYS ALL DATA` on it!"
+    You must format new data disks, for example volumes, **only once** to use them.<br>
+    **NEVER** apply this command to an **ALREADY FORMATTED DISK** if you value the data on that disk.<br>
+    See if a volume has a file system type by using the `lsblk` command.
+
+Format the volume with a filesystem, e.g. `ext4` or `xfs`:
+
+```shell
 mkfs.ext4 /dev/vdx
 ```
 
 ## Mount a volume
 
-Create a mountpoint using
+When you mount a volume, you make its data available under a path.
+You can call this path a mountpoint or mount path.<br>
+Create a mountpoint with:
 
-```BASH
-mkdir -p /vol/volume
+```shell
+sudo mkdir -p /vol/RENAME_ME
 ```
 
-Check that you have the correct permissions for this directory, otherwise set them with the follwoing command
+Change `RENAME_ME` to a path where you want your volume data accessible, for example to `/vol/data`.
 
-```BASH
-sudo chmod 777 /vol/volume
+To get an overview of all connected devices and get the `device_name`, use:
+
+```shell
+lsblk -o NAME,SIZE,MOUNTPOINT,FSTYPE,TYPE | egrep -v "^loop"
 ```
 
-And mount the Cinder Volume under the created directory
+Mount the volume under the created directory with:
 
-```BASH
-mount /dev/device_name /vol/volume
+```shell
+sudo mount /dev/device_name /vol/RENAME_ME
 ```
 
-Now you should see your device by executing the command
+Change the owner of the volume data with:
 
-```BASH
-df -h
+```shell
+sudo chown -R ubuntu:ubuntu /vol/RENAME_ME
 ```
 
-If you do not need you Cinder Volume you can also unmount it with
+Use again the lsblk command to verify the changed mountpoint.
 
-```BASH
+```shell
+lsblk -o NAME,SIZE,MOUNTPOINT,FSTYPE,TYPE | egrep -v "^loop"
+```
+
+If you don't need the volume you can unmount it with:
+
+```shell
 umount /dev/device_name
 ```
 
+### After a vm restart
+
+When you reboot your vm, or stop and resume it, you might need to mount your volumes again.<br>
+You can change the `/etc/fstab` file to automatically mount volumes at startup.
+Get the devices connected to your vm with:
+
+```shell
+lsblk -o NAME,SIZE,MOUNTPOINT,FSTYPE,TYPE,UUID | egrep -v "^loop"
+```
+
+A device doesn't get attached under the same name every time, therefore, use the UUID of a device.
+Open `fstab` with:
+
+```shell
+sudo nano /etc/fstab
+```
+
+Add a line like:
+
+```shell
+UUID=uuid_of_your_volume	/vol/RENAME_ME	auto	defaults	0	2
+```
+
+Save and exit with ++ctrl+x++ and confirm when asked whether you want to save.
+To mount the volume run:
+
+```shell
+sudo mount -a
+```
+
+That command mounts every volume in the fstab file.
+Your volume gets mounted, every time you restart your vm, under `/vol/RENAME_ME`.
+
 ## Extend a volume
+
 If you have a volume and want to increase the volume size, you can do this at the volume overview.
 
 ![extend_volume](./img/volumes/extend_volume.png)
 
 !!! caution "Volume must be available"
-    The volume must be detached from any virtual machine!
+    The volume has to have the status `available`.
 
-
-After you have extended your volume you need to attach the volume to your vm.
-Depending on which filesystem you use on your volume
-there are different procedures necessary to make the new capacity available.
+After you extended your volume, attach the volume to your vm.
+Depending on the filesystem you use on your volume, you need different procedures to make the new capacity available. 
 
 ###  XFS formatted filesystem
 
-[Mount](#mount-a-volume) the volume as usual and run the following command
-```BASH
+[Mount the volume](#mount-a-volume) and run:
+
+```shell
 sudo xfs_growfs -d <MOUNTPOINT>
 ```
-If you followed the instructions above the <MOUNTPOINT> would be ***/vol/volume***
-After that you can use the extend volume with the new capacity.
+
+Afterward, you can use the extended volume.
 
 ###  Ext4 formatted filesystem
 
-Do not mount the volume. If you can see it with:
+Don't mount the volume. Get the `device_name` of your volume with:
 
-```BASH
-lsblk
+```shell
+lsblk -o NAME,SIZE,MOUNTPOINT,FSTYPE,TYPE | egrep -v "^loop"
 ```
 
-Run the following command to increase the capacity:
+To increase the volume capacity, run:
 
-```BASH
-sudo resize2fs </dev/device_name>
+```shell
+sudo resize2fs /dev/device_name
 ```
-The </dev/device_name\> is the same you have used in the mount command
-above.
-Now you can mount and use the volume as usual and also the extended capacity.
 
-###  Another formatted filesystem
-
-If you use another filesystem than xfs or ext4 please look up if and how an increase
-of the capacity is possible.
-
-
+Now you can mount the volume.

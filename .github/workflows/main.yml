@@ -1,16 +1,36 @@
 name: User Docs test
-on: 
+on:
    workflow_dispatch:
+     inputs:
+       mkdocs_branch:
+         required: true
+         description: "mkdocsWebhook branch to checkout"
+         default: "master"
    pull_request:
 
 jobs:
   runner-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Run Docker#
-        run: docker run -v "$(pwd):/srv_root/docs"  -p "8000:8000" -e ENABLED_HTMLPROOFER=True -e SITE_URL=https://cloud.denbi.de/wiki/ --entrypoint="mkdocs" denbicloud/mkdocswebhook:2.5.0 build -f /srv_root/docs/config.yml
+
+      - name: Checkout cloud-user-docs repository
+        uses: actions/checkout@v3
+        with:
+          path: cloud-user-docs
+
+      - name: Checkout mkdocsWebhook repository
+        uses: actions/checkout@v3
+        with:
+          repository: deNBI/mkdocsWebhook
+          path: mkdocsWebhook
+          ref: ${{ github.event.inputs.mkdocs_branch }}
+
+      - name: Build mkdocsWebhook image
+        run: cd $GITHUB_WORKSPACE/mkdocsWebhook && docker build -t docs .
+
+      - name: Run Docker
+        run: cd $GITHUB_WORKSPACE/cloud-user-docs && docker run -v "$(pwd):/srv_root/docs"  -p "8000:8000" -e ENABLED_HTMLPROOFER=True -e SITE_URL=https://cloud.denbi.de/wiki/ --entrypoint="mkdocs" docs build -f /srv_root/docs/config.yml
+
       - name: Rocket.Chat Notification
         uses: RocketChat/Rocket.Chat.GitHub.Action.Notification@master
         if: ${{ failure() }}
@@ -21,4 +41,4 @@ jobs:
           mention: 'To see the error, click on the workflow link and check in which step the workflow failed!  -  '
           url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
           commit: true
-          token: ${{secrets.CLOUD_USER_DOCS_WIKI_CHECK}}    
+          token: ${{secrets.CLOUD_USER_DOCS_WIKI_CHECK}}

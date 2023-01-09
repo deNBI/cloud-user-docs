@@ -1,137 +1,210 @@
-# Workshops
-We offer you the ability to manage your workshops more conveniently. You may create a workshop and start
-multiple virtual machines for your participants with just a few clicks.  
+# Workshop management
 
-On this page we will show you how to create a workshop, how to start instances for your participants, 
-where to get more information on your workshop and also some good general practices.
+You can manage your workshops conveniently with SimpleVM.
+Create workshops in your SimpleVM project, add users and administrators, and launch virtual machines
+for your users with a few clicks.
+
+On this page, you learn:
+
+- How to create and manage a workshop.
+- How to start instances for your workshop participants.
+- How to inform your participants about their machines.
+- Good general practices and tips for workshop and vm management.
 
 ## Requirements
 
-In order to offer a workshop and receive the necessary resources, you need to be an admin of a SimpleVM project which 
-offers workshops. If you are not already an admin of such a project, you must submit a project application.  
-To do this, select the SimpleVM project type and mark the Workshop item in the corresponding application. 
-Further information about the application process can be found under [Allocation](../portal/allocation.md). 
+Only administrators in a SimpleVM project with workshops activated can use the workshop tools.<br>
+If you have no SimpleVM project, you need to apply for a SimpleVM project with `Workshop` marked,
+see the [Portal](../portal/allocation.md) wiki page for more information about the application process.
+
 ![allocation_workshop](./img/workshop/checkbox.png)
 
-## Managing workshops
+If you have a SimpleVM project without workshop activated, but would like to conduct one in the context of your 
+project, contact the de.NBI helpdesk at [cloud-helpdesk@denbi.de](mailto:cloud-helpdesk@denbi.de).
 
-All project administrators are able to manage workshops within the portal once your SimpleVM project is
-approved.
-To get to the workshop management page, click on `Manage workshops` in the sidebar.  
-![new_workshop_sidebar](./img/workshop/new_workshop_sidebar.png)  
-The workshop section will not be visible if you are not an administrator of a SimpleVM project with workshop 
-functionality activated.  
+## Manage workshops
 
-On this page you can create workshops, cleanup workshops and get information about the participants and their 
-instances.
+![new_workshop_sidebar](./img/workshop/new_workshop_sidebar.png){align=left}
+
+All project administrators can manage workshops within the portal once your SimpleVM project got
+approval.<br>
+To get to the workshop management page, click `Manage workshops` in the sidebar.
+
+???+ question "I can't see the tab in the sidebar"
+    The workshop section is only visible if:
+    
+    - You are an administrator of a SimpleVM project.
+    - The SimpleVM project has workshop capability activated.
+    
+    If you satisfy both conditions and still not see the tab, contact the [cloud-helpdesk@denbi.de](mailto:cloud-helpdesk@denbi.de).
+
+On this page, you can:
+
+- Create workshops
+- Clean up workshops
+- Get information about the participants and their instances
+- Email participants with information about their instances
 
 ### Create a new workshop
 
-Select the corresponding project in which the workshop is to be started. Only projects with workshop functionality 
-activated are displayed in the selection.  
-Click on "New Workshop" and enter the desired name and shortname.  
-You can create as many workshops as you want here, and use them to create different configurations.
-Keep in mind here that the number of machines available is tied to the resources from the project application.  
-![create_or_select_workshop](./img/workshop/workshop_select.png)  
+![create_or_select_workshop](./img/workshop/workshop_select.png)
 
-!!! Note "Shortname"
-    The shortname of your workshop will be used, inter alia, for naming of virtual machines and research
-    environment links.
+Select the project you want to manage a workshop for. The dropdown only displays projects with workshop activated.<br>
+Click `New Workshop`, enter a descriptive name, and a project-intern unique shortname.<br>
+You can create as many workshops as you want and use them to create different configurations.
 
-### Overview a workshop
+???+ question "Why the shortname?"
+    The shortname of your workshop appears in the workshop vm names and research environment URLs to
+    better differentiate between workshops.
 
-Select the corresponding project in which the workshop is to be started. Only projects with workshop functionality
-activated are displayed in the selection.  
-You will get an overview of your running workshops within the select project and an overview of all participants and 
-their corresponding instances, which Research Environments you have started for which participant and whether 
-the machines are currently running (once a workshop is selected).  
-![workshop_overview](./img/workshop/workshop_project_overview.png)  
-Running instances will be loaded and shown once you select a running workshop.  
-To add participants to your project, use the corresponding function in the 
-[project overview](../portal/project_overview.md).  
+???+ info "Workshop resource consumption"
+    Workshops share the available SimpleVM project resources. If you have maximum 10 vms available,
+    you can't start more than 10 vms across all workshops running in that SimpleVM project.
+
+### Selected workshop overview
+
+![workshop_overview](./img/workshop/workshop_project_overview.png)
+
+Select the project you want to manage a workshop for. The dropdown only displays projects with workshop activated.<br>
+A list of all workshops within the selected project appears, and an overview of all participants.
+Select a workshop to load the list of the participants' virtual machines and their details.
+<br>
+<br>
+To add participants and administrators to your project and workshops, 
+you need to add them in the [project overview](../portal/project_overview.md).  
+
 ![add_members_ws](./img/workshop/workshop_add_members.png)
 
 #### Inform participants about their instances
 
-Once a running workshop is selected, you have the possibility to inform specific or all participants about their 
-running instance and how to access it. An E-Mail will be send to the preferred E-Mail of the participant.  
-To do this, click on `Send Mail` or `Send VM Info Mails`.
+Click `Send VM info Mails` to inform every participant with a virtual machine about their virtual machines details and 
+how to access it.<br>
+Click `Send Mail` or `(Re)Send Mail` to inform selected participants about their virtual machines details and
+how to access it.<br>
 
-### Cleanup a workshop
+???+ question "Who sends the E-Mail and who gets it?"
+    The [cloud@denbi.de](mailto:cloud@denbi.de) address sends an E-Mail to the preferred E-Mail address of each
+    participant. Each user can change their preferred E-Mail address on their [profile page](../portal/user_information.md).
 
-Select the corresponding project in which the workshop is to be started. Only projects with workshop functionality
-activated are displayed in the selection.  
-Select the workshop you want to terminate and click on `Cleanup workshop`. The workshop will be deleted and all 
-instances started for this workshop will be deleted. Created volumes and snapshots will remain.
+### Clean up a workshop
 
-## Managing instances
+Select the project you want to manage a workshop for. The dropdown only displays projects with workshop activated.<br>
+Select the workshop you want to end and click `Cleanup workshop`.
+This deletes the workshop and all instances started for this workshop. Created volumes and snapshots remain.
 
-In the sidebar you can find the menu item "Add workshop VMs". Go there and once again select the corresponding
-project and the desired workshop you have created in the
+???+ info "Volume resources"
+    Keep in mind that volumes, that remain after cleaning up a workshop, occupy your allocated volume resources.
+    If you want to free the resources, you need to 
+    [apply for more resources](../portal/modification.md#resource-modifications) or 
+    delete the remaining [volumes](volumes.md) manually.
+
+## Manage workshop vms
+
+![new_workshop_sidebar](./img/workshop/new_workshop_sidebar.png){align=left}
+
+All project administrators can manage workshop vms within the portal once your SimpleVM project got
+approval, and at least one workshop got created.<br>
+To get to the workshop vm page, click `Add workshop VM` in the sidebar.
+
+???+ question "I can't see the tab in the sidebar"
+    The workshop section is only visible if:
+
+    - You are an administrator of a SimpleVM project.
+    - The SimpleVM project has workshop capability activated.
+    
+    If you satisfy both conditions and still not see the tab, 
+    contact [cloud-helpdesk@denbi.de](mailto:cloud-helpdesk@denbi.de).
+
+On this page, you can:
+
+- Start virtual machines for your participants
+
+!!! info "Starting vms prohibited for participants by default"
+    By default, workshop participants can't start machines on their own. 
+    An administrator can waive this restriction on the project overview.
 
 ### Start virtual machines for your participants
 
-Once you select a workshop, you will see a form similiar to the [New Instance](./new_instance.md) form.  
+Select a workshop.
+
 ![new_instance_workshop](./img/workshop/workshop_new_vms.png)  
-You will need to select a flavor, an image  and the participants you want to start a virtual machine for. 
-!!! Note "Base images with research environments"
-    Note that there are also images available that already contain a running Research Environment.
 
-You may also start virtual machines for your admins and at participant selection you will see an icon if a virtual 
-machine is already started for the participant. You may start as many virtual machines for a participant as you have 
-resources.  
+Select a flavor.
+See [Flavors](../Concept/flavors.md) for more information about flavors.<br>
+Select an image.
+See [Images and Snapshots](snapshots.md) for more information about images and snapshots.<br>
+Optionally, select a research environment template.
+See [Research environments](customization.md#research-environments) for more information about browser-based
+research environments.
+
+??? tip "Base image with template versus research environment image"
+    de.NBI Cloud provides images with a research environment installed.
+    Virtual machines with pre-build images start faster than base images with a selected template.
+
+Select the participants and administrators you want to start vms for.
+You may start as many virtual machines for a participant as you have resources.
+
 ![select_users](./img/workshop/workshop_select_user.png)  
-The machines and the research-environment links will be named automatically and will have the form 
-`<WORKSHOP-SHORTNAME><PARTICIPANT-LASTNAME><PARTICIPANT-FIRSTNAME>` and will be truncated to a maximum of 25 
-characters.  
-We will place the public SSH key of every admin of your project on every started machine, so that every admin 
-of your project has SSH access to every started machine.  
-The research-environment will be accessable by the participant and the admin who started the virtual machine.  
 
-Once you selected everything you need and confirmed the checkboxes at the bottom of the for, you may start the 
-virtual machines and you will get taken to the instance overview, where you will find more information about the 
-status of the virtual machines.
+The machine name, and the research environment URL, have the form 
+`<WORKSHOP-SHORTNAME><PARTICIPANT-LASTNAME><PARTICIPANT-FIRSTNAME>`, and have a maximum of 25 characters.<br>
+The startup process puts the public SSH key of your project administrators on every workshop vm.
+This enables your project administrators to connect to a workshop vm if required.<br>
+The research-environment is accessible by the participant, and the administrator who started the virtual machine.
+<br>
+Before starting the workshop vms, you need to confirm your responsibility for the machines.
+After starting, a redirect takes you to the instance overview where you find more information about the status
+of your machines.
 
 ![vm_overview](./img/workshop/workshop_vm_ready.png)
 
 ## Prepare data for your participants
-Often Workshop participants need access to the same data. Unfortunately, it is not yet possible to create volume 
-snapshots for SimpleVM projects. However, since this is an important feature for the workshops to provide the same 
-data to the participants and a manual creation of the individual volumes would be very time-consuming for the 
-workshop organizer, we offer as long as the volume snapshot feature is not yet available, that we create multiple 
-copies of a volume prepared by you and assign them to your project.
-Please contact us by mail at cloud-helpdesk@denbi.de.
 
+Often, workshop participants need access to the same data.
+SimpleVM projects can't duplicate or snapshot volumes yet.<br>
+Because it's important that your participants can access the same data, and creating each volume
+is time-consuming, you can contact us at [cloud-helpdesk@denbi.de](mailto:cloud-helpdesk@denbi.de).
+We create copies of your prepared volume for you and assign them to your project.
 
 ## Best Practices
 
-### Preparation
-It is advised to add your participants to your project a couple of days beforehand. This will help with a smoother 
-start of your workshop. They will need to have or make an account for the de.NBI portal in order for you to add them. 
-If you are not sure if they have an account you can send your participants the [wiki site](../registration.md) where 
-the registration process is explained. 
+### Add participants beforehand
 
-### SSH keys
-!!! Info
-    If your participants do not need to login to their machines with SSH, please ignore this paragraph.
+You should add participants to your project a couple of days before your workshop starts.
+They need an account for the de.NBI Cloud Portal, otherwise you can't add them.
+You can send them a link to the [registration wiki](../registration.md) where they can read about the
+registration process.<br>
+Sometimes, participants can have trouble registering.
+Having them register beforehand, so you can add them, helps for a smoother workshop start.
 
-There are many users to whom the concept of SSH keys is foreign and therefore it is important to explain 
-the users the basic concept of SSH keys, in case that they have no prior knowledge about them.
-Furthermore, it is important to tell users to pay attention if they create a key pair using the de.NBI portal. 
-While the public key is stored on the portal, they need to save the private key on their computer themselves.  
-As workshops tend to have a lot of new content and participants may be overwhelmed, it is important to 
-explain them these steps patiently and make sure everyone follows through, as they will not be able to access their 
-machines later on, if they lose their private key.
-!!! Tip
-    Make sure the admins of your project also have their SSH key set.
+### Start machines before the workshop starts
 
-### Access to machines
+You should start machines for your participants before your workshop begins.
+Depending on your vm configuration, starting many vms can take a couple of minutes.
+In rare cases, starting a vm can fail, or a snapshot can be faulty.
+Starting them beforehand, and making sure they run correctly, helps for a smoother workshop start 
+and prevents troubleshooting when you actually want to conduct your workshop.
 
-!!! Info
-    By default, workshop participants are not allowed to start machines on their own. This restriction can be 
-    waived in the project overview.
-    
+### Explain SSH keys
 
-## Trouble Shooting
-If you experience troubles, have feedback on our services or have a special request please do not hesitate to 
-contact us under cloud-helpdesk@denbi.de.
+???+ info
+    Please ignore this paragraph if your participants don't need to connect to their machines with SSH.
+
+You should explain to your participants the basics of an SSH keypair.
+Many participants don't know what an SSH keypair is.
+It may happen that participants lose their private key, mix up public and private keys, or
+try to use unrelated private and public keys.
+This can lead to your participants losing access to their vm.<br>
+Your participants can set their public key or create a keypair on their 
+[profile page](../portal/user_information.md#ssh-key).
+Make sure they download the private key when they create an SSH keypair and save it on their computers,
+the de.NBI Cloud Portal only stores the public key.
+
+???+ tip "Have your administrators set their public key"
+    Make sure the administrators of your project have their SSH key set.
+    Starting virtual machines for your participants requires a public key from every administrator.
+
+## Troubleshooting problems
+
+If you experience troubles, have feedback, or have a special request, 
+contact us at [cloud-helpdesk@denbi.de](mailto:cloud-helpdesk@denbi.de).
