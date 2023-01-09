@@ -6,6 +6,17 @@ give you a basic introduction how to use our cloud site.
 In case you have questions or want to give us any kind of feedback, please
 contact us via <denbi@zdv.uni-tuebingen.de>.
 
+If you need help please add the **ID** of your instance/volume, your operating system and in which region it is located.
+
+## Giving access to de.NBI admins
+If like to give us access to your VM that we can help you "hands on", add our keys by adding the following lines to the file ~/.ssh/authorized_keys
+
+```
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAzQ86aCv9uzRcm9LTt4lP7sLgNAucZoZuqCtWGvF4sy FabianPaz@denbiadmin
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCfgmdfTN99ARbIsk4IuadXC1mQrSRwZHkrjx6VPRvFS3Keq0Z77qOIawn/Umyf4GiqJHzm2hcwGsUHcCpIbLfZylY0qAmW+rNvCvescU36CKJhI4d4Rax1NGy7As+hiSXbFollr64kwhSIguT4r/khWMzCLWGQIHH+UlKOirk+snYJ5skFtrT9NlBNme7juj2PatiIH58gthlkexoxfnH/mhk5DDIqNcBHbQwS5Rw9CUnlWSNJSV1DvSXUcp7ncIWJgHVSh4yUxDn/LcH/fp0yhdB5dXAJtetNYnnXacXPA4k/dneCJm4lUtmyv8nsSDQ2Dzqv9dlAsPssNp6l1qV8LqvBrwqPneuyzgZhz1s3URoaDzZ2EVvg7aH/DMtRZq7RJKnzCSqGAeZFWMd574VEv5Ghmc1Hw93AZcmD7DZERp0NmF/kSKIJcaslcblkSkDHUlVFiudNaXBVafV2aR/EuA86+zO5n5s3vCKRw4LKc50i6DReUwHgXvjbHcy5R8s= AmirBaleghi@denbiadmin
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBleXwIHspNjqk1KPO2FB8D7uegtJkOvGiQ4aTQGaf8i FabinWannenmacher@fwdebian
+```
+
 ## General concept of the de.NBI Cloud Tübingen
 A cloud like the one you will use here can be seen as computing resources which are available on demand.
 You can get much more compute cores (CPU), main memory (RAM) and also storage capacity than you have
@@ -23,22 +34,15 @@ The cloud site in Tübingen consists of two sites that are called RegionOne and 
 
 Please note, you are responsible for everything that happens with the virtual machines (VMs) you deploy! We as resource provider are not liable for anything and do not give any guarantees.
 
-## Operating Systems
-Here, we are talking about the operating system of your notebook or workstation, not the one of the VM. If you are a Linux User, we assume that you know what you are doing. If you are using MacOS you are hopefully aware that it is based on BSD and therefore very similar to other Linux distributions.
-
-For a normal Windows user, we suggest using Putty (http://www.putty.org/) to access the deployed VMs. It comes with `puttygen` which should be used to generate your SSH Keys.
 
 ## SSH-Keys
-To access your VMs, a valid SSH key pair is required. On all UNIX based operating systems ‘keygen’ may be used to create a key pair. A Linux command example is given below:
+To access your VMs, a valid SSH key pair is required. On all POSIX operating systems (including Windows 10 and 11) ‘keygen’ may be used to create a key pair. A command example is given below:
 
 ```
-ssh-keygen –t rsa
+ssh-keygen –t ed25519
 ```
 
 Please note, keep your private key as private as you would do it with your credit card PIN number. We will never ask you to share your private key.
-
-### Generating SSH Key Pair (Windows)
-Start ‘puttygen’ and click on generate. You need to move your mouse cursor above the grey field to create enough entropy. Enter a passphrase, twice. Save your private and public key into separate files e.g, bla.ppk and bla.key.
 
 ### Deploying a Key Pair
 Login to the Horizon dashboard https://denbi.uni-tuebingen.de and navigate to Key Pairs via Project / Compute. Click on `Import Key Pair` and insert your public key after giving it a name.
@@ -108,7 +112,7 @@ Leave it unchanged
 Finally launch the instance. You should see a fresh instance entry. It may take a couple of minutes to spawn the instance depending on the requested resources. 
 
 ## Accessing a VM
-For Linux and MacOS just use ssh, specifying the correct IP, the right key and the username of the OS (centos, ubuntu, debian, ...), you have chosen for example ‘centos’. For Windows, start ‘Putty’ and enter the IP address of your VM under Hostname (or IP address). It can be found within the Horizon dashboard under Instances. An example of a Linux command is given below:
+Just use ssh, specifying the correct IP, the right key and the username of the OS (centos, ubuntu, debian, ...), you have chosen for example ‘centos’. An example of a Linux command is given below:
 ```
 ssh –i /path/to/private/key <osname>@<IP-Address>
 ```
@@ -121,17 +125,20 @@ ssh –i /path/to/private/key centos@1.2.3.4
 
 If you need x-forwarding for graphical user interfaces don’t forget to set the –X flag and check if the xauth package is installed on the host and the server and the x-forwarding settings are correct. For Windows user we suggest to use xming (https://sourceforge.net/projects/xming/). 
 
-For Windows using Putty you have to navigate in Putty to Connection / Data and enter ‘centos’ as Auto-login username. The user name may be different for different Boot Sources, but here we have a CentOS based image. Under Connection / SSH / Auth select the file containing your private key matching the public one you have used during the creation of your VM. Enable X11 forwarding under Connection / SSH / X11. Go back to Session and save the settings for later reuse.
+If you are using Putty you have to navigate in Putty to Connection / Data and enter ‘centos’ as Auto-login username. The user name may be different for different Boot Sources, but here we have a CentOS based image. Under Connection / SSH / Auth select the file containing your private key matching the public one you have used during the creation of your VM. Enable X11 forwarding under Connection / SSH / X11. Go back to Session and save the settings for later reuse.
 Click on Open to connect to your VM via SSH. When connecting for the first time a warning related to server host keys may appear. Confirm with yes. Enter the passphrase you have set during the creation of your key pair.
 You now should have a prompt on your VM.
-Please note, each time you are shutting down and deleting the VM or redeploy the VM the IP address will change. So first check if you have the correct IP address if problems occur. If are just logging out of the VM via the exit command, the IP address will not change.
+Please note, each time you redeploy the VM the IP address will change. So first check if you have the correct IP address if problems occur. If are just logging out of the VM via the exit command, the IP address will not change.
+
+
+
 
 ## Transferring data
 Per default you will have a varying amount of space available (root disc) within your VM depending on the chosen operating system. More is easily available through Swift or Cinder volumes. How to use Cinder Volumes is explained below. Further you can use a flavor with 20GB of root disc space to enlarge the available default space.
-You may copy data from and to your VM using simply the Linux  `scp`  command with the `–i` flag to use your SSH key. For Windows users, the usage of WinSCP (https://sourceforge.net/projects/winscp/) is suggested. Of course, the correct IP, the right key and the username ‘centos’ for example has to be specified.
+You may copy data from and to your VM using simply the  `scp`  command with the `–i` flag to use your SSH key.
 
 ## Using Cinder Volumes
-Cinder Volumes are nothing else than block devices like a hard drive connected to your computer but in this case virtual. You can mount format and unmount it like a normal block device. In the following it is explained how to create a Cinder Volume and how to use it in your VM. But before some remaks. It is only possible to attach a Cinder Volume to exactly one VM. So you can not share one Volume with other VMs. A more cheerful remark is that the data saved on a Cinder Volume is persistent. As long you do not delete the Volume in the Dashboard (Horizon) your data will not get lost by deleting the VM or anything else happening with the VM.  
+Cinder Volumes are nothing else than block devices like a hard drive connected to your computer but in this case virtual. You can mount format and unmount it like a normal block device. In the following it is explained how to create a Cinder Volume and how to use it in your VM. But before some remarks. It is only possible to attach a Cinder Volume to exactly one VM. So you can not share one Volume with other VMs. A more cheerful remark is that the data saved on a Cinder Volume is persistent. As long you do not delete the Volume in the Dashboard (Horizon) your data will not get lost by deleting the VM or anything else happening with the VM. They are also stored three times redundant. But be aware that this comes to a price: While the throughput of cinder volumes can be even faster then local discs, latencies are a few magnitudes higher. So running databases or lots of small file operations on it can be extremely slow.
 
 In the Dashboard (Horizon) you will navigate to the `Compute` section and then to the `Volume` section.
 Here you can create a new volume entering the following parameters
@@ -162,11 +169,6 @@ After the formating you have to create a mountpoint
 mkdir -p /mnt/volume
 ```
 
-Check that you have the correct permissions for this directory, otherwise set them with the follwoing command
-```
-chmod 777 /mnt/volume/
-```
-
 And mount the Cinder Volume under the created directory
 ```
 mount /dev/device_name /mnt/volume/
@@ -186,12 +188,6 @@ umount /dev/device_name
 ## Resize a Cinder Volume
 If you find out that you need more space for your Cinder volume and want to increase the volume size, you can do this over the dashboard. Go to the Volumes section on the left side. If the Cinder volume is already attached to a VM please unmount the Cinder volume in the VM and detach it over the dashboard. Only if the Cinder volume is detached you can increase the size. Now choose the “Extend Volume” button after you have clicked on the down showing arrow on the right of the Cinder volume you want to extend. Enter the new size (in Gigabytes) and click on the button “Extend Volume”.
 After this procedure has finished successfully you can attach the extended Cinder volume to your VM. Depending on which filesystem you use on your Cinder volume there are different procedures necessary to make the new capacity available.
-For an xfs formatted filesystem:
-Mount the volume as usual and run the following command
-```
-sudo xfs_grow -d MOUNTPOINT
-```
-If you followed the instructions above the `MOUNTPOINT` would be `/mnt/volume` After that you can use the extend volume with the new capacity.
 
 For an ext4 formatted filesystem:
 Do not mount the volume. If you can see it with the lsblk command that is enough. Run the following command to get increase the capacity
@@ -201,18 +197,27 @@ sudo resize2fs /dev/device_name
 The `/dev/device_name` is the same you have used in the mount command above.
 Now you can mount and use it as usual and also use the extended capacity.
 
+For an xfs formatted filesystem:
+Mount the volume as usual and run the following command
+```
+sudo xfs_grow -d MOUNTPOINT
+```
+If you followed the instructions above the `MOUNTPOINT` would be `/mnt/volume` After that you can use the extend volume with the new capacity.
+
 If you use another filesystem than xfs or ext4 please look up if and how an increase of the capacity is possible.
 
 ## Different volume types on the de.NBI Cloud site Tübingen 
-We will differentiate in the following between two different kind of volumes. Both volume types are handled on the same storage system solution running Quobyte, but are different in their handling and functionalities.  
+We will differentiate in the following between two different kind of volumes. Both volume types are handled on the same storage system solution running Quobyte, but are different in their handling and functionalities.
 
 **Cinder volumes:** Cinder is the OpenStack volume service. As a user you are able to create new volumes, according to the granted project quotas, on your own via the web interface (Dashboard). These volumes are good for storing general data and are a good start. A drawback of this simple solution is, that Cinder volumes can only be attached to one VM at a time. In general, a Cinder volume can be seen as a slice of a larger Quobyte Volume which is s holding the data in the background. 
 
 **Quobyte volumes:** Further, it is possible to use a Quobyte volume directly, which is mounted via an additional network interface in the VM using the quobyte-client tool. These kind of volumes offer the possibility to mount them on multiple VMs at the same time, use different kinds of hardware (SSDs, HDDs), replication methods and also make them available via the S3 protocol. If such a Quobyte volume is required, please contact us. They cannot be created by users themselves, they have to be provided from our side. 
 
+### Handling Cinder Volumes 
+If you do any actions like snapshoting, shelving, pausing, suspending on your VM make sure that you unmount the volume first.
+
 ### Handling Quobyte Volumes 
 The general process of installing and mounting a Quobyte volume is explained in a separate document that will be send to you on request. 
-
 
 ## S3
 The required S3 credentials (EC2 Access Key and Secret) are provided over the Dashboard. Login to the Dashboard and on the left side go to `Project -> API Access -> View Credentials`. Please make sure you are logged in to **RegionOne** as the credentials are not displayed on **RegionTwo**. Please be aware that these credentials are project specific **not** user specific.
@@ -332,7 +337,7 @@ aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 cp s3
 
 ## Attach a second interface
 If you need a second interface for example to use direct volume mounts of our Quobyte storage for handling sensitive data or you need an internal network to build a virtual cluster where the compute nodes usually do not need to be accessed by the outside network this guide will help you to get them configured.
-In the following we will differentiate between VM images based on CentOS7 and Ubuntu 18.04. (Bionic).
+In the following we will give examples for CentOS and Ubuntu.
 
 ### CentOS7
 1. First launch a VM with a publicly acessible IP address, as usual
@@ -760,7 +765,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 ```
 
 
-## Upgrade from Ubuntu 16.04 (Xenial) to 18.04 (Bionic)
+## Upgrade Ubuntu
 The following steps will help you to upgrade your system from Ubuntu 16.04 codename: Xenial to the next LTS (Long Term Support) Version, that is 18.04 codename Bionic. This is necessary as the support with updates (e.g Security updates) ends with the 31.03.21. If you run any instances of Ubuntu 16.04 it is a potential security risk. Therefore it is necessary to update your instances. The following instructions explain how to upgrade an Ubuntu System from Version Xenial to Bionic. The following instruction is tested with a plain Ubuntu 16.04 without any installations or configurations. We can not make sure that the steps are 
 
 
@@ -778,10 +783,10 @@ Description:	Ubuntu 16.04.X LTS
 Release:	    16.04
 Codename:	    xenial
 ```
-Please upgrade to next LTS release with the following instructions. If a version of 18.04 or higher is shown you are fine.
+Please upgrade to next LTS release with the following instructions. If a version of 20.04 or higher is shown you are fine.
 
 ### Prior steps
-In order make the upgrade as simple as possible, please unmount any mounted volumes to the VM and also detach any attached Cinder volumes. If your operating system runs on a cinder volume, usually attached to `/dev/vda` please let it there and do not try to unmount it, as this is not possible and would break your VM. Further, make sure to make a snapshot of the VM to have a backup, if somehting fails during the upgrade process.  
+In order make the upgrade as simple as possible, please unmount any mounted volumes to the VM and also detach any attached Cinder volumes. If your operating system runs on a cinder volume, usually attached to `/dev/vda` please let it there and do not try to unmount it, as this is not possible and would break your VM. Further, make sure to make a snapshot of the VM to have a backup, if somehting fails during the upgrade process.
 
 ### Upgrade to next LTS release
 You should now be logged in to the VM you want to upgrade.
@@ -818,25 +823,8 @@ Now you should get something similar to the following output:
 ```
 No LSB modules are available.
 Distributor ID:	Ubuntu
-Description:	Ubuntu 18.04.5 LTS
-Release:	18.04
-Codename:	bionic
+Description:	Ubuntu 22.04.X LTS
+Release:	22.04
+Codename:	jammy
 ```
 The upgrade has succeeded and is finished. You can now attach and remount your volumes if necessary. Further please check if the system is working like expected or the upgrade process broke anything.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
