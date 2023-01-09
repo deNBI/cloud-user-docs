@@ -1,8 +1,9 @@
 # Customization
 
-You may customize your virtual machine at launch:<br>
-  - [With Conda packages](#conda)
-  - [With a Research environment](#research-environments)
+You may customize your virtual machine at launch:
+
+- [With Conda packages](#conda)
+- [With a Research environment](#research-environments)
 
 ## Conda
 
@@ -40,8 +41,8 @@ We create a temporary private and public key pair to access your virtual machine
 install your selection with [Ansible](https://docs.ansible.com/ansible/latest/index.html).
 At the end of the installation process we remove the temporary key from your vm and copy your public key onto it,
 regardless of whether the installation of your selection succeeds or fails.<br>
-You may download the installation logs as a PDF or TXT file [here](./instance_detail.md#ansible-logs) 
-to look into them.
+You may download the installation logs as a PDF or TXT file. See [Instance Detail](./instance_detail.md#ansible-logs) 
+for more information.
 
 ### Environment
 
@@ -50,6 +51,7 @@ named 'denbi'.
 You may find your selection of tools in this environment.
 For your convenience, the installation process initializes the `.bashrc` for conda and creates an alias, 
 so that you may load the 'denbi' environment by running the command in your vm:
+
 ~~~shell
 denbi
 ~~~
@@ -63,6 +65,7 @@ In the future, you may find more research environments added.<br>
 ### Select a research environment
 
 ![resenv_pre_build_images](./img/customization/resenv_images.png)
+
 ![resenv_selection_filled](./img/new_instance/new_instance_resenv_name.png)
 
 To start a research environment on your virtual machine, either select a pre-build image provided by de.NBI from the 
@@ -77,7 +80,7 @@ This name appears in the unique URL used to access your research environment.
 
 ??? info "Installation process"
     Like the [installation process of Conda](#conda), we create a temporary rsa-keypair, which we use 
-    to install your research environment via Ansible.
+    to install your research environment with Ansible.
     Afterward, we remove the temporary key and copy your public key 
     onto your virtual machine, whether the process succeeds or fails.
     When the process finishes, you may download and look into the installation logs.
@@ -90,7 +93,7 @@ or on the [detail page](./instance_detail.md) of your virtual machine.
 ![resenv_link](./img/instance_detail/detail_resenv.png)
 
 A LifeScience login prompt appears if you haven't already logged in with your LifeScience account.<br>
-If you don't grant access to other members of your project via the detail page, 
+If you don't grant access to other members of your project on the detail page, 
 only the person who started the vm may access the research environment.
 
 ### JupyterLab
@@ -114,7 +117,7 @@ Use the following Token:
 simplevm
 ```
 
-Now you can work with JupyterLab via web browser.
+Now you can work with JupyterLab by web browser.
 
 ![rstudio_resenv](./img/customization/jupyterlab_resenv.png)
 
@@ -143,7 +146,7 @@ If these credentials don't work, use the deprecated credentials (since 16.03.202
 Username: ubuntu
 Password: ogvkyf
 ```
-Now you can work with RStudio via web browser.
+Now you can work with RStudio by web browser.
 
 ![rstudio_resenv](./img/customization/rstudio_resenv.png)
 
@@ -194,7 +197,7 @@ Password: denbi
     ogvkyf
     ```
 
-Now you can work with Apache Guacamole via web browser.
+Now you can work with Apache Guacamole by web browser.
 
 ![guacamole_resenv](./img/customization/guacamole_resenv.png)
 
@@ -218,6 +221,6 @@ Find more information on TheiaIDE on the [tutorial page](../Tutorials/TheiaIde/i
 To access your TheiaIDE research environment, follow the link you may find, after starting your virtual machine, 
 in the instance overview or on the detail page of your virtual machine.
 A LifeScience login prompt appears if you haven't already logged in with your LifeScience account.<br>
-Now you can work with Theia IDE via web browser.
+Now you can work with Theia IDE by web browser.
 
 ![theiaide_resenv](./img/customization/theiaide_resenv.png)

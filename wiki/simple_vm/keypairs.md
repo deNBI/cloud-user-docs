@@ -1,85 +1,98 @@
-#SSH keys and sharing access
+# SSH keys and how to share access
 
-##Basic
-A keypair consists of a public key and a private key. A public key is used to encrypt data, a private key is used to 
-decrypt data, which is why a private key should in most cases not be shared. You can imagine a public key encryption as a 
-padlock which you close once data is encrypted with it. A private key would be the key which unlocks the padlock.  
-If you place a public key on a virtual machine (with which you wish to communicate), the data the virtual machine sends you will be 
-encrypted by the public key. The corresponding private key is now needed to decrypt the data the virtual machine sends you.  
-Fortunatley, this happens automatically when using a secure shell or SSH for short. The virtual machine encrypts the data with the 
-public key (or even multiple public keys) which is/are placed on it and it gets decrypted with the private key you use to 
-establish a SSH connection, e.g. by using
+You need a valid SSH keypair to access virtual machines.
+
+## Basics on SSH keys
+
+A keypair consists of a public key and a private key. A public key encrypts data, and a private key decrypts data.
+You should usually not share a private key because someone else can decrypt the data you encrypt.<br>
+You can imagine a public key encryption as a padlock, which you close once you encrypt data with it. 
+A private key would be the key, which unlocks the padlock. 
+If you place a public key on a virtual machine, the virtual machine sends you the data encrypted by the public key. 
+One needs the private key to decrypt the data the virtual machine sends.<br>
+This happens automatically when using a secure shell or SSH for short. 
+The virtual machine encrypts the data with the public key placed on it, and it gets decrypted with the private key 
+you use to establish an SSH connection, e.g., by using
+
 ```shell
 ssh ubuntu@<IP> -i /path/to/your/private/key -p <PORT> 
 ```
-This also means the following things:  
 
-1. When you use a private key which does not correspond to a public key which is placed on your virtual machine, the data 
-   can not be decrypted and you are not able to access *any* data on the virtual machine. **You lose all access to the machine**.  
+This means the following things:
 
-2. When the public key on your virtual machine should somehow in any way change, only a private key which corresponds to this 
-   particular public key will be able to decrypt the data. If you do not possess this private key, **you lose all access to the machine**.  
+1. When you use a private key, which doesn't correspond to a public key placed on your virtual machine, you can't
+   decrypt the data and can't access **any** data on the virtual machine.<br>
+   You may get a note that reads, for example, `Permission denied (publickey)`. Then you used the wrong private key.<br>
+   Only a private key corresponding to the public key on the machine can decrypt the data.
 
-3. Only someone with access to the machine is able to change the public keys which the virtual machine recognizes and uses. 
-   We, **the whole staff of the de.NBI Cloud**, do not belong to the people which are able to access your virtual machine and change 
-   its public keys. Your virtual machine, once active, will only recognize the public key you have set on your profile page 
-   when you started the virtual machine. Of course this excludes special options we offer, like starting virtual machines 
-   for a workshop or our offer to place public keys of selected members of your project onto the machine when starting it.
-   Therefore, once your virtual machine is started, **no one but the people you allowed it**, are able to change the public keys 
-   on your virtual machine.
+2. Only someone with access to the machine can change the public keys, which the virtual machine recognizes and uses.<br>
+   **The staff of the de.NBI Cloud** doesn't belong to the people, who can access your virtual machine and change 
+   its public keys.
+   Your virtual machine, once active, only recognizes the public key you have set on your profile page 
+   when you started the virtual machine.
+   This excludes some special options, like starting virtual machines for a workshop, 
+   or granting access to selected project members when starting your vm.<br>
+   Therefore, once you started your virtual machine, **no one but the people you granted access** can change the 
+   public keys on your virtual machine.
 
-!!! warning "On key pair security"
-    *Every* padlock is designed to be opened somehow. Therefore no padlock in existence can guarantee you 100% security, 
-    very good padlocks can only guarantee you a sufficiently good enough security. 
-    This also applies to key pairs. Modern key pairs, like the ones you are able to create on our profile page, guarantee 
-    you a good enough security with the state of our current collective knowledge. They do *not* guarantee you a good enough security 
-    for every future to come.
+???+ warning "On key pair security"
+    *Every* padlock design has an opening mechanism. 
+    Therefore, no padlock in existence can guarantee you 100% security, 
+    good padlocks can only guarantee you sufficiently good enough security. 
+    This applies to key pairs too. Modern key pairs, like the ones you can create on the profile page, guarantee 
+    you good enough security with the state of the current collective knowledge. 
+    They **don't** and **can't** guarantee you good enough security for every future to come.
 
-It is **mandatory** that you set a public key on your profile page when you want to start a virtual machine. After it is started 
-only the private key which corresponds to the public key which was set on your profile page when you initially started the virtual 
-machine will be able to access it and decrypt the data it sends you.  
+You have to set a public key on your profile page when you want to start a virtual machine. 
+After launching a vm, only the private key corresponding to the public key set on your profile page when 
+you initially started the virtual machine can access it and decrypt the data the vm sends you.<br>
 **You lose the private key, you lose access.**
 
-More information about the profile page and how to generate a key pair on our profile page can be found 
-[here](../portal/user_information.md#ssh-key).
+Find more information about the profile page, and how to generate a key pair on the profile page,
+at [SSH-KEY](../portal/user_information.md#ssh-key).
 
-If you want to know more about the technical details of key pairs [wikipedia](https://en.wikipedia.org/wiki/Public-key_cryptography) 
-is a good enough first point of contact.
+If you want to know more about the technical details of key pairs, 
+start with the [wikipedia](https://en.wikipedia.org/wiki/Public-key_cryptography) page on keys and cryptography.
 
-##Sharing Access
-If you want to share access to one of your virtual machines the person you want to share it to needs to give you their public ssh key.
+## Share access
 
-!!! info
-If set, you can easily find the public key of another project member via the project overview in the members list. 
-![img.png](img/project_overview_pub_key.png)
+You need a valid public key from the person you want to share access with.
 
-If they do not have a ssh key pair yet, they need to generate it, e.g., using ssh-keygen. After you have obtained their public key you need to
-add the key to your virtual machine.
+???+ info "Where to find public keys of your project members"
+    If set, you can find the public key of another project member by using the member list on the project overview.
+    Click the button to see their public key.
+    ![img.png](img/project_overview_pub_key.png)
 
-If you are using a Linux distribution this can be done via the following command:
+If they don't have an SSH key pair yet, they need to generate it. 
+They can use ssh-keygen, or they can [generate a public key](../portal/user_information.md#ssh-key) on 
+their profile page.<br>
+Add the key to your virtual machine after getting their public key.
 
-> ssh-copy-id -i {PUBLIC_KEY} -p {PORT} ubuntu@{IP_ADDRESS}
+On a Linux distribution, you can do it with the following command:
 
-You can find the PORT and the IP_ADDRESS in you virtual machine overview under "Connect Information". PUBLIC_KEY is the name and path of
-the public ssh key of the person that you want to share access to.
+```shell
+ssh-copy-id -i /PATH/TO/THE/OTHERS/PUBLIC/KEY -p PORT_OF_YOUR_VM -o "IdentityFile /PATH/TO/YOUR/PRIVATE/KEY" ubuntu@USUAL_IP_ADDRESS
+```
 
-Otherwise, use the following steps to add a user to a virtual machine
+You can find the port and ip address on the virtual machine overview, or the detail page of your vm.
+<br>
+Otherwise, use the following steps to add a user to a virtual machine:
 
-1.
-Connect to your machine as usual.
+1. Connect to your machine as usual.
+2. Use the command:<br>
+```shell
+nano .ssh/authorized_keys
+```
+   This opens the file that stores all the public keys that grant access to your virtual machine. 
+   Your key is already in that file, don't change it.
+3. Copy the **public key** of the other person and add it in a new line after the other lines.<br>
+   Use ++ctrl+x++ to close the file.<br>
+   Confirm when it asks whether you want to save your changes.
 
-2.
-Use the command:
-> nano .ssh/authorized_keys
+Now the other user can access your virtual machine. 
+If you experience any troubles, contact the helpdesk at [cloud-helpdesk@denbi.de](mailto:cloud-helpdesk@denbi.de).
 
-This opens the file in which all your keys are saved who have access to your virtual machine. Your key is already in that file, do not change it.
-
-3.
-Copy the public key of the person you want to add (important- not the private key) and add it to the line after your key to the file.
-Using CTRL-X you can close the file. When you are closing the file you are asked whether you want to save your changes. Please confirm this.
-
-Now the other user can access your virtual machine. If you run into troubles please contact us via cloud-helpdesk@denbi.de.
-
-##Reminder
-Please only add the ssh key of people you trust. Furthermore, you are still responsible for the virtual machine if you share your
-access with other people.
+???+ info "Reminder on responsibility"
+    Only add the ssh key of people you trust.<br>
+    You have the responsibility for your virtual machine and all actions on it, 
+    even if you share access with other people.
