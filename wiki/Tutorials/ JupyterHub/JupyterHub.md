@@ -116,7 +116,7 @@ kubectl create secret --namespace=jhub tls jupyter-tls --key=$PATH_TO_KEY --cert
 
 ### OIDC
 
-We recommend using GitHub for user authentication, because it is easy to configure and also easy to manage users. Any other OIDC provider such as LifeScience AAI could be used here as well. See here (TODO) for an full tutorial on how to create an oauth2 appp for GitHub (TODO). In summary, first we need to create an organization, then we can create an OAuth app and include the url of our JupyterHub platform and add the path to the callbak site, which will be e.g. `my_platform.bihealth.org/hub/oauth_callback`. After that, adding users to the GitHub organization will be sufficient to autorize them for using the JupyterHub platform.
+We recommend using GitHub for user authentication, because it is easy to configure and also easy to manage users. Any other OIDC provider such as LifeScience AAI could be used here as well. See here (TODO) for an full tutorial on how to create an oauth2 app for GitHub (TODO). In summary, first we need to create an organization, then we can create an OAuth app and include the url of our JupyterHub platform and add the path to the callback site, which will be e.g. `my_platform.bihealth.org/hub/oauth_callback`. After that, adding users to the GitHub organization will be sufficient to authorize them for using the JupyterHub platform.
 
 ## JupyterHub
 
