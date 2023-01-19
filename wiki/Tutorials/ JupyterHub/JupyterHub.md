@@ -104,7 +104,7 @@ kubectl apply --namespace jhub -f data-pvc.yaml
 
 ### Network
 
-In the Berlin node, a floating-ip with public access needs specifically be assigned to your project. Please ask the Berlin cloud admin team for the provision of a public floating ip via mail: denbi-cloud@bih-charite.de . We will use the floating IP `xxx.xxx.xxx.xxx` in the example and the respective public IP is `xxx.xxx.xxx.xxx`. Both adresse are just used for the example and should not really exist.
+In the Berlin node, a floating-ip with public access needs specifically be assigned to your project. Please ask the Berlin cloud admin team for the provision of a public floating ip via email: denbi-cloud@bih-charite.de . We will use the floating IP `xxx.xxx.xxx.xxx` in the example and the respective public IP is `xxx.xxx.xxx.xxx`. Both addresses are just used for the example and should not really exist.
 
 ### DNS & encryption
 
