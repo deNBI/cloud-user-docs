@@ -29,7 +29,7 @@ chmod 400 .kube/config
 kubectl get nodes
 ```
 
-4. We will use a seperate namespace (jhub) to deploy JupyterHub platform:
+4. We will use a separate namespace (jhub) to deploy JupyterHub platform:
 
 ```
 kubectl create namespace jhub
