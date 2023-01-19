@@ -187,4 +187,4 @@ helm upgrade --cleanup-on-fail \
   --values config.yaml
 ```
 
-If you have any questions or run into issues, please contact sven.twardziok@bih-charite.de
+If you have any questions or run into issues, please contact sven.twardziok@bih-charite.de.
