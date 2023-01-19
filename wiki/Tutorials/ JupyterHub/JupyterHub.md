@@ -55,7 +55,7 @@ helm repo update
 
 ### Shares
 
-The JupyerHub in the example will include an extra storage that can be accessed by all users. This can be usefull to share files with all user. Here we use NFS, since this can be easily installed via OpenStack. To create an NFS share in the de.NBI node see [here](https://cloud.denbi.de/wiki/Compute_Center/Berlin/#create-a-nfs-share). If you use a different cloud setup, other storage options can also be integrated. See here (k8s website) to define specific shares. In the example below a 1000GB NFS share is created. To use NFS in the de.NBI cloud the two fields `server` and `path` have to be filled in. The content below needs to be stored as `data-pv.yaml` on the deploy-node.
+The JupyerHub in the example will include an extra storage that can be accessed by all users. This can be useful to share files with all user. Here we use NFS, since this can be easily installed via OpenStack. To create an NFS share in the de.NBI node see [here](https://cloud.denbi.de/wiki/Compute_Center/Berlin/#create-a-nfs-share). If you use a different cloud setup, other storage options can also be integrated. See here (k8s website) to define specific shares. In the example below a 1000GB NFS share is created. To use NFS in the de.NBI cloud the two fields `server` and `path` have to be filled in. The content below needs to be stored as `data-pv.yaml` on the deploy-node.
 
 ```yaml
 apiVersion: v1
