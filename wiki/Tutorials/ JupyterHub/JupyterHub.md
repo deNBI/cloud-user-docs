@@ -1,4 +1,4 @@
-JupyterHub is a multi-user plattform for running Jupyter notebooks. Here we will describe how to deploy a JupyterHub platform on a Kubernetes plattform at the Berlin site.
+JupyterHub is a multi-user platform for running Jupyter notebooks. Here we will describe how to deploy a JupyterHub platform on a Kubernetes platform at the Berlin site.
 
 ## Setup cloud project
 
