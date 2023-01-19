@@ -108,7 +108,7 @@ In the Berlin node, a floating-ip with public access needs specifically be assig
 
 ### DNS & encryption
 
-To access the portal from the internet via https, we also need a DNS entry and a TLS certificate. In some cases, a DNS entry for the bihealth.org domain can be requested for a de.NBI project at the Berlin site. Please contact the site cloud admins to get information for your specific project. In the example here, we use the URL `my_platform.bihealth.org`. Next, we also need a certificate for encrypted communication. For example, a certficate can be created by letsencrypt (https://letsencrypt.org/de/getting-started/). The keyfile and the certificate file need to be stored on the `deploy-node`.  Both files are stored as a secret in Kubernetes so that we can use them in the JupyterHub deployment. Name of the secret is `jupyter-tls`.
+To access the portal from the internet via https, we also need a DNS entry and a TLS certificate. In some cases, a DNS entry for the bihealth.org domain can be requested for a de.NBI project at the Berlin site. Please contact the site cloud admins to get information for your specific project. In the example here, we use the URL `my_platform.bihealth.org`. Next, we also need a certificate for encrypted communication. For example, a certificate can be created by [Let's Encrypt](https://letsencrypt.org/de/getting-started/). The keyfile and the certificate file need to be stored on the `deploy-node`.  Both files are stored as a secret in Kubernetes so that we can use them in the JupyterHub deployment. Name of the secret is `jupyter-tls`.
 
 ```console
 kubectl create secret --namespace=jhub tls jupyter-tls --key=$PATH_TO_KEY --cert=$PATH_TO_CERT
