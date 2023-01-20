@@ -2,7 +2,7 @@ JupyterHub is a multi-user platform for running Jupyter notebooks. Here we will 
 
 ## Setup cloud project
 
-First, the cloud environment must be set up. We assume here that there is a Kubernetes cluster available for your project. See tutorial XXX to set up a Kubernetes cluster via Kubermatic at the Berlin de.NBI site. We will use a specific node (`deploy-node`) to communicate with the Kubernetes cluster. It requires installation of **kubectl** and **helm3** on the node. Depending on the cloud setup, this can be your local computer or a VM within your OpenStack project. Here, we use a VM in the de.NBI cloud based on Ubuntu version 22.10. See [here](https://cloud.denbi.de/wiki/quickstart/) for creating a single VM in your cloud project.
+First, the cloud environment must be set up. We assume here that there is a Kubernetes cluster available for your project. See this [tutorial](https://cloud.denbi.de/wiki/Tutorials/Kubermatic/) to set up a Kubernetes cluster via Kubermatic at the Berlin de.NBI site. We will use a specific node (`deploy-node`) to communicate with the Kubernetes cluster. It requires installation of **kubectl** and **helm3** on the node. Depending on the cloud setup, this can be your local computer or a VM within your OpenStack project. Here, we use a VM in the de.NBI cloud based on Ubuntu version 22.10. See [here](https://cloud.denbi.de/wiki/quickstart/) for creating a single VM in your cloud project.
 
 ### Kubernetes
 
@@ -55,7 +55,7 @@ helm repo update
 
 ### Shares
 
-The JupyerHub in the example will include an extra storage that can be accessed by all users. This can be useful to share files with all user. Here we use NFS, since this can be easily installed via OpenStack. To create an NFS share in the de.NBI node see [here](https://cloud.denbi.de/wiki/Compute_Center/Berlin/#create-a-nfs-share). If you use a different cloud setup, other storage options can also be integrated. See here (k8s website) to define specific shares. In the example below a 1000GB NFS share is created. To use NFS in the de.NBI cloud the two fields `server` and `path` have to be filled in. The content below needs to be stored as `data-pv.yaml` on the deploy-node.
+The JupyerHub in the example will include an extra storage that can be accessed by all users. This can be useful to share files with all user. Here we use NFS, since this can be easily installed via OpenStack. To create an NFS share in the de.NBI node see [here](https://cloud.denbi.de/wiki/Compute_Center/Berlin/#create-a-nfs-share). If you use a different cloud setup, other storage options can also be integrated. See for example [here](https://kubernetes.io/docs/concepts/storage/volumes/) to define different types of volumes in Kubernetes. In the example below a 1000GB NFS share is created. To use NFS in the de.NBI cloud the two fields `server` and `path` have to be filled in. The content below needs to be stored as `data-pv.yaml` on the deploy-node.
 
 ```yaml
 apiVersion: v1
@@ -104,7 +104,7 @@ kubectl apply --namespace jhub -f data-pvc.yaml
 
 ### Network
 
-In the Berlin node, a floating-ip with public access needs specifically be assigned to your project. Please ask the Berlin cloud admin team for the provision of a public floating ip via email: denbi-cloud@bih-charite.de . We will use the floating IP `xxx.xxx.xxx.xxx` in the example and the respective public IP is `xxx.xxx.xxx.xxx`. Both addresses are just used for the example and should not really exist.
+In the Berlin node, a floating-ip with public access needs specifically be assigned to your project. Please ask the Berlin cloud admin team for the provision of a public floating ip via email: denbi-cloud@bih-charite.de . We will use the floating IP `111.111.111.1` in the example and the respective public IP in our example is `123.123.123.1`. The two addresses are only examples here.
 
 ### DNS & encryption
 
@@ -116,7 +116,7 @@ kubectl create secret --namespace=jhub tls jupyter-tls --key=$PATH_TO_KEY --cert
 
 ### OIDC
 
-We recommend using GitHub for user authentication, because it is easy to configure and also easy to manage users. Any other OIDC provider such as LifeScience AAI could be used here as well. See here (TODO) for an full tutorial on how to create an oauth2 app for GitHub (TODO). In summary, first we need to create an organization, then we can create an OAuth app and include the url of our JupyterHub platform and add the path to the callback site, which will be e.g. `my_platform.bihealth.org/hub/oauth_callback`. After that, adding users to the GitHub organization will be sufficient to authorize them for using the JupyterHub platform.
+We recommend using GitHub for user authentication, because it is easy to configure and also easy to manage users and it is directly implemented as an option in JupyterHub. Any other OIDC provider such as LifeScience AAI can be used here as well. See [here](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app) for an full tutorial on how to create an oauth2 app for GitHub. In summary, first we need to create an organization, then we can create an OAuth app and include the url of our JupyterHub platform and add the path to the callback site, which will be e.g. `my_platform.bihealth.org/hub/oauth_callback`. After that, adding users to the GitHub organization will be sufficient to authorize them for using the JupyterHub platform.
 
 ## JupyterHub
 
@@ -132,7 +132,7 @@ proxy:
     secret:
       name: jupyter-tls
   service:
-    loadBalancerIP: #TODO: add the floating ip address
+    loadBalancerIP: #TODO: add the floating ip address (e.g. 111.111.111.1)
 
 singleuser:
   image:
