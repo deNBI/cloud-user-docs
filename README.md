@@ -36,3 +36,11 @@ pip install mkdocs-material
 ~~~BASH
 mkdocs serve -f config_local.yml
 ~~~
+
+### Text writing plugin for JetBrains IDEs
+
+The [Grazie Professional plugin](https://plugins.jetbrains.com/plugin/16136-grazie-professional) can be used,
+to ease text editing of this repository.
+It allows you to utilize styleguides and gives you suggestions while writing.
+For the [rephrazing and synonymization feature](https://plugins.jetbrains.com/plugin/16136-grazie-professional/docs/rephrasing-and-synonymization.html) you need to enable the processing via Grazie Cloud.
+

@@ -83,7 +83,7 @@ which will produce the files new_id and new_id.pub.
 
 **Windows**
 
-Download, install and start [puTTYgen](https://www.puttygen.com/download-putty#PuTTY_for_windows). Make sure RSA is chosen at the bottom of the window as 'type of key to generate'. You need to move your mouse cursor inside the grey field to create enough entropy until the key is generated. You now may enter a 'Key passphrase' (also enter the same passphrase in the Confirm passphrase field), which acts as a further security mechanism regarding the use of your key.
+Download, install and start [PuTTYgen](https://www.puttygen.com/download-putty#PuTTY_for_windows). Make sure RSA is chosen at the bottom of the window as 'type of key to generate'. You need to move your mouse cursor inside the grey field to create enough entropy until the key is generated. You now may enter a 'Key passphrase' (also enter the same passphrase in the Confirm passphrase field), which acts as a further security mechanism regarding the use of your key.
 Save your private and public key into separate files e.g, new_private_key.ppk and new_public_key.key with the buttons at the bottom. The .key file can be opened and read with a standard text-editor if you wish to.  
 The content of the public key file should look like this:
 ~~~BASH
