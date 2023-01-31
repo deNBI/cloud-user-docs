@@ -8,3 +8,12 @@ The basic management of a project is possible on the [project overview](project_
 There you can submit a termination request, by clicking on "Request termination"
 
 ![termination_request](./img/termination_request.png)
+
+Depending on which project type your project corresponds to, the display is now slightly different.
+If it is a SimpleVM project, all resources affected by a termination are displayed. 
+In case it is an OpenStack project, you will have to look up the machines, 
+volumes and other resources yourself via the OpenStack dashboard of your respective site where the project is running.
+You will need to confirm that you are irretrievably releasing the resources as part of the termination process.
+Access to these resources will soon no longer be possible.
+For a SimpleVM project, a manager of the VO will process the termination request and terminate the project in the cloud shortly after. 
+In the case of an OpenStack project, this is additionally confirmed by a manager of the corresponding cloud site.
