@@ -9,7 +9,7 @@ There you can submit a termination request, by clicking on "Request termination"
 
 ![termination_request](./img/termination_request.png)
 
-Depending on which project type your project corresponds to, the display is now slightly different.
+Depending on which project type your project corresponds to, the display will be slightly different.
 If it is a SimpleVM project, all resources affected by a termination are displayed. 
 In case it is an OpenStack project, you will have to look up the machines, 
 volumes and other resources yourself via the OpenStack dashboard of your respective site where the project is running.
