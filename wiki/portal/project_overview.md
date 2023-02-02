@@ -30,6 +30,7 @@ includes the runtime and the number of available virtual machines. In addition, 
 where the project is running can be contacted directly. It is possible
 to [request extensions or resource modifications](modification.md) directly from the overview. With a click on "Show
 more information" all further project information and currently requested changes/extensions can be displayed.
+You are also able to [terminate your project](termination.md).
 
 ### Member management
 
