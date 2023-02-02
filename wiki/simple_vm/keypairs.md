@@ -15,7 +15,7 @@ The virtual machine encrypts the data with the public key placed on it, and it g
 you use to establish an SSH connection, e.g., by using
 
 ```shell
-ssh ubuntu@<IP> -i /path/to/your/private/key -p <PORT> 
+ssh ubuntu@<IP> -i /path/to/your/private/key -p <PORT>
 ```
 
 This means the following things:
