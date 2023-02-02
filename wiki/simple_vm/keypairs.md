@@ -48,6 +48,29 @@ After launching a vm, only the private key corresponding to the public key set o
 you initially started the virtual machine can access it and decrypt the data the vm sends you.<br>
 **You lose the private key, you lose access.**
 
+### Permissions
+
+When trying to connect to your machine via SSH, you might encounter the following error message:
+
+```shell
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Permissions 0777 for '<KEYFILE_NAME>' are too open.
+It is required that your private key files are NOT accessible by others.
+This private key will be ignored.
+Load key "<KEYFILE_NAME>": bad permissions
+ubuntu@123.45.67.89: Permission denied (publickey).
+```
+You can then enter the following command to adjust the key file permissions.
+```shell
+sudo chmod 600 /PATH/TO/MY/PRIVATE/KEY.pem
+### e.g ./my_private_key.pem
+```
+You should be able to connect to your machine with the known SSH-command afterwards.
+
+### More information on profile page and key generation
+
 Find more information about the profile page, and how to generate a key pair on the profile page,
 at [SSH-KEY](../portal/user_information.md#ssh-key).
 
