@@ -134,6 +134,12 @@ proxy:
   service:
     loadBalancerIP: #TODO: add the floating ip address (e.g. 111.111.111.1)
 
+scheduling:
+  userScheduler:
+    enabled: false
+  podPriority:
+    enabled: true
+
 singleuser:
   image:
     name: jupyter/datascience-notebook
