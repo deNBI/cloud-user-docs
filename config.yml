@@ -33,7 +33,8 @@ site_url: !ENV [SITE_URL, 'https://cloud.denbi.de/wiki/']
 plugins:
   - search
   - glightbox
-  - git-revision-date-localized
+  - git-revision-date-localized:
+        fallback_to_build_date: true
   - htmlproofer:
       enabled: !ENV [ENABLED_HTMLPROOFER,False]
       raise_error: True
@@ -109,6 +110,7 @@ nav:
   - 'Portal' :
     - 'Allocation': portal/allocation.md
     - 'Resource/Lifetime Modifications': portal/modification.md
+    - 'Termination' : portal/termination.md
     - 'Project Overview': portal/project_overview.md
     - 'Profile Page': portal/user_information.md
     - 'Using Vault': portal/vault_user.md
