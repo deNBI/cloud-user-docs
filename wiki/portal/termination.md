@@ -15,5 +15,5 @@ In case it is an OpenStack project, you will have to look up the machines,
 volumes and other resources yourself via the OpenStack dashboard of your respective site where the project is running.
 You will need to confirm that you are irretrievably releasing the resources as part of the termination process.
 Access to these resources will soon no longer be possible.
-For a SimpleVM project, a manager of the VO will process the termination request and terminate the project in the cloud shortly after. 
+For a SimpleVM project, a member of the de.NBI Cloud governence will process the termination request and terminate the project in the cloud shortly after. 
 In the case of an OpenStack project, this is additionally confirmed by a manager of the corresponding cloud site.
