@@ -1,4 +1,4 @@
-site_name: "de.NBI Cloud Wiki"                         
+site_name: "de.NBI Cloud Wiki"
 docs_dir: wiki
 theme:
   name: material
@@ -8,7 +8,7 @@ theme:
   logo: 'img/denbi.svg'
   favicon: 'img/denbi.svg'
 repo_name: 'deNBI/cloud-user-docs'
-repo_url: 'https://github.com/deNBI/cloud-user-docs' 
+repo_url: 'https://github.com/deNBI/cloud-user-docs'
 edit_uri: blob/master/wiki/
 markdown_extensions:
   - admonition
@@ -36,6 +36,7 @@ nav:
   - 'Portal' :
     - 'Allocation': portal/allocation.md
     - 'Resource/Lifetime Modifications': portal/modification.md
+    - 'Project Termination' : portal/termination.md
     - 'Project Overview': portal/project_overview.md
     - 'Profile Page': portal/user_information.md
     - 'Using Vault': portal/vault_user.md
