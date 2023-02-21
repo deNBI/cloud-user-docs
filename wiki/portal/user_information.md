@@ -3,8 +3,24 @@ The profile page can be used to manage your personal data.
 
 ### Profile Information
 Personal data such as the elixir ID and the elixir login can be viewed on this page.
-Your preferred e-mail address can also be changed here. 
+At this point, you can change your preferred email address as well as leave the de.NBI VO.
 On this page you will as well find your public SSH-Key (if it is already stored).
+
+### Prefered Email
+
+Please note: If you change the email address, you must confirm this change before it takes effect. 
+Keep in mind that the email address you enter should be used actively, as all relevant information for you as a user of the cloud will be sent to this address.
+
+### Leaving the VO
+
+If you want to leave the de.NBI VO and no longer use the portal or the cloud, you can do so by clicking the "Leave Virtual Organisation" button.
+It is located in the column for the LifeScience Login.
+You must then confirm that you want to stop working in the cloud. 
+If you still have running projects and/or machines, they will be displayed here again.
+Keep in mind that access to these resources is no longer available when you leave the VO.
+
+![leavevobutton](img/leave_vo.png)
+
 
 ### SSH Key
 ![setcopypublickey](img/profile_page.png)
