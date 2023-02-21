@@ -89,7 +89,7 @@ For network selection, since we cannot provide enough IPv4 for all users, we nee
 <br/>
 
 > **Note**
-> if for some reason you need to use IP version 4, please send us your request by email to denbi@zdv.uni-tuebingen.de and we can talk about the possibilities.
+> If for some reason you need to use IP version 4, please send us your request by email to denbi@zdv.uni-tuebingen.de and we can talk about the possibilities.
 
 
 <br/>
