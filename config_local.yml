@@ -59,6 +59,7 @@ nav:
       - 'Concurrent Guacamole sessions': simple_vm/guacamole.md
       - 'Concurrent RStudio sessions': simple_vm/rstudio.md
       - 'Workshops': simple_vm/workshop.md
+      - 'Miscellaneous': simple_vm/misc.md
   - 'OpenStack Quickstart' : quickstart.md
   - 'Security' : security.md
   - 'Concept' :
