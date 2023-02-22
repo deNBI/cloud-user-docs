@@ -2,6 +2,12 @@
 
 The de.NBI Cloud portal represents the central access point to the de.NBI Cloud.
 
+## Principal Investigator
+A Principal Investigator (PI) is a person who is responsible for the design, conduct, and overall management of a research project. The PI is typically the lead researcher on a project and is responsible for overseeing a team of scientists, technicians, and other personnel who are involved in the project. The PI is responsible for developing the research plan, securing funding for the project, and ensuring that the project is completed on time and within budget.
+
+In academia, the PI is often a professor or other senior researcher who has been awarded a grant or contract to conduct the research. In industry, the PI may be a scientist or engineer who is employed by a company and is responsible for leading research and development projects.
+
+In both academic and industrial settings, the PI plays a key role in determining the direction and outcome of a research project and is often the main point of contact for funding agencies, collaborators, and other stakeholders.
 ## Project Application
 
 An application for resources in the de.NBI Cloud can be submitted by any team member, but must be verified by a principal investigator of a German university or research institution.
