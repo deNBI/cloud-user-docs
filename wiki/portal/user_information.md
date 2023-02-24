@@ -20,7 +20,7 @@ Depending on which projects you are a member of, you will now be shown correspon
 For your OpenStack projects, you have to check yourself at the corresponding compute-center whether machines of yours are still running.  
 You must then confirm your leaving. 
 
-**Please have in mind:** Deleting your de.NBI account does not delete your Elixir-account.
+**Please have in mind:** Deleting your de.NBI account does not delete your LifeScience-account.
 
 You must carry out this deletion yourself under the following link:
 https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=anonymize
