@@ -25,6 +25,7 @@ You must then confirm your leaving.
 You must carry out this deletion yourself under the following link:
 https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=anonymize
 
+
 ![leavevobutton](img/leave_vo.png)
 
 
