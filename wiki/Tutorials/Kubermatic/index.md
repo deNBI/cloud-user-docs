@@ -9,12 +9,15 @@ After we initally setup your kubernetes project, you can access your resources a
 ## Get helm and kubectl going on the jumphost (with your user)
 
 ```bash
+mkdir ~/.kube
+## copy your Kubeconfig that you can download from Kubermatic UI to `~/.kube/config`
+
 mkdir ~/bin
 cd ~/bin
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 ## https://github.com/helm/helm/releases
-curl -s https://get.helm.sh/helm-v3.7.0-rc.1-linux-amd64.tar.gz | tar xvz
+curl -s https://get.helm.sh/helm-v3.10.2-linux-amd64.tar.gz | tar xvz
 mv linux-amd64/helm ~/bin
 echo "export PATH=\$PATH:~/bin/" >> ~/.bashrc
 
