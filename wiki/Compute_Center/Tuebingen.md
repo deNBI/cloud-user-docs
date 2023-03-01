@@ -70,9 +70,30 @@ Allocated: Select the required flavor by clicking on the up arrow
 ```
 
 #### Networks
-```
-Allocated: Select the set up network by clicking on the up arrow beneath the network name
-```
+
+For network selection, since we cannot provide enough IPv4 for all users, we need to ask all users to use IP version 6 for general use. In this case, we have created an IP version 6 network with the same name `denbi_ipv6_external` in both regions that you can select for general use. you could see the process of adding a network in the following figure:
+
+<br/>
+
+![](img/tuebingen/network_choices_instance.jpg)
+
+
+<br/>
+<br/>
+<br/>
+
+> **Note**
+> IP version 6 and version 4 are the same to use and the only different of IPv6 is that the number count is longer than IPv4. you could access your VM with IPv6 like IPv4 via ssh. 
+
+<br/>
+<br/>
+
+> **Note**
+> If for some reason you need to use IP version 4, please send us your request by email to denbi@zdv.uni-tuebingen.de and we can talk about the possibilities.
+
+
+<br/>
+<br/>
 
 #### Network Ports
 ```
@@ -111,16 +132,24 @@ Leave it unchanged
 
 Finally launch the instance. You should see a fresh instance entry. It may take a couple of minutes to spawn the instance depending on the requested resources. 
 
-## Accessing a VM
+## Accessing a VM via SSH
 Just use ssh, specifying the correct IP, the right key and the username of the OS (centos, ubuntu, debian, ...), you have chosen for example ‘centos’. An example of a Linux command is given below:
 ```
 ssh –i /path/to/private/key <osname>@<IP-Address>
 ```
 
-An example for a centos machine with the IP 1.2.3.4 would be:
+- An example for a centos machine with the IP v6 (example IPv6 address: `2001:7c0:801:XXXX:XXXX:XXXX:XXXX:XXXX`) or 
+
+```
+ssh –i /path/to/private/key centos@2001:7c0:801:XXXX:XXXX:XXXX:XXXX:XXXX
+
+```
+
+- An example for a centos machine if you need to use to IP v4 (example IPv4 address : `1.2.3.4`) would be:
 
 ```
 ssh –i /path/to/private/key centos@1.2.3.4
+
 ```
 
 If you need x-forwarding for graphical user interfaces don’t forget to set the –X flag and check if the xauth package is installed on the host and the server and the x-forwarding settings are correct. For Windows user we suggest to use xming (https://sourceforge.net/projects/xming/). 
