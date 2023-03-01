@@ -151,6 +151,7 @@ nav:
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
     - 'Hybridcloud' : Tutorials/Hybridcloud/index.md
     - 'Install latest CUDA version' : Tutorials/CUDA/index.md
+    - 'JupyterHub' : Tutorials/JupyterHub/index.md
     - 'Kubermatic' : Tutorials/Kubermatic/index.md
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
     - 'Reverse Proxy with Elixir AAI': Tutorials/Elixir_AAI/Elixir_AAI.md
@@ -163,14 +164,14 @@ nav:
     - 'Using X2GO': Tutorials/X2GO/x2go.md
   - 'FAQ' : 'FAQ.md'
   - 'Compute Center Specific' :
-    - 'Giessen' : Compute_Center/Giessen.md
+    - 'Berlin' : Compute_Center/Berlin.md
     - 'Bielefeld' : Compute_Center/Bielefeld.md
+    - 'EMBL' : Compute_Center/EMBL.md
+    - 'Freiburg' : Compute_Center/Freiburg.md
+    - 'Giessen' : Compute_Center/Giessen.md
     - 'Heidelberg Uni' : Compute_Center/Heidelberg.md
     - 'Heidelberg DKFZ' : Compute_Center/Heidelberg-DKFZ.md
     - 'Tuebingen' : Compute_Center/Tuebingen.md
-    - 'Freiburg' : Compute_Center/Freiburg.md
-    - 'Berlin' : Compute_Center/Berlin.md
-    - 'EMBL' : Compute_Center/EMBL.md
   - 'Cloud Admin':
     - 'Configure OpenStack to use Elixir AAI via OpenID Connect': cloud_admin/elixir_OIDC.md
     - 'Register your identity provider for ELIXIR': cloud_admin/identity_provider.md
