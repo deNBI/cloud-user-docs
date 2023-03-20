@@ -28,6 +28,13 @@ project, contact the de.NBI helpdesk at [cloud-helpdesk@denbi.de](mailto:cloud-h
 
 All project administrators can manage workshops within the portal once your SimpleVM project got
 approval.<br>
+
+Although we recommend that our users authenticate via our standard registration process, we understand that this can be more of a hurdle for users who have only registered for a workshop. For this reason, we would like to point out that LifeScience AAI offers the possibility of so-called hostel accounts. These accounts work with a simple username-password scheme and allow their participants to register very easily and quickly.
+
+For the creation of such a hostel account, you can give the following link to your participants:
+[https://signup.aai.lifescience-ri.eu/non/registrar/?vo=lifescience_hostel&targetnew=https%3A%2F%2Flifescience-ri.eu%2Faai%2Fhow-use&targetexisting=https%3A%2F%2Flifescience-ri.eu%2Faai%2Fhow-use&targetextended=https%3A%2F%2Flifescience-ri.eu%2Faai%2Fhow-use](https://signup.aai.lifescience-ri.eu/non/registrar/?vo=lifescience_hostel&targetnew=https%3A%2F%2Flifescience-ri.eu%2Faai%2Fhow-use&targetexisting=https%3A%2F%2Flifescience-ri.eu%2Faai%2Fhow-use&targetextended=https%3A%2F%2Flifescience-ri.eu%2Faai%2Fhow-use)
+
+
 To get to the workshop management page, click `Manage workshops` in the sidebar.
 
 ???+ question "I can't see the tab in the sidebar"
