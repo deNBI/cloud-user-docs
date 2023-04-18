@@ -190,6 +190,47 @@ Application credentials are currently not supported by all applications or devel
 Openstack API. In this case users have to contact the cloud site administrators in order for them to set 
 an explicit local password.
 
+
+## Instance Metadata
+
+Openstack presents configuration information to instances it starts via a mechanism called metadata.
+This metadata can be accessed querying `http://169.254.169.254/`. Services like cloud-init make use 
+of this metadata to initialize and configure a started instance.
+
+Beside metadata information in AWS compatible format, Openstack additionally supports metadata in its
+own style. There are three different kind of metadata which can be accessed by the user.
+
+| Typ | Description                                                                                   |
+|-----|-----------------------------------------------------------------------------------------------|
+| Compute data | Structured data containing information about network, hostname, public-key, ...               |
+| User data | The user has the ability to pass unstructured data like shell scripts, ...  to the instance.  |
+| Vendor data | Optional the cloud provider can make vendor specific information (static or dynamic) availabe |
+
+On request project specific information like all users with their elixir id/name and public-keys can be made
+available. For example, this information can be used to build up a multi-user instance, giving all users of the 
+project access.
+
+```
+> curl http://169.254.169.254/openstack/latest/vendor_data2.json | jq
+>{
+"denbi": [
+{
+"elixir_name": "...",
+"id": "...",
+"name": "...",
+"perun_id": "...",
+"public_keys": [
+"ecdsa-sha2-nistp256 AAAA...",
+]
+},
+...
+]
+}
+```
+
+**Important: This feature is not active as a default setting and will only be enabled on request.** 
+
+
 ## (Information) Security
 
 Our [information security policy (german language)](assets/bielefeld/informationssicherheitsleitlinie.md)  
