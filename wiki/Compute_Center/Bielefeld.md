@@ -24,37 +24,13 @@ at Bielefeld university.
 
 ## Network
 
-The Bielefeld cloud currently has 3 different _external_ networks available.
+The network configuration abilities are a bit different as described in the
+[Quickstart Guide](https://cloud.denbi.de/wiki/quickstart/#creating-a-router-and-a-network).
 
-- external
-- external-service
-- cebitec
+Project network routers are managed by the de.NBI Cloud Bielefeld team. All other network
+management operations are unrestricted. The routers of the deNBI projects are located in
+an unrestricted public network.
 
-### external
-
-The external network is a publicly available network. There are no limitations from our side and it is the 
-preferred network if you don't have access to the Bielefeld university LAN. 
-
-### external-service
-
-The external-service network is a public network that is restricted to ssh, http and https. It should only 
-be used for (web-)services running in the cloud. Each IP address must be activated before usage.
-
-!!! warning "Warning"
-    In general this network shouldn't be used, ask cloud support if unsure.
-
-### cebitec
-
-The cebitec network is a non-public _external_ network, that can only be used from the Bielefeld university LAN. 
-However, since this network represents a non-public ip address range, it is possible to have more than one in 
-use at the same time. The access is limited to SSH, HTTP and HTTPS. Access to the world is only possible using 
-the CeBiTec Proxy and only for HTTP, HTTPS and FTP.
-
-```
-export http_proxy=proxy.cebitec.uni-bielefeld.de:3128
-export https_proxy=proxy.cebitec.uni-bielefeld.de:3128
-export ftp_proxy=proxy.cebitec.uni-bielefeld.de:3128
-```
 
 ### MTU settings
 
