@@ -17,8 +17,8 @@ You can get an up-to-date list of API endpoints of the available services using 
 the OpenStack command-line tool (`openstack endpoint list`).
 
 ## Login
-The Bielefeld cloud site supports login using Elixir AAI via OpenID Connect or default Keystone credentials. 
-Using Elixir AAI is the preferred way for all cloud users and the only way for non-cloud users not working 
+The Bielefeld cloud site supports login using LifeScience AAI via OpenID Connect or default Keystone credentials. 
+Using LifeScience AAI is the preferred way for all cloud users and the only way for non-cloud users not working 
 at Bielefeld university. 
 
 
@@ -124,10 +124,10 @@ In order to access the OpenStack Cloud via command-line tools, you need to sourc
 described [here](https://cloud.denbi.de/wiki/Tutorials/ObjectStorage/#retrieving-access-credentials).
 However, the standard procedure does not work on all Cloud locations. Executing `source` on the 
 downloaded rc file prompts for a password. This password **is not the same** you have used when 
-authenticating to ELIXIR in order to access the OpenStack Dashboard.
+authenticating to LifeScience in order to access the OpenStack Dashboard.
 
 Internally, OpenStack does not set a local password for your ELIXIR-ID, since it does not need to 
-hence OpenStack confirms your authorization separately via ELIXIR AAI.
+hence OpenStack confirms your authorization separately via LifeScience AAI.
 However, the commandline-tools can only function with a set local password. Prior to the new 
 OpenStack release, users had to contact the cloud site administrators in order for them to set an 
 explicit local password and send it back to the user via encrypted mail or de.NBI vault service. 
