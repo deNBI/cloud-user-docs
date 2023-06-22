@@ -11,12 +11,12 @@ The domain concept also allows the creation of additional domains, e.g. for runn
 ##### User
 
 A *user* is an entity within a domain in OpenStack.
-User authentication and authorization in deNBI is done via [Openid-Connect](http://openid.net/connect/) or via [Shibboleth](https://www.shibboleth.net/). Openid-Connect (oidc) and Shibboleth are "single sign-on" authentication protocols, which provide access to all denBI-Cloud locations. Oidc and Shibboleth are implemented by [ELIXIR](https://www.elixir-europe.org/), which provides the denBI-Cloud a global authentication/authorization endpoint.
+User authentication and authorization in deNBI is done via [Openid-Connect](http://openid.net/connect/) or via [Shibboleth](https://www.shibboleth.net/). Openid-Connect (oidc) and Shibboleth are "single sign-on" authentication protocols, which provide access to all denBI-Cloud locations. Oidc and Shibboleth are implemented by [LifeScience AAI](https://lifescience-ri.eu/ls-login.html), which provides the de.NBI-Cloud a global authentication/authorization endpoint.
 
 
 ##### Project
 
-A *project* is a collection of resources like users, images, volumes etc. It is initially created by the deNBI and cloud administrators, where access to the project is granted to individual users. Resources are associated to a project and are subject to quotas on project level (e.g. number of instance or volume space).
+A *project* is a collection of resources like users, images, volumes etc. It is initially created by the de.NBI and cloud administrators, where access to the project is granted to individual users. Resources are associated to a project and are subject to quotas on project level (e.g. number of instance or volume space).
 
 ##### Role
 
