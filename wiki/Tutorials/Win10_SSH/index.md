@@ -1,10 +1,10 @@
 # Access to de.NBI Virtual Machines from Windows-10
 
-This guide is intended for new users of de.NBI resources. It is assumed, that you have an ELIXIR ID and that your application for compute time was processed successfully. Hence, using your browser you should be able to login to the dashboard of the cloud site you were assigned to e.g., Tübingen (https://denbi.uni-tuebingen.de).
+This guide is intended for new users of de.NBI resources. It is assumed, that you have an LifeScience AAI ID and that your application for compute time was processed successfully. Hence, using your browser you should be able to login to the dashboard of the cloud site you were assigned to e.g., Tübingen (https://denbi.uni-tuebingen.de).
 
 ![Win10_SSH_fig1](images/Win10_SSH_fig1.png)
 
-After logging in via ELIXIR AAI using your home organization credentials you should see the dashboard.
+After logging in via LifeScience AAI using your home organization credentials you should see the dashboard.
 
 ![Win10_SSH_fig2](images/Win10_SSH_fig2.png)
 

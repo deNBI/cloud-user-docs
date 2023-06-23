@@ -15,7 +15,7 @@ contact us via <denbi-cloud@bih-charite.de>.
 The OpenStack dashboard gives you all information about your 
 project, e.g. your available resources, your virtual machines etc. The 
 dashboard is available [here](https://denbi-cloud.bihealth.org).
-To access your project, use Elixir as authentication provider. After 
+To access your project, use LifeScience AAI as authentication provider. After 
 authentication you will be redirected to the OpenStack dashboard.
 
 **Hint:** We block access from several countries in our firewall. In case you have problems to reach our dashboard or can not access our jumphost from outside of Germany, please get in contact with us!
@@ -62,12 +62,12 @@ and can connect to VMs without any floating ip address.
 
 None of your VMs will be directly visible and accessible from the internet. To 
 connect to one of your VMs, you have to use our jumphost server
-denbi-jumphost-01.bihealth.org with your elixir login name (not
-your elixir id!). 
+denbi-jumphost-01.bihealth.org with your LifeScience login name. In case you are not sure, check for your login name
+on the [profile page](../portal/user_information.md) of the de.NBI Cloud Portal.
 
 #### SSH-Keys
 
-Your public ssh must be added at the de.NBI portal: https://cloud.denbi.de/portal/ (or at the elixir portal) to able to connect to our jumphost.
+Your public ssh must be added in the de.NBI portal: https://cloud.denbi.de/portal/ to be able to connect to our jumphost.
 and make sure that you import a public ssh-key into your 
 OpenStack project (**Project - Compute - Key Pairs - Import 
 Key Pair**) so that you can access your VMs later on.
@@ -88,7 +88,7 @@ standard users for some common distributions:
 ```bash
 Host denbi-jumphost-01.bihealth.org
     HostName denbi-jumphost-01.bihealth.org
-    User ElixirLogin
+    User LifeScienceLogin
     IdentityFile PATH_TO_KEY
 
 
@@ -109,7 +109,7 @@ In the field **Host Name** you have to enter the name of our jumphost:
     denbi-jumphost-01.bihealth.org
     
 Under **Connection - Data** you can choose the username for the auto-login. 
-Please use your elixir username here.
+Please use your LifeScience username here.
 
 In the section **Connection - SSH - Auth** you can provide your SSH-key. 
 Please make sure that you also check the option **Allow agent forwarding** so
@@ -123,7 +123,7 @@ accepting the servers host key. Please confirm with yes.
 ```bash
 Host denbi-jumphost-01.bihealth.org
     HostName denbi-jumphost-01.bihealth.org
-    User ElixirLogin
+    User LifeScienceLogin
     IdentityFile PATH_TO_KEY
     ServerAliveInterval 120
 
@@ -160,7 +160,7 @@ Manually jump from your client to jumphost and from there further to your vm wit
 3. Connect at first from your client to jumphost: 
 
     ```bash
-    ssh -A yourElixirLogin@denbi-jumphost-01.bihealth.org
+    ssh -A yourLifeScienceLogin@denbi-jumphost-01.bihealth.org
     ```
 
     And from the jumphost you can connect further to the floating ip of your vm
@@ -179,8 +179,8 @@ Add the following lines to your **local ~/.ssh/config**:
 
     # Access to the de.NBI jumphost
     Host denbi-jumphost-01.bihealth.org
-      # Use your Elixir login name
-      User ElixirLogin
+      # Use your LifeScience login name
+      User LifeScienceLogin
       # Use your ssh-key file
       IdentityFile YOUR-SSH-KEY-FILE
       # Open a SOCKS proxy locally to tunnel traffic into the cloud environment

@@ -39,7 +39,7 @@ no administration overhead.
 ### Access to de.NBI Cloud Freiburg
 
 You can use Galaxy anonymously if you prefer, but if you want to have persistent storage and run many hundreds of
-jobs in parallel, you need to create [an account](https://usegalaxy.eu/login). We recommend using ELIXIR-AAI to login.
+jobs in parallel, you need to create [an account](https://usegalaxy.eu/login). We recommend using a LifeScience AAI to login.
 If you have any questions, please contact us at galaxy@informatik.uni-freiburg.de.
 
 ### Storage
