@@ -83,4 +83,5 @@ We recommend selecting 'forever' for convienence, but this is not required.
 
 You should now receive another email where you must confirm the consent.
 
-![LifeScience COnsent Confirmation](img/20a_denbicloud_lifescienceri_consent_email_confirmation.png)
+![LifeScience Consent Confirmation](img/20a_denbicloud_lifescienceri_consent_email_confirmation.png)
+

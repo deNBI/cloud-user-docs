@@ -68,6 +68,24 @@ You can create as many workshops as you want and use them to create different co
     Workshops share the available SimpleVM project resources. If you have maximum 10 vms available,
     you can't start more than 10 vms across all workshops running in that SimpleVM project.
 
+
+### Workshop Timeframes
+
+Workshop administrators are able to enter timeframes in which classes or other related events relevant to the workshop take place.
+
+A start and end time can be specified, as well as a name that describes the event. 
+In addition, a workshop created in the Overview can be selected to which the event is assigned.
+
+If no specific workshop is selected at this point, the timeframe is linked to the superordinate workshop project itself.
+
+It is recommended to enter these time frames as accurately as possible. For example, individual dates should be entered instead of entering a one-week workshop from start to finish.
+
+
+The information is used by the cloud administrators to plan maintenance work and updates in such a way that the execution of workshops and the use of resources is as unrestricted as possible and they do not interfere with each other.
+
+
+![workshop_timeframes](./img/workshop/workshop_timeframes.png)
+
 ### Selected workshop overview
 
 ![workshop_overview](./img/workshop/workshop_project_overview.png)
