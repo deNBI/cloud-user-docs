@@ -15,7 +15,7 @@ contact us via denbi-cloud(at)bioquant.uni-heidelberg.de.
 The OpenStack dashboard gives you all information about your
 project, e.g. your available resources, your virtual machines etc. The
 dashboard is available [here](https://denbi-cloud.bioquant.uni-heidelberg.de).
-To access your project, use Elixir as authentication provider. After
+To access your project, use LifeScience as authentication provider. After
 authentication you will be redirected to the OpenStack dashboard.
 
 ### SSH-Keys
@@ -60,11 +60,11 @@ and can connect to VMs without any floating ip address.
 None of your VMs will be directly visible and accessible from the internet. Therefore, please make sure that you add your public ssh key to the [central portal](https://cloud.denbi.de/). This is important as you will login to our jumphost first before connecting to your VMs. The jumphost account will only be created after adding a public ssh key to the central portal.
 
 #### Linux-based host
-To connect to one of your VMs, you have to use our jumphost denbi-jumphost-01.bioquant.uni-heidelberg.de with your elixir login name (not your elixir id!):
+To connect to one of your VMs, you have to use our jumphost denbi-jumphost-01.bioquant.uni-heidelberg.de with your LifeScience login name (not your Elixir ID!):
 
     ssh -A -i YOUR-SSH-KEY USERNAME@denbi-jumphost-01.bioquant.uni-heidelberg.de
 
-**Example:** ssh -A -i ~/.ssh/denbi-cloud.key elixir1234@denbi-jumphost-01.bioquant.uni-heidelberg.de
+**Example:** ssh -A -i ~/.ssh/denbi-cloud.key lifescience1234@denbi-jumphost-01.bioquant.uni-heidelberg.de
 
 From the jumphost you can connect to each of your VMs which has an attached
 floating ip address.
@@ -99,7 +99,7 @@ In the field **Host Name** you have to enter the name of our jumphost:
     denbi-jumphost-01.bioquant.uni-heidelberg.de
 
 Under **Connection - Data** you can choose the username for the auto-login.
-Please use your elixir username here.
+Please use your LifeScience username here.
 
 In the section **Connection - SSH - Auth** you can provide your SSH-key.
 Please make sure that you also check the option **Allow agent forwarding** so
@@ -219,8 +219,8 @@ ProxyJump inside of your **local ~/.ssh/config**:
 
     # Access to the de.NBI jumphost
     Host denbi-jumphost-01.bioquant.uni-heidelberg.de
-      # Use your Elixir login name
-      User ELIXIR_USERNAME
+      # Use your LifeScience login name
+      User LIFESCIENCE_USERNAME
       # Use your ssh-key file
       IdentityFile YOUR-SSH-KEY-FILE
       # Send a keep-alive packet to prevent the connection from being terminated
@@ -261,8 +261,8 @@ Add the following lines to your **local ~/.ssh/config**:
 
     # Access to the de.NBI jumphost
     Host denbi-jumphost-01.bioquant.uni-heidelberg.de
-      # Use your Elixir login name
-      User ELIXIR_USERNAME
+      # Use your LifeScience login name
+      User LIFESCIENCE_USERNAME
       # Use your ssh-key file
       IdentityFile YOUR-SSH-KEY-FILE
       # Open a SOCKS proxy locally to tunnel traffic into the cloud environment

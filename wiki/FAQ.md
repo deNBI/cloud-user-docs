@@ -4,6 +4,18 @@
 You don't have to pay for a de.NBI Cloud project! It is free for all academic life science research projects.
 Each project running in the de.NBI Cloud requires a Principal Investigator of a German university or research institution as project owner. 
 
+### The site of my project requires a login name ? Where do I find it?
+
+Some compute center sites use a JumpHost to connect to your machines. 
+There, a username must sometimes be entered for authentication.
+Please check this in the site-specific wiki section.
+
+The user name is not expected to be your Elixir ID, but your LifeScience login. 
+You can find it on your [profile page](portal/user_information.md) in the portal.
+
+Please also note: In the past, authentication - also for the portal - was done via Elixir AAI.
+Recently, authentication was transferred to LifeScience AAI. The Elixir ID remains your unique identifier within the Virtual Organisation, but is distinct from the LifeScience login.
+
 ### I cannot access my virtual machine?
 At first try to restart the machine.
 If this does not bring the desired success, the reasons can be manifold.

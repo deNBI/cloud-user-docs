@@ -2,7 +2,7 @@
 The profile page can be used to manage your personal data.
 
 ### Profile Information
-Personal data such as the elixir ID and the elixir login can be viewed on this page.
+Personal data such as the elixir ID and the LifeScience login can be viewed on this page.
 At this point, you can change your preferred email address as well as leave the de.NBI VO.
 On this page you will as well find your public SSH-Key (if it is already stored).
 
@@ -60,7 +60,7 @@ To link another account click on `Add` below `Linked identities`.
 
 You will be redirected to the LifeScience login-page. 
 
-![elixirlogin](img/lifescience_login.png)
+![lifescience_login](img/lifescience_login.png)
 
 Log in to the account that you want to link to your LifeScience account. In the example shown this is done with ORCID.
 After you have signed up for the desired service, you will usually be asked to confirm/authorize the linking of the account.

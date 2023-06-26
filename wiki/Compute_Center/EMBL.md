@@ -15,7 +15,7 @@ You can get an up-to-date list of API endpoints of the available services using 
 the OpenStack command-line tool (`openstack endpoint list`).
 
 ## Login
-Elixir AAI federation is the preferred way to authenticate de.NBI users on EMBL cloud instance. Local keystone
+LifeScience AAI federation is the preferred way to authenticate de.NBI users on EMBL cloud instance. Local keystone
 authentication is also available upon request.
 
 ## Network
