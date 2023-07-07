@@ -29,11 +29,48 @@ independing on the project type you choose:
 
 The review of your application follows a series of different stages. The progress is visible in the [project overview](project_overview.md).
 
-### Simple VM
+### Requesting Resources
 
-In a **Simple VM** project you just have to provide the number of virtual machines you would like to run in parallel in your project.
-Once your application is approved you can choose different flavors for every virtual machine.
+#### General Information regarding requested resources
 
+In addition to the general information of the project, the required resources must be indicated in the application.
+This concerns several relevant parameters in cloud computing. 
+Please keep in mind: The resources requested and approved in the project application are not definite. They can be modified in the current project by change requests.
+
+### Terms
+
+The following is a list of important terms with explanations:
+
+#### Flavor
+
+When applying for a project, flavors must be selected. 
+A single flavor describes the base resources available for a single VM. 
+A flavor specifies the available number of VCPUs, the amount of RAM and disk space for a single VM started of that type. 
+If available, it also specifies the space that is provided on an ephemeral disk.
+GPU flavors provide graphics cards connected to the VM.
+
+#### VCPU
+A VCPU, short for Virtual Central Processing Unit, is a virtualized representation of a physical CPU that enables the concurrent operation of multiple virtual machines on a single physical server.
+It facilitates the efficient utilization of computing resources and enhances the sharing of processing power in virtualization and cloud computing environments.
+
+#### RAM
+RAM stands for "Random Access Memory." It is a type of computer memory that is used for temporary data storage and quick access by the computer's processor. RAM stores data that is actively being used by running programs and allows for fast read and write operations.
+
+#### Hard Disk
+
+A hard disk, also known as a hard drive or HDD (Hard Disk Drive), is a storage device used in computers to store and retrieve digital data.
+
+#### Ephemeral Disk
+An ephemeral disk is a temporary storage disk provided to a virtual machine (VM) in cloud computing environments. Unlike a persistent disk or a hard disk drive, ephemeral disks are not intended for long-term storage or data persistence.
+
+#### GPU
+GPU stands for "Graphics Processing Unit." It is a specialized electronic circuit or chip designed to handle and accelerate graphics rendering and image processing tasks in a computer system.
+
+#### Storage and Volumes
+
+Both a number of storage volumes and an amount of required disk space can be specified. The specified storage space can be divided as desired among the available volumes.
+The purpose of volumes is to persist data so that it is available, for example, even after a VM has been deleted.
+For OpenStack projects, object storage is also available. Object storage is a type of storage to store and share data in cloud environments.
 
 ### Cloud Project
 
