@@ -72,18 +72,3 @@ Both a number of storage volumes and an amount of required disk space can be spe
 The purpose of volumes is to persist data so that it is available, for example, even after a VM has been deleted.
 For OpenStack projects, object storage is also available. Object storage is a type of storage to store and share data in cloud environments.
 
-### Cloud Project
-
-For a **Cloud Project** you have to specify the following parameters:
-
-* Number of Virtual Machines
-
-* Cores per VM
-
-* Disk per VM
-
-* RAM per VM
-
-* Object Storage
-
-* Special Hardware (GPU/FPGA)
