@@ -55,7 +55,7 @@ projects require different credentials.
 Unfortunately the OpenStack dashboard does not provide access to the necessary credentials, so the command
 line has to be used:
 
-* Create [https://cloud.denbi.de/wiki/Compute_Center/Bielefeld/#application-credentials-use-openstack-api](Application credentials)
+* Create [Application credentials](https://cloud.denbi.de/wiki/Compute_Center/Bielefeld/#application-credentials-use-openstack-api)
 
 * Source the downloaded file in a terminal session on the machine you want to access the object storage from.
 
