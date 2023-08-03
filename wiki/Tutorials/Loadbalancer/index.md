@@ -1,10 +1,10 @@
-# Documentation for setup of secure web-service with reverse-proxy and load balancer in OpenStack
+# Documentation for setup of secure web-service with reverse-proxy and load balancer in the de.NBI cloud site in Berlin
 
-This guide will explain how to setup a web-service behind a reverse proxy. The reverse proxy will only be accessible over a load balancer from the internet. The web-service itself is secured in a separated network and only specific ports for incoming traffic are allowed for the web-service. The ports will be setup with security groups in OpenStack. Only one defined port for the forwarded requests from the reverse-proxy to the web-service and ssh for the configuration will be allowed. For the load balancer there will be a dmz network to secure the access from the load balancer to the reverse-proxy. A guide for the basic setup of a vm can be found in the quick start section of this wiki and will not be provided here.
+This guide will explain how to setup a web-service behind a reverse proxy in the de.NBI cloud site in Berlin. If you want to setup a similar structure in another site, please refer to the tutorial for that site, as this tutorial is only applicable to the de.NBI cloud site in Berlin. The reverse proxy will only be accessible over a load balancer from the internet. The web-service itself is secured in a separated network and only specific ports for incoming traffic are allowed for the web-service. The ports will be setup with security groups in OpenStack. Only one defined port for the forwarded requests from the reverse-proxy to the web-service and ssh for the configuration will be allowed. For the load balancer there will be a dmz network to secure the access from the load balancer to the reverse-proxy. A guide for the basic setup of a vm can be found in the quick start section of this wiki and will not be provided here.
 
 ## Setup the internal network
 
-To use the load balancer in a dmz and secure the web-service in an internal network you firstly need to create the network structure. To do that create a new network with a private address range (10.0.0.0 – 10.255.255.255, 10.0.0.0 – 10.255.255.255, 192.168.0.0 – 192.168.255.255). We will use this network as internal network for the web-service. To create the network go to the OpenStack dashboard and click on 'Network' and on the 'Networks' section. Click on 'Create Network' in the overview. 
+In the de.NBI cloud site Berlin to use the load balancer in a dmz and secure the web-service in an internal network you firstly need to create the network structure. To do that create a new network with a private address range (10.0.0.0 – 10.255.255.255, 10.0.0.0 – 10.255.255.255, 192.168.0.0 – 192.168.255.255). We will use this network as internal network for the web-service. To create the network go to the OpenStack dashboard and click on 'Network' and on the 'Networks' section. Click on 'Create Network' in the overview. 
 
 ![create new network](images/18_create_dmz-int_network.png)
 
@@ -38,7 +38,7 @@ Click on 'Create Security Group' and on 'Add Rule' in the next window. Select 'S
 
 ## Setup Web-Service 
 
-Now that we have two separated networks and a security group for the web-service we can setup the vms. Firstly setup the vm for the web service. Select Image and flavor as needed and select the network we just created (e.g. webservice-internal-subnet). 
+Now that we have two separated networks and a security group for the web-service we can setup the vms. At first setup the vm for the web service. Select Image and flavor as needed and select the network we just created (e.g. webservice-internal-subnet). 
 
 Deselect the default security group by clicking on the arrow pointing down and select the new created security group with the arrow up. 
 
@@ -117,7 +117,7 @@ Click on 'Add Rule' in the next window and fill in the information for the new r
 
 ## DMZ network
 
-To use the reverse-proxy with a load balancer you first need an internal demilitarized zone (dmz) network. This can be created the way you did before. So select 'Network' in the dashboard and then 'Networks' again. In the next window click on 'Create Network' to open the network creation panel.
+In the de.NBI cloud site Berlin to use the reverse-proxy with a load balancer you first need an internal demilitarized zone (dmz) network. This can be created the way you did before. So select 'Network' in the dashboard and then 'Networks' again. In the next window click on 'Create Network' to open the network creation panel.
 
 Give the network the name 'dmz-int' and name the subnet 'dmz-int-subnet'. Now use a private IP address range that is not already in use (e.g. 10.0.10.0/24) and leave everything else free. Click on 'Next' and 'Create' in the last window. When the network is created, you need to create another router which connects the dmz-int network you just created to the dmz-ext network which is created automatically. 
 Click on 'Routers' in the 'Network' section and select 'Create Router'. 
@@ -137,7 +137,7 @@ Now you can create a load balancer. Click on 'Load Balancer' in the 'Network' se
 
 ![create load balancer](images/25_create_loadbalancer.png)
 
-Give the load balancer a recognizable name (e.g. web-service-lb) and select the subnet 'dmz-int' you created for the dmz. In the next window you will create the first listener for the load balancer. In this case it is the listener for port 80 or the protocol http. Name it 'http' select 'TCP' as protocol and port 80. 
+Give the load balancer a recognizable name (e.g. web-service-lb) and select the subnet 'dmz-int' you created for the dmz. In the next window you will create the first listener for the load balancer. In this case it is the listener for port 80. Name it 'http' select 'TCP' as protocol and port 80 (even if it is possible to choose "HTTP" as protocol, it must be "TCP" here). 
 
 ![load balancer http listener](images/27_loadbalancer_listener80.png)
 
