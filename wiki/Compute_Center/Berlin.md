@@ -84,7 +84,8 @@ standard users for some common distributions:
 
 
 #### Windows 10 
-
+To connect via Windows 10 you can use PowerShell as OpenSSH ist already installed by default. Create the ssh config file ```$HOME\.ssh\config``` with notepad or use the PowerShell command ```Set-Content -Path $HOME\.ssh\config -Value '<add file content here>'```
+When you use PowerShell, make sure to edit the input of the file. Fill in your information and make sure that the sections HostName, IdentityFile, User, and ProxyJump are indented with four spaces for both entries.
 ```bash
 Host denbi-jumphost-01.bihealth.org
     HostName denbi-jumphost-01.bihealth.org
@@ -93,30 +94,16 @@ Host denbi-jumphost-01.bihealth.org
 
 
 Host NAME_OF_VM  # first vm
-  HostName 172.16.XXX.XXX
-  IdentityFile PATH_TO_KEY
-  User ubuntu / centos
-  ProxyCommand C:\Windows\System32\OpenSSH\ssh.exe denbi-jumphost-01.bihealth.org -W %h:%p
+    HostName 172.16.XXX.XXX
+    IdentityFile PATH_TO_KEY
+    User ubuntu / centos
+    ProxyJump denbi-jumphost-01.bihealth.org
 ```
 
-#### Putty (Windows)
-  
-If you want to connect from a Windows-based system you can use Putty 
-(http://www.putty.org/) to connect to the jumphost and your virtual machines.
-
-In the field **Host Name** you have to enter the name of our jumphost:
-
-    denbi-jumphost-01.bihealth.org
-    
-Under **Connection - Data** you can choose the username for the auto-login. 
-Please use your LifeScience username here.
-
-In the section **Connection - SSH - Auth** you can provide your SSH-key. 
-Please make sure that you also check the option **Allow agent forwarding** so
-that you can connect to your VM.
-
-When you connect to our jumphost for the first time you may get a warning about 
-accepting the servers host key. Please confirm with yes.
+Save the file without a filename extension. To open a ssh connection issue the following command in PowerShell:
+```console
+ssh NAME_OF_VM
+```
 
 #### Linux .ssh/config
 
@@ -128,46 +115,12 @@ Host denbi-jumphost-01.bihealth.org
     ServerAliveInterval 120
 
 Host NAME_OF_VM
-  HostName 172.16.XXX.XXX
-  IdentityFile PATH_TO_KEY
-  User ubuntu / centos
-  ProxyJump denbi-jumphost-01.bihealth.org
+    HostName 172.16.XXX.XXX
+    IdentityFile PATH_TO_KEY
+    User ubuntu / centos
+    ProxyJump denbi-jumphost-01.bihealth.org
 
 ```
-
-#### Connection with SSH-Agent
-
-Manually jump from your client to jumphost and from there further to your vm with [ssh-agent-forwarding](https://www.ssh.com/ssh/agent)
-
-1. Start ssh-agent:
-
-    ```bash
-    eval `ssh-agent` // eval $(ssh-agent)
-    ```
-
-2. Add ssh private key:
-
-    ```bash
-    ssh-add .ssh/id_rsa
-   ```
-
-    show identies:
-
-    ```bash
-    ssh-add -l
-   ```
-
-3. Connect at first from your client to jumphost: 
-
-    ```bash
-    ssh -A yourLifeScienceLogin@denbi-jumphost-01.bihealth.org
-    ```
-
-    And from the jumphost you can connect further to the floating ip of your vm
-
-    ```bash
-    ssh ubuntu@yourFloatingIpOfVM
-    ```
 
 #### Setting up a SOCKS proxy
 In some cases it would also make sense to configure a permanent SOCKS proxy to 
