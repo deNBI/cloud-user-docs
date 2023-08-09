@@ -62,6 +62,11 @@ You may find a selection of research environments here you may use over your web
 [JupyterLab](#jupyterlab), [RStudio](#rstudio), [Apache Guacamole](#apache-guacamole) or [Theia IDE](#theiaide). 
 In the future, you may find more research environments added.<br>
 
+???+ info "Use with Anti-Virus Software"
+    In some situations, anti-virus sofware may cause you to experience connection problems with browser-based research environments. 
+    If you experience difficulties connecting, it is advisable to check whether your anti-virus software may be blocking the connection.
+    
+
 ### Select a research environment
 
 ![resenv_pre_build_images](./img/customization/resenv_images.png)
@@ -95,6 +100,7 @@ or on the [detail page](./instance_detail.md) of your virtual machine.
 A LifeScience login prompt appears if you haven't already logged in with your LifeScience account.<br>
 If you don't grant access to other members of your project on the detail page, 
 only the person who started the vm may access the research environment.
+
 
 ### JupyterLab
 
