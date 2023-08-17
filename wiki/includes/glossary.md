@@ -24,3 +24,4 @@
 *[url]: Uniform Resource Locator or web address
 *[UUID]: Universally unique identifier, a 128-bit label
 *[uuid]: Universally unique identifier, a 128-bit label
+*[TLS]: Transport Layer Security

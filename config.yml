@@ -155,6 +155,7 @@ nav:
     - 'Kubermatic' : Tutorials/Kubermatic/index.md
     - 'Loadbalancer' : Tutorials/Loadbalancer/index.md
     - 'Object Storage' : Tutorials/ObjectStorage/index.md
+    - 'Public Web Server' : Tutorials/PublicWebServer/index.md
     - 'Reverse Proxy with Elixir AAI': Tutorials/Elixir_AAI/Elixir_AAI.md
     - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
