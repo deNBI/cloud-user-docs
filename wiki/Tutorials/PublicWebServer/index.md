@@ -1,21 +1,22 @@
 # Secure hosting of a public Web Server
 
 When providing an online service to the public, **encryption** and **authentication** are the two main security aspects to consider.
-Neglecting either one of them, could potentially lead to unauthorized access, privacy violations or even server hijacking.
+Neglecting either one of them could potentially lead to unauthorized access, privacy violations or even server hijacking.
 
 One quick way to encrypt and authenticate is explained below.
 
-It is assumed, that you already have a designated instance running inside the de.NBI Cloud with a public floating IP attached.
+It is assumed, that you already have a designated instance running inside the de.NBI Cloud with a public Floating IP attached.
 Please start the **backend service** (e.g. a Galaxy server) that you would like to make publicly available and configure it to listen on `localhost` or `127.0.0.1` only.
 
 ## Domain name registration
 
 Every public website needs a domain name that people can type into their browser address bar to visit the site.
 Domain names can usually be obtained from domain name registrars, which is out of scope of this document.
+A domain name is strictly necessary to be able to use TLS encryption.
 
-Please make sure your domain name points to the public floating IP of your web server instance.
+Please make sure your domain name points to the public Floating IP of your web server instance.
 
-For the Bielefeld site you may request a domain name ending in `.bi.denbi.de` (e.g. `myservice.bi.denbi.de`) by [contacting us](../../Compute_Center/Bielefeld.md#contact).
+For the Bielefeld site you may request a domain name ending in `.bi.denbi.de` (e.g. `myservice.bi.denbi.de`) by [contacting us](../../Compute_Center/Bielefeld.md#contact) and mentioning your domain name of choice, your OpenStack project name and the target Floating IP for the domain.
 
 ## Encryption
 
@@ -80,17 +81,18 @@ The Caddy server should now be publicly reachable via HTTP on port `80` and serv
 ### Caddy - Configuration
 
 This section will configure the Caddy server to set up TLS and to proxy requests to your backend service.
+From then on, any requests on port `80` will be redirected to the secure port `443` (TLS).
 
 Requirements:
 
-- A domain name pointing to the public floating IP of your web server instance.
-- A backend service that you would like to make public (e.g. a Galaxy server) listening on `localhost` or `127.0.0.1`.
+- A domain name pointing to the public Floating IP of your web server instance.
+- A backend service that you would like to make public listening on `localhost` or `127.0.0.1`.
 
 Replace the contents of `/etc/caddy/Caddyfile` on your instance with the snippet below.
-Replace `example.bi.denbi.de` with your own domain name and replace port `8080` with the port the
+Replace `example.bi.denbi.de` with your own domain name and replace port `8080` with the port your
 backend service is listening on.
 
-`/etc/caddy/Caddyfile`
+`/etc/caddy/Caddyfile`:
 ```
 example.bi.denbi.de {
   reverse_proxy 127.0.0.1:8080
@@ -107,9 +109,12 @@ Your browser should now indicate that the connection is secure, as seen below.
 
 ## Authentication
 
-It is strongly advised to **make use of the authentication and user management features** your backend service provides.
+It is strongly advised to **make use** of the authentication and user management features your backend service
+already provides.
 
-In case the web server you make public does not offer any authentication methods,
+### Basic Authentication
+
+In case the backend service you make public does not offer any authentication methods,
 **access must be regulated** by telling the Caddy server to ask visitors for their username and password.
 Users are managed inside the Caddy server configuration file.
 To create a new user, e.g. `alice`, generate a password hash using 
@@ -118,10 +123,10 @@ To create a new user, e.g. `alice`, generate a password hash using
 caddy hash-password
 ```
 
-on the command line.
+on the command line on your instance.
 Add the username and the password hash by creating a new `basicauth` section as seen below.
 
-`/etc/caddy/Caddyfile`
+`/etc/caddy/Caddyfile`:
 ```
 example.bi.denbi.de {
   reverse_proxy 127.0.0.1:8000
@@ -143,6 +148,6 @@ To add more users, simply add more lines to the `basicauth` section:
 
 Finally, reload the Caddy server: `sudo systemctl reload caddy`
 
-Visitors should now be prompted for username and password:
+Visitors should now be prompted for a username and password:
 
 ![](images/basic-auth.png)
