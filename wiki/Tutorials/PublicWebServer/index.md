@@ -123,8 +123,9 @@ To create a new user, e.g. `alice`, generate a password hash using
 caddy hash-password
 ```
 
-on the command line on your instance.
-Add the username and the password hash by creating a new `basicauth` section as seen below.
+on the command line on your instance. The command will ask you to enter and repeat a password of your choice.
+Add the username and the resulting generated password hash to the config file by creating a
+new `basicauth` section as seen below.
 
 `/etc/caddy/Caddyfile`:
 ```
