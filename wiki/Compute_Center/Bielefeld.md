@@ -298,7 +298,7 @@ If you are receiving `Connection refused`:
     - If you are using an ubuntu based image or snapshot, the remote user is `ubuntu`. For debian it is `debian`.
 
 - The instance is stuck in maintenance-mode.
-    - See [here](Bielefeld.md#my-instance-is-stuck-in-maintenance-mode-while-booting) on how to resolve this.
+  - See [here](Bielefeld.md#my-instance-is-stuck-in-maintenance-mode-while-booting) on how to resolve this.
 
 - Something is misconfigured inside your instance.
     - The public key in `/home/ubuntu/.ssh/authorized_keys` is missing.
