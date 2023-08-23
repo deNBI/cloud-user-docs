@@ -42,9 +42,9 @@ consider this if running docker or any other container technology.
 Preconfigured cloud images are available for Ubuntu LTS (20.04, and 22.04) and Debian (11 and 12).
 These images apply some auto-configuration on boot specific to the cloud site Bielefeld:
 
-- Site-local APT mirror is used as default (only Ubuntu LTS)
+- Site-local APT mirror is used as default (only Ubuntu LTS).
 - New login style showing important messages from de.NBI cloud site Bielefeld (if there are any).
-- Fail2ban (https://github.com/fail2ban/fail2ban) comes preinstalled and configured to monitor ssh-access and improve
+- Fail2ban (https://github.com/fail2ban/fail2ban) comes preinstalled and configured to monitor SSH access and improve
   security.
 
 All images are able to run on other cloud sites without any further modifications.
