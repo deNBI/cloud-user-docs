@@ -249,7 +249,7 @@ If we detect an instance with a **MEDIUM** vulnerability:
 - The instance will continue to exist and connect to the internet as usually UNLESS this issue is not fixed in a
   specified time
 - For this, you will also be contacted by us with an attached report
-    - These reports also give hints on how to fix the listed vulnerability
+  - These reports also give hints on how to fix the listed vulnerability
 - You can contact us if you need help in resolving a vulnerability
 
 ## Current Known Problems
