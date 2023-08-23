@@ -295,7 +295,7 @@ If you are receiving `Connection refused`:
       permissions.
 
 - You are using the wrong remote user.
-    - If you are using an ubuntu based image or snapshot, the remote user is `ubuntu`. For debian it is `debian`.
+  - If you are using an ubuntu based image or snapshot, the remote user is `ubuntu`. For debian it is `debian`.
 
 - The instance is stuck in maintenance-mode.
   - See [here](Bielefeld.md#my-instance-is-stuck-in-maintenance-mode-while-booting) on how to resolve this.
