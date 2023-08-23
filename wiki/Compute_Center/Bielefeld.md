@@ -1,7 +1,6 @@
 # de.NBI cloud at Bielefeld University
 
-The Bielefeld cloud site currently has OpenStack Train installed. That means that the general descriptions with
-screenshots based on OpenStack Newton differs from our installation.
+The Bielefeld cloud site currently runs the OpenStack version "Yoga".
 
 ## Contact
 
