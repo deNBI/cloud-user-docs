@@ -40,19 +40,19 @@ consider this if running docker or any other container technology.
 
 ## Images
 
-Preconfigured cloud images are available for Ubuntu LTS (18.04, 20.04, and 22.04) and Debian (10 and 11). 
+Preconfigured cloud images are available for Ubuntu LTS (20.04, and 22.04) and Debian (11 and 12). 
 These images apply some auto-configuration on boot specific to the cloud site Bielefeld:
 
-- Site-local APT mirror is used as default
-- If needed, APT, Docker and the environment are configured to use the local proxy
+- Site-local APT mirror is used as default (only Ubuntu LTS)
+- New login style showing important messages from de.NBI cloud site Bielefeld (if there are any).
+- Fail2ban (https://github.com/fail2ban/fail2ban) comes preinstalled and configured to monitor ssh-access and improve security.
 
 All images are able to run on other cloud sites without any further modifications.
 
 ### Ubuntu apt mirror
 
-We run an apt mirror for Ubuntu LTS releases (18.04, 20.04 and 22.04) to speed up package download. The mirror is available 
-at the Bielefeld cloud site through the external (http://apt-cache.bi.denbi.de:9999 or http://129.70.51.2:9999) and cebitec
-(http://172.21.40.2:9999) network.
+We run an apt mirror for Ubuntu LTS releases (20.04 and 22.04) to speed up package download. The mirror is available 
+at the Bielefeld cloud site through the external (http://apt-cache.bi.denbi.de:9999 or http://129.70.51.2:9999)  network.
 This mirror is synced every midnight with the official Canonical/Debian repositories.
 
 ## Object storage
