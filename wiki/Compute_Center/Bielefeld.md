@@ -19,7 +19,7 @@ the OpenStack command-line tool (`openstack endpoint list`).
 ## Login
 
 The Bielefeld cloud site supports login using LifeScience AAI via OpenID Connect or default Keystone credentials.
-Using LifeScience AAI is the preferred way for all cloud users and the only way for non-cloud users not working
+Using LifeScience AAI is the preferred way for all cloud users not working
 at Bielefeld university.
 
 ## Network
