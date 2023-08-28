@@ -89,5 +89,7 @@ attacks that were (easily) able to guess your instance's IP and port (which are 
 means). It is also highly recommended to protect your network traffic from prying eyes using TLS
 which is available inside almost all server applications, especially webservers.
 
+Feel free to take a look at the tutorial [Secure hosting of a public Web Server](Tutorials/PublicWebServer/index.md) for guidance.
+
 **Always** change the default credentials of services as these are well known and
 will be probed as soon as the service is exposed to the internet.
