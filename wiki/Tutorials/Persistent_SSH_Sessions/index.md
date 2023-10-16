@@ -86,4 +86,4 @@ $ man screen
 
 ```
 
-- Good alternative: [TMUX](https://tmuxguide.readthedocs.io/en/latest/tmux/tmux.html)
+- Good alternative: [TMUX](https://github.com/tmux/tmux/wiki/Getting-Started#getting-started)
