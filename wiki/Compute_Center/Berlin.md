@@ -301,3 +301,45 @@ the correct format (typically qcow2). If there are special requirements for
 your image, you can specify the minimum disk size and also the minimum 
 amount of RAM. After the successful upload only the members of your project 
 can use the image.
+
+## openstack-cli
+
+This tutorial shows how you can setup openstack-cli in a project to manage your project from the vm without a web browser. This tutorial does only apply to the de.NBI site Berlin and was only tested with the Ubuntu 22.04 image.
+
+
+1. Create Application credentials in your project.
+
+![select application credentials](img/berlin/application_credentials_select.png)
+
+![create application credentials](img/berlin/application_credentials_create.png)
+
+2. Download both files presented to you: openrc.sh and cloud.yaml
+
+![download application credentials files](img/berlin/application_credentials_files.png)
+
+3. Create a vm in your project.
+4. Copy both files to your vm. Save 'clouds.yaml' to the directory ```~/.config/openstack/```. 
+5. Install virtual environment for python
+```bash
+sudo apt-get install python-virtualenv
+```
+6. Create virtual environment named 'venv'.
+```bash
+virtualenv ~/venv
+```
+7. activate the environment
+```bash
+source ~/venv/bin/activate
+```
+8. Install the openstack cli client in the environment
+```bash
+pip install python-openstackclient
+```
+9. Source the ```openrc.sh``` file to use the credentials to use openstack-cli
+```bash
+source openrc.sh
+```
+10.  Use openstack-cli to get information about your project
+```bash
+openstack server list
+```
