@@ -68,6 +68,14 @@ c : Connected to server.
 Afterwards, you can open a new terminal on your local client and directly access all instances
 in your private network. Don't close the session where the `sshuttle`-Process has been established.
 
+```bash
+[awalende@myLaptop ~]$ ping 192.169.199.52
+PING 192.169.199.52 (192.169.199.52) 56(84) Bytes of data.
+64 Bytes from 192.169.199.52: icmp_seq=1 ttl=50 time=176 ms
+64 Bytes from 192.169.199.52: icmp_seq=2 ttl=50 time=174 ms
+64 Bytes from 192.169.199.52: icmp_seq=3 ttl=50 time=174 ms
+```
+
 The components in the command explained:
 
 * `sshuttle -r` indicates to connect to a remote instance.
