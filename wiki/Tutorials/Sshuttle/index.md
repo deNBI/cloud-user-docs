@@ -58,6 +58,13 @@ sshuttle -r ubuntu@129.70.51.160 192.168.199.0/24
 c : Connected to server.
 ```
 
+In some scenarios you may have to extend the command to explicitly define the private ssh-keypair:
+
+```bash
+sshuttle -e "ssh -i ~/.ssh/os-bibi.key" -r ubuntu@129.70.51.160 192.168.199.0/24
+c : Connected to server.
+```
+
 Afterwards, you can open a new terminal on your local client and directly access all instances
 in your private network. Don't close the session where the `sshuttle`-Process has been established.
 
@@ -68,4 +75,8 @@ The components in the command explained:
 * `192.168.199.0/24` describes the private network in your OpenStack-Project on which `sshuttle` will react to and forward the traffic to the instance with the FloatingIP.
 
 If you a are struggling to find the definition of your private network, you can look it up
-in the OpenStack Dashboard.
+in the OpenStack Dashboard:
+
+![privsubnet](images/privsubnet.png)
+
+In order to shut down the `sshuttle`-Process, switch back to the terminal where the session is running and press `Ctrl+c`. 
