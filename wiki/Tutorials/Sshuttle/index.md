@@ -32,3 +32,8 @@ For Fedora:
 For Mac (via brew):
 
 `brew install sshuttle`
+
+### Sshuttle overview
+
+![sshuttle_overview](images/sshuttle.drawio.png)
+
