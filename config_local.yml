@@ -8,6 +8,7 @@ theme:
   logo: 'img/denbi.svg'
   favicon: 'img/denbi.svg'
 repo_name: 'deNBI/cloud-user-docs'
+
 repo_url: 'https://github.com/deNBI/cloud-user-docs'
 edit_uri: blob/master/wiki/
 markdown_extensions:
@@ -43,23 +44,7 @@ nav:
     - 'Cloud Credits': portal/credits.md
     - 'Personal Data': portal/personal_data.md
   - 'Simple VM':
-      - 'Group Permissions': simple_vm/permissions.md
-      - 'New instance': simple_vm/new_instance.md
-      - 'Instance overview': simple_vm/instance_overview.md
-      - 'Instance details': simple_vm/instance_detail.md
-      - 'Cluster' :
-        - 'Cluster': simple_vm/Cluster/index.md
-        - 'New cluster': simple_vm/Cluster/new_cluster.md
-        - 'Cluster overview': simple_vm/Cluster/cluster_overview.md
-      - 'SSH keys and sharing access': simple_vm/keypairs.md
-      - 'Volumes': simple_vm/volumes.md
-      - 'Images/Snapshots': simple_vm/snapshots.md
-      - 'Backuping data': simple_vm/backup.md
-      - 'Customization': simple_vm/customization.md
-      - 'Concurrent Guacamole sessions': simple_vm/guacamole.md
-      - 'Concurrent RStudio sessions': simple_vm/rstudio.md
-      - 'Workshops': simple_vm/workshop.md
-      - 'Miscellaneous': simple_vm/misc.md
+    - simple_vm/index.md
   - 'OpenStack Quickstart' : quickstart.md
   - 'Security' : security.md
   - 'Concept' :
