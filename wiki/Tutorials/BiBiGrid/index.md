@@ -310,10 +310,21 @@ that the other nodes in your cluster don't have access to it, neither does the v
 - Create mount points
 - Mount NFS shares
 
+To share a volume (or a file) one has to configure the `/etc/exports` file and add a line as follows: 
+
+`/vol/XXX CIDR.of.subnet(rw,nohide,insecure,no_subtree_check,async)`
+
+E.g.: `/vol/test 192.168.0.0/24(rw,nohide,insecure,no_subtree_check,async)`
+
+Then, one has to export the updated table with
+
+`exportfs -ra`
+
+Afterwards, the shared volume can be mounted to the worker nodes.
 Instead of letting Ansible execute every single command, you can simply create a playbook.
 
 - Create shareVolume.yml
-- Copy & Paste the following lines into the file - XXX has to be changed like in the tutorial above:
+- Copy & Paste the following lines into the file - XXX has to be changed like in the tutorial above, internal.master.ip has to be changed to the master ip:
 ```
 - hosts: slaves
   become: yes
@@ -337,11 +348,7 @@ Instead of letting Ansible execute every single command, you can simply create a
 
 Run the playbook: `ansible-playbook -i ansible_hosts shareVolume.yml`
 
-To share a volume (or a file) one has to configure the `/etc/exports` file and add a line as follows: 
 
-`/vol/XXX CIDR.of.subnet(rw,nohide,insecure,no_subtree_check,async)`
-
-E.g.: `/vol/test 192.168.0.0/24(rw,nohide,insecure,no_subtree_check,async)`
 
 
 
