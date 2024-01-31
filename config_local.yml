@@ -53,8 +53,8 @@ nav:
     - 'Flavors' : Concept/flavors.md
     - 'Images' : Concept/images.md
   - 'Tutorials' :
+    - 'Tutorials': Tutorials/index.md
     - 'Access de.NBI Virtual Machines from Windows 10' : Tutorials/Win10_SSH/index.md
-    - 'Access a SimpleVM with Mosh' : Tutorials/Mosh/index.md
     - 'Ansible Automation' : Tutorials/Ansible/index.md
     - 'Bibigrid' : Tutorials/BiBiGrid/index.md
     - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
@@ -67,7 +67,6 @@ nav:
     - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
     - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
     - 'Persistent SSH Sessions' : Tutorials/Persistent_SSH_Sessions/index.md
-    - 'SimpleVM File Transfer' : Tutorials/File_Transfer_Methods/index.md
     - 'Theia Web IDE': Tutorials/TheiaIde/index.md
     - 'UserData' : Tutorials/UserData/index.md
     - 'Using X2GO': Tutorials/X2GO/x2go.md
