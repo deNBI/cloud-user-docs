@@ -1,4 +1,4 @@
-
+{% raw %}
 # Configure OpenStack (Keystone) to use Elixir AAI via OpenID Connect
 
 ## Introduction
@@ -238,3 +238,6 @@ token issue
 
 !!! warning
     At the time of writing this tutorial retrieving a keystone token using using OIDC token ends in a 401 Error (not authorized). This might be a problem of an outdated OpenStack version (Newton)
+
+
+{% endraw %}
