@@ -87,16 +87,17 @@ standard users for some common distributions:
 To connect via Windows 10 you can use PowerShell as OpenSSH ist already installed by default. Create the ssh config file ```$HOME\.ssh\config``` with notepad or use the PowerShell command ```Set-Content -Path $HOME\.ssh\config -Value '<add file content here>'```
 When you use PowerShell, make sure to edit the input of the file. Fill in your information and make sure that the sections HostName, IdentityFile, User, and ProxyJump are indented with four spaces for both entries.
 ```bash
+# Replace all fields in {curly braces}
 Host denbi-jumphost-01.bihealth.org
     HostName denbi-jumphost-01.bihealth.org
-    User LifeScienceLogin
-    IdentityFile PATH_TO_KEY
+    User {LifeScienceLogin}
+    IdentityFile {PATH_TO_KEY}
 
 
-Host NAME_OF_VM  # first vm
-    HostName 172.16.XXX.XXX
-    IdentityFile PATH_TO_KEY
-    User ubuntu / centos
+Host {NAME_OF_VM}  # first vm
+    HostName {172.16.XXX.XXX}
+    IdentityFile {PATH_TO_KEY}
+    User {ubuntu / centos}
     ProxyJump denbi-jumphost-01.bihealth.org
 ```
 
@@ -108,18 +109,18 @@ ssh NAME_OF_VM
 #### Linux .ssh/config
 
 ```bash
+# Replace all fields in {curly braces}
 Host denbi-jumphost-01.bihealth.org
     HostName denbi-jumphost-01.bihealth.org
-    User LifeScienceLogin
-    IdentityFile PATH_TO_KEY
+    User {LifeScienceLogin}
+    IdentityFile {PATH_TO_KEY}
     ServerAliveInterval 120
 
-Host NAME_OF_VM
-    HostName 172.16.XXX.XXX
-    IdentityFile PATH_TO_KEY
-    User ubuntu / centos
+Host {NAME_OF_VM}
+    HostName {172.16.XXX.XXX}
+    IdentityFile {PATH_TO_KEY}
+    User {ubuntu / centos}
     ProxyJump denbi-jumphost-01.bihealth.org
-
 ```
 
 #### Setting up a SOCKS proxy
