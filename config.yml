@@ -44,7 +44,7 @@ plugins:
         -1: ["https://cloud.denbi.de/portal/webapp/#/userinfo","http://169.254.169.254","https://login.elixir-czech.org/oidc/","https://spreg-legacy.aai.elixir-czech.org/spreg/auth/requests/new","https://spreg-legacy.aai.elixir-czech.org/spreg/auth/facilities/myServices","http://BIBIGRID_MASTER/ganglia"]
         400: ["http://169.254.169.254"]
         500: ["https://cloud.denbi.de/register", "https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=elixir_test"]
-        504: ["https://denbi-cloud.bihealth.org"]
+        504: ["https://denbi-cloud.bihealth.org","http://apt-cache.bi.denbi.de:9999"]
 markdown_extensions:
   - abbr
   - attr_list
