@@ -14,7 +14,7 @@ contact us via <denbi-cloud@bih-charite.de>.
 ### OpenStack Dashboard
 The OpenStack dashboard gives you all information about your 
 project, e.g. your available resources, your virtual machines etc. The 
-dashboard is available [here](https://denbi-cloud.bihealth.org/dashboard/auth/login/?next=/dashboard/).
+dashboard is available [here](https://denbi-cloud.bihealth.org).
 To access your project, use LifeScience AAI as authentication provider. After 
 authentication you will be redirected to the OpenStack dashboard.
 
