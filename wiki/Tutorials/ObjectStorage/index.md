@@ -18,7 +18,7 @@ A caveat on object stores is the possible higher network latency between the sto
 ### Object storage access 
 
 Depending on the cloud site the object storage is based on different storage backends. It can be accessed using 
-the [https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html](S3-API). SThese APIs differ in
+the [S3-API](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html). These APIs differ in
 their terminology, capabilities and respective tools: Objects are stored in containers (swift) or buckets (s3).
 Access is controlled via access control lists (s3 and swift) or via policies (only s3).
 
