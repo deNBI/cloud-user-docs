@@ -80,7 +80,7 @@ This way you can easily create persistent sessions with screen that are independ
 - Screen Cheatsheet - https://quickref.me/screen
 
 
-- Manpage: [Screen](https://linux.die.net/man/1/screen) or
+- Manpage:
 ```bash 
 $ man screen
 
