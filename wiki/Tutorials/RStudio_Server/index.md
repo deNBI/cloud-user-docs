@@ -165,4 +165,4 @@ sudo apt-get install libcurl4-gnutls-dev libssl-dev libcurl4-openssl-dev libxml2
 After the installation of these packages, try to re-install the R packages in RStudio Server. Hopefully the error vanished now!
 
 ## 6. Further Reading
-For more information on RStudio and the RStudio Server please have a look at their documentation at ([https://support.rstudio.com/hc/en-us/categories/200035113-Documentation](https://support.rstudio.com/hc/en-us/categories/200035113-Documentation))
+For more information on RStudio and the RStudio Server please have a look at their documentation at ([https://docs.posit.co/ide/user/](https://docs.posit.co/ide/user/))

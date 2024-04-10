@@ -22,4 +22,3 @@ SimpleVM-specific Tutorials can be found in the SimpleVM-Wiki [tutorial section]
 - [Persistent SSH Sessions](Persistent_SSH_Sessions/index.md)
 - [Theia Web IDE](TheiaIde/index.md)
 - [UserData](UserData/index.md)
-- [Using X2GO](X2GO/x2go.md)

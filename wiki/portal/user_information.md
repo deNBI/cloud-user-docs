@@ -32,8 +32,8 @@ https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=anonymize
 ### SSH Key
 ![setcopypublickey](img/profile_page.png)
 
-You have the possibility to view, copy and deposit your public ssh key. An uploaded public key is required for starting machines. 
-Read more about it [here](https://simplevm.denbi.de/wiki/simple_vm/create_instance/#9-grant-access-for-project-members).
+
+You have the possibility to view, copy and deposit your public ssh key.
 If you don't know how to generate a ssh key, you can read the [instructions](../quickstart.md#generate-ssh-keys) on our quickstart page.
 
 Alternatively you are also able to have a ECDSA key generated for you. Click on the `Generate Key` button and read and confirm the notification.  
