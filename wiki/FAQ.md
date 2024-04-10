@@ -23,7 +23,7 @@ If this does not bring the desired success, the reasons can be manifold.
 Make sure that you use the correct SSH key!
 If you have changed your SSH key in the portal since creating the machine, it will not be automatically changed on this machine. The connection to this VM still requires the key that was set at the time of creation. The private key is always used to connect to the machine.
 
-You can find more about SSH keys [here](./simple_vm/keypairs.md#ssh-keys-and-sharing-access).
+You can find more about SSH keys [here]({{extra.simplevm_wiki_link}simple_vm/keypairs/).
 
 Maintenance may be performed at the site where your machines are running. Occasionally, malfunctions also occur during regular service.
 Check your project site's [Facility News](https://cloud.denbi.de/news/facility-news/) page - downtimes are usually announced on this page.
