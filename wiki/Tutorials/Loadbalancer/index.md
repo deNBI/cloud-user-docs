@@ -5,7 +5,7 @@ In this setup the reverse proxy will only be accessible over a load balancer fro
 
 ## Setup the internal network
 
-In the de.NBI cloud site Berlin to use the load balancer in a dmz and secure the web-service in an internal network you firstly need to create the network structure. To do that create a new network with a private address range (10.0.0.0 – 10.255.255.255, 10.0.0.0 – 10.255.255.255, 192.168.0.0 – 192.168.255.255). We will use this network as internal network for the web-service. To create the network go to the OpenStack dashboard and click on 'Network' and on the 'Networks' section. Click on 'Create Network' in the overview. 
+In the de.NBI cloud site Berlin to use the load balancer in a dmz and secure the web-service in an internal network you firstly need to create the network structure. To do that create a new network with a private address range (10.0.0.0 – 10.255.255.255, 172.16.0.0 – 172.31.255.255, 192.168.0.0 – 192.168.255.255). We will use this network as internal network for the web-service. To create the network go to the OpenStack dashboard and click on 'Network' and on the 'Networks' section. Click on 'Create Network' in the overview. 
 
 ![create new network](images/18_create_dmz-int_network.png)
 
@@ -53,17 +53,21 @@ Connect to your vm with one of the methods mentioned in the Berlin section of th
 
 Setup a second vm in your project but this time select the automatically generated network and not you own created internal network. Also select the default security group. Everything else can be the same as for your web-service. When finished allocate a floating IP and connect to the vm. 
 Now update your system and install nginx:
-```console
+
+```bash
 sudo apt update -y && sudo apt upgrade -y
-sudo install nginx -y```
+sudo install nginx -y
+```
 
 When nginx is installed check if it is running:
-```console
+
+```bash
 sudo systemctl status nginx
 ```
 
 It should start automatically, if not you can setup the start with systemboot and start it now by issuing the following command:
-```console
+
+```bash
 sudo systemctl enable nginx --now
 ```
 
@@ -120,7 +124,7 @@ Click on 'Add Rule' in the next window and fill in the information for the new r
 
 In the de.NBI cloud site Berlin to use the reverse-proxy with a load balancer you first need an internal demilitarized zone (dmz) network. This can be created the way you did before. So select 'Network' in the dashboard and then 'Networks' again. In the next window click on 'Create Network' to open the network creation panel.
 
-Give the network the name 'dmz-int' and name the subnet 'dmz-int-subnet'. Now use a private IP address range that is not already in use (e.g. 10.0.10.0/24) and leave everything else free. Click on 'Next' and 'Create' in the last window. When the network is created, you need to create another router which connects the dmz-int network you just created to the dmz-ext network which is created automatically. 
+Give the network the name 'dmz-int' and name the subnet 'dmz-int-subnet'. Now use a private IP address range that is not already in use (e.g. 10.0.10.0/24) and use the last possible ip address in this range as gateway ip (e.g. 10.0.10.254) leave everything else free. Click on 'Next' and 'Create' in the last window. When the network is created, you need to create another router which connects the dmz-int network you just created to the dmz-ext network which is created automatically. 
 Click on 'Routers' in the 'Network' section and select 'Create Router'. 
 
 ![routers section](images/21_create_dmz_router.png)
@@ -129,7 +133,7 @@ Give the route a recognizable name (e.g. dmz-router) and select the network 'dmz
 
 ![router interface](images/23_create_dmz_router_interface.png)
 
-Select the subnet 'dmz-int' and fill in the last possible ip address in this range (e.g.10.0.10.254). Click on 'Submit' to create the interface.
+Select the subnet 'dmz-int' and fill in the last possible ip address in this range (e.g.10.0.10.254, the same as the network gateway ip). Click on 'Submit' to create the interface.
 
 
 ## Load-Balancer
