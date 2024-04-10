@@ -29,22 +29,22 @@ repo_name: 'deNBI/cloud-user-docs'
 repo_url: 'https://github.com/deNBI/cloud-user-docs'
 edit_uri: blob/master/wiki/
 use_directory_urls: true
-site_url: !ENV [SITE_URL, 'https://cloud.denbi.de/wiki/']
+site_url: !ENV [ SITE_URL, 'https://cloud.denbi.de/wiki/' ]
 
 plugins:
   - search
   - glightbox
   - macros
   - git-revision-date-localized:
-        fallback_to_build_date: true
+      fallback_to_build_date: true
   - htmlproofer:
-      enabled: !ENV [ENABLED_HTMLPROOFER,False]
+      enabled: !ENV [ ENABLED_HTMLPROOFER,False ]
       raise_error: True
       raise_error_excludes:
-        -1: ["https://cloud.denbi.de/portal/webapp/#/userinfo","http://169.254.169.254","https://login.elixir-czech.org/oidc/","https://spreg-legacy.aai.elixir-czech.org/spreg/auth/requests/new","https://spreg-legacy.aai.elixir-czech.org/spreg/auth/facilities/myServices","http://BIBIGRID_MASTER/ganglia"]
-        400: ["http://169.254.169.254"]
-        500: ["https://cloud.denbi.de/register", "https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=elixir_test"]
-        504: ["https://denbi-cloud.bihealth.org","http://apt-cache.bi.denbi.de:9999","http://129.70.51.2:9999","https://cloud.denbi.dkfz-heidelberg.de"]
+        -1: [ "https://cloud.denbi.de/portal/webapp/#/userinfo","http://169.254.169.254","https://login.elixir-czech.org/oidc/","https://spreg-legacy.aai.elixir-czech.org/spreg/auth/requests/new","https://spreg-legacy.aai.elixir-czech.org/spreg/auth/facilities/myServices","http://BIBIGRID_MASTER/ganglia" ]
+        400: [ "http://169.254.169.254" ]
+        500: [ "https://cloud.denbi.de/register", "https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=elixir_test" ]
+        504: [ "https://denbi-cloud.bihealth.org","http://apt-cache.bi.denbi.de:9999","http://129.70.51.2:9999","https://cloud.denbi.dkfz-heidelberg.de","https://denbi-cloud.bioquant.uni-heidelberg.de " ]
 markdown_extensions:
   - abbr
   - attr_list
@@ -104,64 +104,64 @@ extra:
       name: de.NBI on YouTube
     - icon: fontawesome/brands/wikipedia-w
       link: https://en.wikipedia.org/wiki/German_Network_for_Bioinformatics_Infrastructure
-      name: de.NBI on Wikipedia  
-  simplevm_wiki_link: !ENV [SIMPLE_VM_WIKI_LINK, 'https://simplevm.denbi.de/wiki/']
+      name: de.NBI on Wikipedia
+  simplevm_wiki_link: !ENV [ SIMPLE_VM_WIKI_LINK, 'https://simplevm.denbi.de/wiki/' ]
 
 nav:
-  - 'Home' : index.md
-  - 'Registration' : registration.md
+  - 'Home': index.md
+  - 'Registration': registration.md
   - 'Citation and publication': citation_and_publication.md
-  - 'Portal' :
-    - 'Allocation': portal/allocation.md
-    - 'Resource/Lifetime Modifications': portal/modification.md
-    - 'Project Termination' : portal/termination.md
-    - 'Project Overview': portal/project_overview.md
-    - 'Profile Page': portal/user_information.md
-    - 'Using Vault': portal/vault_user.md
-    - 'Cloud Credits': portal/credits.md
-    - 'Personal Data': portal/personal_data.md
+  - 'Portal':
+      - 'Allocation': portal/allocation.md
+      - 'Resource/Lifetime Modifications': portal/modification.md
+      - 'Project Termination': portal/termination.md
+      - 'Project Overview': portal/project_overview.md
+      - 'Profile Page': portal/user_information.md
+      - 'Using Vault': portal/vault_user.md
+      - 'Cloud Credits': portal/credits.md
+      - 'Personal Data': portal/personal_data.md
   - 'Simple VM':
       - simple_vm/index.md
-  - 'OpenStack Quickstart' : quickstart.md
-  - 'Security' : security.md
-  - 'Concept' :
-    - 'OpenStack Basics' : Concept/basics.md
-    - 'OpenStack Components' : Concept/openstack.md
-    - 'Flavors' : Concept/flavors.md
-    - 'Images' : Concept/images.md
-  - 'Tutorials' :
-    - 'Tutorials': Tutorials/index.md
-    - 'Access de.NBI Virtual Machines from Windows 10' : Tutorials/Win10_SSH/index.md
-    - 'Access project infrastructure with sshuttle' : Tutorials/Sshuttle/index.md
-    - 'Ansible Automation' : Tutorials/Ansible/index.md
-    - 'Bibigrid' : Tutorials/BiBiGrid/index.md
-    - 'Blast on BiBiGrid' : Tutorials/BlastOnBiBiGrid/index.md
-    - 'Hybridcloud' : Tutorials/Hybridcloud/index.md
-    - 'Install latest CUDA version' : Tutorials/CUDA/index.md
-    - 'JupyterHub' : Tutorials/JupyterHub/index.md
-    - 'Kubermatic' : Tutorials/Kubermatic/index.md
-    - 'Loadbalancer' : Tutorials/Loadbalancer/index.md
-    - 'Object Storage' : Tutorials/ObjectStorage/index.md
-    - 'Public Web Server' : Tutorials/PublicWebServer/index.md
-    - 'Reverse Proxy with Elixir AAI': Tutorials/Elixir_AAI/Elixir_AAI.md
-    - 'Save FloatingIPs' : Tutorials/SaveFloatingIPs/index.md
-    - 'Set up RStudio' : Tutorials/RStudio_Server/index.md
-    - 'Persistent SSH Sessions' : Tutorials/Persistent_SSH_Sessions/index.md
-    - 'Theia Web IDE': Tutorials/TheiaIde/index.md
-    - 'UserData' : Tutorials/UserData/index.md
-    - 'Using X2GO': Tutorials/X2GO/x2go.md
-  - 'FAQ' : 'FAQ.md'
-  - 'Compute Center Specific' :
-    - 'Berlin' : Compute_Center/Berlin.md
-    - 'Bielefeld' : Compute_Center/Bielefeld.md
-    - 'EMBL' : Compute_Center/EMBL.md
-    - 'Freiburg' : Compute_Center/Freiburg.md
-    - 'Giessen' : Compute_Center/Giessen.md
-    - 'Heidelberg Uni' : Compute_Center/Heidelberg.md
-    - 'Heidelberg DKFZ' : Compute_Center/Heidelberg-DKFZ.md
-    - 'Tuebingen' : Compute_Center/Tuebingen.md
+  - 'OpenStack Quickstart': quickstart.md
+  - 'Security': security.md
+  - 'Concept':
+      - 'OpenStack Basics': Concept/basics.md
+      - 'OpenStack Components': Concept/openstack.md
+      - 'Flavors': Concept/flavors.md
+      - 'Images': Concept/images.md
+  - 'Tutorials':
+      - 'Tutorials': Tutorials/index.md
+      - 'Access de.NBI Virtual Machines from Windows 10': Tutorials/Win10_SSH/index.md
+      - 'Access project infrastructure with sshuttle': Tutorials/Sshuttle/index.md
+      - 'Ansible Automation': Tutorials/Ansible/index.md
+      - 'Bibigrid': Tutorials/BiBiGrid/index.md
+      - 'Blast on BiBiGrid': Tutorials/BlastOnBiBiGrid/index.md
+      - 'Hybridcloud': Tutorials/Hybridcloud/index.md
+      - 'Install latest CUDA version': Tutorials/CUDA/index.md
+      - 'JupyterHub': Tutorials/JupyterHub/index.md
+      - 'Kubermatic': Tutorials/Kubermatic/index.md
+      - 'Loadbalancer': Tutorials/Loadbalancer/index.md
+      - 'Object Storage': Tutorials/ObjectStorage/index.md
+      - 'Public Web Server': Tutorials/PublicWebServer/index.md
+      - 'Reverse Proxy with Elixir AAI': Tutorials/Elixir_AAI/Elixir_AAI.md
+      - 'Save FloatingIPs': Tutorials/SaveFloatingIPs/index.md
+      - 'Set up RStudio': Tutorials/RStudio_Server/index.md
+      - 'Persistent SSH Sessions': Tutorials/Persistent_SSH_Sessions/index.md
+      - 'Theia Web IDE': Tutorials/TheiaIde/index.md
+      - 'UserData': Tutorials/UserData/index.md
+      - 'Using X2GO': Tutorials/X2GO/x2go.md
+  - 'FAQ': 'FAQ.md'
+  - 'Compute Center Specific':
+      - 'Berlin': Compute_Center/Berlin.md
+      - 'Bielefeld': Compute_Center/Bielefeld.md
+      - 'EMBL': Compute_Center/EMBL.md
+      - 'Freiburg': Compute_Center/Freiburg.md
+      - 'Giessen': Compute_Center/Giessen.md
+      - 'Heidelberg Uni': Compute_Center/Heidelberg.md
+      - 'Heidelberg DKFZ': Compute_Center/Heidelberg-DKFZ.md
+      - 'Tuebingen': Compute_Center/Tuebingen.md
   - 'Cloud Admin':
-    - 'Configure OpenStack to use Elixir AAI via OpenID Connect': cloud_admin/elixir_OIDC.md
-    - 'Register your identity provider for ELIXIR': cloud_admin/identity_provider.md
-    - 'News management': cloud_admin/news_management.md
-    - 'Vault management': cloud_admin/vault_admin.md
+      - 'Configure OpenStack to use Elixir AAI via OpenID Connect': cloud_admin/elixir_OIDC.md
+      - 'Register your identity provider for ELIXIR': cloud_admin/identity_provider.md
+      - 'News management': cloud_admin/news_management.md
+      - 'Vault management': cloud_admin/vault_admin.md
