@@ -33,14 +33,12 @@ jobs:
       - name: Run Docker
         run: cd $GITHUB_WORKSPACE/cloud-user-docs && docker run -v "$(pwd):/srv_root/docs"  -p "8000:8000" -e ENABLED_HTMLPROOFER=True -e SITE_URL=https://cloud.denbi.de/wiki/ --entrypoint="mkdocs" docs build -f /srv_root/docs/config.yml
 
-      - name: Rocket.Chat Notification
-        uses: RocketChat/Rocket.Chat.GitHub.Action.Notification@master
+      - uses: Cadair/matrix-notify-action@main
+        name: Matrix Notification
         if: ${{ failure() }}
         with:
-          type: ${{ job.status }}
-          job_name: ':kermit_typing: *Wiki Check*'
-          mention_if: 'failure'
-          mention: 'To see the error, click on the workflow link and check in which step the workflow failed!  -  '
-          url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
-          commit: true
-          token: ${{secrets.CLOUD_USER_DOCS_WIKI_CHECK}}
+          matrix_token: ${{ secrets.matrix_access_token }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          homeserver: 'https://matrix.org'
+          roomid: ${{ secrets.MATRIX_CRITICAL_ROOM }}
+          summarise_success: true
