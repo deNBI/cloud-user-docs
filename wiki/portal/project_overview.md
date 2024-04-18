@@ -48,12 +48,11 @@ In the area "Members of the Project" all members of the project can be viewed if
 
 * Prevent the starting of machines by non-administrator
 
-Members can be easily be added to the project. If desired users already have a de.NBI Cloud account, they can easily be
-added using the search function under "Add member". Otherwise you will find an invitation link in the same section,
-which can be sent to the desired persons. These persons must then register for an ELIXIR and a de.NBI Cloud account. As
-soon as the invited person has completed this process and applied for your project, the project administrators will be
-informed by mail. Adding the people to the project can then be confirmed or declined under "Member Applications".
 
+!!! note ""
+    Adding members to projects is now exclusively possible via invitation links.
+
+You'll find an invitation link within the "Add Members" Modal, which you can send to desired individuals. These individuals must then register for a LifeScienceAAI and a de.NBI Cloud account. Once the invited person has completed this process and applied for your project, the project administrators will be notified via email. Subsequently, you can confirm or decline the addition of these individuals to the project under "Member Applications".
 By default, only admins of a project see all project members. This option can be disabled and re-enabled by admins using
 the "Show/Hide Member Names" button (as seen below). If the option is enabled, this is also indicated by a "(hidden)"
 next to "Full Name" in the header of the member table.
