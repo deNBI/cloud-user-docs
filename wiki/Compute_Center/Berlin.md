@@ -320,9 +320,10 @@ This tutorial shows how you can setup openstack-cli in a project to manage your 
 
 3. Create a vm in your project.
 4. Copy both files to your vm. Save 'clouds.yaml' to the directory ```~/.config/openstack/```. 
-5. Install virtual environment for python
+5. Install virtual environment for python (`python-virtualenv` or `python3-virtualenv` for older/newer distros)
 ```bash
-sudo apt-get install python-virtualenv
+sudo apt-get update
+sudo apt-get install python3-virtualenv
 ```
 6. Create virtual environment named 'venv'.
 ```bash
