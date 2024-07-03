@@ -138,7 +138,11 @@ Select the subnet 'dmz-int' and fill in the last possible ip address in this ran
 
 ## Load-Balancer
 
-Now you can create a load balancer. Click on 'Load Balancer' in the 'Network' section and click on 'Create Load Balancer' to open the creation panel. 
+Now you can create a load balancer. This can be done over the web UI or via the openstack-cli. To make the openstack-cli available. please follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Berlin/#openstack-cli).
+
+### Web UI
+
+Click on 'Load Balancer' in the 'Network' section and click on 'Create Load Balancer' to open the creation panel. 
 
 ![create load balancer](images/25_create_loadbalancer.png)
 
@@ -164,3 +168,72 @@ Now you can add another listener for https to the load balancer if you want. Sel
 
 As before use 'https' as name and select 'TCP' as protocol now use 443 as port. Name the pool 'https' and select the algorithm 'LEAST CONNECTIONS'. Select the reverse-proxy as a pool member and fill in port 443. Name the monitor https and select the type 'TCP'. By clicking on 'Create Listener' you create the listener for https. To make the load balancer reachable from the internet you need to associate a floating ip. With the public ip of your project comes a floating ip for the load balancer. This floating ip must be selected here to map the public ip to the load balancer. When the floating ip is associated your web-service should be reachable with a browser over the public IP or a FQDN if you have registered one for the IP address.
 
+
+### openstack-cli
+
+You can also use the openstack-cli API to create and assign the loadbalancer to an internal VM. To setup the openstack-cli follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Berlin/#openstack-cli). When you setup the environment you additionally need to install the clinet to controll the loadbalancer.
+
+```term
+pip install python-octaviaclient
+```
+
+To Create the loadbalancer, you need some information. The name of your project, the name of the dmz-int network to that you need to connect your loadbalancer, a name for the loadbalancer, the IP of the vm interface you want to attach the loadbalancer to and the floating IP that mapps the public IP to access your service from the internet. To make the setup easier you can just define variables in the terminal to use in the configuration. THe floating IP will be given to you when you apply for an public IP for your project. 
+
+```bash
+export ProjectName="MyProject"
+export NetworkName="dmz-int"
+export LoadbalancerName="MyProject-Loadbalancer"
+export InternalIP="10.0.0.20"
+export FloatingIP="172.0.0.20"
+```
+When you have setup this variables you can begin to define the project and network ID.
+
+```bash
+# get the prorect UUID
+export ProjectUUID=$(sed "s/$ProjectName$//" <<< $(openstack project list -f value | grep $ProjectName))
+# get nework
+export NetUUID=$(sed "s/$NetworkName$//" <<<  $(openstack network list --project $ProjectUUID -c Name -c ID -f value | grep $NetworkName))
+export SubnetUUID=$(openstack subnet list --network $NetUUID -c ID -f value)
+```
+
+With these information you can now create a loadbalancer for the defined project in the defines subnet with the defined loadbalancer name.
+
+```bash
+# create loadbalancer
+openstack loadbalancer create --name $LoadbalancerName --vip-subnet-id $SubnetUUID --project $ProjectUUID --wait
+```
+
+When the loadbalancer is created you can retreive the ID of the loadbalancer to create the first listener for the loadbalancer. In this case we will be creating a listener for the http default port 80.
+
+```bash
+# create listener
+export LBUUID=$(openstack loadbalancer list --name $LoadbalancerName -c id -f value)
+openstack loadbalancer listener create --name http --protocol TCP --protocol-port 80 $LBUUID --wait
+```
+
+Now that the listener is created we need its ID to create a member pool for this listener. The member pool is later used to connect the interface of the vm to the loadbalancer.
+
+
+```bash
+# create pool
+export ListenerUUID=$(openstack loadbalancer listener list -c id -f value --loadbalancer $LBUUID)
+openstack loadbalancer pool create --name http-pool --lb-algorithm LEAST_CONNECTIONS --listener $ListenerUUID --protocol TCP --wait
+```
+
+To connect the loadbalancer to the vm we need the loadbalancer member pool ID from the pool we just created and the subnet ID from the internal subnet to which the vm is directly connected. The default network that is crated when your project is created is named after your project. The subnat to this network is then called ```MyProject-subnet-2``` in this case. You can use this name to get the ID of the subnet to that your vm is connected. In case you use another network that you created, you need to use the networkname to find the subnet ID. Use the internal IP, that is defined for the interface of your vm for the variable ```$InternalIP```.
+
+```bash
+# add member to pool
+export PoolUUID=$(openstack loadbalancer pool list -c id -f value --loadbalancer $LBUUID)
+export SubnetUUID=$(openstack subnet list -c ID -f value --name ${ProjectName}-subnet-2)
+openstack loadbalancer member create --subnet-id $SubnetUUID  --address $InternalIP --protocol-port 80 $PoolUUID --wait
+```
+Now the loadbalancer should be ready to use. To make it accessible from the internet you need to allocate the floating IP that were given to you this the public IP to the vip_port of the loadbalancer. So first you need the corresponding port ID and then you can allocate the floating IP.
+
+```bash
+# add floating IP
+export PortUUID=$(openstack loadbalancer show  -c vip_port_id -f value $LBUUID)
+openstack floating ip set --port $PortUUID $FloatingIP
+```
+
+Now your service should be accessible over the internet. 
