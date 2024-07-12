@@ -238,10 +238,21 @@ dashboard to get information about the complete mount path. Under the
 
 You can mount the share with the following command:
 
-    sudo mount -o vers=4.0 manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID /mnt/
+    sudo mount -t nfs manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID /mnt/
     
-Alternatively you can add the mount path to the "/etc/fstab". Make sure that 
-you use NFS version 4.0. In order to use NFS version 4.0, you might need to set the host's DNS domain name:
+If you get an error saying `you might need a /sbin/mount.<type> helper program`, then you might need to install the `nfs-common` package:
+
+    sudo apt install nfs-common
+
+At the moment, only NFS version 3 is supported. You can try to run the following to find out which NFS versions are supported:
+
+```
+$ rpcinfo -p manila-prod.isi.denbi.bihealth.org | grep nfs
+    100003    3   tcp   2049  nfs
+    100003    3   udp   2049  nfs
+```
+
+Alternatively you can add the mount path to your `/etc/fstab`. You might also need to set the host's DNS domain name:
 
 ```
 cat /etc/idmapd.conf 
