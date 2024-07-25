@@ -43,7 +43,7 @@ When you have the application credentials, it makes sense to upload a SSH key to
 
 Continue to create your K8s cluster:
 
-![image](img/02-add_ssh_key.png) )
+![image](img/02-add_ssh_key.png)
 
 Select the cloudprovider (there is only OpenStack available):
 
