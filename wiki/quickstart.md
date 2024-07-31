@@ -1,6 +1,6 @@
 This is the **Quickstart** to start your own running virtual machine in the de.NBI cloud. To start this guide you should have an individual account and be a member of an existing project. If you do not have an account, please visit [this page](https://cloud.denbi.de) and follow the instructions.
 
-Throughout this guide, we will achive following goals:
+Throughout this guide, we will achieve following goals:
 
   1.  [First Login](quickstart.md#first-login)
   2.  [Openstack Dashboard Overview](quickstart.md#openstack-dashboard-overview)
@@ -104,7 +104,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEA0DX7jcuqlsCXw51r4RYGkKeu78P9RXqx9VmQ
 7pCAnDEzZt4wkabiQvf1odWbf0SWsg8hq46mgYvVMa9Yq1smHF+44WPjaTvHzOxt
 tYYIJnQd73vdO/XULbrEnYahp2DSfJL+GDHoymOxYj+3YTQOAxmTGnje1ZjCvwZ2
 33KZv+TXJRu6jx4eOMb9RjCvG+e2Bfn/JoaCPI6h4T1KLM5G2uh2tLXqIVN73PfR
-ljWpr6NDdPsCd+5uURFnQ2zdjg6G62/5JU5WPZAZZgfKhrE7qw== an-individual-comment-you-can-add-to-identify/seperate-keys
+ljWpr6NDdPsCd+5uURFnQ2zdjg6G62/5JU5WPZAZZgfKhrE7qw== an-individual-comment-you-can-add-to-identify/separate-keys
 ~~~
 Alternatively you can copy the public key in the textbox above the key-fingerprint, after generating and saving the keys in puTTYgen. The public key string in this textbox has the correct 'ssh-rsa' prefix and the creation date as comment (but do not forget to save your private key!).  
 
@@ -144,7 +144,7 @@ We want to create a network to get access to our in the near future launched ins
 
 ----
 
-Here you can see the external network (blue elipse). 
+Here you can see the external network (blue ellipse). 
 
 What do we need to access our instances:
 
@@ -163,7 +163,7 @@ Click on the **Create Router** button (green box). A form should appear:
 
 ----
 
-Fill in the **Router Name** and select the **external** for the **External Network**. Click on the blue button **Create Router**. Your network topology should looks like this:
+Fill in the **Router Name** and select the **external** for the **External Network**. Click on the blue button **Create Router**. Your network topology should look like this:
 
 ----
 
@@ -190,7 +190,7 @@ In the first part fill in the **Network Name** and then click on the blue **Next
 
 ----
 
-Here, you have to specify your **Subnet Name** and your **Network Adress** (e.g. **192.168.0.0/24**). After this, click on the blue **Next** button again. On the third page you can specify additional attributes for the subnet. For more information hover over the questionmarks. In this guide we skip this step and click on the blue **Create** button.
+Here, you have to specify your **Subnet Name** and your **Network Address** (e.g. **192.168.0.0/24**). After this, click on the blue **Next** button again. On the third page you can specify additional attributes for the subnet. For more information hover over the questionmarks. In this guide we skip this step and click on the blue **Create** button.
 
 Now your topology should include your network:
 
@@ -283,7 +283,7 @@ On Project -> Compute -> Instances we can see our instance and that it is runnin
 
 ## Floating IP
 
-In order to connect to your virtual machine (= instance), it must be related to a public network address. A private, fixed IP address, used "for communication between instances", will be assigned automatically to the instance. An IP adress "for communication with networks outside the cloud, including the internet" have to associated manually. Within the "Instances" tab, determine the machine for which a floating IP should allocated. To get access to our instance, we need to associate a **Floating IP** to it. Click on the arrow next to **Create Snapshot**. A dropdown menu appears:
+In order to connect to your virtual machine (= instance), it must be related to a public network address. A private, fixed IP address, used "for communication between instances", will be assigned automatically to the instance. An IP address "for communication with networks outside the cloud, including the internet" have to associated manually. Within the "Instances" tab, determine the machine for which a floating IP should allocated. To get access to our instance, we need to associate a **Floating IP** to it. Click on the arrow next to **Create Snapshot**. A dropdown menu appears:
 
 ![instance dropdown](img/User/instance_actions.png)
 
@@ -305,7 +305,7 @@ Select the **external_network** in the pool field (red box) and click on the blu
 
 ----
 
-Click on **Associate** to associate your new floating ip to your instance. Now, your instance should have two ip adresses:
+Click on **Associate** to associate your new floating ip to your instance. Now, your instance should have two ip addresses:
 
 ----
 
@@ -449,7 +449,7 @@ Now you should see your device by executing the command
 df -h
 ~~~
 
-If you do not need you Cinder Volume you can also unmount it with
+If you do not need your Cinder Volume you can also unmount it with
 
 ~~~
 umount /dev/device_name
