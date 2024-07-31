@@ -33,9 +33,9 @@ information at least in the categories **Details, Source and Flavor**.
   **Source:**
   
   - Choose "Image" as "Boot Source"
-  - If you choose "Create New Volume" **No**, the vm volume will be created on hypervisor and be limited to 20GB.
-  - If you choose "Create New Volume" **Yes**, your volume will be placed on our separate storage system and can be bigger than 20GB. **Please to not create volumes bigger than 250 GB!** (You can use a share instead) 
-  - Choose an appropriate image from the list (e.g. CentOS)
+  - If you choose "Create New Volume" **No**, the vm volume will be created on hypervisor and be limited to 20GB. This means, your VM will be located on the local disk of the compute node. In case of a hardware failure of the compute node, we will not be able to restore your VM.
+  - If you choose "Create New Volume" **Yes**, your volume will be placed on our separate storage system and can be bigger than 20GB. We generally advise to set this options **Please to not create volumes bigger than 50 GB!** (You can always add another separate volume for data or use a share) 
+  - Choose an appropriate image from the list (e.g. Ubuntu-24)
   
   **Flavor:**
   
@@ -48,7 +48,7 @@ information at least in the categories **Details, Source and Flavor**.
   - Older projects (prior 09/2021) can still use their existing "your-Project-network". You will be able to use floating ips within subnet of public: `172.16.102.200 - 172.16.103.220`
   
 Now hit the button "Launch Instance". The VM will be deployed and accessible
-in a few seconds. To connect to your VM you need to assign a floating ip 
+in a few seconds. To connect to your VM from our jumphost-01 you need to assign a floating ip 
 address to the machine. Therefore click on the arrow on the right side of the
 spawning VM, choose "**Associate Floating IP**" and use one available
 floating ip addresses from the drop-down menu.
@@ -163,7 +163,7 @@ If you need more disk space than the initial image provides (20GB), one
 way is to create a volume and attach it to your VM. Please keep in mind that 
 a volume can only be attached to one VM at the same time. The advantage of a 
 volume is that it will be available also after you deleted your VM. So you can
-use it to store data temporally. **Please to not create volumes bigger than 250GB**
+use it to store data temporally. **Please be aware, if you create a volume bigger than 250GB the snapshot mechanism might be very slow fail**
 
 To create a volume choose **Project - Compute - Volumes** followed by **Create 
 Volume** on the right side. Now assign a name to your volume and set the size
@@ -173,14 +173,14 @@ volume and select **Attach Volume**. In the new window you have to choose your
 VM from the drop-down menu under **Attach to Instance**.
 
 On your VM you now have to make a filesystem on the device so that you can 
-mount it to your machine. Use e.g. mkfs to make an ext4 filesystem:
+mount it to your machine. You only need this step for a new volume.Use e.g. mkfs to make an ext4 filesystem:
 
     sudo mkfs.ext4 /dev/vdb
     
-After creating the filesystem you can mount the filesystem to your VM and start 
-using it:
+After creating the filesystem (or if you have an already existing volume) you can mount the volume to your VM and start 
+using it wiht
 
-    sudo mount /dev/vdb /mnt
+    sudo mount /dev/vdb /mnt/$yourPathTheVolumeIsMounted
 
 #### Create a NFS share
 In case you need a NFS share to store big amounts of data and share it within
@@ -234,11 +234,11 @@ Click on the created share in the **Shares** section of the OpenStack
 dashboard to get information about the complete mount path. Under the 
 **Export locations** section, please choose the **Path** e.g.:
      
-    manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID
+    manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/$yourShareUiid
 
 You can mount the share with the following command:
 
-    sudo mount -o vers=4.0 manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID /mnt/
+    sudo mount manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/$yourShareUidd /mnt/$yourPathTheShareIsMounted
     
 Alternatively you can add the mount path to the "/etc/fstab". Make sure that 
 you use NFS version 4.0. In order to use NFS version 4.0, you might need to set the host's DNS domain name:
@@ -256,54 +256,12 @@ Please make sure that your user (depending on the used distribution: centos,
 debian, ubuntu) is the owner of the NFS share. Therefore run the following 
 command to set the user as owner of the NFS share:
 
-    sudo chown centos:centos /mnt/
+    sudo chown centos:centos /mnt/$yourPathTheShareIsMounted
     
 **Hint** This example is for a Centos based image.
 
-### Using the OpenStack API
-First, you will need to request a password to use the OpenStack API, 
-therefore write a mail to the support team at <it.digitalhealth@charite.de>. 
-Second, the API is not directly accessible from the outside, so the only way to 
-access the API from a local machine is through the jumphost. So make sure you've
-configured your SOCKS proxy as described before. In addition you will need to 
-configure your environment to use the SOCKS proxy for the API requests. 
-Therefore set your environment variables for the http/https proxy:
+## Using the OpenStack API
 
-    export http_proxy=socks5h://localhost:7777
-    export https_proxy=socks5h://localhost:7777
-    export no_proxy=localhost,127.0.0.1,::1
-
-Now, if you have an active SOCKS connection to the jumphost, you should be 
-able to use the OpenStack API from your local machine.
-
-### Adding multiple SSH-Keys
-To access your VM you have to provide a public ssh-key. In the deployment 
-step of your VM you can choose which public ssh-key you want to use for your 
-VM in the section **Key Pair**.
-
-In case you want to directly deploy a VM and give access to more than one 
-user you can use the section **Configuration - Customization Script** in the 
-deployment part. Here you have to list the full **public keys** in the 
-following format:
-
-    #cloud-config
-    ssh_authorized_keys:
-        - Full public ssh-key of User-1
-        - Full public ssh-key of User-2
-
-After the successful deployment of the VM, user 1 and user 2 will have access 
-to the VM.
-
-### Upload your own Linux images
-If you need an extra Linux image we do not provide, you also can upload your 
-own images via **Project - Compute - Images**. Select **Create Image** and 
-choose a name and the path for the image and also make sure that you choose 
-the correct format (typically qcow2). If there are special requirements for 
-your image, you can specify the minimum disk size and also the minimum 
-amount of RAM. After the successful upload only the members of your project 
-can use the image.
-
-## openstack-cli
 
 This tutorial shows how you can setup openstack-cli in a project to manage your project from the vm without a web browser. This tutorial does only apply to the de.NBI site Berlin and was only tested with the Ubuntu 22.04 image.
 
@@ -345,3 +303,44 @@ source openrc.sh
 ```bash
 openstack server list
 ```
+
+The API is not directly accessible from the outside, so the only way to 
+access the API from a local machine is through the jumphost. So make sure you've
+configured your SOCKS proxy as described before. In addition you will need to 
+configure your environment to use the SOCKS proxy for the API requests. 
+Therefore set your environment variables for the http/https proxy:
+
+    export http_proxy=socks5h://localhost:7777
+    export https_proxy=socks5h://localhost:7777
+    export no_proxy=localhost,127.0.0.1,::1
+
+Now, if you have an active SOCKS connection to the jumphost, you should be 
+able to use the OpenStack API from your local machine.
+
+### Adding multiple SSH-Keys
+To access your VM you have to provide a public ssh-key. In the deployment 
+step of your VM you can choose which public ssh-key you want to use for your 
+VM in the section **Key Pair**.
+
+In case you want to directly deploy a VM and give access to more than one 
+user you can use the section **Configuration - Customization Script** in the 
+deployment part. Here you have to list the full **public keys** in the 
+following format:
+
+    #cloud-config
+    ssh_authorized_keys:
+        - Full public ssh-key of User-1
+        - Full public ssh-key of User-2
+
+After the successful deployment of the VM, user 1 and user 2 will have access 
+to the VM.
+
+### Upload your own Linux images
+If you need an extra Linux image we do not provide, you also can upload your 
+own images via **Project - Compute - Images**. Select **Create Image** and 
+choose a name and the path for the image and also make sure that you choose 
+the correct format (typically qcow2). If there are special requirements for 
+your image, you can specify the minimum disk size and also the minimum 
+amount of RAM. After the successful upload only the members of your project 
+can use the image.
+
