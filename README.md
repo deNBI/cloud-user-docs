@@ -30,7 +30,7 @@ To edit an existing page, simply open the markdown file in the `wiki` directory 
 
 ### Adding images
 
-To add images, please add your images to the `wiki/img` folder. You can then reference the images in your markdown files using the relative path to the image. See the `wiki/registration.md` file for an example.
+To add images, please either add your images to the `wiki/img` folder for global articles or below your local folder within a dedicated `img` folder. You can then reference the images in your markdown files using the relative path to the image. See the `wiki/registration.md` file for an example.
 
 ## Development Setup
 
