@@ -19,7 +19,7 @@ In this section you can see an illustration of our finished architecture.
 ![](Goal_Architecture.png)
 ​
 ## What do we need before we start?
-1. We need a running virtual instance that is accessible from the web. You can find a tutorial on how to create one in the de.NBI SimpleVM wiki: <https://simplevm.denbi.de/wiki/simple_vm/create_instance/>. The hardware specs we used for this project are: OS: Ubuntu 18.04 LTS (or later); RAM: 4GB; HDD: 20 GB. 
+1. We need a running virtual instance that is accessible from the web. You can find a tutorial on how to create one in the de.NBI SimpleVM wiki: <https://simplevm.denbi.de/wiki/simple_vm/Instance/create_instance/>. The hardware specs we used for this project are: OS: Ubuntu 18.04 LTS (or later); RAM: 4GB; HDD: 20 GB. 
 2. You need a registered Life Science AAI client. Please see the details here: <https://lifescience-ri.eu/ls-login/documentation/service-provider-documentation/service-provider-documentation.html>. After the registration you can access your personal profile via this link: <https://profile.aai.lifescience-ri.eu/profile>. Here you can find e.g . your personal Life Science client ID. 
 3. Create an Life Science AAI service you will use to authenticate at the reverse proxy later on. This service can be registered here: <https://spreg-legacy.aai.elixir-czech.org/spreg/auth/requests/new>. 
 4. To be able to access the services in the test environment, you need to register to a special "virtual organization" representing this environment. You can register at: <https://signup.aai.lifescience-ri.eu/registrar/?vo=lifescience_test>. Note: The membership in this VO is valid for one month and has to be extended to be able to use the test environment in the future. 
