@@ -1,8 +1,15 @@
-# Create a Reverse Proxy with Elixir AAI, Openresty and Flask
-Welcome to the de.NBI Cloud site Elixir AAI. In the following guide we want
+# Create a Reverse Proxy with Life Science AAI, Openresty and Flask
+
+!!! note
+
+    Life Science AAI was previously known as Elixir AAI. The name was changed in 2021. The previous name has been replaced with the new one in this tutorial.
+    Please note that if you have used the old version of the tutorial, you will need to update the URLs and names of the services accordingly.
+
+
+Welcome to the de.NBI Cloud site Life Science AAI. In the following guide we want
 to give you a quick step by step guide how to configure an Openresty webserver as reverse proxy which:
 ​
-1. Directs incoming traffic to an OpenIDC service, in our case Elixir, to authenticate the user and
+1. Directs incoming traffic to an OpenIDC service, in our case Life Science AAI, to authenticate the user and
 2. Redirects the user to a locally running flask application working as an API
 
 Please note, you are responsible for everything that happens with the virtual machines (VMs) you deploy!
@@ -12,11 +19,11 @@ In this section you can see an illustration of our finished architecture.
 ![](Goal_Architecture.png)
 ​
 ## What do we need before we start?
-1. We need a running virtual instance that is accessible from the web. You can find a tutorial on how to create one in the de.NBI SimpleVM wiki: <https://simplevm.denbi.de/wiki/simple_vm/create_instance/>. The hardware specs we used for this project are: OS: Ubuntu 18.04 LTS; RAM: 4GB; HDD: 20 GB. 
-2. You need a registered Elixir client. You can register here: <https://elixir-europe.org/register>. After the registration you can access your personal profile via this link: <https://profile.aai.lifescience-ri.eu/profile>. Here you can find e.g . your personal Elixir client ID. 
-3. Create an Elixir service you will use to authenticate at the reverse proxy later on. This service can be registered here: <https://spreg-legacy.aai.elixir-czech.org/spreg/auth/requests/new>. 
-4. To be able to access the services in the test environment, you need to register to a special "virtual organization" representing this environment. You can register at: <https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=elixir_test>. Note: The membership in this VO is valid for one month and has to be extended to be able to use the test environment in the future. 
-5. You can find your Elixir service information here: <https://spreg-legacy.aai.elixir-czech.org/spreg/auth/facilities/myServices>. Later on you will need your `Client ID`, `Client Secret` and `Redirect URIs` which can be found under your generated Service -> SAML/OIDC. 
+1. We need a running virtual instance that is accessible from the web. You can find a tutorial on how to create one in the de.NBI SimpleVM wiki: <https://simplevm.denbi.de/wiki/simple_vm/Instance/create_instance/>. The hardware specs we used for this project are: OS: Ubuntu 18.04 LTS (or later); RAM: 4GB; HDD: 20 GB. 
+2. You need a registered Life Science AAI client. Please see the details here: <https://lifescience-ri.eu/ls-login/documentation/service-provider-documentation/service-provider-documentation.html>. After the registration you can access your personal profile via this link: <https://profile.aai.lifescience-ri.eu/profile>. Here you can find e.g . your personal Life Science client ID. 
+3. Create an Life Science AAI service you will use to authenticate at the reverse proxy later on. This service can be registered here: <https://services.aai.lifescience-ri.eu/spreg/auth/requests/new>. 
+4. To be able to access the services in the test environment, you need to register to a special "virtual organization" representing this environment. You can register at: <https://signup.aai.lifescience-ri.eu/registrar/?vo=lifescience_test>. Note: The membership in this VO is valid for one month and has to be extended to be able to use the test environment in the future. 
+5. You can find your service information here: <https://services.aai.lifescience-ri.eu/spreg/auth/facilities/myServices>. Later on you will need your `Client ID`, `Client Secret` and `Redirect URIs` which can be found under your generated Service -> SAML/OIDC. 
 
 ## Configure the virtual instance to serve as a reverse proxy
 ​The following section guides you through the process of configuring your virtual instance to serve as a reverse proxy. All steps listed in the following have to be executed on the instance.
@@ -51,13 +58,13 @@ http {
     lua_shared_dict discovery 1m;
     lua_shared_dict jwks 1m;
     lua_code_cache off;
-    #Create global LUA variable which keeps our ELIXIR AAI Configuration dict
+    #Create global LUA variable which keeps our Life Science AAI Configuration dict
     init_by_lua_block {
          opts2 = {
                 redirect_uri = "http://oidcproxy-dev.bi.denbi.de/redirect_uri",
-                discovery = "https://login.elixir-czech.org/oidc/.well-known/openid-configuration",
-                client_id = "YOUR_ELIXIR_CLIENT_ID",
-                client_secret = "YOUR_ELIXIR_OIDC_CLIENT_SECRET",
+                discovery = "https://login.aai.lifescience-ri.eu/oidc/.well-known/openid-configuration",
+                client_id = "YOUR_CLIENT_ID",
+                client_secret = "YOUR_OIDC_CLIENT_SECRET",
                 logout_path = "/logout",
                 ssl_verify = "no"
           }
@@ -84,7 +91,7 @@ http {
 }
 ```
 
-1. We create a global LUA variable (`opts2`) which keeps our ELIXIR AAI configuration. In this block the OpenIDC credentials are described. Change the following values:
+1. We create a global LUA variable (`opts2`) which keeps our Life Science AAI configuration. In this block the OpenIDC credentials are described. Change the following values:
     - `redirect_uri` (Make sure that you have a matching redirect_url defined both in the OpenIDC-Client and the nginx config file. See section "What do we need before we start?")
     - `client_id`
     - `client_secret`
@@ -233,7 +240,7 @@ def update_movie(movie_id):
 Per default flask applications run on `127.0.0.1:5000`. Remember this is important for the configuration of your openresty service (`nginx.conf`).
 
 ### Test the configuration
-You can test the whole architecture simply by accessing your virtual instance via a browser either by its public IP or its DNS name. After a successful authentification at the Elixir AAI service you are redirected to your running flask application. With the given `myflask.py` you should see the following output: ![](Flask_Application.png)
+You can test the whole architecture simply by accessing your virtual instance via a browser either by its public IP or its DNS name. After a successful authentification at the Life Science AAI service you are redirected to your running flask application. With the given `myflask.py` you should see the following output: ![](Flask_Application.png)
 
 Another way to test the reverse proxy is via curl commands. Example commands can be seen in the screenshot above or in the following:
 - `curl -X DELETE http://oidcproxy-dev.bi.denbi.de/api/movies/1`
