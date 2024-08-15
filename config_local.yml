@@ -11,6 +11,11 @@ repo_name: 'deNBI/cloud-user-docs'
 
 repo_url: 'https://github.com/deNBI/cloud-user-docs'
 edit_uri: blob/master/wiki/
+
+extra_javascript:
+  - matomo.js
+  - "window.ENV_VAR = 'TEST'"
+
 markdown_extensions:
   - admonition
   - codehilite

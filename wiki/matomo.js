@@ -1,3 +1,5 @@
+fetch('env.json').then(response => response.json()).then(data => console.log(data));
+
 var _paq = window._paq = window._paq || [];
 /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
 _paq.push(['trackPageView']);
