@@ -1,96 +1,63 @@
-# Registering for de.NBI Cloud Access
 
-To access the de.NBI Cloud, you'll need to create a LifeScienceAAI account and join three Virtual Organizations (VOs): 
-**LifeScience**, **Elixir**, and **deNBI**.
+**de.NBI Cloud Access Registration Guide**
+==========================================
 
-Here's a quick summary of what you need to do. We'll follow up with a step-by-step guide in the next section.
+Follow the steps below to register and access the de.NBI Cloud.
 
-## Short Version: Registration
+## Step 1: Account Registration
+-------------------------------
 
-1. Register for a **LifeScience** VO account [here](https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=lifescience).
-2. Register for an **Elixir** VO membership [here](https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=elixir).
-3. Register for a **deNBI** VO membership [here](https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=denbi).
-4. Log in to the **Cloud Portal** [here](https://cloud.denbi.de/portal).
+### Option 1: Complete Registration (Preferred Method)
+- **Register for a LifeScience AAI Account** and join the Virtual Organizations (VOs): LifeScience, Elixir, and deNBI in a single step:
+  - [Start Registration](https://cloud.denbi.de/register)
+  
+  Note: Even when using this single URL method, you will still go through each individual step as outlined below.
 
-## Detailed Registration Steps
+### Option 2: Register Individually
+For those who prefer to see each step laid out separately, follow these individual registration steps:
 
-### Step 1: Register for a **LifeScience** VO Account
+1. **LifeScience VO Account**
+   - Visit [LifeScience VO Registration](https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=lifescience)
+   - Choose an identity provider: Google, LinkedIn, ORCID.
 
-Open [this link](https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=lifescience).
+     ![ORCID Login](img/2-lifescienceri_example_orcid_identity_provider.png)
 
-#### 1. Select Your Identity Provider
-Choose an identity provider where you already have an account, such as Google, LinkedIn, or ORCID if your institution is not listed.
+   - Authorize and fill in your details (name, email, username).
 
+     ![ORCID Authorise](img/3-lifescienceri_example_orcird_authorise.png)
+     ![ORCID Login Info](img/4-lifescienceri_specify_login_info.png)
 
+   - Verify your email.
 
-!!! note
-    If a project applicant is using a Google, LinkedIn or ORCID account further identity verification checks must be done
-    after the application is submitted.
-    You can also at any time connect your LifeScience account to as many other identity providers as you want through
-    your [LifeScience profile website](https://profile.aai.lifescience-ri.eu/profile/identities).
+     ![ORCID Verification Email](img/5-lifescienceri_emailverification.png)
 
-#### 2. Register for a LifeScience Account
+2. **Elixir VO Account**
+   - Use [Elixir VO Registration](https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=elixir) with the same identity provider.
+   - Submit your application.
 
-We will use ORCID as an example. Click the ORCID button and log in with your ORCID credentials.
+     ![Elixir Registration](img/elixir_registration.png)
 
-![ORCID Login](img/2-lifescienceri_example_orcid_identity_provider.png)
+   - Await email confirmation.
 
-Authorize LifeSciencesRI to pull information from your ORCID profile.
+     ![Elixir Approved](img/elixir_approved.png)
 
-![ORCID authorise](img/3-lifescienceri_example_orcird_authorise.png)
+3. **deNBI VO Account**
+   - Register at [deNBI VO Registration](https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=denbi) using the same identity provider.
 
-Specify your preferred name, email address, and username.
+     ![de.NBI Registration](img/14-denbi_org_registration.png)
 
-![ORCID Login INfo ](img/4-lifescienceri_specify_login_info.png)
+   - Match information with your LifeScience registration.
+   - Submit form to finalize membership.
 
-Submit the form and look for a verification email.
+     ![de.NBI Registration Success](img/denbi_successful_registration.png)
 
-![ORCID Verification Email](img/5-lifescienceri_emailverification.png)
+## Step 2: Access the Cloud Portal
+-----------------------------------
+- **Login to the de.NBI Cloud Portal** using your registered account:
+  - [Access Portal](https://cloud.denbi.de/portal)
+  - Navigate to [https://cloud.denbi.de](https://cloud.denbi.de), click 'Login', and select your login provider.
+  - Provide consent for deNBI to access your LifeScience information.
 
-Check your spam folder if needed. The email should look like this:
+     ![Cloud Site](img/19-denbicloud_final_verification_login.png)
+     ![LifeScience Consent](img/20-denbicloud_login_lifescienceri_consent_1.png)
 
-![LifeScience Email Verification](img/6-lifescienceri_emailconfirmationemail.png)
-
-Once you click the link, you will be redirected to the LifeSciencesRI page, where you need to log in with your preferred provider. You should then see a confirmation that your email has been verified.
-
-![LifeScience Email confirmed](img/9-lifescienceri_emailverificationsuccess.png)
-
-> **_NOTE:_** In the meantime you will also have recieved an email confirmation of the new LifeSciencesRI account which
-> will look like:
-
-![LifeSciene Email info](img/7a-lifescienceri_success_email_confirmation.png)
-
-### Step 2: Register for an **Elixir** VO Account
-
-Create membership for the Elixir VO [here](https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=elixir) using the same identity provider.
-
-![Elixir Registration](img/elixir_registration.png)
-
-Submit the application. You should become a member:
-
-![Elixir Approved](img/elixir_approved.png)
-
-### Step 3: Register for a **de.NBI** VO Account
-
-Join de.NBI via [this link](https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=lifescience) using the same identity provider.
-
-![de.NBI Registration](img/14-denbi_org_registration.png)
-
-Ensure the input field data matches the LifeScience registration. Submit the form to become a de.NBI Cloud member.
-
-![de.NBI Registration Success](img/denbi_successful_registration.png)
-
-After registration, apply for a de.NBI Cloud project or get access to an existing project through the invitation function.
-
-
-### Step 4: Log into the de.NBI Portal
-
-Go to [https://cloud.denbi.de](https://cloud.denbi.de) and click 'Login'.
-
-![Cloud Site](img/19-denbicloud_final_verification_login.png)
-
-Select your login provider and consent for deNBI to access your LifeScience information. Select 'Remember' for convenience.
-
-![LifeScience Consent](img/20-denbicloud_login_lifescienceri_consent_1.png)
-
-You have now successfully registered for de.NBI Cloud access.
