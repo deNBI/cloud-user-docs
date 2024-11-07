@@ -1,20 +1,12 @@
 ## Kubermatic in de.NBI cloud (Berlin)
 
-At the de.NBI cloud site in Berlin we use Kubermatic as software to deploy "vanilla" kubernetes cluster into OpenStack projects. We will describe here, how you can use this.
+At the de.NBI cloud site in Berlin we use Kubermatic as software to deploy "vanilla" kubernetes cluster into OpenStack projects. We will describe here, how you can use this. To gain access to Kubermatic you first need to apply for a OpenStack Project. Please state in the application that you want to use Kubernetes. After your project got approved you can access your resources at our Kubermatic login page: https://k.denbi.bihealth.org/
 
-To gain access to Kubermatic you first need to apply for a OpenStack Project. After the project was approved users that need access to kubermatic need to register here: https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=denbi-dev
-
-Contact us via mail: <it.digitalhealth@charite.de>, when you registered there, so you can be added to Kubermatic. Once that is done you need to login to https://k.denbi.bihealth.org/. Write us an eamil again to be added to the project in Kubermatic. (We are currently working on a streamlined workflow for the user onboarding).
-
-Contact us via mail: <it.digitalhealth@charite.de> to discuss further details and take usage of this.
-
-After we initally setup your kubernetes project, you can access your resources at our Kubermatic login page: https://k.denbi.bihealth.org/
-
+Contact us via mail in case you need further assistence: <denbi-cloud@bih-charite.de> 
 
 ## Get helm and kubectl going on the jumphost (with your user) 
 
-
-The configuration and cluster management via terminal commands is done from jumphost-01.denbi.bihealth.org. In order to configure the cluster you first need to setup the environment in the jumphost with your Elixir user. So connect to the jumphost via ssh. When the cluster is all setup you can download the configuration file from Kubermatic to actially connect to the cluster. We wsill come back to this later. For now issue the following commands in your home directory. 
+The configuration and cluster management via terminal commands is done from jumphost-01.denbi.bihealth.org. In order to configure the cluster you first need to setup the environment in the jumphost with your Elixir user. So connect to the jumphost via ssh. When the cluster is all setup you can download the configuration file from Kubermatic to actially connect to the cluster. We will come back to this later. For now issue the following commands in your home directory. 
 
 ```bash
 mkdir ~/.kube
@@ -35,7 +27,7 @@ curl -sS https://webinstall.dev/k9s | bash
 
 ## How to create K8s Cluster with Kubermatic
 
-In order to create a kubernetes cluster in your OpenSTack peoject you need the applicartion credentails from your project. If you not already created application credentials, please follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Bielefeld/#application-credentials-use-openstack-api) to do so.
+In order to create a kubernetes cluster in your OpenStack project you need the application credentials from your project. If you not already created application credentials, please follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Bielefeld/#application-credentials-use-openstack-api) to do so.
 
 When you have the application credentials, it makes sense to upload a SSH key to your Kubermatic project. With that, you have the ability to access the K8s nodes created in a later step via ssh.
 
