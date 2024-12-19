@@ -13,7 +13,7 @@ The review area of the application management holds 5 tabs.
 Each of the projects listed in these tabs have been processed by the VO before they get listed here. 
 
 * Submitted Applications
-    This tab the initial project applications that got approved the VO governance and got allocated to the corresponding facility. The facility managers in charge now have the ability to finally approve and allocate the project resources.
+    This tab shows the initial project applications that got approved the VO governance and got allocated to the corresponding facility. The facility managers in charge now have the ability to finally approve and allocate the project resources.
     ![applications](./images/facility_applications.png)
     One can view the project information and approve or decline the project application. An approval leads to an final allocation of the project resources.
     When the project gets declined, it is handed back to the VO, which then can asign it to another facility or get in contact with both the user who submitted the application as well as the facility to adjust the application accordingly.
