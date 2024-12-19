@@ -12,22 +12,27 @@ For the selected facility the facility managers can both manage the current proj
 The review area of the application management holds 5 tabs.
 Each of the projects listed in these tabs have been processed by the VO before they get listed here. 
 
-* Submitted Applications
+* **Submitted Applications**
+    <br>
     This tab shows the initial project applications that got approved the VO governance and got allocated to the corresponding facility. The facility managers in charge now have the ability to finally approve and allocate the project resources.
     ![applications](./images/facility_applications.png)
     One can view the project information and approve or decline the project application. An approval leads to an final allocation of the project resources.
     When the project gets declined, it is handed back to the VO, which then can asign it to another facility or get in contact with both the user who submitted the application as well as the facility to adjust the application accordingly.
 
-* Credit Extension requests
-    This area is currently not in operation, as the credit system is not operating.
+* **Credit Extension requests**
+    <br>
+    This area is currently not in operation, as the credit system is not in use at the moment.
 
-* Lifetime Extension Requests
+* **Lifetime Extension Requests**
+    <br>
    This tab holds the projects that applied for an extension of their lifetime. The VO managers already accepted the extension. Again the information on the project and also on the extension requested can be shown and then either be approved or declined. An approval leads to an extension of the project allocation at the facility, while a decline hands the extension request back to the VO managers.
 
-* Resource Modification Requests
+* **Resource Modification Requests**
+    <br>
     This tab holds the applications for resource adjustments. The approval and decline process is analogous to the previous tabs. When showing the resources tab of a single project listed in this area, one is able to see the changes, that the people in charge of the project want to make to the project resources. Both increases and decreases of VM, VCPU and RAM numbers, as well the number of GPUs and amount of stoarge is listed here.
 
-* Termination Requests
+* **Termination Requests**
+    <br>
     This tab holds the request for project terminations. Again, the facility managers are able to approve the termination, which will terminate the project irrevocable or decline the termination, e.g. when the project users are in contact with the facility managers regarding the backing up of data.
 
 ### Application History
