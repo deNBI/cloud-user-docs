@@ -1,3 +1,15 @@
+## General information - Protecting Your Digital Workspace: Why Security Matters  
+
+In today's interconnected world, workplaces rely heavily on digital technologies to store, process, and share sensitive information.
+However, this increased reliance also introduces significant risks to data security and integrity.
+Cyber threats, data breaches, and unauthorized access can compromise confidential business data,
+disrupt operations, and damage an organization's reputation.
+Effective security measures are essential to safeguard against these risks and ensure the confidentiality,
+availability, and integrity of digital assets in daily work environments.
+We want to highlight the importance of implementing robust security measures, to maintain a secure digital environment. 
+    
+
+
 ## Security aspects of cloud computing
 
 ### Shift in responsibility
@@ -18,7 +30,7 @@ Large compute ressources and unrestricted high-speed internet access make cloud 
 an attractive target for outside attackers. Users are obligated to keep their instances
 secure and up-to-date.
 
-### General security recommendations
+### General cloud related security recommendations
 
 - SSH access: Always use key based authentication instead of a plain password.
 
