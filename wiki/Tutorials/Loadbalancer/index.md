@@ -1,37 +1,37 @@
 # Documentation for setup of secure web-service with reverse-proxy and load balancer in the de.NBI cloud site in Berlin
 
-{{< details >}}
-
-
-Peperation: You have one running vm for the reverse-proxy, if not follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Berlin/) to set it up.
-
-{{< /details >}}
+> [!IMPORTANT]
+> Peperation: You have one running vm for the reverse-proxy, if not follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Berlin/) to set it up.
 
 This guide will explain how to setup a web-service behind a reverse proxy with an internal load balancer in the de.NBI cloud site in Berlin to make the web-service accessible from the internet. For an overview of how the setup looks like in the end take a look at the graphic.
 
 ![infrastructure overview - http access web-service](images/loadbalancer_setup_http_v4.png)
 
+> [!TIP]
+> If you want to setup a similar structure in another site, please refer to the tutorial for that site, as this tutorial is only applicable to the de.NBI cloud site in Berlin. 
 
-!!! tip If you want to setup a similar structure in another site, please refer to the tutorial for that site, as this tutorial is only applicable to the de.NBI cloud site in Berlin. 
+> [!NOTE]
+> In this tutorial you will learn to setup an infrastructure with a public IP. To use a public ipv4 address and the dmz network you need to apply for them. If you not already did that with your project application please write us an email to denbi-cloud@bih-charite.de. 
 
-!!! note In this tutorial you will learn to setup an infrastructure with a public IP. To use a public ipv4 address and the dmz network you need to apply for them. If you not already did that with your project application please write us an email to denbi-cloud@bih-charite.de. 
+> [!WARNING]
+>Please make sure to read the security section when opening your infrastructure to the internet as you are responsable for everything happening in your project.
 
-!!! warning Please make sure to read the security section when opening your infrastructure to the internet as you are responsable for everything happening in your project.
-
-!!! note In this setup the reverse proxy will only be accessible over a loadbalancer from the internet. The web-service itself is secured in a separated network and only specific ports for incoming traffic are allowed for the web-service. The ports will be setup with security groups in OpenStack. Only one defined port for the forwarded requests from the reverse-proxy to the web-service and ssh for the configuration will be allowed. For the loadbalancer there will be a dmz network to secure the access from the load balancer to the reverse-proxy.
+> [!NOTE]
+> In this setup the reverse proxy will only be accessible over a loadbalancer from the internet. The web-service itself is secured in a separated network and only specific ports for incoming traffic are allowed for the web-service. The ports will be setup with security groups in OpenStack. Only one defined port for the forwarded requests from the reverse-proxy to the web-service and ssh for the configuration will be allowed. For the loadbalancer there will be a dmz network to secure the access from the load balancer to the reverse-proxy.
 
 ## Setup the internal network
-
-!!! note In the de.NBI cloud site Berlin to use the load balancer in a dmz and secure the web-service in an internal network you firstly need to create the network structure. To do that create a new network with a private address range (10.0.0.0 – 10.255.255.255, 172.16.0.0 – 172.31.255.255, 192.168.0.0 – 192.168.255.255). We will use this network as internal network for the web-service.
+> [!NOTE]
+> In the de.NBI cloud site Berlin to use the load balancer in a dmz and secure the web-service in an internal network you firstly need to create the network structure. To do that create a new network with a private address range (10.0.0.0 – 10.255.255.255, 172.16.0.0 – 172.31.255.255, 192.168.0.0 – 192.168.255.255). We will use this network as internal network for the web-service.
 
 1. Create a new network for the internal service, go to the OpenStack dashboard. click on 'Network' and  select the 'Networks' section. Click on 'Create Network' in the overview. 
 
 ![create new network](images/18_create_dmz-int_network.png)
 
-!!! tip Use an easy recognizable name for the internal network (e.g. webservice-internal-network) and a name for the subnet (e.g. webservice-internal-subnet) and fill in the IPv4 address range (e.g. 10.10.0.0/24). The section 'Gateway' and the 'Subnet Details' can be left blank.
+> [!TIP]
+> Use an easy recognizable name for the internal network (e.g. webservice-internal-network) and a name for the subnet (e.g. webservice-internal-subnet) and fill in the IPv4 address range (e.g. 10.10.0.0/24). The section 'Gateway' and the 'Subnet Details' can be left blank.
 
-
-!1! note To use the network we must connect it to a router. We use the automatically generated router that already connects the networks 'public2' and the automatically generated network. 
+> [!NOTE]
+> To use the network we must connect it to a router. We use the automatically generated router that already connects the networks 'public2' and the automatically generated network. 
 
 2. Got to the 'Routers' section in 'Network' and select the according router. 
 
@@ -45,7 +45,8 @@ Here, select your newly generated network as subnet and leave the 'IP Address' s
 
 ## Setup security group
 
-!!! note To allow only a specific port to be used, create a new security group, add the used port (e.g. port 80) and add it to the vm. By default even ports 80 and 443 are blocked by the "default" security group.
+> [!NOTE]
+> To allow only a specific port to be used, create a new security group, add the used port (e.g. port 80) and add it to the vm. By default even ports 80 and 443 are blocked by the "default" security group.
 
 1. Go to the section 'Network' and select 'Security Groups'. Click on 'Create New Group' and give the new group an easy recognizable name (e.g. secure-web-service). 
 
@@ -60,13 +61,15 @@ Click on 'Create Security Group' and on 'Add Rule' in the next window. Select 'H
 
 ## Setup Web-Service 
 
-!!! note Now that we have two separated networks and a security group for the web-service we can set it up. 
+> [!NOTE]
+> Now that we have two separated networks and a security group for the web-service we can set it up. 
 
 1. Create a new vm for the web-service. Select Image and flavor as needed, select the additional security group to make the internal service available over port 80, and select the newly created network (e.g. webservice-internal-subnet). 
 
 2. When setting up the internal service, make sure to either use the port in the security group to open the service or to add the port used by the service to the used security group. 
 
-!!! note The connection to the internal service should always go over the reverse-proxy, so you could also set up another port like 8080 for the internal service. If you do so, make sure to add the port to the security group attached to the vm.
+> [!NOTE]
+> The connection to the internal service should always go over the reverse-proxy, so you could also set up another port like 8080 for the internal service. If you do so, make sure to add the port to the security group attached to the vm.
 
 ## Setup Reverse-Proxy
 
