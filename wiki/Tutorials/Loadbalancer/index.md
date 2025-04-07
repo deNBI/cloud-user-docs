@@ -8,8 +8,8 @@ This guide will explain how to setup a web-service behind a reverse proxy with a
 ![infrastructure overview - http access web-service](images/loadbalancer_setup_http_v4.png)
 
 > [!TIP]
-> If you want to setup a similar structure in another site, please refer to the tutorial for that site, as this tutorial is only applicable to the de.NBI cloud site in Berlin. 
-> In this tutorial you will learn to setup an infrastructure with a public IP. To use a public ipv4 address and the dmz network you need to apply for them. If you not already did that with your project application please write us an email to denbi-cloud@bih-charite.de. 
+> - If you want to setup a similar structure in another site, please refer to the tutorial for that site, as this tutorial is only applicable to the de.NBI cloud site in Berlin. 
+> - In this tutorial you will learn to setup an infrastructure with a public IP. To use a public ipv4 address and the dmz network you need to apply for them. If you not already did that with your project application please write us an email to denbi-cloud@bih-charite.de. 
 
 > [!WARNING]
 >Please make sure to read the security section when opening your infrastructure to the internet as you are responsable for everything happening in your project.
