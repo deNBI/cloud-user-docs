@@ -1,7 +1,7 @@
 # Documentation for setup of secure web-service with reverse-proxy and load balancer in the de.NBI cloud site in Berlin
 
 > [!IMPORTANT]
-> Peperation: You have one running vm for the reverse-proxy, if not follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Berlin/) to set it up.
+> Preparation: You have one running vm for the reverse-proxy, if not follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Berlin/) to set it up.
 
 This guide will explain how to setup a web-service behind a reverse proxy with an internal load balancer in the de.NBI cloud site in Berlin to make the web-service accessible from the internet. For an overview of how the setup looks like in the end take a look at the graphic.
 
@@ -9,16 +9,16 @@ This guide will explain how to setup a web-service behind a reverse proxy with a
 
 > [!TIP]
 > - If you want to setup a similar structure in another site, please refer to the tutorial for that site, as this tutorial is only applicable to the de.NBI cloud site in Berlin. 
-> - In this tutorial you will learn to setup an infrastructure with a public IP. To use a public ipv4 address and the dmz network you need to apply for them. If you not already did that with your project application please write us an email to denbi-cloud@bih-charite.de. 
+> - In this tutorial you will learn to setup an infrastructure with a public IP. To use a public ipv4 address and the dmz network you need to apply for them. If you have not already done so with your project application please write us an email to denbi-cloud@bih-charite.de. 
 
 > [!WARNING]
->Please make sure to read the security section when opening your infrastructure to the internet as you are responsable for everything happening in your project.
+>Please make sure to read the security section when opening your infrastructure to the internet as you are responsible for everything happening in your project.
 
 ## Setup the internal network
 > [!NOTE]
 > In the de.NBI cloud site Berlin to use the load balancer in a dmz and secure the web-service in an internal network you firstly need to create the network structure. To do that create a new network with a private address range (10.0.0.0 – 10.255.255.255, 172.16.0.0 – 172.31.255.255, 192.168.0.0 – 192.168.255.255). We will use this network as internal network for the web-service.
 
-1. Create a new network for the internal service, go to the OpenStack dashboard. click on 'Network' and  select the 'Networks' section. Click on 'Create Network' in the overview. 
+1. To create a new network for the internal service, go to the OpenStack dashboard. Click on 'Network' and  select the 'Networks' section. Click on 'Create Network' in the overview, then follow the Tip below. 
 
 ![create new network](images/18_create_dmz-int_network.png)
 
@@ -130,7 +130,8 @@ sudo systemctl restart nginx
 
 ## Security group ip and port
 
-!!! tip To allow only traffic from the reverse-proxy to the web-service you can add the internal ip address of the reverse-proxy to the security group of the web-service.
+> [!TIP]
+> To allow only traffic from the reverse-proxy to the web-service you can add the internal ip address of the reverse-proxy to the security group of the web-service.
  
 1. To create a new rule click on 'Network' and select 'Security Groups' here click on 'Manage Rules' for the security group associated to your web-service. 
 
@@ -141,7 +142,8 @@ sudo systemctl restart nginx
 
 ## DMZ network
 
-!!! tip In the de.NBI cloud site Berlin to use the reverse-proxy with a load balancer you first need an internal demilitarized zone (dmz) network. This can be created the way you did before. 
+> [!TIP]
+> In the de.NBI cloud site Berlin to use the reverse-proxy with a load balancer you first need an internal demilitarized zone (dmz) network. This can be created the way you did before. 
 
 1. Select 'Network' in the dashboard and then 'Networks' again. In the next window click on 'Create Network' to open the network creation panel.
 
