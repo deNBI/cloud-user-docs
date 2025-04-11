@@ -140,7 +140,7 @@ To make the load balancer reachable from the internet you need to associate a fl
 
 #### https listener
 
-> [TIP]
+> [!TIP]
 > - We recomment that you always use a secure conntection with https for your web services. For this to work, you need to setup a certificate in the reverse proxy. Please follow this [guide](add link) for a setup with letsencrypt. 
 > - By default ports 80 and 443 are open for public IPs.
 > - Nginx must be setup properly to use the certificate and allow connections over port 443.
