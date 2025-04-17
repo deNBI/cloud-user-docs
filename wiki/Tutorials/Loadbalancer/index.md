@@ -1,58 +1,47 @@
 # Documentation for setup of secure web-service with reverse-proxy and load balancer in the de.NBI cloud site in Berlin
 
-This guide will explain how to setup a web-service behind a reverse proxy in the de.NBI cloud site in Berlin. If you want to setup a similar structure in another site, please refer to the tutorial for that site, as this tutorial is only applicable to the de.NBI cloud site in Berlin. To use a public ipv4 address or the dmz network you need to apply for them. If you not already did that with your project application please write us an email to denbi-cloud@bih-charite.de. 
-In this setup the reverse proxy will only be accessible over a load balancer from the internet. The web-service itself is secured in a separated network and only specific ports for incoming traffic are allowed for the web-service. The ports will be setup with security groups in OpenStack. Only one defined port for the forwarded requests from the reverse-proxy to the web-service and ssh for the configuration will be allowed. For the load balancer there will be a dmz network to secure the access from the load balancer to the reverse-proxy. A guide for the basic setup of a vm can be found in the quick start section of this wiki and will not be provided here.
+> [!IMPORTANT]
+> Preparation: You have one running vm for the reverse-proxy and one running vm for the web-service. Both vms are supposed to be connected to the default network. If you do not have set this up, follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Berlin/).
 
-## Setup the internal network
+This guide will explain how to setup a web-service behind a reverse proxy with an internal load balancer in the de.NBI cloud site Berlin to make the web-service accessible from the internet. For an overview of how the setup looks like in the end take a look at the graphic.
 
-In the de.NBI cloud site Berlin to use the load balancer in a dmz and secure the web-service in an internal network you firstly need to create the network structure. To do that create a new network with a private address range (10.0.0.0 – 10.255.255.255, 172.16.0.0 – 172.31.255.255, 192.168.0.0 – 192.168.255.255). We will use this network as internal network for the web-service. To create the network go to the OpenStack dashboard and click on 'Network' and on the 'Networks' section. Click on 'Create Network' in the overview. 
+![infrastructure overview - http access web-service](images/loadbalancer_setup_http_v7.png)
 
-![create new network](images/18_create_dmz-int_network.png)
+> [!TIP]
+> - If you want to setup a similar structure in another site, please refer to the tutorial for that site, as this tutorial is only applicable to the de.NBI cloud site in Berlin. 
+> - In this tutorial you will learn to setup an infrastructure with a public IP. To use a public ipv4 address and the dmz network you need to apply for them. If you have not already done so with your project application please write us an email to denbi-cloud@bih-charite.de. 
 
-Use an easy recognizable name for the internal network (e.g. webservice-internal-network) and a name for the subnet (e.g. webservice-internal-subnet) and fill in the IPv4 address range (e.g. 10.10.0.0/24). The section 'Gateway' and the 'Subnet Details' can be left blank. Click on 'Create' to create the network.
-
-
-To use the network we must connect it to a router. We use the automatically generated router that already connects the networks 'public2' and the automatically generated network. Got to the 'Routers' section in 'Network' and select the according router. 
-
-![router selection](images/5_internal_network_router_selection.png)
-
-In the overview window select the tab 'Interfaces' and click on 'Add Interface' to add another interface to the router. 
-
-![router interface](images/6_internal_network_router_interface.png)
-
-Here, select your newly generated network as subnet and leave the 'IP Address' section free. Click on 'Submit' to create the interface. 
-
-
+> [!WARNING]
+> Please make sure to read the security section when opening your infrastructure to the internet as you are responsible for everything happening in your project.
 
 ## Setup security group
 
-Before we can create the vm for the web service we need a security group that only allows one port to connect the web service to the reverse proxy and the ssh port.
-In the OpensStack dashboard go to the section 'Network' and select 'Security Groups'. Click on 'Create New Group' and give the new group an easy recognizable name (e.g. secure-web-service). 
+> [!NOTE]
+> To allow only a specific port to be used, create a new security group, add the used port (e.g. port 80) and add it to the vm. By default even ports 80 and 443 are blocked by the "default" security group.
+
+1. Go to the section 'Network' and select 'Security Groups'. Click on 'Create New Group' and give the new group an easy recognizable name (e.g. secure-web-service). 
 
 ![security groups overview](images/8_security_groups_overview.png)
 
-Click on 'Create Security Group' and on 'Add Rule' in the next window. Select 'SSH' from the drop down menu and click on 'Add'. This rule set only allows incoming SSH traffic and all outgoing traffic.
+Click on 'Create Security Group' and on 'Add Rule' in the next window. Select 'HTTP' from the drop down menu and click on 'Add'. This rule set only allows incoming http traffic and all outgoing traffic.
 
+2. Add the security group to the existing vm for the reverse-proxy to make it accessible over port 80.
 
 ![add security groups rule](images/10_security_group_add_rule.png)
 
 
 ## Setup Web-Service 
 
-Now that we have two separated networks and a security group for the web-service we can setup the vms. At first setup the vm for the web service. Select Image and flavor as needed and select the network we just created (e.g. webservice-internal-subnet). 
+1. Setup the web service you want to use and add a security group to it with the port you want to use to access it. 
 
-Deselect the default security group by clicking on the arrow pointing down and select the new created security group with the arrow up. 
-
-Select your public key or create a new pair if you must and click on 'Launch Instance'. When the vm is created, select 'Associate Floating IP' in the drop down menu in the 'Instances' section to allocate a floating IP. 
-
-Select one from the drop down menu, the correct network should already be selected. Now you should be able to connect to this vm either with Linux terminal, PowerShell or PuTTY.
-
-Connect to your vm with one of the methods mentioned in the Berlin section of the [wiki](https://cloud.denbi.de/wiki/Compute_Center/Berlin/). When you have access to your vm update the system and install the web-service you want to use. When configuring the web-service you likely are given the choice to define a port wich will be open for connections from the outside. The default ports for most applications are 80 for http and 443 for https. To use the reverse proxy we will setup the service with another port. The connection from the outside shall always be made over the reverse-proxy. In our example we will use port 8080 as the open port for the web-service. To illustrate the process we will setup FastAPI in this tutorial. Please feel free to setup your own web-service, as this is only a guide for setting up a service behind a reverse-proxy.
+> [!NOTE]
+> The connection to the web service from the internet should always go over the reverse-proxy, so you could also set up another port like 8080 for the internal service. If you do so, make sure to add the port to the security group attached to the vm.
 
 ## Setup Reverse-Proxy
 
-Setup a second vm in your project but this time select the automatically generated network and not you own created internal network. Also select the default security group. Everything else can be the same as for your web-service. When finished allocate a floating IP and connect to the vm. 
-Now update your system and install nginx:
+1. Setup the reverse-proxy on the other vm, so that web service and reverse proxy are not running on the same vm. In this tutorial nginx will be used.
+
+2. Update your system and install nginx:
 
 ```bash
 sudo apt update -y && sudo apt upgrade -y
@@ -71,7 +60,7 @@ It should start automatically, if not you can setup the start with systemboot an
 sudo systemctl enable nginx --now
 ```
 
-After the installation you need to configure the server for nginx to listen on Port 80 and depending on your setup on port 443 and forward the incoming requests to the web-service. 
+3. After the installation you need to configure the server for nginx to listen on Port 80 and depending on your setup on port 443 and forward the incoming requests to the web-service. 
 To do that, you can change the existing file ```/etc/nginx/sites-available/default```. Search for the section 
 ```conf
 server {
@@ -110,35 +99,20 @@ Replace the </internal_ip_address_of_web_service>/ with the actual internal IP a
 sudo systemctl restart nginx
 ```
 
-## Security groups port
+## Security group ip and port
 
-Before you can reach the web-service from the reverse-proxy the security group of the web-service must be configured with the ip address of the reverse-proxy and the defined port. 
-To create a new rule click on 'Network' and select 'Security Groups' here click on 'Manage Rules' for the security group associated to your web-service. 
+> [!TIP]
+> To allow only traffic from the reverse-proxy to the web-service you can add the internal ip address of the reverse-proxy to the security group of the web-service.
+ 
+1. To create a new rule click on 'Network' and select 'Security Groups' here click on 'Manage Rules' for the security group associated to your web-service. 
 
 ![select security group](images/16_select_security_group.png)
 
-Click on 'Add Rule' in the next window and fill in the information for the new rule. Select 'Custom TCP Rule' and enter port 8080 (or the port you defined for the web-service). In the section 'CIDR' fill in the IP address of the reverse proxy with the subnet mask length as shown in the image (e.g. 10.0.2.71/24). Now click on 'Add' to add the rule to the security group. 
-
-
-## DMZ network
-
-In the de.NBI cloud site Berlin to use the reverse-proxy with a load balancer you first need an internal demilitarized zone (dmz) network. This can be created the way you did before. So select 'Network' in the dashboard and then 'Networks' again. In the next window click on 'Create Network' to open the network creation panel.
-
-Give the network the name 'dmz-int' and name the subnet 'dmz-int-subnet'. Now use a private IP address range that is not already in use (e.g. 10.0.10.0/24) and use the last possible ip address in this range as gateway ip (e.g. 10.0.10.254) leave everything else free. Click on 'Next' and 'Create' in the last window. When the network is created, you need to create another router which connects the dmz-int network you just created to the dmz-ext network which is created automatically. 
-Click on 'Routers' in the 'Network' section and select 'Create Router'. 
-
-![routers section](images/21_create_dmz_router.png)
-
-Give the route a recognizable name (e.g. dmz-router) and select the network 'dmz-ext' as external network. Now go to 'Routers' in the 'Network' section and go to the 'Interfaces' tab. Here click on 'Add interface' to add another interface for the dmz-int network. 
-
-![router interface](images/23_create_dmz_router_interface.png)
-
-Select the subnet 'dmz-int' and fill in the last possible ip address in this range (e.g.10.0.10.254, the same as the network gateway ip). Click on 'Submit' to create the interface.
-
+2. Click on 'Add Rule' in the next window and fill in the information for the new rule. Select 'Custom TCP Rule' and enter port 8080 (or the port you defined for the web-service). In the section 'CIDR' fill in the IP address of the reverse proxy with the subnet mask length as shown in the image (e.g. 10.0.2.71/24). Now click on 'Add' to add the rule to the security group. 
 
 ## Load-Balancer
 
-Now you can create a load balancer. This can be done over the web UI or via the openstack-cli. To make the openstack-cli available. please follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Berlin/#openstack-cli).
+When both services are setup , you can create a load balancer. This can be done over the web UI or via the openstack-cli. To make the openstack-cli available. please follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Berlin/#openstack-cli).
 
 ### Web UI
 
@@ -146,7 +120,7 @@ Click on 'Load Balancer' in the 'Network' section and click on 'Create Load Bala
 
 ![create load balancer](images/25_create_loadbalancer.png)
 
-Give the load balancer a recognizable name (e.g. web-service-lb) and select the subnet 'dmz-int' you created for the dmz. In the next window you will create the first listener for the load balancer. In this case it is the listener for port 80. Name it 'http' select 'TCP' as protocol and port 80 (even if it is possible to choose "HTTP" as protocol, it must be "TCP" here). 
+Give the load balancer a recognizable name (e.g. web-service-lb) and select the subnet 'dmz-int'. Leave everything else blanc. In the next window you will create the first listener for the load balancer. In this case it is the listener for port 80. Name it 'http' select 'TCP' as protocol and port 80 (even if it is possible to choose "HTTP" as protocol, it must be "TCP" here). 
 
 ![load balancer http listener](images/27_loadbalancer_listener80.png)
 
@@ -162,11 +136,20 @@ Name the monitor 'http' again and use 'TCP' in the section 'Type'. Now click on 
 
 ![load balancer http pool monitor](images/30_loadbalancer_monitor.png)
 
-Now you can add another listener for https to the load balancer if you want. Select the load balancer you want to create the listener for and select the 'Listeners' tab. Click on 'Create Listener' to open the listener creation panel. 
+To make the load balancer reachable from the internet you need to associate a floating ip. With the public ip of your project comes a floating ip for the load balancer. This floating ip must be selected here to map the public ip to the load balancer. When the floating ip is associated your web-service should be reachable with a browser over the public IP or a FQDN if you have registered one for the IP address.
+
+#### https listener
+
+> [!TIP]
+> - We recomment that you always use a secure conntection with https for your web services. For this to work, you need to setup a certificate in the reverse proxy. Please follow this [guide](https://certbot.eff.org/instructions?ws=nginx&os=snap) for a setup with letsencrypt. 
+> - By default ports 80 and 443 are open for public IPs.
+> - Nginx must be setup properly to use the certificate and allow connections over port 443.
+
+You can add another listener for https to the load balancer. Go to network and loadbalancers and select the loadbalancer you want to create the additional listener for. Select the 'Listeners' tab, click on 'Create Listener' to open the listener creation panel. 
 
 ![create load balancer https listener](images/31_loadbalancer_listener443.png)
 
-As before use 'https' as name and select 'TCP' as protocol now use 443 as port. Name the pool 'https' and select the algorithm 'LEAST CONNECTIONS'. Select the reverse-proxy as a pool member and fill in port 443. Name the monitor https and select the type 'TCP'. By clicking on 'Create Listener' you create the listener for https. To make the load balancer reachable from the internet you need to associate a floating ip. With the public ip of your project comes a floating ip for the load balancer. This floating ip must be selected here to map the public ip to the load balancer. When the floating ip is associated your web-service should be reachable with a browser over the public IP or a FQDN if you have registered one for the IP address.
+Name the listener 'https' and select 'TCP' as protocol, now use 443 as port. Name the pool 'https' and select the algorithm 'LEAST CONNECTIONS'. Select the reverse-proxy as a pool member and fill in port 443. Name the monitor https and select the type 'TCP'. By clicking on 'Create Listener' you create the listener for https. 
 
 
 ### openstack-cli
