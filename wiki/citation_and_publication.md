@@ -10,8 +10,9 @@ To see a list of publications, respectively a list of projects that added a DOI,
 ## Adding a DOI (Digital Object Identifier)
 If you do not know about digital object identifier, the placeholder [10.1000/182](https://doi.org/10.1000/182) links to the DOI handbook, where you may find more information.
 
-!!! note ""
-    Please note that after completion, deletion or termination of your project, the association between the DOI and your project will remain.
+!!! warning "Permissions and persistence"
+    Please note, that listing project-specific DOIs and adding DOIs to a project can only be done by project administrators.
+    After completion, deletion or termination of your project, the association between the DOI and your project will remain.
 
 ### In the project overview
 ![adding doi](portal/img/adding_doi.png)

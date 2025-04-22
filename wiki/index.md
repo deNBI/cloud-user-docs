@@ -17,7 +17,7 @@ The OpenStack Concepts section introduces components and mechanisms available in
 The de.NBI Cloud portal allows you to apply for projects, but also to start a virtual machine if you are
 part of the simple VM project.
 
-## Tutorials
+## [Tutorials](Tutorials/index.md)
 
 There are various application for the Cloud available. The Tutorials section introduces a few technologies and approaches in the Cloud.
 
@@ -29,6 +29,6 @@ Frequently asked questions.
 
 This section contains cloud site specific configurations, like API endpoints and network configurations.
 
-## [Cloud Admin]
+## Cloud Admin
 
 The Cloud admin section contains general instructions for Cloud site administrators.
