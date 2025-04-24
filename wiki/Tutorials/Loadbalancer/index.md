@@ -6,8 +6,8 @@ This guide will explain how to setup a web-service behind a reverse proxy with a
 
 ![infrastructure overview - http access web-service](images/loadbalancer_setup_http_v7.png)
 
-!!! tip - If you want to setup a similar structure in another site, please refer to the tutorial for that site, as this tutorial is only applicable to the de.NBI cloud site in Berlin. 
-- In this tutorial you will learn to setup an infrastructure with a public IP. To use a public ipv4 address and the dmz network you need to apply for them. If you have not already done so with your project application please write us an email to denbi-cloud@bih-charite.de. 
+!!! tip If you want to setup a similar structure in another site, please refer to the tutorial for that site, as this tutorial is only applicable to the de.NBI cloud site in Berlin. 
+!!! tip In this tutorial you will learn to setup an infrastructure with a public IP. To use a public ipv4 address and the dmz network you need to apply for them. If you have not already done so with your project application please write us an email to denbi-cloud@bih-charite.de. 
 
 !!! warning Please make sure to read the security section when opening your infrastructure to the internet as you are responsible for everything happening in your project.
 
@@ -135,9 +135,9 @@ To make the load balancer reachable from the internet you need to associate a fl
 #### https listener
 
 
-!!! tip - We recomment that you always use a secure conntection with https for your web services. For this to work, you need to setup a certificate in the reverse proxy. Please follow this [guide](https://certbot.eff.org/instructions?ws=nginx&os=snap) for a setup with letsencrypt. 
-- By default ports 80 and 443 are open for public IPs.
-- Nginx must be setup properly to use the certificate and allow connections over port 443.
+!!! tip We recomment that you always use a secure conntection with https for your web services. For this to work, you need to setup a certificate in the reverse proxy. Please follow this [guide](https://certbot.eff.org/instructions?ws=nginx&os=snap) for a setup with letsencrypt. 
+!!! tip By default ports 80 and 443 are open for public IPs.
+!!! tip Nginx must be setup properly to use the certificate and allow connections over port 443.
 
 You can add another listener for https to the load balancer. Go to network and loadbalancers and select the loadbalancer you want to create the additional listener for. Select the 'Listeners' tab, click on 'Create Listener' to open the listener creation panel. 
 
