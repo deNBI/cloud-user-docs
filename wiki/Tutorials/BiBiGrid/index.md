@@ -202,7 +202,7 @@ instance is available (e.g. to configure local proxy settings or local available
 BiBiGrid setting up the node (via Ansible). Therefore, BiBiGrid needs to wait for your post-launch service(s) to finish. For that BiBiGrid needs the 
 services' names. Set the key `waitForServices` to the list of services you would like to wait for. For Bielefeld 
 this would be `de.NBI_Bielefeld_environment.service`. In the future you should be able to find post-launch service names by 
-taking a look at your location's [Computer Center Specific](https://cloud.denbi.de/wiki/) site - if 
+taking a look at your location's [Wiki](https://cloud.denbi.de/wiki/) site (Computer Center Specific) - if 
 post-launch services exist at your location.
 
 ```yaml
@@ -210,6 +210,26 @@ post-launch services exist at your location.
     - de.NBI_Bielefeld_environment.service
 ```
 
+### Jump Hosts
+
+If you have to use a Jump Host or your started machines are for other reasons not able to reach your Openstack Provider, use `onDemand: False` to disable the on demand scheduling.
+When on demand scheduling is active, worker instances power up whenever they are needed and power down when they are no longer used. This is very valuable because it allows clouds to oversubscribe resources which leads to more resources for everyone.
+
+However, if your master is unable to communicate with your cloud's openstack api, on demand scheduling is not possible. For that we need to disable it.
+
+```shell
+workerInstances:
+  - type: de.NBI tiny
+    image: ubuntu-22.04-image-name
+    count: 1
+    onDemand: False
+  - type: de.NBI default
+    image: ubuntu-22.04-image-name
+    count: 1
+    onDemand: False
+```
+
+If you are unsure whether you have to use a Jump Host or if the connection is not possible, take a look at your location's [Wiki](https://cloud.denbi.de/wiki/) site (Computer Center Specific).
 
 ### Check Your Configuration
 Run `./bibigrid.sh -i bibigrid.yaml -ch -v` to check your configuration. The command line argument 
@@ -440,7 +460,7 @@ Congratulations! You have finished BiBiGrid's Hands-on.
 
 You may want to take a look at the "real" `bibigrid.yaml` inside BiBiGrid's repository. It has a lot more options. However, everything you learned here stays true.
 
-If you would like to deepen your knowledge maybe give BiBiGrid's [Features](https://gitlab.ub.uni-bielefeld.de/bibiserv/bibigrid/bibigrid2/-/blob/main/documentation/markdown/bibigrid_feature_list.md) or the [Software](https://gitlab.ub.uni-bielefeld.de/bibiserv/bibigrid/bibigrid2/-/blob/main/documentation/markdown/bibigrid_software_list.md) used by BiBiGrid a read. If you would like to know more about the configuration file see [Configuration](https://github.com/BiBiServ/bibigrid/blob/master/documentation/markdown/features/configuration.md).
+If you would like to deepen your knowledge maybe give BiBiGrid's [Features](https://github.com/BiBiServ/bibigrid/blob/master/documentation/markdown/bibigrid_feature_list.md) (e.g. create, check, update, ...) or the [Software](https://github.com/BiBiServ/bibigrid/blob/master/documentation/markdown/bibigrid_software_list.md) (e.g. Slurm, Ansible, Zabbix, Theia, ...) used by BiBiGrid a read. If you would like to know more about the configuration file see [Configuration](https://github.com/BiBiServ/bibigrid/blob/master/documentation/markdown/features/configuration.md).
 
 ### More Ansible
 You can learn more about Ansible here:
