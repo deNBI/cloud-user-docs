@@ -1,6 +1,6 @@
 # Documentation for setup of secure web-service with reverse-proxy and load balancer in the de.NBI cloud site in Berlin
 
-!!! important  Preparation: You have one running vm for the reverse-proxy and one running vm for the web-service. Both vms are supposed to be connected to the default network. If you do not have set this up, follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Berlin/).
+!!! important Preparation: You have one running vm for the reverse-proxy and one running vm for the web-service. Both vms are supposed to be connected to the default network. If you do not have set this up, follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Berlin/).
 
 This guide will explain how to setup a web-service behind a reverse proxy with an internal load balancer in the de.NBI cloud site Berlin to make the web-service accessible from the internet. For an overview of how the setup looks like in the end take a look at the graphic.
 
