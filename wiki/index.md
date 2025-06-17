@@ -31,4 +31,3 @@ This section contains cloud site specific configurations, like API endpoints and
 ## Cloud Admin
 
 The Cloud admin section contains general instructions for Cloud site administrators.    
-
