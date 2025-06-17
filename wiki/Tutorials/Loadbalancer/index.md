@@ -1,23 +1,27 @@
 # Documentation for setup of secure web-service with reverse-proxy and load balancer in the de.NBI cloud site in Berlin
 
-> [!IMPORTANT]
-> Preparation: You have one running vm for the reverse-proxy and one running vm for the web-service. Both vms are supposed to be connected to the default network. If you do not have set this up, follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Berlin/).
+!!! important Preparation: You have one running vm for the reverse-proxy and one running vm for the web-service. Both vms are supposed to be connected to the default network. If you do not have set this up, follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Berlin/).
+
 
 This guide will explain how to setup a web-service behind a reverse proxy with an internal load balancer in the de.NBI cloud site Berlin to make the web-service accessible from the internet. For an overview of how the setup looks like in the end take a look at the graphic.
 
 ![infrastructure overview - http access web-service](images/loadbalancer_setup_http_v7.png)
 
-> [!TIP]
-> - If you want to setup a similar structure in another site, please refer to the tutorial for that site, as this tutorial is only applicable to the de.NBI cloud site in Berlin. 
-> - In this tutorial you will learn to setup an infrastructure with a public IP. To use a public ipv4 address and the dmz network you need to apply for them. If you have not already done so with your project application please write us an email to denbi-cloud@bih-charite.de. 
+
+!!! tip If you want to setup a similar structure in another site, please refer to the tutorial for that site, as this tutorial is only applicable to the de.NBI cloud site in Berlin.
+
+!!! tip In this tutorial you will learn to setup an infrastructure with a public IP. To use a public ipv4 address and the dmz network you need to apply for them. If you have not already done so with your project application please write us an email to denbi-cloud@bih-charite.de. 
+
+!!! warning Please make sure to read the security section when opening your infrastructure to the internet as you are responsible for everything happening in your project.
+
+## Setup security group
+
+!!! note To allow only a specific port to be used, create a new security group, add the used port (e.g. port 80) and add it to the vm. By default even ports 80 and 443 are blocked by the "default" security group.
 
 > [!WARNING]
 > Please make sure to read the security section when opening your infrastructure to the internet as you are responsible for everything happening in your project.
 
 ## Setup security group
-
-> [!NOTE]
-> To allow only a specific port to be used, create a new security group, add the used port (e.g. port 80) and add it to the vm. By default even ports 80 and 443 are blocked by the "default" security group.
 
 1. Go to the section 'Network' and select 'Security Groups'. Click on 'Create New Group' and give the new group an easy recognizable name (e.g. secure-web-service). 
 
@@ -34,8 +38,7 @@ Click on 'Create Security Group' and on 'Add Rule' in the next window. Select 'H
 
 1. Setup the web service you want to use and add a security group to it with the port you want to use to access it. 
 
-> [!NOTE]
-> The connection to the web service from the internet should always go over the reverse-proxy, so you could also set up another port like 8080 for the internal service. If you do so, make sure to add the port to the security group attached to the vm.
+!!! note The connection to the web service from the internet should always go over the reverse-proxy, so you could also set up another port like 8080 for the internal service. If you do so, make sure to add the port to the security group attached to the vm.
 
 ## Setup Reverse-Proxy
 
@@ -101,8 +104,7 @@ sudo systemctl restart nginx
 
 ## Security group ip and port
 
-> [!TIP]
-> To allow only traffic from the reverse-proxy to the web-service you can add the internal ip address of the reverse-proxy to the security group of the web-service.
+!!! tip To allow only traffic from the reverse-proxy to the web-service you can add the internal ip address of the reverse-proxy to the security group of the web-service.
  
 1. To create a new rule click on 'Network' and select 'Security Groups' here click on 'Manage Rules' for the security group associated to your web-service. 
 
@@ -140,10 +142,11 @@ To make the load balancer reachable from the internet you need to associate a fl
 
 #### https listener
 
-> [!TIP]
-> - We recomment that you always use a secure conntection with https for your web services. For this to work, you need to setup a certificate in the reverse proxy. Please follow this [guide](https://certbot.eff.org/instructions?ws=nginx&os=snap) for a setup with letsencrypt. 
-> - By default ports 80 and 443 are open for public IPs.
-> - Nginx must be setup properly to use the certificate and allow connections over port 443.
+!!! tip We recomment that you always use a secure conntection with https for your web services. For this to work, you need to setup a certificate in the reverse proxy. Please follow this [guide](https://certbot.eff.org/instructions?ws=nginx&os=snap) for a setup with letsencrypt. 
+
+!!! tip By default ports 80 and 443 are open for public IPs.
+
+!!! tip Nginx must be setup properly to use the certificate and allow connections over port 443.
 
 You can add another listener for https to the load balancer. Go to network and loadbalancers and select the loadbalancer you want to create the additional listener for. Select the 'Listeners' tab, click on 'Create Listener' to open the listener creation panel. 
 
