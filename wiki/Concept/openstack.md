@@ -54,6 +54,12 @@ In August 2009, Rackspace started the development of the precursor to OpenStack 
 
 OpenStack Dashboard (Horizon) provides administrators and users with a graphical interface to access, provision, and automation of cloud-based resources. The design accommodates third party products and services, such as billing, monitoring, and additional management tools. The dashboard is also brand-able for service providers and other commercial vendors who want to make use of it. The dashboard is one of several ways users can interact with OpenStack resources. Developers can automate access or build tools to manage resources using the native OpenStack API or the EC2 compatibility API.
 
+### Load Balancer (Octavia)
+
+OpenStack Octavia is a scalable Load Balancing as a Service (LBaaS) project for OpenStack clouds, enabling users to easily manage load balancing services for their applications. It offers features like virtual IPs, health checks, and multiple load balancing algorithms to distribute traffic across a pool of compute instances, enhancing application availability and performance.
+
+To help get you started, a [comprehensive cookbook](https://docs.openstack.org/octavia/latest/user/guides/basic-cookbook.html) with practical examples is available, demonstrating common use cases and configurations.
+
 ### Orchestration (Heat)
 
 Heat is a service to orchestrate multiple composite cloud applications using templates, through both an OpenStack-native REST API and a CloudFormation-compatible Query API.
