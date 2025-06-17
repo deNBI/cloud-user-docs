@@ -1,0 +1,50 @@
+# BiBiGrid's configuration file
+
+- infrastructure: openstack # # describes what cloud provider is used (others are not implemented yet)
+  cloud: openstack # name of clouds.yaml entry (openstack for openstack if not changed)
+
+  zabbix: True # monitoring
+  nfs: True # network file sharing
+  ide: True # theia web ide
+
+  useMasterAsCompute: False # we don't use the master for our computation
+
+  nfsShares:
+    - /vol/permanent
+
+  # master configuration
+  masterInstance:
+    type: de.NBI medium
+    image: # enter your image here
+    volumes:
+      - name: resFinder
+        mountPoint: /vol/permanent
+        permanent: True
+        size: 25
+
+  # worker configuration
+  workerInstances:
+    - type: de.NBI small
+      image: # enter your image here
+      count: 2
+      volumes:
+        - mountPoint: /vol/semiPermanent
+          semiPermanent: True
+          size: 25
+
+  # Depends on cloud image
+  sshUser: ubuntu
+
+  # Depends on your project and cloud site
+  subnet: # enter your subnet here
+
+  # Depends on the services that run on server start at your cloud site
+  # waitForServices:
+  #  - de.NBI_Bielefeld_environment.service # uncomment for Bielefeld
+
+  # Suspend worker nodes after 9 hours being idle; just for hands-on
+  slurmConf:
+    elastic_scheduling:
+      SuspendTime: 32400
+
+
