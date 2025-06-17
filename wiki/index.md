@@ -2,7 +2,6 @@
 
 Welcome to the de.NBI Cloud Wiki!
 
-
 ## [Quickstart](quickstart.md) 
 
 Our quickstart section gives you a short introduction to the setup of our OpenStack-Cloud, so you are prepared to
@@ -31,4 +30,5 @@ This section contains cloud site specific configurations, like API endpoints and
 
 ## Cloud Admin
 
-The Cloud admin section contains general instructions for Cloud site administrators.
+The Cloud admin section contains general instructions for Cloud site administrators.    
+

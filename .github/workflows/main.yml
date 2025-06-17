@@ -35,9 +35,9 @@ jobs:
 
       - uses: Cadair/matrix-notify-action@main
         name: Matrix Notification
-        if: ${{ failure() }}
+        if:  failure() 
         with:
-          matrix_token: ${{ secrets.matrix_access_token }}
+          matrix_token: ${{ secrets.MATRIX_ACCESS_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           homeserver: 'https://matrix.org'
           roomid: ${{ secrets.MATRIX_CRITICAL_ROOM }}
