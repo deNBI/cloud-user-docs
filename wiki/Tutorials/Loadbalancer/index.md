@@ -18,8 +18,16 @@ This guide will explain how to setup a web-service behind a reverse proxy with a
 
 !!! note To allow only a specific port to be used, create a new security group, add the used port (e.g. port 80) and add it to the vm. By default even ports 80 and 443 are blocked by the "default" security group.
 
-> [!WARNING]
-> Please make sure to read the security section when opening your infrastructure to the internet as you are responsible for everything happening in your project.
+!!! tip If you want to setup a similar structure in another site, please refer to the tutorial for that site, as this tutorial is only applicable to the de.NBI cloud site in Berlin.
+
+!!! tip In this tutorial you will learn to setup an infrastructure with a public IP. To use a public ipv4 address and the dmz network you need to apply for them. If you have not already done so with your project application please write us an email to denbi-cloud@bih-charite.de. 
+
+!!! warning Please make sure to read the security section when opening your infrastructure to the internet as you are responsible for everything happening in your project.
+
+## Setup security group
+
+!!! note To allow only a specific port to be used, create a new security group, add the used port (e.g. port 80) and add it to the vm. By default even ports 80 and 443 are blocked by the "default" security group.
+
 
 ## Setup security group
 

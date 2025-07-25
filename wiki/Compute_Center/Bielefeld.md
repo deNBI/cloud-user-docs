@@ -4,7 +4,7 @@ The Bielefeld cloud site currently runs the OpenStack version "Yoga".
 
 ## Contact
 
-The de.NBI cloud team in Bielefeld can be contacted via email: os-service(at)cebitec.uni-bielefeld.de
+The de.NBI cloud team in Bielefeld can be contacted via email: service(at)bi.denbi.de
 
 ## Entrypoint
 
