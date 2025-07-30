@@ -108,10 +108,63 @@ In the Berlin node, a floating-ip with public access needs specifically be assig
 
 ### DNS & encryption
 
-To access the portal from the internet via https, we also need a DNS entry and a TLS certificate. In some cases, a DNS entry for the bihealth.org domain can be requested for a de.NBI project at the Berlin site. Please contact the site cloud admins to get information for your specific project. In the example here, we use the URL `my_platform.bihealth.org`. Next, we also need a certificate for encrypted communication. For example, a certificate can be created by [Let's Encrypt](https://letsencrypt.org/de/getting-started/). The keyfile and the certificate file need to be stored on the `deploy-node`.  Both files are stored as a secret in Kubernetes so that we can use them in the JupyterHub deployment. Name of the secret is `jupyter-tls`.
+To access the portal from the internet via https, we also need a DNS entry and a TLS certificate. In some cases, a DNS entry for the bihealth.org domain can be requested for a de.NBI project at the Berlin site. Please contact the site cloud admins to get information for your specific project. In the example here, we use the URL `my_platform.bihealth.org`.
+
+#### Manual HTTPS (not recommended)
+
+For the manual setup we need a certificate for encrypted communication. For example, a certificate can be created by [Let's Encrypt](https://letsencrypt.org/de/getting-started/). The keyfile and the certificate file need to be stored on the `deploy-node`.  Both files are stored as a secret in Kubernetes so that we can use them in the JupyterHub deployment. Name of the secret is `jupyter-tls`.
 
 ```console
 kubectl create secret --namespace=jhub tls jupyter-tls --key=$PATH_TO_KEY --cert=$PATH_TO_CERT
+```
+
+with the manual setup the (`config.yaml`) should look like:
+
+```yaml
+proxy:
+  https:
+    enabled: true
+    hosts:
+      - #TODO: add URL of the portal (e.g. my_platform.bihealth.org)
+    type: secret
+    secret:
+      name: jupyter-tls
+  service:
+    loadBalancerIP: #TODO: add the floating ip address (e.g. 111.111.111.1)
+
+scheduling:
+  userScheduler:
+    enabled: false
+  podPriority:
+    enabled: true
+
+[...]
+```
+
+#### Automatic HTTPS
+
+Jupyterhub provides out-of-the-box **letsencrypt** automatic HTTPS redirection with automated cert-renewal with an easy adaption of the helm-chart [Jupyter Hub Documentation](https://z2jh.jupyter.org/en/stable/administrator/security.html#set-up-automatic-https). No manual steps with letsencrypt are needed.
+
+Following the automated setup the (`config.yaml`) should look like:
+
+```yaml
+proxy:
+  https:
+    enabled: true
+    hosts:
+      - #TODO: add URL of the portal (e.g. my_platform.bihealth.org)
+    letsencrypt:
+      contactEmail: #TODO: add the eMail which is used for requesting the https-cert from letsencrypt
+  service:
+    loadBalancerIP: #TODO: add the floating ip address (e.g. 111.111.111.1)
+
+scheduling:
+  userScheduler:
+    enabled: false
+  podPriority:
+    enabled: true
+
+[...]
 ```
 
 ### OIDC
@@ -128,9 +181,8 @@ proxy:
     enabled: true
     hosts:
       - #TODO: add URL of the portal (e.g. my_platform.bihealth.org)
-    type: secret
-    secret:
-      name: jupyter-tls
+    letsencrypt:
+      contactEmail: #TODO: add the eMail which is used for requesting the https-cert from letsencrypt
   service:
     loadBalancerIP: #TODO: add the floating ip address (e.g. 111.111.111.1)
 
