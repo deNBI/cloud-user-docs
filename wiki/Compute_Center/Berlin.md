@@ -59,6 +59,7 @@ Click "Launch Instance". Your VM will be deployed and ready in a few moments.
 
 - Please add your key pair to the instance
   
+  
 ## Assigning a Floating IP
   
 To connect to your VM from our jumphost, you must assign it a "Floating IP" address.
@@ -71,7 +72,6 @@ To connect to your VM from our jumphost, you must assign it a "Floating IP" addr
 
 **Hint:** To connect to a VM that does not have a Floating IP, you must first SSH into another VM within the same project that does have a Floating IP. Once connected, you are inside your private project network and can access all other internal VMs.
 
-
 ## Connect to your VMs with ssh
 
 Your VMs are not directly accessible from the public internet. You must first connect to our jumphost server and then connect to your VM from there.
@@ -81,6 +81,7 @@ Your VMs are not directly accessible from the public internet. You must first co
 ### Prerequisites: SSH Keys
 
 You must configure your SSH keys in two places:
+
 
 1. de.NBI Portal (for Jumphost Access): Add your public SSH key at https://cloud.denbi.de/portal/.
 2. OpenStack Project (for VM Access): Import the same public SSH key into your OpenStack project by navigating to Project -> Compute -> Key Pairs -> Import Key Pair.
@@ -94,6 +95,8 @@ Our standard images use default usernames. Use the correct one when connecting t
 ### SSH Configuration for Windows 10/11
 
 Windows includes OpenSSH by default, which can be used in PowerShell. Create a configuration file at ```$HOME\.ssh\config``` 
+
+=======
 
 You can create it with a text editor like Notepad or by using this PowerShell command (be sure to replace the placeholder content): 
 
@@ -145,10 +148,12 @@ You can now connect directly to your VM from your terminal with:
 ```console
 ssh {A_Friendly_Name_For_Your_VM}
 ```
+
       
 ## Storage Management
 
 ### Creating and Attaching Volumes
+
 
 Use volumes to add more persistent disk space to a VM. A volume can only be attached to one VM at a time but will persist even after the VM is deleted.
 
@@ -219,6 +224,7 @@ By default, a new share is inaccessible. You must grant access to your VMs.
   - Access To: The IP address of the VM you want to grant access to.
 
 **Important:** Keep your access rules updated to ensure only authorized VMs can access your data.
+
   
 ### Mount the Share on Your VM
 1. **Find the share path:** In the Shares dashboard, click on your share's name. The path will be listed under "Export locations". It will look like this:
@@ -341,6 +347,7 @@ To grant access to multiple users when you first create a VM, use a customizatio
 
 1. During VM launch, go to the Configuration tab.
 
+
 2. In the Customization Script text box, enter the public keys in the following cloud-config format:
 
 ```bash
@@ -351,7 +358,9 @@ To grant access to multiple users when you first create a VM, use a customizatio
 ```
 Both User 1 and User 2 will have access to the VM after it boots.
 
+
 ## Uploading Custom Linux Images
+
 If you need an OS that we do not provide, you can upload your own.
 
 1. Navigate to Project -> Compute -> Images.
