@@ -1,14 +1,12 @@
 # de.NBI Cloud Berlin
-Welcome to the de.NBI Cloud site Berlin. In the following guide we want 
-to give you a quick introduction how to use our cloud site.
+Welcome to the de.NBI Cloud site in Berlin. This guide provides a quick introduction to using our cloud platform.
 
-Please note, you are responsible for everything that happens with the virtual
-machines (VMs) you deploy! We as resource provider are not liable for 
-anything and do not give any guarantees. Keep this in mind and try to make your setup as reproducible as possible from the beginning.
+### Disclaimer
 
-## How to get in contact with us
-In case you have questions or want to give us any kind of feedback, please 
-contact us via <denbi-cloud@bih-charite.de>.
+You are solely responsible for all activities related to the virtual machines (VMs) you deploy. As the resource provider, we are not liable for any issues and offer no guarantees. We strongly recommend making your setup as reproducible as possible from the start.
+
+### How to Contact Us
+For questions or feedback, please email us at <denbi-cloud@bih-charite.de>.
 
 ## Access to the de.NBI Cloud Berlin
 ### OpenStack Dashboard
@@ -18,244 +16,245 @@ dashboard is available [here](https://denbi-cloud.bihealth.org).
 To access your project, use LifeScience AAI as authentication provider. After 
 authentication you will be redirected to the OpenStack dashboard.
 
-**Hint:** We block access from several countries in our firewall. In case you have problems to reach our dashboard or can not access our jumphost from outside of Germany, please get in contact with us!
+**Important Note** We block incoming connections from several countries. If you cannot access the dashboard or the jumphost from outside Germany, please contact us for assistance.
 
-### Deploy your VMs
-The networks are already preconfigured, so you can directly start and deploy 
-your VMs. Therefore go to **Project - Compute - Instances** and choose the 
-button **"Launch Instance"** on the right side. Now you have to provide 
-information at least in the categories **Details, Source and Flavor**.
+## Deploying Your First VM
+The networks are pre-configured, so you can immediately begin deploying VMs.
 
-  **Details:**
-  
-  - In the field "Instance Name", assign a name to your VM
-  
-  **Source:**
-  
-  - Choose "Image" as "Boot Source"
-  - If you choose "Create New Volume" **No**, the vm volume will be created on hypervisor and be limited to 20GB. This means, your VM will be located on the local disk of the compute node. In case of a hardware failure of the compute node, we will not be able to restore your VM.
-  - If you choose "Create New Volume" **Yes**, your volume will be placed on our separate storage system and can be bigger than 20GB. We generally advise to set this options **Please to not create volumes bigger than 50 GB!** (You can always add another separate volume for data or use a share) 
-  - Choose an appropriate image from the list (e.g. Ubuntu-24)
-  
-  **Flavor:**
-  
-  - Choose a Flavor from the list that fits your resource requests (e.g de.NBI 
-  default provides 2 cores with 4GB of RAM)
+1. Navigate to Project -> Compute -> Instances.
 
-  **Network:**
-  
-  - For new projects (09/2021) it is recommended to choose "yourProject-network-2". You will be able to use floating ips within subnet of public2: `172.17.0.10 - 172.17.7.250` 
-  - Older projects (prior 09/2021) can still use their existing "your-Project-network". You will be able to use floating ips within subnet of public: `172.16.102.200 - 172.16.103.220`
-  
-Now hit the button "Launch Instance". The VM will be deployed and accessible
-in a few seconds. To connect to your VM from our jumphost-01 you need to assign a floating ip 
-address to the machine. Therefore click on the arrow on the right side of the
-spawning VM, choose "**Associate Floating IP**" and use one available
-floating ip addresses from the drop-down menu.
+2. Click the "Launch Instance" button on the right.
 
-**Hint:** To connect to one of your VMs without a floating ip address you have to 
-assign at least one floating ip address to another of your machines. As soon 
-as you are connected to this machine you are inside of your project network 
-and can connect to VMs without any floating ip address.
+3. You must fill in the information in the Details, Source, and Flavor tabs.
+
+### 1. Details Tab
+
+- Instance Name: Assign a descriptive name to your VM.
+  
+### 2. Source Tab
+  
+- Boot Source: Select "Image".
+- Create New Volume: This choice determines where your VM's disk is stored.
+
+  - No (Recommended for temporary VMs): Your VM's disk will be created on the local storage of the host machine (hypervisor). It is limited to 20 GB.
+
+**Warning:** With this option, your VM cannot be recovered in the event of a hardware failure on that specific host.
+
+  - Yes (Recommended for persistent VMs): Your VM's disk will be created as a persistent volume on our separate, storage system. It can be larger than 20 GB.
+
+**Warning:** Please do not create initial volumes larger than 50 GB. You can always attach additional data volumes later.
+
+- Image Name: Choose an operating system image from the list (e.g., Ubuntu-24).  
+  
+### 3. Flavor Tab
+  
+- Choose a "Flavor" that matches your required CPU and RAM resources (e.g., de.NBI default provides 2 CPU cores and 4 GB of RAM).
+
+### 4. Networks Tab
+  
+- It is recommended to select your project's internal network (e.g., yourProject-network).
+
+Click "Launch Instance". Your VM will be deployed and ready in a few moments.
+### 5. Key Pair
+
+- Please add your key pair to the instance
+  
+## Assigning a Floating IP
+  
+To connect to your VM from our jumphost, you must assign it a "Floating IP" address.
+
+1. In the Instances list, find your newly created VM.
+
+2. Click the dropdown arrow on the right and select "Associate Floating IP".
+
+3. Choose an available IP from our "public" floating ip pool `10.57.200.0 /21` click "Associate".
+
+**Hint:** To connect to a VM that does not have a Floating IP, you must first SSH into another VM within the same project that does have a Floating IP. Once connected, you are inside your private project network and can access all other internal VMs.
+
 
 ## Connect to your VMs with ssh
 
-None of your VMs will be directly visible and accessible from the internet. To 
-connect to one of your VMs, you have to use our jumphost server
-denbi-jumphost-01.bihealth.org with your LifeScience login name. In case you are not sure, check for your login name
-on the [profile page](../portal/user_information.md) of the de.NBI Cloud Portal.
+Your VMs are not directly accessible from the public internet. You must first connect to our jumphost server and then connect to your VM from there.
+- Jumphost Address: denbi-jumphost-01.bihealth.org
+- Jumphost Username: Your LifeScience AAI login name (If you are unsure, check your  [profile page](../portal/user_information.md).
 
-#### SSH-Keys
+### Prerequisites: SSH Keys
 
-Your public ssh must be added in the de.NBI portal: https://cloud.denbi.de/portal/ to be able to connect to our jumphost.
-and make sure that you import a public ssh-key into your 
-OpenStack project (**Project - Compute - Key Pairs - Import 
-Key Pair**) so that you can access your VMs later on.
+You must configure your SSH keys in two places:
 
+1. de.NBI Portal (for Jumphost Access): Add your public SSH key at https://cloud.denbi.de/portal/.
+2. OpenStack Project (for VM Access): Import the same public SSH key into your OpenStack project by navigating to Project -> Compute -> Key Pairs -> Import Key Pair.
 
+### Default Usernames for Common Images
+Our standard images use default usernames. Use the correct one when connecting to your VM:
 
-##### Distribution logins
-Please take care, as for now, that our images are shipped with the standard 
-users for the respective Linux distribution. Here you can see a list of 
-standard users for some common distributions:
- 
-  - **CentOS**: centos
-  - **Ubuntu**: ubuntu
+- **Rocky**: rocky
+- **Ubuntu**: ubuntu
 
+### SSH Configuration for Windows 10/11
 
-#### Windows 10 
-To connect via Windows 10 you can use PowerShell as OpenSSH ist already installed by default. Create the ssh config file ```$HOME\.ssh\config``` with notepad or use the PowerShell command ```Set-Content -Path $HOME\.ssh\config -Value '<add file content here>'```
-When you use PowerShell, make sure to edit the input of the file. Fill in your information and make sure that the sections HostName, IdentityFile, User, and ProxyJump are indented with four spaces for both entries.
+Windows includes OpenSSH by default, which can be used in PowerShell. Create a configuration file at ```$HOME\.ssh\config``` 
+
+You can create it with a text editor like Notepad or by using this PowerShell command (be sure to replace the placeholder content): 
+
+```Set-Content -Path $HOME\.ssh\config -Value '<add file content here>'```
+
+Add the following to your config file, replacing the bracketed values:
+
 ```bash
-# Replace all fields in {curly braces}
+# ----- Connection to the de.NBI Jumphost -----
 Host denbi-jumphost-01.bihealth.org
     HostName denbi-jumphost-01.bihealth.org
-    User {LifeScienceLogin}
-    IdentityFile {PATH_TO_KEY}
+    User {Your_LifeScience_Login}
+    IdentityFile {C:\path\to\your\private_key} # e.g., C:\Users\YourUser\.ssh\id_rsa
 
-
-Host {NAME_OF_VM}  # first vm
-    HostName {172.16.XXX.XXX}
-    IdentityFile {PATH_TO_KEY}
-    User {ubuntu / centos}
+# ----- Connection to your VM via the Jumphost -----
+Host {A_Friendly_Name_For_Your_VM}
+    HostName {10.57.XXX.XXX} # The Floating IP of your VM
+    User {ubuntu} # or rocky, etc.
+    IdentityFile {C:\path\to\your\private_key}
     ProxyJump denbi-jumphost-01.bihealth.org
 ```
 
-Save the file without a filename extension. To open a ssh connection issue the following command in PowerShell:
+Save the file. You can now connect directly to your VM from PowerShell with:
+
 ```console
-ssh NAME_OF_VM
+ssh {A_Friendly_Name_For_Your_VM}
 ```
 
-#### Linux .ssh/config
+### SSH Configuration for Linux / macOS
 
 ```bash
-# Replace all fields in {curly braces}
+# ----- Connection to the de.NBI Jumphost -----
 Host denbi-jumphost-01.bihealth.org
     HostName denbi-jumphost-01.bihealth.org
-    User {LifeScienceLogin}
-    IdentityFile {PATH_TO_KEY}
+    User {Your_LifeScience_Login}
+    IdentityFile {/path/to/your/private_key} # e.g., ~/.ssh/id_rsa
     ServerAliveInterval 120
 
-Host {NAME_OF_VM}
-    HostName {172.16.XXX.XXX}
-    IdentityFile {PATH_TO_KEY}
-    User {ubuntu / centos}
+# ----- Connection to your VM via the Jumphost -----
+Host {A_Friendly_Name_For_Your_VM}
+    HostName {10.57.XXX.XXX} # The Floating IP of your VM
+    User {ubuntu} # or rocky, etc.
+    IdentityFile {/path/to/your/private_key}
     ProxyJump denbi-jumphost-01.bihealth.org
 ```
 
-#### Setting up a SOCKS proxy
-In some cases it would also make sense to configure a permanent SOCKS proxy to 
-communicate with your VMs behind the jumphost, e.g. when using web 
-applications etc. As long as you have an open SOCKS connection to the 
-jumphost you can directly connect to your VMs from a different console. In the
-following example socat is used but also netcat (nc) works in a similar way. 
-Add the following lines to your **local ~/.ssh/config**:
+You can now connect directly to your VM from your terminal with:
 
-    # Access to the de.NBI jumphost
-    Host denbi-jumphost-01.bihealth.org
-      # Use your LifeScience login name
-      User LifeScienceLogin
-      # Use your ssh-key file
-      IdentityFile YOUR-SSH-KEY-FILE
-      # Open a SOCKS proxy locally to tunnel traffic into the cloud environment
-      DynamicForward localhost:7777
-      # Forward locally managed keys to the VMs which are behind the jumphosts
-      ForwardAgent yes
-      # Send a keep-alive packet to prevent the connection from beeing terminated
-      ServerAliveInterval 120
+```console
+ssh {A_Friendly_Name_For_Your_VM}
+```
       
-    # Access to de.NBI cloud floating IP networks via SOCKS Proxy
-    Host 172.16.102.* 172.16.103.*
-      # Tunnel all requests through dynamic SOCKS proxy
-      ProxyCommand /usr/bin/socat - socks4a:localhost:%h:%p,socksport=7777 or socks5h:localhost:%h %p,socksport=7777
-      # Use your ssh-key file
-      IdentityFile YOUR-SSH-KEY-FILE
-      # Forward locally managed keys
-      ForwardAgent yes
-      # Send a keep-alive packet to prevent the connection from beeing terminated
-      ServerAliveInterval 120
-      
-## Storage
+## Storage Management
 
-#### Create Volumes
+### Creating and Attaching Volumes
 
-If you need more disk space than the initial image provides (20GB), one 
-way is to create a volume and attach it to your VM. Please keep in mind that 
-a volume can only be attached to one VM at the same time. The advantage of a 
-volume is that it will be available also after you deleted your VM. So you can
-use it to store data temporally. **Please be aware, if you create a volume bigger than 250GB the snapshot mechanism might be very slow fail**
+Use volumes to add more persistent disk space to a VM. A volume can only be attached to one VM at a time but will persist even after the VM is deleted.
 
-To create a volume choose **Project - Compute - Volumes** followed by **Create 
-Volume** on the right side. Now assign a name to your volume and set the size
-according to your needs. After the successful creation of the  volume you have 
-to attach it to your VM. Choose the arrow on the right side of the created 
-volume and select **Attach Volume**. In the new window you have to choose your 
-VM from the drop-down menu under **Attach to Instance**.
+**Warning:** Creating a volume larger than 250 GB may cause snapshot operations to be slow or to fail.
 
-On your VM you now have to make a filesystem on the device so that you can 
-mount it to your machine. You only need this step for a new volume.Use e.g. mkfs to make an ext4 filesystem:
+1. Create the Volume
+- Navigate to Project -> Volumes -> Volumes.
 
-    sudo mkfs.ext4 /dev/vdb
-    
-After creating the filesystem (or if you have an already existing volume) you can mount the volume to your VM and start 
-using it wiht
+- Click "Create Volume", give it a name, and set the desired size.
 
-    sudo mount /dev/vdb /mnt/$yourPathTheVolumeIsMounted
+2. Attach the Volume to a VM
+- Find the newly created volume in the list.
 
-#### Create a NFS share
-In case you need a NFS share to store big amounts of data and share it within
-your project, you can use OpenStack to create and manage the share.
+- Click the dropdown arrow on the right and select "Manage Attachments" (or "Attach Volume").
 
-To create a NFS share choose the section **Shares** and click on **Create 
-Share**. In the popup you have to provide the following information:
+- Select the VM you want to attach it to and click "Attach Volume".
 
-  **Share Name:**
-  - Provide a share name.
-  
-  **Share Protocol:**
-  - Please use the preselected "NFS" as protocol.
-  
-  **Size (GiB):**
-  - Provide the size of the share. Info: You have an overall quota for NFS 
-  shares on your project. Please make sure that you set the size below the 
-  project quota.
+3. Format and Mount the Volume on the VM
 
-  **Share Type:**
-  - Please select "isilon-denbi" (or dmz, if you want to use a share from a server within the dmz)
-  
-  **Availability Zone:**
-  - Please select "nova".
+After attaching the volume, you must format (only for new volumes) and mount it inside the VM.
 
-#### Manage access rules for your NFS share
-After the creation of a NFS share, the share will not be accessible by anyone
-. To grant your VMs access to the share you have to configure the access rules.
-
-**Important: Please make sure to keep the access rule list of your NFS share up
- to date**, so that only your VMs can access the share.
-
-To manage the access rules click on the **arrow** on the right side of your 
-newly created NFS share and choose **Manage rules**. Now you have to choose 
-**Add rule**. In the popup you have to provide the following information:
-
-  **Access Type:**
-  - Select ip to allow a certain VM access to the share.
-  
-  **Access Level:**
-  - Choose **read-write** or **read-only** appropriate to your needs. In some
-   cases it may make sense that specific VMs just get read-only permissions.
-  
-  **Access to**
-  - Please fill in the ip address of your VM you want to grant access to the 
-  NFS share.
-  
-#### Access your NFS share
-In order to use your created NFS share you have to mount it to your VMs. 
-Click on the created share in the **Shares** section of the OpenStack 
-dashboard to get information about the complete mount path. Under the 
-**Export locations** section, please choose the **Path** e.g.:
-     
-    manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/$yourShareUiid
-
-You can mount the share with the following command:
+- Create a filesystem (run this command only once for a new volume):
 
 
-    sudo mount -t nfs manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID /mnt/
-    
-If you get an error saying `you might need a /sbin/mount.<type> helper program`, then you might need to install the `nfs-common` package:
-
-    sudo apt install nfs-common
-
-At the moment, only NFS version 3 is supported. You can try to run the following to find out which NFS versions are supported:
-
-```
-$ rpcinfo -p manila-prod.isi.denbi.bihealth.org | grep nfs
-    100003    3   tcp   2049  nfs
-    100003    3   udp   2049  nfs
+```console
+sudo mkfs.ext4 /dev/vdb
 ```
 
-Alternatively you can add the mount path to your `/etc/fstab`. You might also need to set the host's DNS domain name:
+- Mount the volume:
 
+```console
+# Create a mount point (if it doesn't exist)
+sudo mkdir -p /mnt/data
+
+# Mount the volume
+sudo mount /dev/vdb /mnt/data
 ```
+
+### Creating an NFS Share
+NFS shares are ideal for storing large amounts of data that need to be accessed by multiple VMs within your project.
+
+1. Create the Share
+- Navigate to the Shares section and click **"Create Share"**.
+
+- Fill in the details:
+
+  - Share Name: A descriptive name.
+
+  - Share Protocol: NFS (pre-selected).
+
+  - Size (GiB): The size of the share (must be within your project's quota).
+
+  - Share Type: isilon-denbi.
+
+  - Availability Zone: nova.
+
+2. Manage Access Rules
+By default, a new share is inaccessible. You must grant access to your VMs.
+
+- Find your share, click the dropdown arrow, and select **"Manage Rules"**.
+
+- Click **"Add Rule"** and provide the following:
+
+  - Access Type: ip.
+
+  - Access Level: read-write or read-only.
+
+  - Access To: The IP address of the VM you want to grant access to.
+
+**Important:** Keep your access rules updated to ensure only authorized VMs can access your data.
+  
+### Mount the Share on Your VM
+1. **Find the share path:** In the Shares dashboard, click on your share's name. The path will be listed under "Export locations". It will look like this:
+
+```console
+manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/$yourShareUiid.
+``` 
+
+2. Install the NFS client (if not already installed):
+
+
+```console
+# For Ubuntu/Debian
+sudo apt update && sudo apt install nfs-common
+```
+
+3. Mount the share:
+
+```console
+sudo mount -t nfs your-full-export-location-path /path/to/mount/point
+# Example:
+sudo mount -t nfs manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID /mnt/volume
+```
+
+4. Set permissions: Ensure the correct user owns the mounted directory.
+
+```console
+# Example for an Ubuntu VM:
+sudo chown ubuntu:ubuntu /mnt/volume
+```
+
+**Important:** At present, only NFS version 3 is supported.
+
+The following should be set to the local NFSv4 domain name
+
+```console
 cat /etc/idmapd.conf 
 [General]
 #Verbosity = 0
@@ -264,95 +263,106 @@ cat /etc/idmapd.conf
 Domain = denbi.bihealth.org
 ```
 
-Please make sure that your user (depending on the used distribution: centos, 
-debian, ubuntu) is the owner of the NFS share. Therefore run the following 
-command to set the user as owner of the NFS share:
-
-    sudo chown centos:centos /mnt/$yourPathTheShareIsMounted
-    
-**Hint** This example is for a Centos based image.
-
 ## Using the OpenStack API
 
+This guide shows how to set up the openstack-cli client on a VM (tested on Ubuntu 22.04) to manage your project from the command line.
 
-This tutorial shows how you can setup openstack-cli in a project to manage your project from the vm without a web browser. This tutorial does only apply to the de.NBI site Berlin and was only tested with the Ubuntu 22.04 image.
-
-
-1. Create Application credentials in your project.
+1. Create Application Credentials: In the OpenStack dashboard, go to your user menu (top right), click "Application Credentials", and create a new credential.
 
 ![select application credentials](img/berlin/application_credentials_select.png)
 
 ![create application credentials](img/berlin/application_credentials_create.png)
 
-2. Download both files presented to you: openrc.sh and cloud.yaml
+2. Download Files: Download the two files provided: `openrc.sh` and `clouds.yaml`.
 
 ![download application credentials files](img/berlin/application_credentials_files.png)
 
-3. Create a vm in your project.
-4. Copy both files to your vm. Save 'clouds.yaml' to the directory ```~/.config/openstack/```. 
-5. Install virtual environment for python (`python-virtualenv` or `python3-virtualenv` for older/newer distros)
+3. Launch a VM and copy both files to it.
+4. Move clouds.yaml: Place the clouds.yaml file in the correct directory:
+```console
+mkdir -p ~/.config/openstack/
+~/.config/openstack/
+```
+
+5. Install virtualenv:
+
 ```bash
 sudo apt-get update
 sudo apt-get install python3-virtualenv
 ```
-6. Create virtual environment named 'venv'.
+6. Create and activate a virtual environment:.
 ```bash
 virtualenv ~/venv
-```
-7. activate the environment
-```bash
 source ~/venv/bin/activate
 ```
-8. Install the openstack cli client in the environment
+7. Install the OpenStack client:
+
 ```bash
 pip install python-openstackclient
 ```
-9. Source the ```openrc.sh``` file to use the credentials to use openstack-cli
+8. Load the credentials:
 ```bash
 source openrc.sh
 ```
-10.  Use openstack-cli to get information about your project
+9. Test the CLI:
 ```bash
 openstack server list
 ```
 
-The API is not directly accessible from the outside, so the only way to 
-access the API from a local machine is through the jumphost. So make sure you've
-configured your SOCKS proxy as described before. In addition you will need to 
-configure your environment to use the SOCKS proxy for the API requests. 
-Therefore set your environment variables for the http/https proxy:
+### Using the OpenStack API from Your Local Machine
 
-    export http_proxy=socks5h://localhost:7777
-    export https_proxy=socks5h://localhost:7777
-    export no_proxy=localhost,127.0.0.1,::1
+1. Set up a SOCKS proxy: First, configure your `~/.ssh/config` to create a SOCKS proxy when you connect to the jumphost. Add this entry to your local ~/.`ssh/config` file:
 
-Now, if you have an active SOCKS connection to the jumphost, you should be 
-able to use the OpenStack API from your local machine.
+```bash
+Host de.NBI-SOCKS-Proxy
+    HostName denbi-jumphost-01.bihealth.org
+    User {Your_LifeScience_Login}
+    IdentityFile {/path/to/your/private_key}
+    DynamicForward localhost:7777 # you can choose another port here
+    ServerAliveInterval 120
+```
+Now, open a terminal and run 
 
-### Adding multiple SSH-Keys
-To access your VM you have to provide a public ssh-key. In the deployment 
-step of your VM you can choose which public ssh-key you want to use for your 
-VM in the section **Key Pair**.
+```bash
+ssh de.NBI-SOCKS-Proxy
+```
 
-In case you want to directly deploy a VM and give access to more than one 
-user you can use the section **Configuration - Customization Script** in the 
-deployment part. Here you have to list the full **public keys** in the 
-following format:
+2. Configure your environment: In a new terminal, export the following environment variables to direct API traffic through the prox
+```bash
+export http_proxy=socks5h://localhost:7777
+export https_proxy=socks5h://localhost:7777
+export no_proxy=localhost,127.0.0.1,::1
+```
 
+You should now be able to run OpenStack CLI commands from your local machine, provided you have also configured it with your credentials (`clouds.yaml` and `openrc.sh`)
+
+## Adding multiple SSH-Keys
+To grant access to multiple users when you first create a VM, use a customization script.
+
+1. During VM launch, go to the Configuration tab.
+
+2. In the Customization Script text box, enter the public keys in the following cloud-config format:
+
+```bash
     #cloud-config
     ssh_authorized_keys:
         - Full public ssh-key of User-1
         - Full public ssh-key of User-2
+```
+Both User 1 and User 2 will have access to the VM after it boots.
 
-After the successful deployment of the VM, user 1 and user 2 will have access 
-to the VM.
+## Uploading Custom Linux Images
+If you need an OS that we do not provide, you can upload your own.
 
-### Upload your own Linux images
-If you need an extra Linux image we do not provide, you also can upload your 
-own images via **Project - Compute - Images**. Select **Create Image** and 
-choose a name and the path for the image and also make sure that you choose 
-the correct format (typically qcow2). If there are special requirements for 
-your image, you can specify the minimum disk size and also the minimum 
-amount of RAM. After the successful upload only the members of your project 
-can use the image.
+1. Navigate to Project -> Compute -> Images.
+
+2. Click "Create Image".
+
+3. rovide an Image Name and select the File to upload.
+
+4. Set the Format (usually QCOW2 - QEMU Emulator).
+
+5. If required, specify the minimum disk and RAM requirements for the image.
+
+Once uploaded, the image will be available for use only by members of your project.
 
