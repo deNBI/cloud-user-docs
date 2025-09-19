@@ -27,11 +27,11 @@ The networks are pre-configured, so you can immediately begin deploying VMs.
 
 3. You must fill in the information in the Details, Source, and Flavor tabs.
 
-### 1. Details Tab:
+### 1. Details Tab
 
 - Instance Name: Assign a descriptive name to your VM.
   
-### 2. Source Tab:
+### 2. Source Tab
   
 - Boot Source: Select "Image".
 - Create New Volume: This choice determines where your VM's disk is stored.
@@ -334,7 +334,7 @@ export https_proxy=socks5h://localhost:7777
 export no_proxy=localhost,127.0.0.1,::1
 ```
 
-You should now be able to run OpenStack CLI commands from your local machine, provided you have also configured it with your credentials (`clouds.yaml` and `openrc.sh`
+You should now be able to run OpenStack CLI commands from your local machine, provided you have also configured it with your credentials (`clouds.yaml` and `openrc.sh`)
 
 ## Adding multiple SSH-Keys
 To grant access to multiple users when you first create a VM, use a customization script.
