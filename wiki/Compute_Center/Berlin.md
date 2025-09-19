@@ -58,7 +58,7 @@ Click "Launch Instance". Your VM will be deployed and ready in a few moments.
 ### 5. Key Pair
 
 - Please add your key pair to the instance
-- 
+  
 ## Assigning a Floating IP
   
 To connect to your VM from our jumphost, you must assign it a "Floating IP" address.
@@ -70,7 +70,6 @@ To connect to your VM from our jumphost, you must assign it a "Floating IP" addr
 3. Choose an available IP from our "public" floating ip pool `10.57.200.0 /21` click "Associate".
 
 **Hint:** To connect to a VM that does not have a Floating IP, you must first SSH into another VM within the same project that does have a Floating IP. Once connected, you are inside your private project network and can access all other internal VMs.
-
 
 
 ## Connect to your VMs with ssh
@@ -86,14 +85,11 @@ You must configure your SSH keys in two places:
 1. de.NBI Portal (for Jumphost Access): Add your public SSH key at https://cloud.denbi.de/portal/.
 2. OpenStack Project (for VM Access): Import the same public SSH key into your OpenStack project by navigating to Project -> Compute -> Key Pairs -> Import Key Pair.
 
-
-
 ### Default Usernames for Common Images
 Our standard images use default usernames. Use the correct one when connecting to your VM:
 
 - **Rocky**: rocky
 - **Ubuntu**: ubuntu
-
 
 ### SSH Configuration for Windows 10/11
 
@@ -149,43 +145,10 @@ You can now connect directly to your VM from your terminal with:
 ```console
 ssh {A_Friendly_Name_For_Your_VM}
 ```
-
-#### Setting up a SOCKS proxy
-In some cases it would also make sense to configure a permanent SOCKS proxy to 
-communicate with your VMs behind the jumphost, e.g. when using web 
-applications etc. As long as you have an open SOCKS connection to the 
-jumphost you can directly connect to your VMs from a different console. In the
-following example socat is used but also netcat (nc) works in a similar way. 
-Add the following lines to your **local ~/.ssh/config**:
-
-    # Access to the de.NBI jumphost
-    Host denbi-jumphost-01.bihealth.org
-      # Use your LifeScience login name
-      User LifeScienceLogin
-      # Use your ssh-key file
-      IdentityFile YOUR-SSH-KEY-FILE
-      # Open a SOCKS proxy locally to tunnel traffic into the cloud environment
-      DynamicForward localhost:7777
-      # Forward locally managed keys to the VMs which are behind the jumphosts
-      ForwardAgent yes
-      # Send a keep-alive packet to prevent the connection from beeing terminated
-      ServerAliveInterval 120
-      
-    # Access to de.NBI cloud floating IP networks via SOCKS Proxy
-    Host 10.57.*.* 
-      # Tunnel all requests through dynamic SOCKS proxy
-      ProxyCommand /usr/bin/socat - socks4a:localhost:%h:%p,socksport=7777 or socks5h:localhost:%h %p,socksport=7777
-      # Use your ssh-key file
-      IdentityFile YOUR-SSH-KEY-FILE
-      # Forward locally managed keys
-      ForwardAgent yes
-      # Send a keep-alive packet to prevent the connection from beeing terminated
-      ServerAliveInterval 120
       
 ## Storage Management
 
 ### Creating and Attaching Volumes
-
 
 Use volumes to add more persistent disk space to a VM. A volume can only be attached to one VM at a time but will persist even after the VM is deleted.
 
@@ -256,8 +219,6 @@ By default, a new share is inaccessible. You must grant access to your VMs.
   - Access To: The IP address of the VM you want to grant access to.
 
 **Important:** Keep your access rules updated to ensure only authorized VMs can access your data.
-
-
   
 ### Mount the Share on Your VM
 1. **Find the share path:** In the Shares dashboard, click on your share's name. The path will be listed under "Export locations". It will look like this:
@@ -289,7 +250,6 @@ sudo mount -t nfs manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_
 sudo chown ubuntu:ubuntu /mnt/volume
 ```
 
-
 **Important:** At present, only NFS version 3 is supported.
 
 The following should be set to the local NFSv4 domain name
@@ -306,7 +266,6 @@ Domain = denbi.bihealth.org
 ## Using the OpenStack API
 
 This guide shows how to set up the openstack-cli client on a VM (tested on Ubuntu 22.04) to manage your project from the command line.
-
 
 1. Create Application Credentials: In the OpenStack dashboard, go to your user menu (top right), click "Application Credentials", and create a new credential.
 
@@ -377,8 +336,7 @@ export no_proxy=localhost,127.0.0.1,::1
 
 You should now be able to run OpenStack CLI commands from your local machine, provided you have also configured it with your credentials (`clouds.yaml` and `openrc.sh`
 
-
-### Adding multiple SSH-Keys
+## Adding multiple SSH-Keys
 To grant access to multiple users when you first create a VM, use a customization script.
 
 1. During VM launch, go to the Configuration tab.
@@ -393,9 +351,7 @@ To grant access to multiple users when you first create a VM, use a customizatio
 ```
 Both User 1 and User 2 will have access to the VM after it boots.
 
-
-
-### Uploading Custom Linux Images
+## Uploading Custom Linux Images
 If you need an OS that we do not provide, you can upload your own.
 
 1. Navigate to Project -> Compute -> Images.
