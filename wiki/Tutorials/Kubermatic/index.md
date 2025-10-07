@@ -170,9 +170,7 @@ service:
 helm install traefik traefik/traefik -f values.yaml
 ```
 
---> This will create a loadbalancer in OpenStack in the defined network which i connected to the floating ip pool `dmz` and with the defined ip fromt he values.yaml. If this floating ip is not present in the project it will fail.
-
-![image](img/09-loadbalancer.png)
+--> This will create a loadbalancer in your openstack project in the defined network which is connected to the floating ip pool `dmz` and with an associated flaoting ip from the values.yaml. If this floating ip is not present in the project it will fail.
 
 **For further informations regarding RBAC, traeffik configuration and loadbalancer annotations please have a look on the following documentations**
 
