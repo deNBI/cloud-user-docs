@@ -5,12 +5,30 @@ At the de.NBI cloud site in Berlin we use Kubermatic as software to deploy "vani
 Contact us via mail in case you need further assistence: <denbi-cloud@bih-charite.de> 
 
 >[!NOTE] 
-> ```If you can`t access your exisiting cluste, please take a look on the following chapter Fix k8s-ClusterAccess with Role Based Access Control (RBAC) after LifescienceAAI migration```
+> ```If you can`t access your exisiting cluster via kubectl, please take a look on the following chapter Fix k8s-ClusterAccess with Role Based Access Control (RBAC) after LifescienceAAI migration```
 
-<a id="rbac-fix-anchor"></a>
+
 ## Fix k8s-ClusterAccess with Role Based Access Control (RBAC) after LifescienceAAI migration 
 
-After migration from ElixirAAI to LifescienceAAI the OICD-Endpoints changed and there
+After migration from ElixirAAI to LifescienceAAI the OICD-Endpoints changedin Kubermatic and therefore the RBAC-access to clusters in your project could be restricted when trying to communicate with the cluster via the kubeconfig/kubeapi. The root of this access problem is based on the missing LifescienceAAI-ID for the users who are in charge of the administration and can fixed by adding the missing ID's as new **User** to the cluster settings in the kubermatic dashboard.
+
+The following steps are required to solve the problem:
+
+1) Login to the (Kubermatic Dashboard)[https://k.denbi.bihealth.org/]
+2) Choose your project
+3) Choose the k8s-cluster in the project environment which needs to be adapted
+4) In the lower section choose **RBAC**
+5) In the dropdown menu select **User**
+6) Check which Users are already setup
+7) Identify the needed LifescienceAAI-ID for the users who need access to the cluster
+   - Check (de.NBI loud Portal)(https://cloud.denbi.de/) for your own ID
+   - Check Kubermatic-project for members and there sufficient ID`s
+   - Ask the users for there LifescienceAAI-ID
+>[!NOTE] 
+> ```Users accounts have the same identifier but another domain-ending. Pls add the user ID with the ending @lifescience-ri.eu```
+8) Choose on the right lower corner **Add Binding**
+9) Add the user with a sufficient role (**cluster-admin** mostly the right choice but granularity is possible)
+10) Clusteraccess should be granted now
 
 ## Get helm and kubectl going on the jumphost (with your user) 
 
