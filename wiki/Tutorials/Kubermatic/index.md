@@ -133,6 +133,7 @@ When all is setup you can ssh into jumphost-01.denbi.bihealth and use ```kubectl
 3) Connect the router **<project-name_router_dmz_internal>** to the new network
 4) Check the network topology
 5) Note the ID of
+   
    - **<project-name_dmz_internal_network>**
    - **<project-name_dmz_internal_subnet>**
    - **k8s-worker-node-network**
