@@ -25,7 +25,7 @@ The following steps are required to solve the problem:
    - Check Kubermatic-project for members and there sufficient ID`s
    - Ask the users for there LifescienceAAI-ID
 >[!NOTE] 
-> ```Users accounts have the same identifier but another domain-ending. Pls add the user ID with the ending @lifescience-ri.eu```
+> ```Users accounts have the same identifier but another domain-ending. Please add the user-ID with the ending @lifescience-ri.eu```
 8) Choose on the right lower corner **Add Binding**
 9) Add the user with a sufficient role (**cluster-admin** mostly the right choice but granularity is possible)
 10) Clusteraccess should be granted now
