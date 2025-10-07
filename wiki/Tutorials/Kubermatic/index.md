@@ -30,6 +30,8 @@ The following steps are required to solve the problem:
 9) Add the user with a sufficient role (**cluster-admin** mostly the right choice but granularity is possible)
 10) Clusteraccess should be granted now
 
+
+
 ## Get helm and kubectl going on the jumphost (with your user) 
 
 The configuration and cluster management via terminal commands is done from jumphost-01.denbi.bihealth.org. In order to configure the cluster you first need to setup the environment in the jumphost with your Elixir user. So connect to the jumphost via ssh. When the cluster is all setup you can download the configuration file from Kubermatic to actially connect to the cluster. We will come back to this later. For now issue the following commands in your home directory. 
