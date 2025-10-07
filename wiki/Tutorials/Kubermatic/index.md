@@ -4,36 +4,6 @@ At the de.NBI cloud site in Berlin we use Kubermatic as software to deploy "vani
 
 Contact us via mail in case you need further assistence: <denbi-cloud@bih-charite.de> 
 
->[!NOTE] 
-> ```If you can`t access your existing cluster via kubectl, please take a look on the following chapter "Fix k8s cluster accesss with Role Based Access Control (RBAC) after LifescienceAAI migration"```
-
-
-## Fix k8s cluster access with Role Based Access Control (RBAC) after LifescienceAAI migration 
-
-After migration from ElixirAAI to LifescienceAAI the OICD-Endpoints changed in Kubermatic and therefore the RBAC-access to clusters in your project could be restricted when trying to communicate with the cluster via the kubeconfig/kubeapi. The root of this access problem is based on the missing LifescienceAAI-ID for the users who are in charge of the administration and can fixed by adding the missing ID's as new **User** to the cluster settings in the kubermatic dashboard.
-
-The following steps are required to solve the problem:
-
-1) Login to the [Kubermatic Dashboard](https://k.denbi.bihealth.org/)
-2) Choose your project
-3) Choose the k8s-cluster in the project environment which needs to be adapted
-4) In the lower section choose **RBAC**
-5) In the dropdown menu select **User**
-6) Check which Users are already setup
-7) Identify the needed LifescienceAAI-ID for the users who need access to the cluster
-   
-   - Check [de.NBI loud Portal](https://cloud.denbi.de/) for your own ID
-   - Check Kubermatic-project for members and there sufficient ID`s
-   - Ask the users for there LifescienceAAI-ID
-     
->[!NOTE] 
-> ```Users accounts have the same identifier but another domain-ending. Please add the user-ID with the ending @lifescience-ri.eu```
-8) Choose on the right lower corner **Add Binding**
-9) Add the user with a sufficient role (**cluster-admin** mostly the right choice but granularity is possible)
-10) Access to your cluster should be granted now
-
-![image](img/rbac.png)
-
 ## Get helm and kubectl going on the jumphost (with your user) 
 
 The configuration and cluster management via terminal commands is done from jumphost-01.denbi.bihealth.org. In order to configure the cluster you first need to setup the environment in the jumphost with your Elixir user. So connect to the jumphost via ssh. When the cluster is all setup you can download the configuration file from Kubermatic to actially connect to the cluster. We will come back to this later. For now issue the following commands in your home directory. 
@@ -122,6 +92,37 @@ You can access the K8s dashboard and download your kubeconfig with the buttons a
 The kubeconfig file must be copied to the jumphost in order to use it to access the clutser from there. Copy the file to your home directory into ```~/.kube/config```.
 
 When all is setup you can ssh into jumphost-01.denbi.bihealth and use ```kubectl get all``` to see all available resources in your cluster.
+
+>[!NOTE]
+> ```Kubermatic projects and therfore k8s clusters which were existing before August 2025.```
+> ```If you can`t access your existing cluster via kubectl, please take a look on the following chapter "Fix k8s cluster accesss with Role Based Access Control (RBAC) after LifescienceAAI migration"```
+
+
+## Fix k8s cluster access with Role Based Access Control (RBAC) after LifescienceAAI migration 
+
+After migration from ElixirAAI to LifescienceAAI the OICD-Endpoints changed in Kubermatic and therefore the RBAC-access to clusters in your project could be restricted when trying to communicate with the cluster via the kubeconfig/kubeapi. The root of this access problem is based on the missing LifescienceAAI-ID for the users who are in charge of the administration and can fixed by adding the missing ID's as new **User** to the cluster settings in the kubermatic dashboard.
+
+The following steps are required to solve the problem:
+
+1) Login to the [Kubermatic Dashboard](https://k.denbi.bihealth.org/)
+2) Choose your project
+3) Choose the k8s-cluster in the project environment which needs to be adapted
+4) In the lower section choose **RBAC**
+5) In the dropdown menu select **User**
+6) Check which Users are already setup
+7) Identify the needed LifescienceAAI-ID for the users who need access to the cluster
+   
+   - Check [de.NBI loud Portal](https://cloud.denbi.de/) for your own ID
+   - Check Kubermatic-project for members and there sufficient ID`s
+   - Ask the users for there LifescienceAAI-ID
+     
+>[!NOTE] 
+> ```Users accounts have the same identifier but another domain-ending. Please add the user-ID with the ending @lifescience-ri.eu```
+8) Choose on the right lower corner **Add Binding**
+9) Add the user with a sufficient role (**cluster-admin** mostly the right choice but granularity is possible)
+10) Access to your cluster should be granted now
+
+![image](img/rbac.png)
 
 ## create ingress with traefik (traeffik is just ONE solution)
 
