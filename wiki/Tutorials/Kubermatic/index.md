@@ -28,7 +28,7 @@ The following steps are required to solve the problem:
 > ```Users accounts have the same identifier but another domain-ending. Please add the user-ID with the ending @lifescience-ri.eu```
 8) Choose on the right lower corner **Add Binding**
 9) Add the user with a sufficient role (**cluster-admin** mostly the right choice but granularity is possible)
-10) Clusteraccess should be granted now
+10) Access to your cluster should be granted now
 
 ![image](img/rbac.png)
 
@@ -137,6 +137,7 @@ When all is setup you can ssh into jumphost-01.denbi.bihealth and use ```kubectl
    - **k8s-worker-node-network**
 
 - **Prerequirements**
+  
 - [ ] you have your kubeconfig
 - [ ] helm and kubectl is installed on the jumphost or any other node you wanna access the cluster from
 
@@ -164,11 +165,18 @@ service:
 ```
 
 - **Install the helm chart with your custom values**
+  
 ```
 helm install traefik traefik/traefik -f values.yaml
 ```
 
-This will create a loadbalancer in OpenStack in the defined network which i connected to the floating ip pool `dmz` and with the defined ip fromt he values.yaml. If this floating ip is not present in the project it will fail.
+-> This will create a loadbalancer in OpenStack in the defined network which i connected to the floating ip pool `dmz` and with the defined ip fromt he values.yaml. If this floating ip is not present in the project it will fail.
+
+**For further informations regarding RBAC, traeffik configuration and gLoadbalancer annotations please have a look on the following documentations**
+
+- [k8s RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
+- [traeffik values](https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml)
+- [Loadbalancer Openstack annotations](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/openstack-cloud-controller-manager/expose-applications-using-loadbalancer-type-service.md#service-annotations)   
 
 ![image](img/09-loadbalancer.png)
 
