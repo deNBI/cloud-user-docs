@@ -75,7 +75,7 @@ Select the cloudprovider (there is only OpenStack available):
 >[!NOTE] 
 > ```Datacentre "Berlin DMZ" is DEPRECATED. Follow the new instructions for setting up an external access```
 
-You need to decide wether you will deploy your cluster only for internal use, or if you need to make services accasable from the internet. When you only whant to use the cluster internally choose 'Berlin' as datacenter (this should be the default) otherwise choose 'Berlin DMZ'. When using the cluter for external services you also need to apply for a public IP. Please do so by writing an email to us <denbi-cloud@bih-charite.de>.
+Nevertheless if you decided to deploy your cluster only for internal use, or if you need to make services accessable from the internet. **Always** choose  'Berlin' as the datacenter (this should be the default), since this option defines the network setup for the k8s-worker-nodes and to which external FloatingIP (`public` or `dmz`) the worker nodes will have an connection. In the next steps you can define a specific network for the worker nodes (by default kubermatic creates a new network, subnet and router for the kubernetes-cluster connected to the FloatingIP-pool you defined earlier in the datacentre part; if you wanna define a earlier created network and subnet you have to choose it from the drop-down menu and have it connected to the correct external-network `public`). When using the cluter for external services you also need to apply for a public IP from the `dmz` pool. This will be later associated with the loadbalancer. Please do so by writing an email to us <denbi-cloud@bih-charite.de>.
 
 ![image](img/04-choose_datacenter.png)
 
@@ -86,13 +86,19 @@ Here you can configure your basic cluster settings, like name and version. For m
 In this window you configure the advanced settings. In the first place use `Default` as the Domain, and type in the OpenStack application credentials , that you have created for your project.
 **Note:** If you have access to multiple projects, you need to take care, that you are using the right credentials for the project that you select as "Project". Kubermatic will always display all projects that you can see, but the cluster will be spawned in the project that belongs to the application credentials (this is a OpenStack thing).
 
-Use the corresponding floating ip pool, to your setup (if you have decided for DMZ earlier use `dmz-ext` in all other cases use `public2`).
+>[!NOTE] 
+> ```floating ip pool `dmz` is DEPRECATED```
+> Most of the cases you dont need `dmz` anymore
+> If you aplly `dmz` it will most likely fail because it tries to associate flaoting ips from `dmz` to all of your worker nodes aswell and since the most projects doesn`t have sufficeint number of floating ips from this pool it will fail.
+> Additionally because of openstack, if you choose datacentre  = berlin and you created by default a new network it wont be possible to asociate a floating ip from `dmz` to a machine connected to `public`
+
+Use the floating ip pool `public`.
 
 You don't need to fill out the Advanced area (but you can if you want), Kubermatic will create everything needed.
 
 ![image](img/06-application_credentials.png)
 
-Now you can create your first worker nodes. This is done with a machine deployment that you can configure (name, count of nodes (replicas), Image (we support ubuntu and CentOS) and flavor. If you are familiar with kubernetes and have specific needs for the nodes you can use custom images by uploading them to OpenStack. If not just keep the default entires here. Flavors and images can be looked up in your OpenStack project. You can also assign your workers floating ips, but you can also create a loadbalancer lateron. 
+Now you can create your first worker nodes. This is done with a machine deployment that you can configure (name, count of nodes (replicas), Image (we support ```Ubuntu-22.04``` and ```Ubuntu-24.04.```, you have to type in the name becasue there is no drop=down possible. IF you are unsure check the ecisiting images via the (de.NBI Cloud Berlin Dashboard Images)[https://denbi-cloud.bihealth.org/dashboard/project/images]) and flavor. If you are familiar with kubernetes and have specific needs for the nodes you can use custom images by uploading them to OpenStack. If not just keep the default entires here. Flavors and images can be looked up in your OpenStack project. 
 
 
 You can install applications into the cluster in the next window. By default nothing is installed here, you can later install applications via helm charts.
@@ -114,19 +120,55 @@ The kubeconfig file must be copied to the jumphost in order to use it to access 
 
 When all is setup you can ssh into jumphost-01.denbi.bihealth and use ```kubectl get all``` to see all available resources in your cluster.
 
-## create ingress with traefik
+## create ingress with traefik (traeffik is just ONE solution)
 
-- you have your kubeconfig
-- helm and kubectl is installed on the jumphost
+>[!NOTE] 
+> ```Changes introduced to the Type:Loadbalancer```
+> Since the setup changed liked described earlier, we need some specific annotations to tell the loadbalancer that it needs to be spawned in a network/subnet which is connected to the `dmz` external network/floating ip pool
+> The following steps should help you to set this up
 
+1) If there is no Router existing in your openstack project which is connected to the `dmz` external-network you need to setup one which could be named **<project-name_router_dmz_internal>**
+2) Afterwards we need a network and subnet aswell, again give it proper helpful names like **<project-name_dmz_internal_network>** and **<project-name_dmz_internal_subnet>**
+3) Connect the router **<project-name_router_dmz_internal>** to the new network
+4) Check the network topology
+5) Note the ID of
+   - **<project-name_dmz_internal_network>**
+   - **<project-name_dmz_internal_subnet>**
+   - **k8s-worker-node-network**
+
+- **Prerequirements**
+- [ ] you have your kubeconfig
+- [ ] helm and kubectl is installed on the jumphost or any other node you wanna access the cluster from
+
+- **Install traeffik helm-chart in the k8s-cluster**
 ```bash
 helm repo add traefik https://traefik.github.io/charts
 helm repo update
-helm install traefik traefik/traefik
 ```
 
-This will create a loadbalancer in OpenStack and you can assign a floating IP to it. To allocate a floating IP, go to your OpenStack peject and go to Network &rarr; Loadbalancers and look for the loadbalancer with the cluster id from Kubermatic in the name. Click on the small arrow on the right and select Associate Floating IP. Select the Floating IP that was given to you when applying for a public IP.
+- **Create custom values.yaml with needed annotations**
+- 
+```
+service:
+   annotations:
+      # Subnetz-ID of the k8s-worker-node-network
+      loadbalancer.openstack.org/member-subnet-id: "<ID>""
 
+      # Netzwerk-ID of the <project-name_dmz_internal_network>
+      loadbalancer.openstack.org/network-id: "<ID>""
+
+      # Subnetz-ID of <project-name_dmz_internal_subnet>
+      loadbalancer.openstack.org/subnet-id: "<ID>"
+   spec: 
+      loadBalancerIP: "<YOUR_IP_FROM_THE_POOL_DMZ"
+```
+
+- **Install the helm chart with your custom values**
+```
+helm install traefik traefik/traefik -f values.yaml
+```
+
+This will create a loadbalancer in OpenStack in the defined network which i connected to the floating ip pool `dmz` and with the defined ip fromt he values.yaml. If this floating ip is not present in the project it will fail.
 
 ![image](img/09-loadbalancer.png)
 
