@@ -75,7 +75,7 @@ Select the cloudprovider (there is only OpenStack available):
 >[!NOTE] 
 > ```Datacentre "Berlin DMZ" is DEPRECATED. Follow the new instructions for setting up an external access```
 
-Nevertheless if you decided to deploy your cluster only for internal use, or if you need to make services accessable from the internet. **Always** choose  'Berlin' as the datacenter (this should be the default), since this option defines the network setup for the k8s-worker-nodes and to which external FloatingIP (`public` or `dmz`) the worker nodes will have an connection. In the next steps you can define a specific network for the worker nodes (by default kubermatic creates a new network, subnet and router for the kubernetes-cluster connected to the FloatingIP-pool you defined earlier in the datacentre part; if you wanna define a earlier created network and subnet you have to choose it from the drop-down menu and have it connected to the correct external-network `public`). When using the cluter for external services you also need to apply for a public IP from the `dmz` pool. This will be later associated with the loadbalancer. Please do so by writing an email to us <denbi-cloud@bih-charite.de>.
+Nevertheless if you decided to deploy your cluster only for internal use, or if you need to make services accessable from the internet. **Always** choose  ```Berlin``` as the datacenter (this should be the default), since this option defines the network setup for the k8s-worker-nodes and to which external FloatingIP (`public` or `dmz`) the worker nodes will have an connection. In the next steps you can define a specific network for the worker nodes (by default kubermatic creates a new network, subnet and router for the kubernetes-cluster connected to the FloatingIP-pool you defined earlier in the datacentre part; if you wanna define a earlier created network and subnet you have to choose it from the drop-down menu and have it connected to the correct external-network `public`). When using the cluter for external services you also need to apply for a public IP from the `dmz` pool. This will be later associated with the loadbalancer. Please do so by writing an email to us <denbi-cloud@bih-charite.de>.
 
 ![image](img/04-choose_datacenter.png)
 
@@ -84,7 +84,8 @@ Here you can configure your basic cluster settings, like name and version. For m
 ![image](img/05-cluster_setup.png)
 
 In this window you configure the advanced settings. In the first place use `Default` as the Domain, and type in the OpenStack application credentials , that you have created for your project.
-**Note:** If you have access to multiple projects, you need to take care, that you are using the right credentials for the project that you select as "Project". Kubermatic will always display all projects that you can see, but the cluster will be spawned in the project that belongs to the application credentials (this is a OpenStack thing).
+>[!NOTE]
+> ```If you have access to multiple projects, you need to take care, that you are using the right credentials for the project that you select as "Project". Kubermatic will always display all projects that you can see, but the cluster will be spawned in the project that belongs to the application credentials (this is a OpenStack thing).```
 
 >[!NOTE] 
 > ```floating ip pool `dmz` is DEPRECATED```
