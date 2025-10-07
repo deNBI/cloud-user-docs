@@ -149,7 +149,6 @@ helm repo update
 ```
 
 - **Create custom values.yaml with needed annotations**
-- 
 ```
 service:
    annotations:
