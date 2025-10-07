@@ -71,7 +71,7 @@ You don't need to fill out the Advanced area (but you can if you want), Kubermat
 
 ![image](img/06-application_credentials.png)
 
-Now you can create your first worker nodes. This is done with a machine deployment that you can configure (name, count of nodes (replicas), Image (we support ```Ubuntu-22.04``` and ```Ubuntu-24.04.```, you have to type in the name becasue there is no drop=down possible. IF you are unsure check the ecisiting images via the (de.NBI Cloud Berlin Dashboard Images)[https://denbi-cloud.bihealth.org/dashboard/project/images]) and flavor. If you are familiar with kubernetes and have specific needs for the nodes you can use custom images by uploading them to OpenStack. If not just keep the default entires here. Flavors and images can be looked up in your OpenStack project. 
+Now you can create your first worker nodes. This is done with a machine deployment that you can configure (name, count of nodes (replicas), Image (we support ```Ubuntu-22.04``` and ```Ubuntu-24.04.```), you have to type in the name becasue there is no drop-down possible. If you are unsure check the existing images via the (de.NBI Cloud Berlin Dashboard Images)[https://denbi-cloud.bihealth.org/dashboard/project/images]) and flavor. If you are familiar with kubernetes and have specific needs for the nodes you can use custom images by uploading them to OpenStack. If not just keep the default entires here. Flavors and images can be looked up in your OpenStack project. 
 
 
 You can install applications into the cluster in the next window. By default nothing is installed here, you can later install applications via helm charts.
