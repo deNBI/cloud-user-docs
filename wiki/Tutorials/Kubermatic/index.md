@@ -55,6 +55,9 @@ curl -sS https://webinstall.dev/k9s | bash
 
 ## How to create K8s Cluster with Kubermatic
 
+>[!NOTE] 
+> ```Since September 2025 major changes to our network infrastructure were introduced. The hardware moved to a new datacentre which led to changes in the network environment and therefore to the openstack-environment. Since the kubermatic-projects and therefore the k8s-clusters are provisionend in the de.NBI Cloud Berlin this changes affect the way of setting up k8s-infrastructure. This introduces a new approach on how to set up specific solutions like the k8s-clusters in the kubermatic user projects. Please read the following chapter carefully if you are introducing a new cluster or if you wanna expose your exisiting cluster to external sources.```
+
 In order to create a kubernetes cluster in your OpenStack project you need the application credentials from your project. If you not already created application credentials, please follow this [guide](https://cloud.denbi.de/wiki/Compute_Center/Bielefeld/#application-credentials-use-openstack-api) to do so.
 
 When you have the application credentials, it makes sense to upload a SSH key to your Kubermatic project. With that, you have the ability to access the K8s nodes created in a later step via ssh.
@@ -68,6 +71,9 @@ Continue to create your K8s cluster:
 Select the cloudprovider (there is only OpenStack available):
 
 ![image](img/03-choose_provider.png)
+
+>[!NOTE] 
+> ```Datacentre "Berlin DMZ" is DEPRECATED. Follow the new instructions for setting up an external access```
 
 You need to decide wether you will deploy your cluster only for internal use, or if you need to make services accasable from the internet. When you only whant to use the cluster internally choose 'Berlin' as datacenter (this should be the default) otherwise choose 'Berlin DMZ'. When using the cluter for external services you also need to apply for a public IP. Please do so by writing an email to us <denbi-cloud@bih-charite.de>.
 
