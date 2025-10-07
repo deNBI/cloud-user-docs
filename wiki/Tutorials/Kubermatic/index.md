@@ -10,7 +10,7 @@ Contact us via mail in case you need further assistence: <denbi-cloud@bih-charit
 
 ## Fix k8s cluster access with Role Based Access Control (RBAC) after LifescienceAAI migration 
 
-After migration from ElixirAAI to LifescienceAAI the OICD-Endpoints changedin Kubermatic and therefore the RBAC-access to clusters in your project could be restricted when trying to communicate with the cluster via the kubeconfig/kubeapi. The root of this access problem is based on the missing LifescienceAAI-ID for the users who are in charge of the administration and can fixed by adding the missing ID's as new **User** to the cluster settings in the kubermatic dashboard.
+After migration from ElixirAAI to LifescienceAAI the OICD-Endpoints changed in Kubermatic and therefore the RBAC-access to clusters in your project could be restricted when trying to communicate with the cluster via the kubeconfig/kubeapi. The root of this access problem is based on the missing LifescienceAAI-ID for the users who are in charge of the administration and can fixed by adding the missing ID's as new **User** to the cluster settings in the kubermatic dashboard.
 
 The following steps are required to solve the problem:
 
