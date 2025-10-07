@@ -61,7 +61,7 @@ In this window you configure the advanced settings. In the first place use `Defa
 
 >[!NOTE] 
 > ```floating ip pool `dmz` is DEPRECATED```
-> Most of the cases you dont need `dmz` anymore
+> Most of the cases you dont need `dmz` anymore.
 > If you apply `dmz` as the pool, it will most likely fail because it tries to associate floating ips from the `dmz` pool to all of your worker nodes aswell and since the most projects doesn`t have sufficient number of floating ips from this pool, it will fail.
 > Additionally because of openstack, if you choose datacentre = ```Berlin``` and you created by default a new network it won`t be possible to associate a floating ip from the pool `dmz` to a machine connected to `public` in openstack.
 
