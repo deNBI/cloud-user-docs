@@ -1,8 +1,15 @@
-## Kubermatic in de.NBI cloud (Berlin)
+sec## Kubermatic in de.NBI cloud (Berlin)
 
 At the de.NBI cloud site in Berlin we use Kubermatic as software to deploy "vanilla" kubernetes cluster into OpenStack projects. We will describe here, how you can use this. To gain access to Kubermatic you first need to apply for a OpenStack Project. Please state in the application that you want to use Kubernetes. After your project got approved you can access your resources at our Kubermatic login page: https://k.denbi.bihealth.org/
 
 Contact us via mail in case you need further assistence: <denbi-cloud@bih-charite.de> 
+
+>[!NOTE] 
+>If you can`t access your exisiting cluste, please take a look on the chapter [Fix k8s-ClusterAccess with Role Based Access Control (RBAC) after LifescienceAAI migration](#Fix-k8s-ClusterAccess-with-Role-Based-Access-Control-(RBAC)-after-LifescienceAAI migration)`
+
+## Fix k8s-ClusterAccess with Role Based Access Control (RBAC) after LifescienceAAI migration 
+
+After migration from ElixirAAI to LifescienceAAI the OICD-Endpoints changed and there
 
 ## Get helm and kubectl going on the jumphost (with your user) 
 
