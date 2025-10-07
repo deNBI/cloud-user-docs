@@ -170,14 +170,15 @@ service:
 helm install traefik traefik/traefik -f values.yaml
 ```
 
--> This will create a loadbalancer in OpenStack in the defined network which i connected to the floating ip pool `dmz` and with the defined ip fromt he values.yaml. If this floating ip is not present in the project it will fail.
+--> This will create a loadbalancer in OpenStack in the defined network which i connected to the floating ip pool `dmz` and with the defined ip fromt he values.yaml. If this floating ip is not present in the project it will fail.
 
-**For further informations regarding RBAC, traeffik configuration and gLoadbalancer annotations please have a look on the following documentations**
+![image](img/09-loadbalancer.png)
+
+**For further informations regarding RBAC, traeffik configuration and loadbalancer annotations please have a look on the following documentations**
 
 - [k8s RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
 - [traeffik values](https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml)
 - [Loadbalancer Openstack annotations](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/openstack-cloud-controller-manager/expose-applications-using-loadbalancer-type-service.md#service-annotations)   
 
-![image](img/09-loadbalancer.png)
 
 All other cluster configurations must be done from jumphost-01.denbi.bihealth.org.
