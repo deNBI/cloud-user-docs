@@ -125,8 +125,8 @@ When all is setup you can ssh into jumphost-01.denbi.bihealth and use ```kubectl
 
 >[!NOTE] 
 > ```Changes introduced to the Type:Loadbalancer```
-> Since the setup changed liked described earlier, we need some specific annotations to tell the loadbalancer that it needs to be spawned in a network/subnet which is connected to the `dmz` external network/floating ip pool
-> The following steps should help you to set this up
+> Since the setup changed liked described earlier, we need some specific annotations to tell the loadbalancer that it needs to be spawned in a network/subnet which is connected to the `dmz` external network/floating ip pool.
+> The following steps should help you to set this up.
 
 1) If there is no Router existing in your openstack project which is connected to the `dmz` external-network you need to setup one which could be named **<project-name_router_dmz_internal>**
 2) Afterwards we need a network and subnet aswell, again give it proper helpful names like **<project-name_dmz_internal_network>** and **<project-name_dmz_internal_subnet>**
