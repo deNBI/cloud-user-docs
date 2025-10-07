@@ -5,7 +5,7 @@ At the de.NBI cloud site in Berlin we use Kubermatic as software to deploy "vani
 Contact us via mail in case you need further assistence: <denbi-cloud@bih-charite.de> 
 
 >[!NOTE] 
-> ```If you can`t access your exisiting cluste, please take a look on the chapter [Fix k8s-ClusterAccess with Role Based Access Control (RBAC) after LifescienceAAI migration](##Fix-k8s-ClusterAccess-with-Role-Based-Access-Control-(RBAC)-after-LifescienceAAI migration)```
+> ```If you can`t access your exisiting cluste, please take a look on the chapter [Fix k8s-ClusterAccess with Role Based Access Control (RBAC) after LifescienceAAI migration](#fix-k8s-clusteraccess-with-role-based-access-control-rbac-after-lifescienceaai-migration)```
 
 ## Fix k8s-ClusterAccess with Role Based Access Control (RBAC) after LifescienceAAI migration 
 
