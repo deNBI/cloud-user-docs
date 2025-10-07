@@ -30,7 +30,7 @@ The following steps are required to solve the problem:
 9) Add the user with a sufficient role (**cluster-admin** mostly the right choice but granularity is possible)
 10) Clusteraccess should be granted now
 
-
+![image](img/rbac.png)
 
 ## Get helm and kubectl going on the jumphost (with your user) 
 
