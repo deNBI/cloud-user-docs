@@ -21,9 +21,11 @@ The following steps are required to solve the problem:
 5) In the dropdown menu select **User**
 6) Check which Users are already setup
 7) Identify the needed LifescienceAAI-ID for the users who need access to the cluster
+   
    - Check [de.NBI loud Portal](https://cloud.denbi.de/) for your own ID
    - Check Kubermatic-project for members and there sufficient ID`s
    - Ask the users for there LifescienceAAI-ID
+     
 >[!NOTE] 
 > ```Users accounts have the same identifier but another domain-ending. Please add the user-ID with the ending @lifescience-ri.eu```
 8) Choose on the right lower corner **Add Binding**
