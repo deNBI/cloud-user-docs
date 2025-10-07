@@ -14,14 +14,14 @@ After migration from ElixirAAI to LifescienceAAI the OICD-Endpoints changedin Ku
 
 The following steps are required to solve the problem:
 
-1) Login to the (Kubermatic Dashboard)[https://k.denbi.bihealth.org/]
+1) Login to the [Kubermatic Dashboard](https://k.denbi.bihealth.org/)
 2) Choose your project
 3) Choose the k8s-cluster in the project environment which needs to be adapted
 4) In the lower section choose **RBAC**
 5) In the dropdown menu select **User**
 6) Check which Users are already setup
 7) Identify the needed LifescienceAAI-ID for the users who need access to the cluster
-   - Check (de.NBI loud Portal)(https://cloud.denbi.de/) for your own ID
+   - Check [de.NBI loud Portal](https://cloud.denbi.de/) for your own ID
    - Check Kubermatic-project for members and there sufficient ID`s
    - Ask the users for there LifescienceAAI-ID
 >[!NOTE] 
