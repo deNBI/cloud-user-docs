@@ -1,4 +1,4 @@
-sec## Kubermatic in de.NBI cloud (Berlin)
+## Kubermatic in de.NBI cloud (Berlin)
 
 At the de.NBI cloud site in Berlin we use Kubermatic as software to deploy "vanilla" kubernetes cluster into OpenStack projects. We will describe here, how you can use this. To gain access to Kubermatic you first need to apply for a OpenStack Project. Please state in the application that you want to use Kubernetes. After your project got approved you can access your resources at our Kubermatic login page: https://k.denbi.bihealth.org/
 
