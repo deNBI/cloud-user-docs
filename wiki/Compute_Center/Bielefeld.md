@@ -9,7 +9,7 @@ The de.NBI cloud team in Bielefeld can be contacted via email: service(at)bi.den
 ## Entrypoint
 
 The OpenStack Dashboard as main entry point to the de.NBI Cloud Bielefeld is available
-at [https://openstack.cebitec.uni-bielefeld.de](https://openstack.cebitec.uni-bielefeld.de).
+at [https://cloud.bi.denbi.de](https://cloud.bi.denbi.de).
 
 ## Endpoints
 

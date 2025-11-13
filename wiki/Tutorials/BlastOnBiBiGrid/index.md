@@ -13,7 +13,7 @@ cd ~
 wget https://dl.minio.io/client/mc/release/linux-amd64/mc
 chmod +x mc
 
-~/mc config host add s3-bi https://openstack.cebitec.uni-bielefeld.de:8080 <YOUR-ACCESS-KEY> <YOUR-SECRET-KEY>
+~/mc config host add s3-bi https://s3.bi.denbi.de <YOUR-ACCESS-KEY> <YOUR-SECRET-KEY>
 ```
 
 The following command will list all BLAST databases in the ''biodata'' bucket:
