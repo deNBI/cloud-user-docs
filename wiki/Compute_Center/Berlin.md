@@ -82,8 +82,6 @@ Your VMs are not directly accessible from the public internet. You must first co
 
 You must configure your SSH keys in two places:
 
-1. de.NBI Portal (for Jumphost Access): Add your public SSH key at https://cloud.denbi.de/portal/.
-2. OpenStack Project (for VM Access): Import the same public SSH key into your OpenStack project by navigating to Project -> Compute -> Key Pairs -> Import Key Pair.
 
 1. de.NBI Portal (for Jumphost Access): Add your public SSH key at https://cloud.denbi.de/portal/.
 2. OpenStack Project (for VM Access): Import the same public SSH key into your OpenStack project by navigating to Project -> Compute -> Key Pairs -> Import Key Pair.
