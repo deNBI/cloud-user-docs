@@ -31,7 +31,7 @@ One part of the registration process is also an opt in to the participation in e
 
 ## Step 2: Opt in for eduGAIN
 
-In order to allow interfederational access for researchers, the [eduGAIN](https://edugain.org/) (EDUcation Global Authentication INfrastructure) project in the context of [GEANT](https://www.geant.org/Services) was created. 
+In order to allow interfederational access for researchers, the [eduGAIN](https://edugain.org/) (EDUcation Global Authentication INfrastructure) project in the context of [GEANT](https://geant.org/Services/) was created. 
 From a technical perspective eduGAIN aggregates the data of participating federations and serves the data to relying services.
 By participating in the DFN you are free to decide whether your identity provider should also be referenced by eduGAIN.
 Any conditions that must be met by the provider are listed on the [DFN eduGAIN page](https://wiki.aai.dfn.de/de:edugain#edugain_interfederation)
