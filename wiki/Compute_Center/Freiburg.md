@@ -25,7 +25,7 @@ and the synchronous world of Notebooks.
 
 ### Special Infrastructure for Training, Workshops and e-learning
 
-[TIaaS (Training Infrastructure as a Service)](https://galaxyproject.eu/tiaas) is a special service offered by de.NBI Freiburg. With TIaaS
+[TIaaS (Training Infrastructure as a Service)](https://training.galaxyproject.org/training-material/topics/admin/tutorials/tiaas/tutorial.html) is a special service offered by de.NBI Freiburg. With TIaaS
 you will get for your workshop (or remote training event):
 
 * private queue where only your training’s jobs will run,
@@ -49,4 +49,4 @@ We provide all registered users a quota of 250 GB. You can request more storage 
 
 ### Updates
 
-Check out our latest news at https://galaxyproject.eu/news and new planned events at https://galaxyproject.eu/events.
+Check out our latest news at https://galaxyproject.org/news/ and new planned events at https://galaxyproject.org/events/.
