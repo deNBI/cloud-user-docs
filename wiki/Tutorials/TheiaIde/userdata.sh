@@ -14,7 +14,7 @@ exec > /var/log/userdata.log
 exec 2>&1
 
 echo -- Wait for network configuration finished
-check_service openstack.cebitec.uni-bielefeld.de 443
+check_service cloud.bi.denbi.de 443
 
 # ---------------------------------------------------------------
 # Attention! This userdata script was tested on 18.04 LTS image
