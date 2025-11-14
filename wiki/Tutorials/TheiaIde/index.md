@@ -83,7 +83,7 @@ Userdata scripts are always executed as root. We have to take care that our IDE 
 The web-ide.sh script requires an existing network connection, therefore it has to wait for the network to be setup before it starts. The shell function *wait_for_service* from the UserData tutorial will help us to solve the problem.
 Just wait if an external web page (e.g. Openstack Horizon) is available.
 ```sh
-wait_for_service openstack.cebitec.uni-bielefeld.de 443
+wait_for_service cloud.bi.denbi.de 443
 ```
 ### automatic system updates
 Some cloud images (like Ubuntu) checks for updates when getting an internet connection. During the update check any package installation is blocked.
