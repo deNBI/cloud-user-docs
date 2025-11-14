@@ -24,7 +24,7 @@ Access is controlled via access control lists (s3 and swift) or via policies (on
 
 URLs of de.NBI Cloud Object Storage APIs:
 
-* Bielefeld (based on Ceph): [https://openstack.cebitec.uni-bielefeld.de:8080](https://openstack.cebitec.uni-bielefeld.de:8080)
+* Bielefeld (based on Ceph): [https://s3.bi.denbi.de](https://s3.bi.denbi.de)
 * Giessen (based on Ceph): [https://s3.computational.bio.uni-giessen.de](https://s3.computational.bio.uni-giessen.de)
 * Tuebingen (based on Quobyte) : [https://s3.denbi.uni-tuebingen.de](https://s3.denbi.uni-tuebingen.de)
 
