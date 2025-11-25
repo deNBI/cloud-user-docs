@@ -153,11 +153,11 @@ $ /usr/bin/openstack domain create --description 'The Elixir domain' --enable el
 
 ### Identity provider
 
-Then we have to create a new indentity provider https://login.elixir-czech.org/oidc/ named *elixir_oidc*
+Then we have to create a new indentity provider https://login.aai.lifescience-ri.eu/oidc/ named *elixir_oidc*
 
 
 ```
-$ /usr/bin/openstack identity provider create --remote-id https://login.elixir-czech.org/oidc/ elixir_oidc
+$ /usr/bin/openstack identity provider create --remote-id https://login.aai.lifescience-ri.eu/oidc/ elixir_oidc
 ```
 
 ### Mapping rules
@@ -219,7 +219,7 @@ That's all. Login into Openstack using Elixir OIDC in the demo project should no
 
 After a successfull authentication an active OIDC token can be used to obtain a keystone token using the OpenStack cmdline tools. 
 
-- Login into [https://login.elixir-czech.org/oidc/]()
+- Login into [https://login.aai.lifescience-ri.eu/oidc/]()
 
 ![Screenshot Elixir AAI - Perun OpenID Connect](images/elixir_aai_oidc.png)
 
