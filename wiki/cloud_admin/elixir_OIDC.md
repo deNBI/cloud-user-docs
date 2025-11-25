@@ -1,9 +1,12 @@
 {% raw %}
-# Configure OpenStack (Keystone) to use Elixir AAI via OpenID Connect
+# Configure OpenStack (Keystone) to use LifeScience AAI via OpenID Connect
+
+!!! Consider
+	As this tutorial is quite old now and based on the deprecated ELIXIR AAI, be cautious regarding the URLs to use, as the service is now called LifeScience AAI.
 
 ## Introduction
 
-This document describes how to authenticate in OpenStack via Elixir AAI using OpenID Connect (OIDC). 
+This document describes how to authenticate in OpenStack via LifeScience AAI using OpenID Connect (OIDC). 
 
 ### Prerequites
 
@@ -40,7 +43,7 @@ LoadModule auth_openidc_module /usr/lib/apache2/modules/mod_auth_openidc.so
 ...
 ```
 
-In the virtual host section for the public keystone url we have to configure the OIDC access. The *oidc.provider_url* is in our case the Elixir oidc provider (https://login.elixir-czech.org/oidc/). Replace *oidc.client_id* and *oidc.client_secret* with the values you got when you register your Openstack(Keystone) instance as Elixir OIDC endpoint. 
+In the virtual host section for the public keystone url we have to configure the OIDC access. The *oidc.provider_url* is in our case the [LifeScience AAI OIDC provider](https://login.aai.lifescience-ri.eu/oidc/). Replace *oidc.client_id* and *oidc.client_secret* with the values you got when you register your Openstack(Keystone) instance as Elixir OIDC endpoint. 
 The *oidc.crypto_passphrase* can be freely chosen, however it must be set.
 
 ```

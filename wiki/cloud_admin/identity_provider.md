@@ -1,8 +1,13 @@
-# Register your identity provider for [Elixir](https://www.elixir-europe.org/)
+# Register your identity provider for [LS AAI](https://lifescience-ri.eu/ls-login.html)
+
+
+!!! Consider
+	As this tutorial is quite old now and based on the deprecated ELIXIR AAI, be cautious regarding the URLs to use, as the service is now called LifeScience AAI.
+
 
 ## Introduction
 
-This document is intended for system administrators who would like to register their identity provider for the [Elixir Authentication and Authorization Infrastructure (AAI)](https://www.elixir-europe.org/services/compute/aai).
+This document is intended for system administrators who would like to register their identity provider for the [Life Science Authentication and Authorization Infrastructure (AAI)](https://elixir-europe.org/platforms/compute/aai/overview).
 An AAI delegates the process of registration, authentication and the defining of access rules to different parties:
 Universities as an example are responsible for registration and authentication of members. Services like e-Learning
 systems provide the rules for accessing the service. This federated concept shows multiple benefits to services and identity
