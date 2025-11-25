@@ -40,6 +40,7 @@ plugins:
   - htmlproofer:
       enabled: !ENV [ ENABLED_HTMLPROOFER,False ]
       raise_error_after_finish: True
+      retry_max_times: 3
       raise_error_excludes:
         -1: [ "https://cloud.denbi.de/portal/webapp/#/userinfo", "http://169.254.169.254", "https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=lifescience", "https://login.elixir-czech.org/oidc/", "https://spreg-legacy.aai.elixir-czech.org/spreg/auth/facilities/myServices","http://BIBIGRID_MASTER/ganglia" ]
         400: [ "http://169.254.169.254" ]
