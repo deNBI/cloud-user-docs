@@ -100,7 +100,7 @@ Adding more elements to the image during the creation process can simply achieve
 	$ disk-image-create ubuntu vm docker # Note: Element 'docker' needs further parameters
 
 
-An element defines steps for each phase of the creation cycle. Every single step could be implemented as a Bash or Python script. Have a look [ here]( http://docs.openstack.org/developer/diskimage-builder/developer/developing_elements.html#phase-subdirectories ) to learn more about the single stages.
+An element defines steps for each phase of the creation cycle. Every single step could be implemented as a Bash or Python script. Have a look [ here]( https://docs.openstack.org/diskimage-builder/latest/#phase-subdirectories ) to learn more about the single stages.
 
 ###  Packages
 
