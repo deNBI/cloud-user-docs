@@ -42,7 +42,7 @@ By following this guide, you will:
 
 ## Architecture
 
-### Kubermatic cluster hierarchy
+### Cluster hierarchy
 
 KKP organizes infrastructure into three distinct cluster types:
 
@@ -68,7 +68,7 @@ KKP organizes infrastructure into three distinct cluster types:
 └───────────────────────────┘   └───────────────────────────┘
 ```
 
-### Cluster types explained
+### Cluster types
 
 | Cluster Type | Purpose | Location |
 |--------------|---------|----------|
