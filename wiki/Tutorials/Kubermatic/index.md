@@ -96,7 +96,7 @@ KKP organizes infrastructure into three distinct cluster types:
 │   └──────────────────────────────────────────────────────┘   │
 │                                                              │
 │   ┌──────────────────────────────────────────────────────┐   │
-│   │   JUMPHOST — jumphost-01.denbi.bihealth.org          │   │
+│   │   JUMPHOST — jumphost-01/02.denbi.bihealth.org       │   │
 │   │   CLI access: kubectl, helm, k9s                     │   │
 │   └──────────────────────────────────────────────────────┘   │
 │                                                              │
