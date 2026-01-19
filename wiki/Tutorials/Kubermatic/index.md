@@ -9,19 +9,19 @@
 
 1. [Overview](#overview)
 2. [Architecture](#architecture)
-   - [Kubermatic cluster hierarchy](#kubermatic-cluster-hierarchy)
-   - [Cluster types explained](#cluster-types-explained)
+   - [Cluster hierarchy](#cluster-hierarchy)
+   - [Cluster types](#cluster-types)
    - [de.NBI Cloud Berlin deployment](#denbi-cloud-berlin-deployment)
    - [Datacenters](#datacenters)
    - [Key components](#key-components)
-3. [Before you begin](#before-you-begin)
-4. [Part 1: Environment setup](#part-1-environment-setup)
-5. [Part 2: Creating a User Cluster](#part-2-creating-a-user-cluster)
-6. [Part 3: Managing cluster access (RBAC)](#part-3-managing-cluster-access-rbac)
-7. [Part 4: Configuring external access](#part-4-configuring-external-access)
-8. [Best practices](#best-practices)
-9. [Quick reference](#quick-reference)
-10. [Additional resources](#additional-resources)
+3. [Deploy k8s-cluster](#Deploy-k8s-cluster)
+   - [Environment setup](#environment-setup)
+   - [Creating a User Cluster](#creating-a-user-cluster)
+   - [Managing cluster access (RBAC)](#managing-cluster-access-rbac)
+   - [Configuring external access](#configuring-external-access)
+   - [Best practices](#best-practices)
+   - [Quick reference](#quick-reference)
+   - [Additional resources](#additional-resources)
 11. [Glossary](#glossary)
 
 ## Overview
@@ -130,7 +130,7 @@ A datacenter specifies:
 | **Cilium** | Default CNI plugin for pod networking and network policies |
 ---
 
-## Before you begin
+## Deploy k8s-cluster
 
 ### Requirements
 
@@ -158,7 +158,7 @@ A datacenter specifies:
 
 ---
 
-## Part 1: Environment setup
+## Environment setup
 
 Configure your administration environment on the jumphost jumphost-01.denbi.bihealth.org or jumphost-02.denbi.bihealth.org before creating clusters.
 
@@ -231,7 +231,7 @@ k9s version
 
 ---
 
-## Part 2: Creating a User Cluster
+## Creating a User Cluster
 
 This section guides you through creating a new Kubernetes User Cluster via the Kubermatic Dashboard. The control plane components will be automatically provisioned in the Seed Cluster, while worker nodes will be created as VMs in your OpenStack project.
 
@@ -412,7 +412,7 @@ worker-pool-1-abc123-zzzzz     Ready    <none>   10m   v1.30.0
 
 ---
 
-## Part 3: Managing cluster access (RBAC)
+## Managing cluster access (RBAC)
 
 Kubernetes uses Role-Based Access Control (RBAC) to manage permissions. KKP integrates with LifeScienceAAI via OIDC, mapping user identities to cluster roles.
 
@@ -485,7 +485,7 @@ kubectl get namespaces
 
 ---
 
-## Part 4: Configuring external access (example configuration)
+## Configuring external access (example configuration)
 
 To expose services to the internet, configure a load balancer with Traefik ingress controller connected to the openstack poroject network associated the `dmz` floating-ip network.
 
