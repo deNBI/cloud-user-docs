@@ -14,7 +14,7 @@
    - [de.NBI Cloud Berlin deployment](#denbi-cloud-berlin-deployment)
    - [Datacenters](#datacenters)
    - [Key components](#key-components)
-3. [Deploy k8s-cluster](#Deploy-k8s-cluster)
+3. [Deploy kubernetes cluster](#deploy-cluster)
    - [Environment setup](#environment-setup)
    - [Creating a User Cluster](#creating-a-user-cluster)
    - [Configuring external access](#configuring-external-access)
@@ -130,7 +130,7 @@ A datacenter specifies:
 | **Cilium** | Default CNI plugin for pod networking and network policies |
 ---
 
-## Deploy k8s-cluster
+## Deploy cluster
 
 ### Requirements
 
@@ -416,7 +416,7 @@ worker-pool-1-abc123-zzzzz     Ready    <none>   10m   v1.30.0
 
 ---
 
-## Configuring external access (example configuration)
+## Configuring external access
 
 To expose services to the internet, configure a load balancer with Traefik ingress controller connected to the openstack poroject network associated the `dmz` floating-ip network.
 
