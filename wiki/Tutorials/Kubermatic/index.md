@@ -146,7 +146,7 @@ A datacenter specifies:
 |-----------|-------------------|
 | **Kubernetes Control Plane** | `>= 1.29` |
 | **Worker Node OS** | `Ubuntu 22.04 LTS`, `Ubuntu 24.04 LTS` |
-| **CNI** | `Cilium (default)` / `canal` |
+| **CNI** | `Cilium (default)`, `canal` |
 
 ### Access request
 
@@ -291,8 +291,8 @@ The datacenter determines where your cluster's control plane namespace is create
 | Setting | Recommendation |
 |---------|----------------|
 | **Cluster name** | Use a descriptive name (e.g., `prod-app-cluster`) |
-| **Kubernetes control plane version** | Latest stable version, or match your application requirements |
-| **CNI** | Cilium (default) / |
+| **Control plane version** | Latest stable version, or match your application requirements |
+| **Network configuration** | `Cilium` (default) / `canal` |
 | **CNI Version** | Leave as default |
 
 > **Tip:** All the others settings can be left in default
