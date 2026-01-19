@@ -235,6 +235,9 @@ k9s version
 
 This section guides you through creating a new Kubernetes User Cluster via the Kubermatic Dashboard. The control plane components will be automatically provisioned in the Seed Cluster, while worker nodes will be created as VMs in your OpenStack project.
 
+> [!CAUTION]
+> **Project Quota:** Kubermatic deploys the worker nodes into your project and therefore the deployment is bound to the project quotas regarding flavors and count of worker nodes.
+
 > [!IMPORTANT]
 > **Infrastructure changes (September 2025)**
 > 
