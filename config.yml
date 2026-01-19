@@ -40,14 +40,17 @@ plugins:
   - htmlproofer:
       enabled: !ENV [ ENABLED_HTMLPROOFER,False ]
       raise_error_after_finish: True
+      retry_max_times: 3
       raise_error_excludes:
-        -1: [ "https://cloud.denbi.de/portal/webapp/#/userinfo","http://169.254.169.254","https://login.elixir-czech.org/oidc/","https://spreg-legacy.aai.elixir-czech.org/spreg/auth/requests/new","https://spreg-legacy.aai.elixir-czech.org/spreg/auth/facilities/myServices","http://BIBIGRID_MASTER/ganglia" ]
+        -1: [ "https://cloud.denbi.de/portal/webapp/#/userinfo", "http://169.254.169.254", "https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=lifescience", "https://login.elixir-czech.org/oidc/", "https://spreg-legacy.aai.elixir-czech.org/spreg/auth/facilities/myServices","http://BIBIGRID_MASTER/ganglia" ]
         400: [ "http://169.254.169.254" ]
-        403: [ "https://s3.denbi.uni-tuebingen.de" ]
+        403: [ "https://s3.denbi.uni-tuebingen.de", "https://linux.die.net/man/5/nfs", "https://geant.org/Services/" ]
         404: ["https://cloud.denbi.de/about/credits-calculator/"]
         500: [ "https://cloud.denbi.de/register", "https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=elixir_test" ]
         504: [ "https://denbi.cloud.embl.de", https://cloud.denbi.de/about/credits-calculator/", "https://packages.ubuntu.com/","https://denbi-cloud.bihealth.org","http://apt-cache.bi.denbi.de:9999","http://129.70.51.2:9999","https://cloud.denbi.dkfz-heidelberg.de","https://denbi-cloud.bioquant.uni-heidelberg.de","https://denbi-cloud.bioquant.uni-heidelberg.de" ]
-
+      ignore_urls:
+        - "https://services.aai.lifescience-ri.eu/spreg/auth/facilities/myServices"
+        - "https://spreg-legacy.aai.elixir-czech.org/spreg/auth/requests/new"
 markdown_extensions:
   - abbr
   - attr_list

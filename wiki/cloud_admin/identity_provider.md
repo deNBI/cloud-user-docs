@@ -1,8 +1,13 @@
-# Register your identity provider for [Elixir](https://www.elixir-europe.org/)
+# Register your identity provider for [LS AAI](https://lifescience-ri.eu/ls-login.html)
+
+
+!!! Consider
+	As this tutorial is quite old now and based on the deprecated ELIXIR AAI, be cautious regarding the URLs to use, as the service is now called LifeScience AAI.
+
 
 ## Introduction
 
-This document is intended for system administrators who would like to register their identity provider for the [Elixir Authentication and Authorization Infrastructure (AAI)](https://www.elixir-europe.org/services/compute/aai).
+This document is intended for system administrators who would like to register their identity provider for the [Life Science Authentication and Authorization Infrastructure (AAI)](https://elixir-europe.org/platforms/compute/aai/overview).
 An AAI delegates the process of registration, authentication and the defining of access rules to different parties:
 Universities as an example are responsible for registration and authentication of members. Services like e-Learning
 systems provide the rules for accessing the service. This federated concept shows multiple benefits to services and identity
@@ -31,7 +36,7 @@ One part of the registration process is also an opt in to the participation in e
 
 ## Step 2: Opt in for eduGAIN
 
-In order to allow interfederational access for researchers, the [eduGAIN](https://edugain.org/) (EDUcation Global Authentication INfrastructure) project in the context of [GEANT](https://www.geant.org/Services) was created. 
+In order to allow interfederational access for researchers, the [eduGAIN](https://edugain.org/) (EDUcation Global Authentication INfrastructure) project in the context of [GEANT](https://geant.org/Services/) was created. 
 From a technical perspective eduGAIN aggregates the data of participating federations and serves the data to relying services.
 By participating in the DFN you are free to decide whether your identity provider should also be referenced by eduGAIN.
 Any conditions that must be met by the provider are listed on the [DFN eduGAIN page](https://wiki.aai.dfn.de/de:edugain#edugain_interfederation)
