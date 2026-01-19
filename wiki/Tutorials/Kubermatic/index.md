@@ -485,9 +485,9 @@ kubectl get namespaces
 
 ---
 
-## Part 4: Configuring external access
+## Part 4: Configuring external access (example configuration)
 
-To expose services to the internet, configure a load balancer with Traefik ingress controller connected to the DMZ network.
+To expose services to the internet, configure a load balancer with Traefik ingress controller connected to the openstack poroject network associated the `dmz` floating-ip network.
 
 ### Network architecture
 
@@ -495,13 +495,13 @@ To expose services to the internet, configure a load balancer with Traefik ingre
 Internet
     │
     ▼
-DMZ Floating IP (194.94.4.X)
+dmz Floating IP (194.94.4.X)
     │
     ▼
 OpenStack Load Balancer
     │
     ▼
-DMZ Internal Network  ◄──  Router (connected to dmz pool)
+Openstack DMZ Internal Network  ◄──  Router (connected to dmz pool)
     │
     ▼
 Kubernetes Worker Nodes (Traefik → Your Apps)
@@ -509,13 +509,13 @@ Kubernetes Worker Nodes (Traefik → Your Apps)
 
 ### Prerequisites
 
-- [ ] Active Kubernetes cluster
-- [ ] kubectl and Helm configured on jumphost
-- [ ] DMZ floating IP allocated (request via [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de))
+- Active Kubernetes cluster
+- kubectl and Helm configured on jumphost
+- `dmz` floating IP allocated to openstack project (request via [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de))
 
 ### Procedure
 
-#### Step 1: Create DMZ network infrastructure
+#### Step 1: Create Openstack dmz network infrastructure
 
 In the OpenStack Dashboard, create the following resources:
 
@@ -547,7 +547,7 @@ In the OpenStack Dashboard, create the following resources:
 1. Navigate to **Network → Routers**
 2. Select your DMZ router
 3. Click **Add Interface**
-4. Select your DMZ subnet
+4. Select your `dmz` subnet
 
 #### Step 2: Collect resource IDs
 
@@ -555,9 +555,9 @@ Note the following IDs from OpenStack (**Network → Networks**):
 
 | Resource | Where to Find |
 |----------|---------------|
-| **DMZ Network ID** | `<project>_dmz_internal_network` → ID |
-| **DMZ Subnet ID** | `<project>_dmz_internal_subnet` → ID |
-| **Worker Subnet ID** | `k8s-cluster-xxxxx-network` → Subnets → ID |
+| **Openstack DMZ Network ID** | `<project>_dmz_internal_network` → ID |
+| **Openstack DMZ Subnet ID** | `<project>_dmz_internal_subnet` → ID |
+| **Openstack Worker Subnet ID** | `k8s-cluster-xxxxx-network` → Subnets → ID |
 
 #### Step 3: Install Traefik
 
@@ -628,34 +628,25 @@ kubectl get pods -n traefik
 
 **Expected:** Traefik pod in `Running` state
 
-**Step 2:** Check service and load balancer
+**Step 2:** Check service and loadbalancer
 
 ```bash
 kubectl get svc -n traefik
 ```
 
-**Expected:** `EXTERNAL-IP` shows your DMZ floating IP
+**Expected:** `EXTERNAL-IP` shows your `dmz` floating IP
 
 **Step 3:** Check OpenStack load balancer
 
-1. Navigate to **Network → Load Balancers** in OpenStack
+1. Navigate to **Network → LoadBalancers** in OpenStack
 2. Verify the load balancer shows `ACTIVE` / `ONLINE` status
-
-**Step 4:** Test external connectivity
-
-```bash
-curl -I http://
-```
-
-**Expected:** HTTP response (404 is normal if no routes configured)
 
 ### Troubleshooting
 
 | Issue | Possible Cause | Solution |
 |-------|---------------|----------|
-| Load balancer stuck in `PENDING_CREATE` | Floating IP not in project | Request DMZ IP via email |
+| Load balancer stuck in `PENDING_CREATE` | Floating IP not in project | Request `dmz` IP via email |
 | Service shows `<pending>` external IP | Incorrect subnet IDs | Verify all three subnet/network IDs |
-| Connection timeout | Security group rules | Add ingress rules for ports 80/443 |
 | 503 errors | No backend pods | Deploy an application and create IngressRoute |
 
 ---
@@ -773,9 +764,3 @@ k9s
 | **User Cluster** | Your Kubernetes cluster managed by KKP (worker nodes in your OpenStack project) |
 
 ---
-
-<div align="center">
-
-**de.NBI Cloud Berlin** · [cloud.denbi.de](https://cloud.denbi.de/) · [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)
-
-</div>
