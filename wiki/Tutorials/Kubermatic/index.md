@@ -111,12 +111,12 @@ A datacenter specifies:
 
 - The cloud provider (OpenStack)
 - The region/location
-- Available floating IP pools
+- Available floating-IP pools
 - Network configuration
 
-| Datacenter | Status | Floating IP Pool | Use Case |
+| Datacenter | Status | Floating IP Pools | Use Case |
 |------------|--------|------------------|----------|
-| **Berlin** | ✅ Active | `public` | Standard deployments (recommended) |
+| **Berlin** | ✅ Active | `public` / `dmz` | Standard deployments (recommended) |
 | **Berlin DMZ** | ❌ Deprecated | `dmz` | Legacy — do not use |
 
 ### Key components
@@ -137,16 +137,16 @@ A datacenter specifies:
 | Requirement | Description |
 |-------------|-------------|
 | **OpenStack Project** | Active de.NBI Cloud Berlin project with Kubernetes access |
-| **SSH Key** | For jumphost-01.denbi.bihealth.org/jumphost-02.denbi.bihealth.org and worker-node access |
+| **SSH Key** | `jumphost-01.denbi.bihealth.org`/`jumphost-02.denbi.bihealth.org` and worker-node access |
 | **Application Credentials** | OpenStack API credentials ([creation guide](https://cloud.denbi.de/wiki/Compute_Center/Bielefeld/#application-credentials-use-openstack-api)) |
 
 ### Supported configurations
 
 | Component | Supported Versions |
 |-----------|-------------------|
-| **Kubernetes Control Plane** | >= 1.29 |
-| **Worker Node OS** | Ubuntu 22.04 LTS, Ubuntu 24.04 LTS |
-| **CNI** | Cilium (default) / canal |
+| **Kubernetes Control Plane** | `>= 1.29` |
+| **Worker Node OS** | `Ubuntu 22.04 LTS`, `Ubuntu 24.04 LTS` |
+| **CNI** | `Cilium (default)` / `canal` |
 
 ### Access request
 
