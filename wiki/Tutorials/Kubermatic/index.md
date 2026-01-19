@@ -241,7 +241,7 @@ This section guides you through creating a new Kubernetes User Cluster via the K
 > The de.NBI Cloud Berlin infrastructure migrated to a new datacenter in September 2025. Key changes:
 > - Always select **Berlin** as the datacenter (not "Berlin DMZ")
 > - Use floating IP pool **public** for deployments, dmz is only suitable in special and rare cases
-> - External access on the cluster resource requires additional `dmz` configuration (see [Part 4](#part-4-configuring-external-access))
+> - External access on the cluster resource requires additional `dmz` configuration (see configuring external access(#configuring-external-access))
 
 ### Estimated time
 
@@ -296,6 +296,7 @@ The datacenter determines where your cluster's control plane namespace is create
 | **CNI Version** | Leave as default |
 
 > **Tip:** All the others settings can be left in default
+
 > **Tip:** You can upgrade Kubernetes versions later through the Kubermatic Dashboard. KKP handles the control plane upgrade in the Seed Cluster and coordinates worker node updates.
 
 ![Cluster Setup](img/05-cluster_setup.png)
