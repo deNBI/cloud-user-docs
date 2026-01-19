@@ -78,8 +78,6 @@ KKP organizes infrastructure into three distinct cluster types:
 
 ### de.NBI Cloud Berlin deployment
 
-At de.NBI, the Master and Seed clusters are combined into a single managed deployment:
-
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │                    de.NBI Cloud Berlin                       │
@@ -107,7 +105,9 @@ At de.NBI, the Master and Seed clusters are combined into a single managed deplo
 
 ### Datacenters
 
-KKP uses the concept of **Datacenters** to define where user clusters can be created. A datacenter specifies:
+KKP uses the concept of **Datacenters** to define where user clusters can be created. 
+
+A datacenter specifies:
 
 - The cloud provider (OpenStack)
 - The region/location
@@ -128,8 +128,6 @@ KKP uses the concept of **Datacenters** to define where user clusters can be cre
 | **KKP Controller Manager** | Reconciles desired state, manages cluster lifecycle |
 | **OpenStack** | Underlying IaaS providing compute, network, and storage |
 | **Cilium** | Default CNI plugin for pod networking and network policies |
-| **OpenVPN** | Secure tunnel between Seed control plane and User Cluster workers |
-
 ---
 
 ## Before you begin
@@ -139,30 +137,30 @@ KKP uses the concept of **Datacenters** to define where user clusters can be cre
 | Requirement | Description |
 |-------------|-------------|
 | **OpenStack Project** | Active de.NBI Cloud Berlin project with Kubernetes access |
-| **SSH Key** | For jumphost and node access |
+| **SSH Key** | For jumphost-01.denbi.bihealth.org/jumphost-02.denbi.bihealth.org and worker-node access |
 | **Application Credentials** | OpenStack API credentials ([creation guide](https://cloud.denbi.de/wiki/Compute_Center/Bielefeld/#application-credentials-use-openstack-api)) |
 
 ### Supported configurations
 
 | Component | Supported Versions |
 |-----------|-------------------|
-| **Kubernetes** | >= 1.28 |
-| **Node OS** | Ubuntu 22.04 LTS, Ubuntu 24.04 LTS |
-| **CNI** | Cilium (default) |
+| **Kubernetes Control Plane** | >= 1.29 |
+| **Worker Node OS** | Ubuntu 22.04 LTS, Ubuntu 24.04 LTS |
+| **CNI** | Cilium (default) / canal |
 
 ### Access request
 
 1. Apply for an OpenStack project at [de.NBI Cloud Portal](https://cloud.denbi.de/)
 2. Specify **"Kubernetes"** as a required service in your application
 3. Upon approval, access Kubermatic at **[k.denbi.bihealth.org](https://k.denbi.bihealth.org/)**
-
+   
 > **Need help?** Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)
 
 ---
 
 ## Part 1: Environment setup
 
-Configure your administration environment on the jumphost before creating clusters.
+Configure your administration environment on the jumphost jumphost-01.denbi.bihealth.org or jumphost-02.denbi.bihealth.org before creating clusters.
 
 ### Procedure
 
@@ -213,6 +211,7 @@ curl -sS https://webinstall.dev/k9s | bash
 ```
 
 **Step 6:** Update PATH
+
 ```bash
 echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
@@ -241,8 +240,8 @@ This section guides you through creating a new Kubernetes User Cluster via the K
 > 
 > The de.NBI Cloud Berlin infrastructure migrated to a new datacenter in September 2025. Key changes:
 > - Always select **Berlin** as the datacenter (not "Berlin DMZ")
-> - Use floating IP pool **public** for standard deployments
-> - External access requires additional DMZ configuration (see [Part 4](#part-4-configuring-external-access))
+> - Use floating IP pool **public** for deployments, dmz is only suitable in special and rare cases
+> - External access on the cluster resource requires additional `dmz` configuration (see [Part 4](#part-4-configuring-external-access))
 
 ### Estimated time
 
@@ -264,14 +263,15 @@ SSH keys enable direct access to worker nodes for troubleshooting.
 2. Click **Add SSH Key**
 3. Paste your public key and assign a name
 
-![Create Cluster](img/01-create_cluster.png)
-
 ![Add SSH Key](img/02-add_ssh_key.png)
 
 #### Step 3: Initiate cluster creation
 
 1. Click **Create Cluster**
-2. Select **OpenStack** as the provider
+
+![Create Cluster](img/01-create_cluster.png)
+
+3. Select **OpenStack** as the provider
 
 ![Choose Provider](img/03-choose_provider.png)
 
@@ -291,10 +291,11 @@ The datacenter determines where your cluster's control plane namespace is create
 | Setting | Recommendation |
 |---------|----------------|
 | **Cluster name** | Use a descriptive name (e.g., `prod-app-cluster`) |
-| **Kubernetes version** | Latest stable version, or match your application requirements |
-| **CNI** | Cilium (default) |
+| **Kubernetes control plane version** | Latest stable version, or match your application requirements |
+| **CNI** | Cilium (default) / |
 | **CNI Version** | Leave as default |
 
+> **Tip:** All the others settings can be left in default
 > **Tip:** You can upgrade Kubernetes versions later through the Kubermatic Dashboard. KKP handles the control plane upgrade in the Seed Cluster and coordinates worker node updates.
 
 ![Cluster Setup](img/05-cluster_setup.png)
@@ -302,11 +303,14 @@ The datacenter determines where your cluster's control plane namespace is create
 #### Step 6: Enter OpenStack credentials
 
 1. Set **Domain** to `Default`
-2. Enter your **Application Credential ID**
-3. Enter your **Application Credential Secret**
+2. Choose **Application Credentials**
+3. Enter your **Application Credential ID**
+4. Enter your **Application Credential Secret**
 
 > [!CAUTION]
 > **Multiple projects:** Kubermatic displays all projects you can access, but clusters deploy to the project associated with your application credentials. Verify you're using credentials for the correct project.
+
+![Application Credentials](img/06-application_credentials.png)
 
 **Network configuration:**
 
@@ -317,16 +321,14 @@ The datacenter determines where your cluster's control plane namespace is create
 | **Subnet** | Leave empty for auto-creation, or select existing |
 
 > [!WARNING]
-> **Do not use `dmz` as the floating IP pool** for standard deployments. This will fail because:
-> - Kubermatic attempts to assign DMZ IPs to all worker nodes
-> - Most projects lack sufficient DMZ floating IPs
-> - Network topology conflicts prevent DMZ IP association with `public`-connected networks
-
-![Application Credentials](img/06-application_credentials.png)
+> **Do not use `dmz` as the floating IP pool** for deployments. This will fail because:
+> - Kubermatic attempts to assign floating-IPs from the `dmz` pool to all worker nodes
+> - Most projects lack sufficient `dmz` floating-IPs (floating ips from the `dmz` pool need to be requested)
+> - Network topology conflicts prevent `dmz` floating-IP association with `public`-connected networks
 
 #### Step 7: Configure worker nodes
 
-Create a **Machine Deployment** to define your worker nodes. These VMs will be created in your OpenStack project and join the cluster via the secure VPN tunnel to the control plane.
+Create a **Machine Deployment** to define your worker nodes. These VMs will be created in your OpenStack project and join the cluster.
 
 | Setting | Description | Example |
 |---------|-------------|---------|
