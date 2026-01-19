@@ -17,8 +17,8 @@
 3. [Deploy k8s-cluster](#Deploy-k8s-cluster)
    - [Environment setup](#environment-setup)
    - [Creating a User Cluster](#creating-a-user-cluster)
-   - [Managing cluster access (RBAC)](#managing-cluster-access-rbac)
    - [Configuring external access](#configuring-external-access)
+   - [Managing cluster access (RBAC)](#managing-cluster-access-rbac)
    - [Best practices](#best-practices)
    - [Quick reference](#quick-reference)
    - [Additional resources](#additional-resources)
@@ -416,79 +416,6 @@ worker-pool-1-abc123-zzzzz     Ready    <none>   10m   v1.30.0
 
 ---
 
-## Managing cluster access (RBAC)
-
-Kubernetes uses Role-Based Access Control (RBAC) to manage permissions. KKP integrates with LifeScienceAAI via OIDC, mapping user identities to cluster roles.
-
-### When to use this procedure
-
-- Users cannot access the cluster via kubectl after the LifeScienceAAI migration (August 2025)
-- Adding new team members to an existing cluster
-- Modifying user permissions
-
-### Understanding KKP RBAC
-
-```
-LifeScienceAAI  ──▶  Kubermatic Dashboard  ──▶  User Cluster
- (Identity)           (Project RBAC)           (K8s RBAC)
-```
-
-### Procedure
-
-**Step 1:** Access RBAC settings
-
-1. Log in to [Kubermatic Dashboard](https://k.denbi.bihealth.org/)
-2. Select your project
-3. Select your cluster
-4. Scroll to the **RBAC** section
-5. Select **User** from the dropdown
-
-**Step 2:** Identify user IDs
-
-Locate the LifeScienceAAI ID for each user:
-
-| Method | Steps |
-|--------|-------|
-| **Your own ID** | Check [de.NBI Cloud Portal](https://cloud.denbi.de/) profile |
-| **Project members** | View in Kubermatic project settings |
-| **Other users** | Request directly from the user |
-
-> [!IMPORTANT]
-> Use the `@lifescience-ri.eu` domain suffix for all user IDs.  
-> Example: `user123@lifescience-ri.eu`
-
-**Step 3:** Add user binding
-
-1. Click **Add Binding**
-2. Enter the user ID with `@lifescience-ri.eu` suffix
-3. Select a role:
-
-| Role | Permissions | Use Case |
-|------|-------------|----------|
-| **cluster-admin** | Full cluster access | Administrators |
-| **admin** | Namespace-scoped admin | Team leads |
-| **edit** | Read/write most resources | Developers |
-| **view** | Read-only access | Auditors, viewers |
-
-4. Click **Save**
-
-![RBAC Configuration](img/rbac.png)
-
-### Verification
-
-Have the user test their access:
-
-```bash
-# Check permissions
-kubectl auth can-i get pods
-kubectl auth can-i create deployments
-
-# List namespaces
-kubectl get namespaces
-```
-
----
-
 ## Configuring external access (example configuration)
 
 To expose services to the internet, configure a load balancer with Traefik ingress controller connected to the openstack poroject network associated the `dmz` floating-ip network.
@@ -652,6 +579,79 @@ kubectl get svc -n traefik
 | Load balancer stuck in `PENDING_CREATE` | Floating IP not in project | Request `dmz` IP via email |
 | Service shows `<pending>` external IP | Incorrect subnet IDs | Verify all three subnet/network IDs |
 | 503 errors | No backend pods | Deploy an application and create IngressRoute |
+
+---
+
+## Managing cluster access (RBAC)
+
+Kubernetes uses Role-Based Access Control (RBAC) to manage permissions. KKP integrates with LifeScienceAAI via OIDC, mapping user identities to cluster roles.
+
+### When to use this procedure
+
+- Users cannot access the cluster via kubectl after the LifeScienceAAI migration (August 2025)
+- Adding new team members to an existing cluster
+- Modifying user permissions
+
+### Understanding KKP RBAC
+
+```
+LifeScienceAAI  ──▶  Kubermatic Dashboard  ──▶  User Cluster
+ (Identity)           (Project RBAC)           (K8s RBAC)
+```
+
+### Procedure
+
+**Step 1:** Access RBAC settings
+
+1. Log in to [Kubermatic Dashboard](https://k.denbi.bihealth.org/)
+2. Select your project
+3. Select your cluster
+4. Scroll to the **RBAC** section
+5. Select **User** from the dropdown
+
+**Step 2:** Identify user IDs
+
+Locate the LifeScienceAAI ID for each user:
+
+| Method | Steps |
+|--------|-------|
+| **Your own ID** | Check [de.NBI Cloud Portal](https://cloud.denbi.de/) profile |
+| **Project members** | View in Kubermatic project settings |
+| **Other users** | Request directly from the user |
+
+> [!IMPORTANT]
+> Use the `@lifescience-ri.eu` domain suffix for all user IDs.  
+> Example: `user123@lifescience-ri.eu`
+
+**Step 3:** Add user binding
+
+1. Click **Add Binding**
+2. Enter the user ID with `@lifescience-ri.eu` suffix
+3. Select a role:
+
+| Role | Permissions | Use Case |
+|------|-------------|----------|
+| **cluster-admin** | Full cluster access | Administrators |
+| **admin** | Namespace-scoped admin | Team leads |
+| **edit** | Read/write most resources | Developers |
+| **view** | Read-only access | Auditors, viewers |
+
+4. Click **Save**
+
+![RBAC Configuration](img/rbac.png)
+
+### Verification
+
+Have the user test their access:
+
+```bash
+# Check permissions
+kubectl auth can-i get pods
+kubectl auth can-i create deployments
+
+# List namespaces
+kubectl get namespaces
+```
 
 ---
 
