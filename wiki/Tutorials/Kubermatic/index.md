@@ -166,8 +166,10 @@ Before deploying a Kubernetes cluster, verify that you meet the following requir
 | Component | Supported Versions |
 |-----------|-------------------|
 | **Kubernetes Control Plane** | `>= 1.29` |
-| **Worker Node OS** | `Ubuntu 22.04 LTS`, `Ubuntu 24.04 LTS` |
+| **Worker Node OS** | `Ubuntu 22.04`, `Ubuntu 24.04` |
 | **CNI** | `Cilium (default)`, `Canal` |
+
+> 💡 **Tip:** You can check the available images in the Openstack Dashboard -> [de.NBI Cloud Berlin Images](https://denbi-cloud.bihealth.org/dashboard/project/images)
 
 ### 2.3 Requesting access
 
