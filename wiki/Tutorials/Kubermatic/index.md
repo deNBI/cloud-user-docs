@@ -8,7 +8,7 @@
 ## Table of contents
 
 1. [Overview](#overview)
-2. [Architecture](#architecture)
+2. [Kubermatic Architecture](#architecture)
    - [Cluster hierarchy](#cluster-hierarchy)
    - [Cluster types](#cluster-types)
    - [de.NBI Cloud Berlin deployment](#denbi-cloud-berlin-deployment)
@@ -312,7 +312,7 @@ The datacenter determines where your cluster's control plane namespace is create
 4. Enter your **Application Credential Secret**
 
 > [!CAUTION]
-> **Multiple projects:** Kubermatic displays all projects you can access, but clusters deploy to the project associated with your application credentials. Verify you're using credentials for the correct project.
+> **Multiple projects:** Kubermatic displays all projects you can access, but the cluster deployment to the project is associated with your application credentials. Verify you're using credentials for the correct project.
 
 ![Application Credentials](img/06-application_credentials.png)
 
