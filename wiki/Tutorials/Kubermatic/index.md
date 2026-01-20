@@ -13,9 +13,7 @@ This guide describes how to deploy and manage production-ready Kubernetes cluste
 
 This guide is intended for:
 
-- 👤 Platform administrators who deploy and manage Kubernetes clusters
-- 🔧 DevOps engineers who configure cluster infrastructure
-- 💻 Application developers who require Kubernetes environments
+- 👤 de.NBI Users who deploy and manage Kubernetes clusters with Kubermatic on the de.NBI Site Berlin
 
 ### What you will learn
 
@@ -25,7 +23,7 @@ After completing this guide, you will be able to:
 - ✅ Configure your local administration environment with required CLI tools
 - ✅ Deploy a fully functional Kubernetes User Cluster
 - ✅ Configure external access using Traefik ingress controller
-- ✅ Manage team access with Kubernetes RBAC
+- ✅ Manage/fix team access with Kubernetes RBAC
 
 ---
 
@@ -63,9 +61,9 @@ The following table describes each cluster type in the KKP hierarchy:
 
 | Cluster Type | Purpose | Location |
 |--------------|---------|----------|
-| **Master Cluster** | Central management plane hosting the KKP Dashboard, API, and Controller Manager. Stores all user data, projects, SSH keys, and infrastructure provider credentials. | Managed by de.NBI |
-| **Seed Cluster** | Hosts Kubernetes control plane components (API server, scheduler, controller-manager, etcd) for each User Cluster in isolated namespaces. Includes monitoring (Prometheus) and secure VPN connectivity. | Managed by de.NBI |
-| **User Cluster** | Your Kubernetes cluster. Contains only worker nodes running your workloads. Control plane runs in the Seed Cluster. | Your OpenStack Project |
+| **Master Cluster** | Central management plane hosting the KKP Dashboard, API, and Controller Manager. Stores all user data, projects, SSH keys, and infrastructure provider credentials. | **Managed by de.NBI** |
+| **Seed Cluster** | Hosts Kubernetes control plane components (API server, scheduler, controller-manager, etcd) for each User Cluster in isolated namespaces. Includes monitoring (Prometheus) and secure VPN connectivity. | **Managed by de.NBI** |
+| **User Cluster** | Your Kubernetes cluster hosted in your Openstack project. Contains only worker nodes running your workloads. Control plane runs in the Seed Cluster. Limited by your project quota  | **Managed by Kubermatic in the User Projects** |
 
 ### 1.3 de.NBI Cloud Berlin deployment topology
 
@@ -234,12 +232,13 @@ This chapter guides you through creating a Kubernetes User Cluster using the Kub
 
 > ⚠️ **Project Quota:** Kubermatic deploys the worker nodes into your project and therefore the deployment is bound to the project quotas regarding flavors and count of worker nodes.
 
-> 🔔 **Infrastructure changes (September 2025)**
+> ⚠️ **Infrastructure changes (September 2025)**
 > 
 > The de.NBI Cloud Berlin infrastructure migrated to a new datacenter in September 2025. Key changes:
 > - Always select **Berlin** as the datacenter (not "Berlin DMZ")
 > - Use floating IP pool **public** for deployments, dmz is only suitable in special and rare cases
 > - External access on the cluster resource requires additional `dmz` configuration (see [Chapter 5](#chapter-5-configuring-external-access))
+> - We will remove the datacentre **Berlin DMZ** as soon as all legacy clusters are migrated
 
 ### 4.1 Prerequisites
 
@@ -588,7 +587,6 @@ Kubernetes uses Role-Based Access Control (RBAC) to manage permissions. KKP inte
 ### 6.1 When to use this procedure
 
 - 🔑 Users cannot access the cluster via kubectl after the LifeScienceAAI migration (August 2025)
-- 👥 Adding new team members to an existing cluster
 - 🔧 Modifying user permissions
 
 ### 6.2 Understanding KKP RBAC
@@ -629,10 +627,10 @@ Locate the LifeScienceAAI ID for each user:
 
 | Role | Permissions | Use Case |
 |------|-------------|----------|
-| 👑 **cluster-admin** | Full cluster access | Administrators |
-| 🔧 **admin** | Namespace-scoped admin | Team leads |
-| ✏️ **edit** | Read/write most resources | Developers |
-| 👁️ **view** | Read-only access | Auditors, viewers |
+| **cluster-admin** | Full cluster access | Administrators |
+| **admin** | Namespace-scoped admin | Team leads |
+| **edit** | Read/write most resources | Developers |
+| **view** | Read-only access | Auditors, viewers |
 
 4. Click **Save**
 
