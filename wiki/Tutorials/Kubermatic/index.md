@@ -5,59 +5,6 @@
 
 ---
 
-## 📑 Table of Contents
-
-| | Chapter | Description |
-|:---:|:---|:---|
-| 📖 | [About this guide](#about-this-guide) | Audience and learning objectives |
-| | | |
-| **1** | [**Architecture**](#chapter-1-architecture) | KKP cluster hierarchy and components |
-| | ├─ [1.1 Cluster hierarchy](#11-cluster-hierarchy) | Master, Seed, and User Cluster model |
-| | ├─ [1.2 Cluster types](#12-cluster-types) | Purpose and location of each cluster |
-| | ├─ [1.3 Deployment topology](#13-denbi-cloud-berlin-deployment-topology) | de.NBI Cloud Berlin infrastructure |
-| | ├─ [1.4 Datacenters](#14-datacenters) | Available regions and floating IP pools |
-| | └─ [1.5 Key components](#15-key-components) | Dashboard, API, CNI, and more |
-| | | |
-| **2** | [**Prerequisites**](#chapter-2-prerequisites) | |
-| | ├─ [2.1 System requirements](#21-system-requirements) | OpenStack project, SSH, Application credentials |
-| | ├─ [2.2 Supported configurations](#22-supported-configurations) | Kubernetes versions, OS, CNI |
-| | └─ [2.3 Requesting access](#23-requesting-access) | How to get started |
-| | | |
-| **3** | [**Setting up the administration environment**](#chapter-3-setting-up-the-administration-environment) | |
-| | ├─ [3.1 Prerequisites](#31-prerequisites) | SSH access requirements |
-| | ├─ [3.2 Procedure](#32-procedure) | Install kubectl, Helm, k9s |
-| | └─ [3.3 Verification](#33-verification) | Confirm tool installation |
-| | | |
-| **4** | [**Creating a User Cluster**](#chapter-4-creating-a-user-cluster) | Deploy Kubernetes via KKP Dashboard |
-| | ├─ [4.1 Prerequisites](#41-prerequisites) | |
-| | ├─ [4.2 Estimated time](#42-estimated-time) | |
-| | ├─ [4.3 Procedure](#43-procedure) | Step-by-step cluster creation |
-| | └─ [4.4 Verification](#44-verification) | Confirmation of cluster deployment |
-| | | |
-| **5** | [**Configuring external access**](#chapter-5-configuring-external-access) | Expose services via Traefik |
-| | ├─ [5.1 Network architecture](#51-network-architecture) | DMZ load balancer topology |
-| | ├─ [5.2 Prerequisites](#52-prerequisites) |  |
-| | ├─ [5.3 Procedure](#53-procedure) | Create network, deploy Traefik |
-| | ├─ [5.4 Verification](#54-verification) | Confirm load balancer status |
-| | └─ [5.5 Troubleshooting](#55-troubleshooting) | Common issues and solutions |
-| | | |
-| **6** | [**Managing cluster access (RBAC)**](#chapter-6-managing-cluster-access-rbac) | User permissions and roles |
-| | ├─ [6.1 When to use this procedure](#61-when-to-use-this-procedure) | Use-cases |
-| | ├─ [6.2 Understanding KKP RBAC](#62-understanding-kkp-rbac) | Identity flow |
-| | ├─ [6.3 Procedure](#63-procedure) | Add user bindings |
-| | └─ [6.4 Verification](#64-verification) | Test user access |
-| | | |
-| **7** | [**Best practices**](#chapter-7-best-practices) | Recommendations for production |
-| | ├─ [7.1 Security](#71-security) | Credentials, network policies |
-| | ├─ [7.2 High availability](#72-high-availability) | Replicas, PDBs, anti-affinity |
-| | └─ [7.3 Operations](#73-operations) | Monitoring, logging, backups |
-| | | |
-| 📎 | [**Appendix A: Quick reference**](#appendix-a-quick-reference) | Commands, URLs, contacts |
-| 📎 | [**Appendix B: Additional resources**](#appendix-b-additional-resources) | External documentation links |
-| 📎 | [**Appendix C: Glossary**](#appendix-c-glossary) | Term definitions |
-
----
-
 ## About this guide
 
 This guide describes how to deploy and manage production-ready Kubernetes clusters on de.NBI Cloud Berlin infrastructure using **Kubermatic Kubernetes Platform (KKP)**. KKP automates the deployment, scaling, and lifecycle management of Kubernetes clusters on OpenStack.
@@ -66,17 +13,17 @@ This guide describes how to deploy and manage production-ready Kubernetes cluste
 
 This guide is intended for:
 
-- 👤 de.NBI Users who deploy and manage Kubernetes clusters with Kubermatic on the de.NBI Site Berlin
+- de.NBI Users who deploy and manage Kubernetes clusters with Kubermatic on the de.NBI Site Berlin
 
 ### What you will learn
 
 After completing this guide, you will be able to:
 
-- ✅ Describe KKP architecture and the cluster hierarchy model
-- ✅ Configure your local administration environment with required CLI tools
-- ✅ Deploy a fully functional Kubernetes User Cluster
-- ✅ Configure external access using Traefik ingress controller
-- ✅ Manage/fix team access with Kubernetes RBAC
+- Describe KKP architecture and the cluster hierarchy model
+- Configure your local administration environment with required CLI tools
+- Deploy a fully functional Kubernetes User Cluster
+- Configure external access using Traefik ingress controller
+- Manage/fix team access with Kubernetes RBAC
 
 ---
 
@@ -301,7 +248,7 @@ This chapter guides you through creating a Kubernetes User Cluster using the Kub
 
 ### 4.2 Estimated time
 
-🕐 20–30 minutes
+20–30 minutes
 
 ### 4.3 Procedure
 
@@ -398,9 +345,9 @@ Create a **Machine Deployment** to define your worker nodes. These VMs will be c
 
 | Workload Type | Replicas | Flavor | Notes |
 |---------------|----------|--------|-------|
-| 🧪 Development | 1–2 | de.NBI small | Cost-effective for testing |
-| 🔬 Testing/Staging | 2–3 | de.NBI medium | Moderate resources |
-| 🏭 Production | 3+ | de.NBI large | High availability |
+| Development | 1–2 | de.NBI small | Cost-effective for testing |
+| Testing/Staging | 2–3 | de.NBI medium | Moderate resources |
+| Production | 3+ | de.NBI large | High availability |
 
 ![Node Setup](img/07-node_setup.png)
 
@@ -411,12 +358,12 @@ Create a **Machine Deployment** to define your worker nodes. These VMs will be c
 
 **What happens next:**
 
-1. ✅ KKP creates a new namespace in the Seed Cluster for your control plane
-2. ✅ Control plane components (API server, etcd, controller-manager, scheduler) are deployed
-3. ✅ OpenVPN server is configured for secure worker communication
-4. ✅ Worker node VMs are provisioned in your OpenStack project
-5. ✅ Workers connect to the control plane via VPN tunnel
-6. ✅ Cluster becomes ready for workloads
+1. KKP creates a new namespace in the Seed Cluster for your control plane
+2. Control plane components (API server, etcd, controller-manager, scheduler) are deployed
+3. OpenVPN server is configured for secure worker communication
+4. Worker node VMs are provisioned in your OpenStack project
+5. Workers connect to the control plane via VPN tunnel
+6. Cluster becomes ready for workloads
 
 > 🕐 **Note:** Cluster creation may take up to **20 minutes** due to VM provisioning and component initialization.
 
@@ -491,9 +438,9 @@ Kubernetes Worker Nodes (Traefik → Your Apps)
 
 ### 5.2 Prerequisites
 
-- ✅ Active Kubernetes cluster
-- ✅ kubectl and Helm configured on jumphost
-- ✅ `dmz` floating IP allocated to OpenStack project (request via [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de))
+- Active Kubernetes cluster
+- kubectl and Helm configured on jumphost
+- `dmz` floating IP allocated to OpenStack project (request via [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de))
 
 ### 5.3 Procedure
 
@@ -608,7 +555,7 @@ helm install traefik traefik/traefik \
 kubectl get pods -n traefik
 ```
 
-**Expected:** Traefik pod in `Running` state ✅
+**Expected:** Traefik pod in `Running` state 
 
 **Step 2:** Check service and load balancer
 
@@ -616,12 +563,12 @@ kubectl get pods -n traefik
 kubectl get svc -n traefik
 ```
 
-**Expected:** `EXTERNAL-IP` shows your `dmz` floating IP ✅
+**Expected:** `EXTERNAL-IP` shows your `dmz` floating IP 
 
 **Step 3:** Check OpenStack load balancer
 
 1. Navigate to **Network → LoadBalancers** in OpenStack
-2. Verify the load balancer shows `ACTIVE` / `ONLINE` status ✅
+2. Verify the load balancer shows `ACTIVE` / `ONLINE` status 
 
 ### 5.5 Troubleshooting
 
@@ -639,8 +586,8 @@ Kubernetes uses Role-Based Access Control (RBAC) to manage permissions. KKP inte
 
 ### 6.1 When to use this procedure
 
-- 🔑 Users cannot access the cluster via kubectl after the LifeScienceAAI migration (August 2025)
-- 🔧 Modifying user permissions
+- Users cannot access the cluster via kubectl after the LifeScienceAAI migration (August 2025)
+- Modifying user permissions
 
 ### 6.2 Understanding KKP RBAC
 
@@ -710,28 +657,28 @@ kubectl get namespaces
 
 | Recommendation | Description |
 |----------------|-------------|
-| 🔐 **Rotate credentials** | Regenerate OpenStack application credentials annually |
-| 🛡️ **Limit cluster-admin** | Grant least-privilege roles where possible |
-| 🌐 **Network policies** | Implement Cilium network policies for pod-to-pod traffic |
-| ⬆️ **Keep nodes updated** | Regularly upgrade Kubernetes and node OS images via Kubermatic |
+| **Rotate credentials** | Regenerate OpenStack application credentials annually |
+| **Limit cluster-admin** | Grant least-privilege roles where possible |
+| **Network policies** | Implement Cilium network policies for pod-to-pod traffic |
+| **Keep nodes updated** | Regularly upgrade Kubernetes and node OS images via Kubermatic |
 
 ### 7.2 High availability
 
 | Recommendation | Description |
 |----------------|-------------|
-| 📊 **Multiple replicas** | Run at least 3 worker nodes for production |
-| 🛑 **Pod disruption budgets** | Define PDBs for critical workloads |
-| 📦 **Resource requests** | Always set CPU/memory requests for proper scheduling |
-| 🔀 **Anti-affinity rules** | Spread critical pods across nodes |
+| **Multiple replicas** | Run at least 3 worker nodes for production |
+| **Pod disruption budgets** | Define PDBs for critical workloads |
+| **Resource requests** | Always set CPU/memory requests for proper scheduling |
+| **Anti-affinity rules** | Spread critical pods across nodes |
 
 ### 7.3 Operations
 
 | Recommendation | Description |
 |----------------|-------------|
-| 📈 **Monitoring** | Deploy Prometheus and Grafana for observability |
-| 📝 **Logging** | Centralize logs with Loki or EFK stack |
-| 💾 **Backups** | Use Velero for cluster and persistent volume backups |
-| 🔄 **GitOps** | Manage configurations with Flux or ArgoCD |
+| **Monitoring** | Deploy Prometheus and Grafana for observability |
+| **Logging** | Centralize logs with Loki or EFK stack |
+| **Backups** | Use Velero for cluster and persistent volume backups |
+| **GitOps** | Manage configurations with Flux or ArgoCD |
 
 ---
 
@@ -764,16 +711,16 @@ k9s
 
 | Resource | URL |
 |----------|-----|
-| 🌐 **Kubermatic Dashboard** | [k.denbi.bihealth.org](https://k.denbi.bihealth.org/) |
-| ☁️ **OpenStack Dashboard** | [denbi-cloud.bihealth.org](https://denbi-cloud.bihealth.org/) |
-| 🏛️ **de.NBI Cloud Portal** | [cloud.denbi.de](https://cloud.denbi.de/) |
+| **Kubermatic Dashboard** | [k.denbi.bihealth.org](https://k.denbi.bihealth.org/) |
+| **OpenStack Dashboard** | [denbi-cloud.bihealth.org](https://denbi-cloud.bihealth.org/) |
+| **de.NBI Cloud Portal** | [cloud.denbi.de](https://cloud.denbi.de/) |
 
 ### A.3 Support contacts
 
 | Type | Contact |
 |------|---------|
-| 📧 **General inquiries** | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
-| 🌐 **DMZ IP requests** | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
+| **General inquiries** | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
+| **DMZ IP requests** | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
 
 ---
 
