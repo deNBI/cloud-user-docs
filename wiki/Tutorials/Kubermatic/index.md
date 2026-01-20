@@ -18,31 +18,31 @@
 | | ├─ [1.4 Datacenters](#14-datacenters) | Available regions and floating IP pools |
 | | └─ [1.5 Key components](#15-key-components) | Dashboard, API, CNI, and more |
 | | | |
-| **2** | [**Prerequisites**](#chapter-2-prerequisites) | Requirements before you begin |
-| | ├─ [2.1 System requirements](#21-system-requirements) | OpenStack project, SSH, credentials |
+| **2** | [**Prerequisites**](#chapter-2-prerequisites) | |
+| | ├─ [2.1 System requirements](#21-system-requirements) | OpenStack project, SSH, Application credentials |
 | | ├─ [2.2 Supported configurations](#22-supported-configurations) | Kubernetes versions, OS, CNI |
 | | └─ [2.3 Requesting access](#23-requesting-access) | How to get started |
 | | | |
-| **3** | [**Setting up the administration environment**](#chapter-3-setting-up-the-administration-environment) | Configure your jumphost |
+| **3** | [**Setting up the administration environment**](#chapter-3-setting-up-the-administration-environment) | |
 | | ├─ [3.1 Prerequisites](#31-prerequisites) | SSH access requirements |
 | | ├─ [3.2 Procedure](#32-procedure) | Install kubectl, Helm, k9s |
 | | └─ [3.3 Verification](#33-verification) | Confirm tool installation |
 | | | |
 | **4** | [**Creating a User Cluster**](#chapter-4-creating-a-user-cluster) | Deploy Kubernetes via KKP Dashboard |
-| | ├─ [4.1 Prerequisites](#41-prerequisites) | What you need |
-| | ├─ [4.2 Estimated time](#42-estimated-time) | 20–30 minutes |
+| | ├─ [4.1 Prerequisites](#41-prerequisites) | |
+| | ├─ [4.2 Estimated time](#42-estimated-time) | |
 | | ├─ [4.3 Procedure](#43-procedure) | Step-by-step cluster creation |
-| | └─ [4.4 Verification](#44-verification) | Confirm cluster is running |
+| | └─ [4.4 Verification](#44-verification) | Confirmation of cluster deployment |
 | | | |
 | **5** | [**Configuring external access**](#chapter-5-configuring-external-access) | Expose services via Traefik |
 | | ├─ [5.1 Network architecture](#51-network-architecture) | DMZ load balancer topology |
-| | ├─ [5.2 Prerequisites](#52-prerequisites) | DMZ floating IP required |
+| | ├─ [5.2 Prerequisites](#52-prerequisites) |  |
 | | ├─ [5.3 Procedure](#53-procedure) | Create network, deploy Traefik |
 | | ├─ [5.4 Verification](#54-verification) | Confirm load balancer status |
 | | └─ [5.5 Troubleshooting](#55-troubleshooting) | Common issues and solutions |
 | | | |
 | **6** | [**Managing cluster access (RBAC)**](#chapter-6-managing-cluster-access-rbac) | User permissions and roles |
-| | ├─ [6.1 When to use this procedure](#61-when-to-use-this-procedure) | Use cases |
+| | ├─ [6.1 When to use this procedure](#61-when-to-use-this-procedure) | Use-cases |
 | | ├─ [6.2 Understanding KKP RBAC](#62-understanding-kkp-rbac) | Identity flow |
 | | ├─ [6.3 Procedure](#63-procedure) | Add user bindings |
 | | └─ [6.4 Verification](#64-verification) | Test user access |
@@ -685,9 +685,9 @@ Locate the LifeScienceAAI ID for each user:
 | **edit** | Read/write most resources | Developers |
 | **view** | Read-only access | Auditors, viewers |
 
-4. Click **Save**
-
 ![RBAC Configuration](img/rbac.png)
+
+4. Click **Save**
 
 ### 6.4 Verification
 
