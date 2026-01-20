@@ -408,7 +408,7 @@ After cluster creation completes:
 **Step 1:** Download kubeconfig
 
 1. In Kubermatic Dashboard, select your cluster
-2. Click the **Download Kubeconfig** button (top-right)
+2. Click the **Get Kubeconfig** button (top-right)
 
 ![Kubeconfig Dashboard](img/08-kubeconfig_dashboard.png)
 
