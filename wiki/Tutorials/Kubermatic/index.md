@@ -460,14 +460,6 @@ Unlike cloud providers with native Kubernetes integration (AWS, GCP, Azure), Ope
 
 #### Layer 4 vs Layer 7 load balancing
 
-| Approach | Kubernetes Resource(s) | OSI Layer | Use Case |
-|--------|------------------------|-----------|----------|
-| **LoadBalancer Service** | `Service` (type: LoadBalancer) | L4 (TCP/UDP) | Direct exposure of TCP/UDP services (databases, gRPC, custom protocols) |
-| **NodePort Service** | `Service` (type: NodePort) | L4 (TCP/UDP) | Low-level access, debugging, or external L4 load balancers |
-| **Ingress (Standard API)** | `Ingress` + Ingress Controller (`Deployment`/`DaemonSet` + `Service` type LoadBalancer) | L7 (HTTP/HTTPS) | HTTP routing, TLS termination, host/path-based routing using the standard Kubernetes API |
-| **IngressRoute (Controller-Specific CRD)** | `IngressRoute` (CRD) + Ingress Controller (`Deployment`/`DaemonSet` + `Service` type LoadBalancer) | L7 (HTTP/HTTPS) | Advanced HTTP routing (middleware, canary, retries) using controller-specific extensions (e.g., Traefik) |
-
-
 | Approach | Kubernetes Resource(s) | OSI Layer | Protocols | External IP | Routing Capabilities | Typical Use Case |
 |--------|------------------------|-----------|-----------|-------------|----------------------|------------------|
 | **NodePort Service** | `Service` (type: NodePort) | L4 | TCP / UDP | ❌ | None | Development, debugging, or external L4 load balancers |
