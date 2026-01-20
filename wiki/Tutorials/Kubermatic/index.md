@@ -1,50 +1,40 @@
 # Kubermatic Kubernetes Platform on de.NBI Cloud Berlin
 
-> **Maintained by:** de.NBI Cloud Berlin Team  
-> **Last updated:** January 2026
+**Document version:** 1.0  
+**Last updated:** January 2026  
+**Maintained by:** de.NBI Cloud Berlin Team
 
 ---
 
-## Table of contents
+## About this guide
 
-1. [Overview](#overview)
-2. [Kubermatic Architecture](#architecture)
-   - [Cluster hierarchy](#cluster-hierarchy)
-   - [Cluster types](#cluster-types)
-   - [de.NBI Cloud Berlin deployment](#denbi-cloud-berlin-deployment)
-   - [Datacenters](#datacenters)
-   - [Key components](#key-components)
-3. [Deploy kubernetes cluster](#deploy-cluster)
-   - [Environment setup](#environment-setup)
-   - [Creating a User Cluster](#creating-a-user-cluster)
-   - [Configuring external access](#configuring-external-access)
-   - [Managing cluster access (RBAC)](#managing-cluster-access-rbac)
-   - [Best practices](#best-practices)
-   - [Quick reference](#quick-reference)
-   - [Additional resources](#additional-resources)
-11. [Glossary](#glossary)
+This guide describes how to deploy and manage production-ready Kubernetes clusters on de.NBI Cloud Berlin infrastructure using Kubermatic Kubernetes Platform (KKP). KKP automates the deployment, scaling, and lifecycle management of Kubernetes clusters on OpenStack.
 
-## Overview
+### Audience
 
-This guide describes how to deploy and manage production-ready Kubernetes clusters on the de.NBI Cloud Berlin infrastructure using **Kubermatic Kubernetes Platform (KKP)**. KKP automates the deployment, scaling, and lifecycle management of Kubernetes clusters on OpenStack.
+This guide is intended for:
 
-### What you'll accomplish
+- Platform administrators who deploy and manage Kubernetes clusters
+- DevOps engineers who configure cluster infrastructure
+- Application developers who require Kubernetes environments
 
-By following this guide, you will:
+### What you will learn
 
-- Understand the KKP architecture and cluster hierarchy
-- Set up your local environment with required CLI tools
-- Deploy a fully functional Kubernetes cluster (User Cluster)
+After completing this guide, you will be able to:
+
+- Describe KKP architecture and the cluster hierarchy model
+- Configure your local administration environment with required CLI tools
+- Deploy a fully functional Kubernetes User Cluster
 - Configure external access using Traefik ingress controller
-- Manage team access with RBAC
+- Manage team access with Kubernetes RBAC
 
 ---
 
-## Architecture
+## Chapter 1. Architecture
 
-### Cluster hierarchy
+### 1.1 Cluster hierarchy
 
-KKP organizes infrastructure into three distinct cluster types:
+KKP organizes infrastructure into three cluster types arranged in a hierarchical model:
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -55,28 +45,31 @@ KKP organizes infrastructure into three distinct cluster types:
                                ▼
 ┌──────────────────────────────────────────────────────────────┐
 │                       SEED CLUSTER                           │
-│      Hosts Control Plane components for each User Cluster    │
+│      Hosts control plane components for each User Cluster    │
 │      (API Server, Scheduler, Controller Manager, etcd)       │
 └───────────────┬─────────────────────────────┬────────────────┘
                 │                             │
                 ▼                             ▼
 ┌───────────────────────────┐   ┌───────────────────────────┐
 │      USER CLUSTER A       │   │      USER CLUSTER B       │
-│      (Your Project)       │   │    (Another Project)      │
 │       Worker Nodes        │   │       Worker Nodes        │
 │      (OpenStack VMs)      │   │      (OpenStack VMs)      │
 └───────────────────────────┘   └───────────────────────────┘
 ```
 
-### Cluster types
+### 1.2 Cluster types
 
-| Cluster Type | Purpose | Location |
-|--------------|---------|----------|
-| **Master Cluster** | Central management plane hosting the KKP Dashboard, API, and Controller Manager. Stores all user data, projects, SSH keys, and infrastructure provider credentials. | Managed by de.NBI |
-| **Seed Cluster** | Hosts the Kubernetes control plane components (API server, scheduler, controller-manager, etcd) for each user cluster in isolated namespaces. Includes monitoring (Prometheus) and secure VPN connectivity. | Managed by de.NBI |
-| **User Cluster** | Your Kubernetes cluster. Contains only worker nodes running your workloads. Control plane runs in the Seed Cluster. | Your OpenStack Project |
+The following table describes each cluster type in the KKP hierarchy:
 
-### de.NBI Cloud Berlin deployment
+| Cluster type | Purpose | Management |
+|--------------|---------|------------|
+| Master Cluster | Central management plane hosting the KKP Dashboard, API, and Controller Manager. Stores all user data, projects, SSH keys, and infrastructure provider credentials. | Managed by de.NBI |
+| Seed Cluster | Hosts Kubernetes control plane components (API server, scheduler, controller-manager, etcd) for each User Cluster in isolated namespaces. Includes monitoring with Prometheus and secure VPN connectivity. | Managed by de.NBI |
+| User Cluster | Contains worker nodes running your workloads. The control plane runs in the Seed Cluster. | Your OpenStack project |
+
+### 1.3 de.NBI Cloud Berlin deployment topology
+
+The following diagram illustrates the deployment topology for KKP on de.NBI Cloud Berlin:
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -84,326 +77,302 @@ KKP organizes infrastructure into three distinct cluster types:
 ├──────────────────────────────────────────────────────────────┤
 │                                                              │
 │   ┌──────────────────────────────────────────────────────┐   │
-│   │     KUBERMATIC (Master + Seed) — Managed by de.NBI   │   │
-│   │              k.denbi.bihealth.org                    │   │
+│   │      KUBERMATIC (Master + Seed) — Managed by de.NBI  │   │
+│   │               k.denbi.bihealth.org                   │   │
 │   └──────────────────────────┬───────────────────────────┘   │
 │                              │                               │
 │   ┌──────────────────────────▼───────────────────────────┐   │
-│   │             YOUR OPENSTACK PROJECT                   │   │
+│   │              YOUR OPENSTACK PROJECT                  │   │
 │   │                                                      │   │
-│   │    User Cluster Worker Nodes (VMs you manage)        │   │
-│   │    Networks: public / dmz                            │   │
+│   │     User Cluster worker nodes (VMs you manage)       │   │
+│   │     Networks: public / dmz                           │   │
 │   └──────────────────────────────────────────────────────┘   │
 │                                                              │
 │   ┌──────────────────────────────────────────────────────┐   │
-│   │   JUMPHOST — jumphost-01/02.denbi.bihealth.org       │   │
-│   │   CLI access: kubectl, helm, k9s                     │   │
+│   │    JUMPHOST — jumphost-01/02.denbi.bihealth.org      │   │
+│   │    CLI access: kubectl, helm, k9s                    │   │
 │   └──────────────────────────────────────────────────────┘   │
 │                                                              │
 └──────────────────────────────────────────────────────────────┘
 ```
 
-### Datacenters
+### 1.4 Datacenters
 
-KKP uses the concept of **Datacenters** to define where user clusters can be created. 
+KKP uses the concept of datacenters to define where User Clusters can be created. A datacenter specifies the cloud provider, region, available floating IP pools, and network configuration.
 
-A datacenter specifies:
+| Datacenter | Status | Floating IP pools | Notes |
+|------------|--------|-------------------|-------|
+| Berlin | Active | `public`, `dmz` | Recommended for all deployments |
+| Berlin DMZ | Deprecated | `dmz` | Do not use for new deployments |
 
-- The cloud provider (OpenStack)
-- The region/location
-- Available floating-IP pools
-- Network configuration
-
-| Datacenter | Status | Floating IP Pools | Use Case |
-|------------|--------|------------------|----------|
-| **Berlin** | ✅ Active | `public` / `dmz` | Standard deployments (recommended) |
-| **Berlin DMZ** | ❌ Deprecated | `dmz` | Legacy — do not use |
-
-### Key components
+### 1.5 Key components
 
 | Component | Description |
 |-----------|-------------|
-| **KKP Dashboard** | Web interface for cluster management ([k.denbi.bihealth.org](https://k.denbi.bihealth.org/)) |
-| **KKP API** | REST API for programmatic cluster management |
-| **KKP Controller Manager** | Reconciles desired state, manages cluster lifecycle |
-| **OpenStack** | Underlying IaaS providing compute, network, and storage |
-| **Cilium** | Default CNI plugin for pod networking and network policies |
+| KKP Dashboard | Web interface for cluster management at [k.denbi.bihealth.org](https://k.denbi.bihealth.org/) |
+| KKP API | REST API for programmatic cluster management |
+| KKP Controller Manager | Reconciles desired state and manages cluster lifecycle |
+| OpenStack | Underlying IaaS providing compute, network, and storage |
+| Cilium | Default CNI plugin for pod networking and network policies |
+
 ---
 
-## Deploy cluster
+## Chapter 2. Prerequisites
 
-### Requirements
+### 2.1 System requirements
+
+Before deploying a Kubernetes cluster, verify that you meet the following requirements:
 
 | Requirement | Description |
 |-------------|-------------|
-| **OpenStack Project** | Active de.NBI Cloud Berlin project with Kubernetes access |
-| **SSH Key** | `jumphost-01.denbi.bihealth.org`/`jumphost-02.denbi.bihealth.org` and worker-node access |
-| **Application Credentials** | OpenStack API credentials ([creation guide](https://cloud.denbi.de/wiki/Compute_Center/Bielefeld/#application-credentials-use-openstack-api)) |
+| OpenStack project | Active de.NBI Cloud Berlin project with Kubernetes access enabled |
+| SSH key | Configured for jumphost-01.denbi.bihealth.org or jumphost-02.denbi.bihealth.org access |
+| Application credentials | OpenStack API credentials for your project |
 
-### Supported configurations
+### 2.2 Supported configurations
 
-| Component | Supported Versions |
+| Component | Supported versions |
 |-----------|-------------------|
-| **Kubernetes Control Plane** | `>= 1.29` |
-| **Worker Node OS** | `Ubuntu 22.04 LTS`, `Ubuntu 24.04 LTS` |
-| **CNI** | `Cilium (default)`, `canal` |
+| Kubernetes control plane | 1.29 or later |
+| Worker node operating system | Ubuntu 22.04 LTS, Ubuntu 24.04 LTS |
+| CNI | Cilium (default), Canal |
 
-### Access request
+### 2.3 Requesting access
 
-1. Apply for an OpenStack project at [de.NBI Cloud Portal](https://cloud.denbi.de/)
-2. Specify **"Kubernetes"** as a required service in your application
-3. Upon approval, access Kubermatic at **[k.denbi.bihealth.org](https://k.denbi.bihealth.org/)**
-   
-> **Need help?** Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)
+Complete the following steps to request access to the KKP platform:
+
+1. Submit an OpenStack project application at [de.NBI Cloud Portal](https://cloud.denbi.de/).
+2. Specify **Kubernetes** as a required service in your application.
+3. After approval, access Kubermatic at [k.denbi.bihealth.org](https://k.denbi.bihealth.org/).
+
+For assistance, contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de).
+
+### 2.4 Creating application credentials
+
+Before creating a cluster, you must generate OpenStack application credentials. For instructions, see the [Application credentials guide](https://cloud.denbi.de/wiki/Compute_Center/Bielefeld/#application-credentials-use-openstack-api).
+
+> **Important:** Store your application credentials securely. You will need the Application Credential ID and Secret during cluster creation.
 
 ---
 
-## Environment setup
+## Chapter 3. Setting up the administration environment
 
-Configure your administration environment on the jumphost jumphost-01.denbi.bihealth.org or jumphost-02.denbi.bihealth.org before creating clusters.
+Configure your administration environment on the jumphost before creating clusters.
 
-### Procedure
+### 3.1 Prerequisites
 
-**Step 1:** Connect to the jumphost
+- SSH access to jumphost-01.denbi.bihealth.org or jumphost-02.denbi.bihealth.org
+- Your de.NBI Cloud account credentials
 
-```bash
-ssh @jumphost-01.denbi.bihealth.org
-```
+### 3.2 Procedure
 
-**Step 2:** Create required directories
+1. Connect to the jumphost:
 
-```bash
-mkdir -p ~/.kube ~/bin
-```
+   ```bash
+   ssh <username>@jumphost-01.denbi.bihealth.org
+   ```
 
-**Step 3:** Install kubectl
+2. Create required directories:
 
-```bash
-cd ~/bin
+   ```bash
+   mkdir -p ~/.kube ~/bin
+   ```
 
-# Download latest stable kubectl
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+3. Install kubectl:
 
-# Make executable
-chmod +x kubectl
+   ```bash
+   cd ~/bin
 
-# Verify installation
-./kubectl version --client
-```
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 
-**Step 4:** Install Helm
+   chmod +x kubectl
 
-```bash
-# Download and extract Helm (check https://github.com/helm/helm/releases for latest)
-curl -fsSL https://get.helm.sh/helm-v3.15.3-linux-amd64.tar.gz | tar xzv
+   ./kubectl version --client
+   ```
 
-# Move binary to ~/bin
-mv linux-amd64/helm ~/bin/
-rm -rf linux-amd64
+4. Install Helm:
 
-# Verify installation
-~/bin/helm version
-```
-**Step 5:** Install k9s (optional but recommended)
+   ```bash
+   curl -fsSL https://get.helm.sh/helm-v3.15.3-linux-amd64.tar.gz | tar xzv
 
-```bash
-curl -sS https://webinstall.dev/k9s | bash
-```
+   mv linux-amd64/helm ~/bin/
 
-**Step 6:** Update PATH
+   rm -rf linux-amd64
 
-```bash
-echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
-```
+   ~/bin/helm version
+   ```
 
-### Verification
+5. Optional: Install k9s for interactive cluster management:
+
+   ```bash
+   curl -sS https://webinstall.dev/k9s | bash
+   ```
+
+6. Update your PATH:
+
+   ```bash
+   echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+   source ~/.bashrc
+   ```
+
+### 3.3 Verification
 
 Run the following commands to verify your setup:
 
 ```bash
 kubectl version --client
 helm version
-k9s version
+k9s version  # if installed
 ```
 
-**Expected output:** Version information for each tool without errors.
+Expected output: Version information for each tool without errors.
 
 ---
 
-## Creating a User Cluster
+## Chapter 4. Creating a User Cluster
 
-This section guides you through creating a new Kubernetes User Cluster via the Kubermatic Dashboard. The control plane components will be automatically provisioned in the Seed Cluster, while worker nodes will be created as VMs in your OpenStack project.
+This chapter guides you through creating a Kubernetes User Cluster using the Kubermatic Dashboard.
 
-> [!CAUTION]
-> **Project Quota:** Kubermatic deploys the worker nodes into your project and therefore the deployment is bound to the project quotas regarding flavors and count of worker nodes.
+### 4.1 About this task
 
-> [!IMPORTANT]
-> **Infrastructure changes (September 2025)**
-> 
-> The de.NBI Cloud Berlin infrastructure migrated to a new datacenter in September 2025. Key changes:
+When you create a User Cluster, KKP automatically provisions:
+
+- Control plane components in the Seed Cluster (API server, scheduler, controller-manager, etcd)
+- Worker nodes as VMs in your OpenStack project
+- OpenVPN connectivity between workers and the control plane
+
+> **Important:** The September 2025 infrastructure migration introduced the following changes:
 > - Always select **Berlin** as the datacenter (not "Berlin DMZ")
-> - Use floating IP pool **public** for deployments, dmz is only suitable in special and rare cases
-> - External access on the cluster resource requires additional `dmz` configuration (see configuring external access(#configuring-external-access))
+> - Use floating IP pool **public** for standard deployments
+> - External access requires additional DMZ network configuration
 
-### Estimated time
+### 4.2 Prerequisites
+
+- Access to the Kubermatic Dashboard at [k.denbi.bihealth.org](https://k.denbi.bihealth.org/)
+- OpenStack application credentials for your project
+- An SSH public key for worker node access
+
+### 4.3 Estimated time
 
 20–30 minutes
 
-### Procedure
+### 4.4 Procedure
 
-#### Step 1: Access Kubermatic Dashboard
+#### Step 1: Access the Kubermatic Dashboard
 
-1. Navigate to [k.denbi.bihealth.org](https://k.denbi.bihealth.org/)
-2. Log in with your LifeScienceAAI credentials
-3. Select or create a project
+1. Navigate to [k.denbi.bihealth.org](https://k.denbi.bihealth.org/).
+2. Log in with your LifeScienceAAI credentials.
+3. Select or create a project.
 
-#### Step 2: Upload SSH key
+#### Step 2: Upload an SSH key
 
 SSH keys enable direct access to worker nodes for troubleshooting.
 
-1. In your project, navigate to **SSH Keys**
-2. Click **Add SSH Key**
-3. Paste your public key and assign a name
-
-![Add SSH Key](img/02-add_ssh_key.png)
+1. In your project, navigate to **SSH Keys**.
+2. Click **Add SSH Key**.
+3. Paste your public key and assign a descriptive name.
 
 #### Step 3: Initiate cluster creation
 
-1. Click **Create Cluster**
+1. Click **Create Cluster**.
+2. Select **OpenStack** as the provider.
 
-![Create Cluster](img/01-create_cluster.png)
-
-3. Select **OpenStack** as the provider
-
-![Choose Provider](img/03-choose_provider.png)
-
-#### Step 4: Select datacenter
-
-The datacenter determines where your cluster's control plane namespace is created and which OpenStack region hosts your worker nodes.
+#### Step 4: Select the datacenter
 
 | Option | Status | Recommendation |
 |--------|--------|----------------|
-| **Berlin** | ✅ Active | Use this option (default) |
-| **Berlin DMZ** | ❌ Deprecated | Do not use |
-
-![Choose Datacenter](img/04-choose_datacenter.png)
+| Berlin | Active | Use this option |
+| Berlin DMZ | Deprecated | Do not use |
 
 #### Step 5: Configure cluster settings
 
+Configure the following settings for your cluster:
+
 | Setting | Recommendation |
 |---------|----------------|
-| **Cluster name** | Use a descriptive name (e.g., `prod-app-cluster`) |
-| **Control plane version** | Latest stable version, or match your application requirements |
-| **Network configuration** | `Cilium` (default) / `canal` |
-| **CNI Version** | Leave as default |
+| Cluster name | Use a descriptive name (for example, `prod-app-cluster`) |
+| Control plane version | Select the latest stable version or match your application requirements |
+| CNI plugin | Cilium (default) or Canal |
+| CNI version | Use default |
 
-> **Tip:** All the others settings can be left in default
-
-> **Tip:** You can upgrade Kubernetes versions later through the Kubermatic Dashboard. KKP handles the control plane upgrade in the Seed Cluster and coordinates worker node updates.
-
-![Cluster Setup](img/05-cluster_setup.png)
+> **Note:** You can upgrade Kubernetes versions later through the Kubermatic Dashboard.
 
 #### Step 6: Enter OpenStack credentials
 
-1. Set **Domain** to `Default`
-2. Choose **Application Credentials**
-3. Enter your **Application Credential ID**
-4. Enter your **Application Credential Secret**
+1. Set **Domain** to `Default`.
+2. Select **Application Credentials** as the authentication method.
+3. Enter your **Application Credential ID**.
+4. Enter your **Application Credential Secret**.
 
-> [!CAUTION]
-> **Multiple projects:** Kubermatic displays all projects you can access, but the cluster deployment to the project is associated with your application credentials. Verify you're using credentials for the correct project.
+> **Warning:** Kubermatic displays all projects you can access, but clusters deploy to the project associated with your application credentials. Verify you are using credentials for the correct project.
 
-![Application Credentials](img/06-application_credentials.png)
-
-**Network configuration:**
+Configure network settings:
 
 | Setting | Value |
 |---------|-------|
-| **Floating IP Pool** | `public` |
-| **Network** | Leave empty for auto-creation, or select existing |
-| **Subnet** | Leave empty for auto-creation, or select existing |
+| Floating IP Pool | `public` |
+| Network | Leave empty for auto-creation |
+| Subnet | Leave empty for auto-creation |
 
-> [!WARNING]
-> **Do not use `dmz` as the floating IP pool** for deployments. This will fail because:
-> - Kubermatic attempts to assign floating-IPs from the `dmz` pool to all worker nodes
-> - Most projects lack sufficient `dmz` floating-IPs (floating ips from the `dmz` pool need to be requested)
-> - Network topology conflicts prevent `dmz` floating-IP association with `public`-connected networks
+> **Warning:** Do not use `dmz` as the floating IP pool. This configuration fails because Kubermatic attempts to assign DMZ floating IPs to all worker nodes, and most projects lack sufficient DMZ allocations.
 
 #### Step 7: Configure worker nodes
 
-Create a **Machine Deployment** to define your worker nodes. These VMs will be created in your OpenStack project and join the cluster.
+Create a Machine Deployment to define your worker nodes:
 
 | Setting | Description | Example |
 |---------|-------------|---------|
-| **Name** | Machine deployment identifier | `worker-pool-1` |
-| **Replicas** | Number of worker nodes | `3` |
-| **Image** | Operating system image | `Ubuntu-24.04` |
-| **Flavor** | Instance size | `de.NBI large` |
+| Name | Machine deployment identifier | `worker-pool-1` |
+| Replicas | Number of worker nodes | `3` |
+| Image | Operating system image | `Ubuntu-24.04` |
+| Flavor | Instance size | `de.NBI large` |
 
-> **Note:** Type the image name manually — there is no dropdown. Verify available images in the [OpenStack Dashboard](https://denbi-cloud.bihealth.org/dashboard/project/images).
+> **Note:** Enter the image name manually. Verify available images in the [OpenStack Dashboard](https://denbi-cloud.bihealth.org/dashboard/project/images).
 
-**Recommended configurations:**
+**Recommended configurations by workload type:**
 
-| Workload Type | Replicas | Flavor | Notes |
+| Workload type | Replicas | Flavor | Notes |
 |---------------|----------|--------|-------|
 | Development | 1–2 | de.NBI small | Cost-effective for testing |
-| Testing/Staging | 2–3 | de.NBI medium | Moderate resources |
+| Staging | 2–3 | de.NBI medium | Moderate resources |
 | Production | 3+ | de.NBI large | High availability |
-
-![Node Setup](img/07-node_setup.png)
 
 #### Step 8: Review and create
 
-1. Review your configuration in the summary screen
-2. Click **Create Cluster**
+1. Review your configuration in the summary screen.
+2. Click **Create Cluster**.
 
-**What happens next:**
+After you click Create Cluster, KKP performs the following actions:
 
-1. KKP creates a new namespace in the Seed Cluster for your control plane
-2. Control plane components (API server, etcd, controller-manager, scheduler) are deployed
-3. OpenVPN server is configured for secure worker communication
-4. Worker node VMs are provisioned in your OpenStack project
-5. Workers connect to the control plane via VPN tunnel
-6. Cluster becomes ready for workloads
+1. Creates a namespace in the Seed Cluster for your control plane
+2. Deploys control plane components (API server, etcd, controller-manager, scheduler)
+3. Configures OpenVPN for secure worker communication
+4. Provisions worker node VMs in your OpenStack project
+5. Connects workers to the control plane via VPN tunnel
 
-> **Note:** Cluster creation may take up to **20 minutes** due to VM provisioning and component initialization.
+> **Note:** Cluster creation can take up to 20 minutes to complete.
 
-### Verification
+### 4.5 Verification
 
-After cluster creation completes:
+After cluster creation completes, verify connectivity:
 
-**Step 1:** Download kubeconfig
+1. In the Kubermatic Dashboard, select your cluster.
+2. Click **Download Kubeconfig**.
+3. Copy the kubeconfig file to the jumphost:
 
-1. In Kubermatic Dashboard, select your cluster
-2. Click the **Download Kubeconfig** button (top-right)
+   ```bash
+   scp ~/Downloads/kubeconfig <username>@jumphost-01.denbi.bihealth.org:~/.kube/config
+   ```
 
-![Kubeconfig Dashboard](img/08-kubeconfig_dashboard.png)
+4. Verify cluster connectivity:
 
-**Step 2:** Configure kubectl on jumphost
+   ```bash
+   kubectl cluster-info
+   kubectl get nodes -o wide
+   kubectl get all --all-namespaces
+   ```
 
-```bash
-# Option A: Copy file via SCP
-scp ~/Downloads/kubeconfig jumphost-01.denbi.bihealth.org:~/.kube/config
-
-# Option B: Paste content directly
-vim ~/.kube/config
-```
-
-**Step 3:** Verify cluster connectivity
-
-```bash
-# Check cluster info
-kubectl cluster-info
-
-# List nodes (should show your worker nodes)
-kubectl get nodes -o wide
-
-# View all resources
-kubectl get all --all-namespaces
-```
-
-**Expected output:**
+Expected output:
 
 ```
 NAME                           STATUS   ROLES    AGE   VERSION
@@ -412,122 +381,113 @@ worker-pool-1-abc123-yyyyy     Ready    <none>   10m   v1.30.0
 worker-pool-1-abc123-zzzzz     Ready    <none>   10m   v1.30.0
 ```
 
-> **Note:** Worker nodes show `<none>` for ROLES because control plane components run in the Seed Cluster, not on these nodes.
+> **Note:** Worker nodes display `<none>` for ROLES because control plane components run in the Seed Cluster.
 
 ---
 
-## Configuring external access
+## Chapter 5. Configuring external access
 
-To expose services to the internet, configure a load balancer with Traefik ingress controller connected to the openstack poroject network associated the `dmz` floating-ip network.
+To expose services to the internet, configure a load balancer with Traefik ingress controller connected to the DMZ network.
 
-### Network architecture
+### 5.1 Network architecture
 
 ```
 Internet
     │
     ▼
-dmz Floating IP (194.94.4.X)
+DMZ Floating IP (194.94.x.x)
     │
     ▼
 OpenStack Load Balancer
     │
     ▼
-Openstack DMZ Internal Network  ◄──  Router (connected to dmz pool)
+OpenStack DMZ Internal Network  ◄──  Router (connected to dmz pool)
     │
     ▼
-Kubernetes Worker Nodes (Traefik → Your Apps)
+Kubernetes Worker Nodes (Traefik → Applications)
 ```
 
-### Prerequisites
+### 5.2 Prerequisites
 
-- Active Kubernetes cluster
-- kubectl and Helm configured on jumphost
-- `dmz` floating IP allocated to openstack project (request via [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de))
+- An active Kubernetes cluster
+- kubectl and Helm configured on the jumphost
+- A DMZ floating IP allocated to your OpenStack project
 
-### Procedure
+> **Note:** To request a DMZ floating IP, contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de).
 
-#### Step 1: Create Openstack dmz network infrastructure
+### 5.3 Procedure
 
-In the OpenStack Dashboard, create the following resources:
+#### Step 1: Create OpenStack DMZ network infrastructure
 
-**1. Router:**
+Create the following resources in the OpenStack Dashboard:
 
-| Setting | Value |
-|---------|-------|
-| **Name** | `<project>_router_dmz_internal` |
-| **External Network** | `dmz` |
-
-**2. Network:**
+**Router:**
 
 | Setting | Value |
 |---------|-------|
-| **Name** | `<project>_dmz_internal_network` |
+| Name | `<project>_router_dmz_internal` |
+| External Network | `dmz` |
 
-**3. Subnet:**
+**Network:**
 
 | Setting | Value |
 |---------|-------|
-| **Name** | `<project>_dmz_internal_subnet` |
-| **Network** | `<project>_dmz_internal_network` |
-| **CIDR** | `10.0.100.0/24` (or your preferred range) |
-| **Gateway** | `10.0.100.1` |
-| **DHCP** | Enabled |
+| Name | `<project>_dmz_internal_network` |
 
-**4. Connect router to subnet:**
+**Subnet:**
 
-1. Navigate to **Network → Routers**
-2. Select your DMZ router
-3. Click **Add Interface**
-4. Select your `dmz` subnet
+| Setting | Value |
+|---------|-------|
+| Name | `<project>_dmz_internal_subnet` |
+| Network | `<project>_dmz_internal_network` |
+| CIDR | `10.0.100.0/24` |
+| Gateway | `10.0.100.1` |
+| DHCP | Enabled |
+
+**Connect the router to the subnet:**
+
+1. Navigate to **Network → Routers**.
+2. Select your DMZ router.
+3. Click **Add Interface**.
+4. Select your DMZ subnet.
 
 #### Step 2: Collect resource IDs
 
-Note the following IDs from OpenStack (**Network → Networks**):
+Record the following IDs from the OpenStack Dashboard (**Network → Networks**):
 
-| Resource | Where to Find |
-|----------|---------------|
-| **Openstack DMZ Network ID** | `<project>_dmz_internal_network` → ID |
-| **Openstack DMZ Subnet ID** | `<project>_dmz_internal_subnet` → ID |
-| **Openstack Worker Subnet ID** | `k8s-cluster-xxxxx-network` → Subnets → ID |
+| Resource | Location |
+|----------|----------|
+| DMZ Network ID | `<project>_dmz_internal_network` → ID |
+| DMZ Subnet ID | `<project>_dmz_internal_subnet` → ID |
+| Worker Subnet ID | `k8s-cluster-xxxxx-network` → Subnets → ID |
 
-#### Step 3: Install Traefik
-
-Add the Helm repository:
+#### Step 3: Add the Traefik Helm repository
 
 ```bash
 helm repo add traefik https://traefik.github.io/charts
 helm repo update
 ```
 
-#### Step 4: Create values file
+#### Step 4: Create the values file
 
-Create `traefik-values.yaml`:
+Create a file named `traefik-values.yaml` with the following content:
 
 ```yaml
 # Traefik configuration for de.NBI Cloud Berlin DMZ access
-# Replace  with your actual values
+# Replace placeholder values with your actual resource IDs
 
 service:
   annotations:
-    # Worker subnet for load balancer members
-    loadbalancer.openstack.org/member-subnet-id: ""
-    
-    # DMZ network for load balancer VIP
-    loadbalancer.openstack.org/network-id: ""
-    
-    # DMZ subnet for load balancer VIP
-    loadbalancer.openstack.org/subnet-id: ""
-  
+    loadbalancer.openstack.org/member-subnet-id: "<WORKER_SUBNET_ID>"
+    loadbalancer.openstack.org/network-id: "<DMZ_NETWORK_ID>"
+    loadbalancer.openstack.org/subnet-id: "<DMZ_SUBNET_ID>"
   spec:
-    # Your allocated DMZ floating IP
-    loadBalancerIP: ""
+    loadBalancerIP: "<DMZ_FLOATING_IP>"
 
-# Recommended: Enable access logs
 logs:
   access:
     enabled: true
 
-# Recommended: Resource limits
 resources:
   requests:
     cpu: "100m"
@@ -540,155 +500,132 @@ resources:
 #### Step 5: Deploy Traefik
 
 ```bash
-# Create namespace
 kubectl create namespace traefik
 
-# Install Traefik
 helm install traefik traefik/traefik \
   --namespace traefik \
   --values traefik-values.yaml
 ```
 
-### Verification
+### 5.4 Verification
 
-**Step 1:** Check pod status
+1. Check pod status:
 
-```bash
-kubectl get pods -n traefik
-```
+   ```bash
+   kubectl get pods -n traefik
+   ```
 
-**Expected:** Traefik pod in `Running` state
+   Expected: Traefik pod in `Running` state.
 
-**Step 2:** Check service and loadbalancer
+2. Check service and load balancer:
 
-```bash
-kubectl get svc -n traefik
-```
+   ```bash
+   kubectl get svc -n traefik
+   ```
 
-**Expected:** `EXTERNAL-IP` shows your `dmz` floating IP
+   Expected: `EXTERNAL-IP` displays your DMZ floating IP.
 
-**Step 3:** Check OpenStack load balancer
+3. Verify the OpenStack load balancer:
+   - Navigate to **Network → LoadBalancers** in OpenStack.
+   - Verify the load balancer shows `ACTIVE` / `ONLINE` status.
 
-1. Navigate to **Network → LoadBalancers** in OpenStack
-2. Verify the load balancer shows `ACTIVE` / `ONLINE` status
+### 5.5 Troubleshooting
 
-### Troubleshooting
-
-| Issue | Possible Cause | Solution |
-|-------|---------------|----------|
-| Load balancer stuck in `PENDING_CREATE` | Floating IP not in project | Request `dmz` IP via email |
-| Service shows `<pending>` external IP | Incorrect subnet IDs | Verify all three subnet/network IDs |
-| 503 errors | No backend pods | Deploy an application and create IngressRoute |
+| Issue | Possible cause | Solution |
+|-------|----------------|----------|
+| Load balancer stuck in `PENDING_CREATE` | Floating IP not allocated to project | Request DMZ IP via email |
+| Service shows `<pending>` external IP | Incorrect subnet or network IDs | Verify all resource IDs |
+| 503 errors | No backend pods available | Deploy an application and create IngressRoute |
 
 ---
 
-## Managing cluster access (RBAC)
+## Chapter 6. Managing cluster access with RBAC
 
 Kubernetes uses Role-Based Access Control (RBAC) to manage permissions. KKP integrates with LifeScienceAAI via OIDC, mapping user identities to cluster roles.
 
-### When to use this procedure
+### 6.1 When to use this procedure
+
+Use this procedure when:
 
 - Users cannot access the cluster via kubectl after the LifeScienceAAI migration (August 2025)
 - Adding new team members to an existing cluster
 - Modifying user permissions
 
-### Understanding KKP RBAC
+### 6.2 Understanding KKP RBAC
 
 ```
 LifeScienceAAI  ──▶  Kubermatic Dashboard  ──▶  User Cluster
- (Identity)           (Project RBAC)           (K8s RBAC)
+ (Identity)           (Project RBAC)           (Kubernetes RBAC)
 ```
 
-### Procedure
+### 6.3 Procedure
 
-**Step 1:** Access RBAC settings
+1. Log in to [Kubermatic Dashboard](https://k.denbi.bihealth.org/).
+2. Select your project.
+3. Select your cluster.
+4. Scroll to the **RBAC** section.
+5. Select **User** from the dropdown.
+6. Click **Add Binding**.
+7. Enter the user ID with the `@lifescience-ri.eu` suffix (for example, `user123@lifescience-ri.eu`).
+8. Select a role:
 
-1. Log in to [Kubermatic Dashboard](https://k.denbi.bihealth.org/)
-2. Select your project
-3. Select your cluster
-4. Scroll to the **RBAC** section
-5. Select **User** from the dropdown
+   | Role | Permissions | Use case |
+   |------|-------------|----------|
+   | cluster-admin | Full cluster access | Administrators |
+   | admin | Namespace-scoped admin | Team leads |
+   | edit | Read/write most resources | Developers |
+   | view | Read-only access | Auditors |
 
-**Step 2:** Identify user IDs
+9. Click **Save**.
 
-Locate the LifeScienceAAI ID for each user:
+> **Important:** Use the `@lifescience-ri.eu` domain suffix for all user IDs. You can find your LifeScienceAAI ID on your [de.NBI Cloud Portal](https://cloud.denbi.de/) profile.
 
-| Method | Steps |
-|--------|-------|
-| **Your own ID** | Check [de.NBI Cloud Portal](https://cloud.denbi.de/) profile |
-| **Project members** | View in Kubermatic project settings |
-| **Other users** | Request directly from the user |
-
-> [!IMPORTANT]
-> Use the `@lifescience-ri.eu` domain suffix for all user IDs.  
-> Example: `user123@lifescience-ri.eu`
-
-**Step 3:** Add user binding
-
-1. Click **Add Binding**
-2. Enter the user ID with `@lifescience-ri.eu` suffix
-3. Select a role:
-
-| Role | Permissions | Use Case |
-|------|-------------|----------|
-| **cluster-admin** | Full cluster access | Administrators |
-| **admin** | Namespace-scoped admin | Team leads |
-| **edit** | Read/write most resources | Developers |
-| **view** | Read-only access | Auditors, viewers |
-
-4. Click **Save**
-
-![RBAC Configuration](img/rbac.png)
-
-### Verification
+### 6.4 Verification
 
 Have the user test their access:
 
 ```bash
-# Check permissions
 kubectl auth can-i get pods
 kubectl auth can-i create deployments
-
-# List namespaces
 kubectl get namespaces
 ```
 
 ---
 
-## Best practices
+## Chapter 7. Best practices
 
-### Security
-
-| Recommendation | Description |
-|----------------|-------------|
-| **Rotate credentials** | Regenerate OpenStack application credentials annually |
-| **Limit cluster-admin** | Grant least-privilege roles where possible |
-| **Network policies** | Implement Cilium network policies for pod-to-pod traffic |
-| **Keep nodes updated** | Regularly upgrade Kubernetes and node OS images via Kubermatic |
-
-### High availability
+### 7.1 Security recommendations
 
 | Recommendation | Description |
 |----------------|-------------|
-| **Multiple replicas** | Run at least 3 worker nodes for production |
-| **Pod disruption budgets** | Define PDBs for critical workloads |
-| **Resource requests** | Always set CPU/memory requests for proper scheduling |
-| **Anti-affinity rules** | Spread critical pods across nodes |
+| Rotate credentials | Regenerate OpenStack application credentials annually |
+| Apply least privilege | Grant minimum required roles; avoid unnecessary cluster-admin access |
+| Implement network policies | Use Cilium network policies to control pod-to-pod traffic |
+| Maintain updates | Regularly upgrade Kubernetes and node OS images via Kubermatic |
 
-### Operations
+### 7.2 High availability recommendations
 
 | Recommendation | Description |
 |----------------|-------------|
-| **Monitoring** | Deploy Prometheus and Grafana for observability |
-| **Logging** | Centralize logs with Loki or EFK stack |
-| **Backups** | Use Velero for cluster and persistent volume backups |
-| **GitOps** | Manage configurations with Flux or ArgoCD |
+| Deploy multiple replicas | Run at least 3 worker nodes for production workloads |
+| Configure pod disruption budgets | Define PDBs for critical workloads |
+| Set resource requests | Always specify CPU and memory requests for proper scheduling |
+| Apply anti-affinity rules | Spread critical pods across nodes |
+
+### 7.3 Operations recommendations
+
+| Recommendation | Description |
+|----------------|-------------|
+| Enable monitoring | Deploy Prometheus and Grafana for observability |
+| Centralize logging | Use Loki or EFK stack for log aggregation |
+| Configure backups | Use Velero for cluster and persistent volume backups |
+| Adopt GitOps | Manage configurations with Flux or ArgoCD |
 
 ---
 
-## Quick reference
+## Appendix A. Quick reference
 
-### Useful commands
+### A.1 Common commands
 
 ```bash
 # Cluster information
@@ -703,41 +640,41 @@ kubectl get deployments --all-namespaces
 kubectl top nodes
 kubectl top pods
 
-# Debug pod issues
-kubectl describe pod 
-kubectl logs  --tail=100
+# Debugging
+kubectl describe pod <pod-name>
+kubectl logs <pod-name> --tail=100
 
-# Interactive cluster exploration
+# Interactive exploration
 k9s
 ```
 
-### Important URLs
+### A.2 Important URLs
 
 | Resource | URL |
 |----------|-----|
-| **Kubermatic Dashboard** | [k.denbi.bihealth.org](https://k.denbi.bihealth.org/) |
-| **OpenStack Dashboard** | [denbi-cloud.bihealth.org](https://denbi-cloud.bihealth.org/) |
-| **de.NBI Cloud Portal** | [cloud.denbi.de](https://cloud.denbi.de/) |
+| Kubermatic Dashboard | [k.denbi.bihealth.org](https://k.denbi.bihealth.org/) |
+| OpenStack Dashboard | [denbi-cloud.bihealth.org](https://denbi-cloud.bihealth.org/) |
+| de.NBI Cloud Portal | [cloud.denbi.de](https://cloud.denbi.de/) |
 
-### Support contacts
+### A.3 Support contacts
 
-| Type | Contact |
-|------|---------|
-| **General inquiries** | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
-| **DMZ IP requests** | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
+| Request type | Contact |
+|--------------|---------|
+| General inquiries | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
+| DMZ IP requests | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
 
 ---
 
-## Additional resources
+## Appendix B. Additional resources
 
-### Kubermatic documentation
+### B.1 Kubermatic documentation
 
 | Topic | Link |
 |-------|------|
 | KKP Architecture | [docs.kubermatic.com/kubermatic/v2.29/architecture](https://docs.kubermatic.com/kubermatic/v2.29/architecture/) |
 | KKP Concepts | [docs.kubermatic.com/kubermatic/v2.29/architecture/concept](https://docs.kubermatic.com/kubermatic/v2.29/architecture/concept/) |
 
-### Kubernetes & tools
+### B.2 Kubernetes and tools
 
 | Topic | Link |
 |-------|------|
@@ -750,21 +687,19 @@ k9s
 
 ---
 
-## Glossary
+## Appendix C. Glossary
 
 | Term | Definition |
 |------|------------|
-| **CNI** | Container Network Interface — plugin providing networking for pods (Cilium at de.NBI) |
-| **Control Plane** | Kubernetes management components (API server, scheduler, controller-manager, etcd) |
-| **Datacenter** | KKP concept defining a cloud region where clusters can be created |
-| **DMZ** | Demilitarized zone — network segment for externally accessible services |
-| **Floating IP** | Public IP address that can be associated with OpenStack resources |
-| **Kubeconfig** | Configuration file containing cluster connection details and credentials |
-| **Machine Deployment** | KKP resource defining a group of worker nodes with identical configuration |
-| **Master Cluster** | KKP cluster hosting the Dashboard, API, and Controller Manager |
-| **OIDC** | OpenID Connect — authentication protocol used by LifeScienceAAI |
-| **RBAC** | Role-Based Access Control — Kubernetes authorization mechanism |
-| **Seed Cluster** | KKP cluster hosting user cluster control planes in isolated namespaces |
-| **User Cluster** | Your Kubernetes cluster managed by KKP (worker nodes in your OpenStack project) |
-
----
+| CNI | Container Network Interface. A plugin that provides networking for pods. de.NBI uses Cilium as the default CNI. |
+| Control plane | The Kubernetes management components including API server, scheduler, controller-manager, and etcd. |
+| Datacenter | A KKP concept that defines a cloud region where clusters can be created. |
+| DMZ | Demilitarized zone. A network segment configured for externally accessible services. |
+| Floating IP | A public IP address that can be associated with OpenStack resources. |
+| Kubeconfig | A configuration file containing cluster connection details and authentication credentials. |
+| Machine Deployment | A KKP resource that defines a group of worker nodes with identical configuration. |
+| Master Cluster | The KKP cluster that hosts the Dashboard, API, and Controller Manager. |
+| OIDC | OpenID Connect. An authentication protocol used by LifeScienceAAI. |
+| RBAC | Role-Based Access Control. The Kubernetes authorization mechanism for managing permissions. |
+| Seed Cluster | The KKP cluster that hosts User Cluster control planes in isolated namespaces. |
+| User Cluster | A Kubernetes cluster managed by KKP, with worker nodes deployed in your OpenStack project. |
