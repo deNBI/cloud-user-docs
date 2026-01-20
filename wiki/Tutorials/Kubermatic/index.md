@@ -460,41 +460,47 @@ Unlike cloud providers with native Kubernetes integration (AWS, GCP, Azure), Ope
 
 #### Layer 4 vs Layer 7 load balancing
 
-| Approach | Kubernetes Resource | OSI Layer | Use Case |
-|----------|---------------------|-----------|----------|
-| **LoadBalancer Service** | `Service` (type: LoadBalancer) | L4 (TCP/UDP) | Direct TCP/UDP exposure, databases, non-HTTP services |
-| **Ingress Controller** | `Ingress` / `IngressRoute` + LoadBalancer | L7 (HTTP/HTTPS) | HTTP routing, TLS termination, path-based routing, multiple services behind one IP |
+| Approach | Kubernetes Resource(s) | OSI Layer | Use Case |
+|--------|------------------------|-----------|----------|
+| **LoadBalancer Service** | `Service` (type: LoadBalancer) | L4 (TCP/UDP) | Direct exposure of TCP/UDP services (databases, gRPC, custom protocols) |
+| **NodePort Service** | `Service` (type: NodePort) | L4 (TCP/UDP) | Low-level access, debugging, or external L4 load balancers |
+| **Ingress (Standard API)** | `Ingress` + Ingress Controller (`Deployment`/`DaemonSet` + `Service` type LoadBalancer) | L7 (HTTP/HTTPS) | HTTP routing, TLS termination, host/path-based routing using the standard Kubernetes API |
+| **IngressRoute (Controller-Specific CRD)** | `IngressRoute` (CRD) + Ingress Controller (`Deployment`/`DaemonSet` + `Service` type LoadBalancer) | L7 (HTTP/HTTPS) | Advanced HTTP routing (middleware, canary, retries) using controller-specific extensions (e.g., Traefik) |
+
+
+| Approach | Kubernetes Resource(s) | OSI Layer | Protocols | External IP | Routing Capabilities | Typical Use Case |
+|--------|------------------------|-----------|-----------|-------------|----------------------|------------------|
+| **NodePort Service** | `Service` (type: NodePort) | L4 | TCP / UDP | ❌ | None | Development, debugging, or external L4 load balancers |
+| **LoadBalancer Service** | `Service` (type: LoadBalancer) | L4 | TCP / UDP | ✅ | None | Direct exposure of databases and non-HTTP services |
+| **Ingress (Standard API)** | `Ingress` + Ingress Controller (`Deployment`/`DaemonSet` + `Service` type LoadBalancer) | L7 | HTTP / HTTPS | ✅ | Host- and path-based routing, TLS termination | Web apps, REST APIs, multiple services behind one IP |
+| **IngressRoute (CRD)** | `IngressRoute` (controller-specific CRD) + Ingress Controller (`Deployment`/`DaemonSet` + `Service` type LoadBalancer) | L7 | HTTP / HTTPS | ✅ | Advanced routing, middlewares, retries, canary | Complex production traffic management |
+
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                        EXTERNAL ACCESS OPTIONS                          │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  OPTION A: Direct LoadBalancer (L4)                                     │
-│  ─────────────────────────────────                                      │
-│                                                                         │
-│  Internet ──▶ LoadBalancer ──▶ Service ──▶ Pods                         │
-│               (Octavia)        (type:LB)                                │
-│                                                                         │
-│  ✅ Simple setup                                                        │
-│  ✅ Works for any TCP/UDP service                                       │
-│  ❌ One LoadBalancer per service (costly)                               │
-│  ❌ No HTTP-level features                                              │
-│                                                                         │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  OPTION B: Ingress Controller (L7)                                      │
-│  ─────────────────────────────────                                      │
-│                                                                         │
-│  Internet ──▶ LoadBalancer ──▶ Ingress Controller ──▶ Services ──▶ Pods │
-│               (Octavia)        (Traefik/NGINX)        (ClusterIP)       │
-│                                                                         │
-│  ✅ Multiple services behind one IP                                     │
-│  ✅ TLS termination, path routing, host routing                         │
-│  ✅ Cost-effective (one LoadBalancer)                                   │
-│  ❌ Additional component to manage                                      │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
+                                                                      
+  OPTION A: Direct LoadBalancer (L4)                                     
+  ─────────────────────────────────                                      
+                                                                         
+  Internet ──▶ LoadBalancer ──▶ Service ──▶ Pods                       
+               (Octavia)        (type:LB)                                
+                                                                         
+  ✅ Simple setup                                                        
+  ✅ Works for any TCP/UDP service                                       
+  ❌ One LoadBalancer per service (costly)                               
+  ❌ No HTTP-level features                                              
+                                                                         
+                                                                        
+  OPTION B: Ingress Controller (L7)                                       
+  ─────────────────────────────────                                       
+                                                                           
+  Internet ──▶ LoadBalancer ──▶ Ingress Controller ──▶ Services ──▶ Pods 
+               (Octavia)        (Traefik/NGINX)        (ClusterIP)         
+                                                                           
+  ✅ Multiple services behind one IP                                      
+  ✅ TLS termination, path routing, host routing                          
+  ✅ Cost-effective (one LoadBalancer)                                    
+   ❌ Additional component to manage                                       
+
 ```
 
 ### 5.2 OpenStack Cloud Controller Manager annotations
