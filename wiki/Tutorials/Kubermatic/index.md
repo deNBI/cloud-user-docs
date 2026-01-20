@@ -738,7 +738,7 @@ kubectl get svc -n traefik  # or your service namespace
 curl -v https://<DNS_Name/floating_ip>
 ```
 
-> 💡 **Tip:** For automated http/s-cert renewal via letscenrypt, you need to setup a DNS-entry for the allocated floating-ip from the `dmz` pool. When spinning up the cluster it can happen that the certification process fails, since the Ocatvia Loadbalancer often needs a longer time to be provisionend. Often it is enough to restart the pod which is in charge of running the certification.
+> 💡 **Tip:** For automated http/s-cert renewal via letscenrypt, you need to setup a DNS-entry for the allocated floating-ip from the `dmz` pool. When spinning up the cluster it can happen that the certification process fails, since the Octavia Loadbalancer often needs a longer time to be ready in openstack. Often it is enough to restart the pod which is in charge of running the certification.
 
 
 ### 5.9 Troubleshooting
