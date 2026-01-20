@@ -112,7 +112,8 @@ The following diagram illustrates the deployment topology for KKP on de.NBI Clou
 
 | Access Type | Flow | Purpose |
 |-------------|------|---------|
-| **Admin SSH** | Internet → Jumphost → Worker Nodes | CLI access, debugging, kubectl |
+| **Admin SSH** | Internet → Jumphost | debugging, kubectl |
+| **Admin SSH** | Internet → Jumphost -> Worker Nodes | debugging, CLI-access |
 | **App Traffic** | Internet → DMZ IP → Octavia LB → Worker Pods | End-user access to your applications |
 | **KKP Dashboard** | Internet → k.denbi.bihealth.org | Create and manage clusters |
 | **K8s Control** | Seed Cluster → VPN → Workers | API server, scheduler, controller |
