@@ -5,6 +5,59 @@
 
 ---
 
+## 📑 Table of Contents
+
+| | Chapter | Description |
+|:---:|:---|:---|
+| 📖 | [About this guide](#about-this-guide) | Audience and learning objectives |
+| | | |
+| **1** | [**Architecture**](#chapter-1-architecture) | KKP cluster hierarchy and components |
+| | ├─ [1.1 Cluster hierarchy](#11-cluster-hierarchy) | Master, Seed, and User Cluster model |
+| | ├─ [1.2 Cluster types](#12-cluster-types) | Purpose and location of each cluster |
+| | ├─ [1.3 Deployment topology](#13-denbi-cloud-berlin-deployment-topology) | de.NBI Cloud Berlin infrastructure |
+| | ├─ [1.4 Datacenters](#14-datacenters) | Available regions and floating IP pools |
+| | └─ [1.5 Key components](#15-key-components) | Dashboard, API, CNI, and more |
+| | | |
+| **2** | [**Prerequisites**](#chapter-2-prerequisites) | Requirements before you begin |
+| | ├─ [2.1 System requirements](#21-system-requirements) | OpenStack project, SSH, credentials |
+| | ├─ [2.2 Supported configurations](#22-supported-configurations) | Kubernetes versions, OS, CNI |
+| | └─ [2.3 Requesting access](#23-requesting-access) | How to get started |
+| | | |
+| **3** | [**Setting up the administration environment**](#chapter-3-setting-up-the-administration-environment) | Configure your jumphost |
+| | ├─ [3.1 Prerequisites](#31-prerequisites) | SSH access requirements |
+| | ├─ [3.2 Procedure](#32-procedure) | Install kubectl, Helm, k9s |
+| | └─ [3.3 Verification](#33-verification) | Confirm tool installation |
+| | | |
+| **4** | [**Creating a User Cluster**](#chapter-4-creating-a-user-cluster) | Deploy Kubernetes via KKP Dashboard |
+| | ├─ [4.1 Prerequisites](#41-prerequisites) | What you need |
+| | ├─ [4.2 Estimated time](#42-estimated-time) | 20–30 minutes |
+| | ├─ [4.3 Procedure](#43-procedure) | Step-by-step cluster creation |
+| | └─ [4.4 Verification](#44-verification) | Confirm cluster is running |
+| | | |
+| **5** | [**Configuring external access**](#chapter-5-configuring-external-access) | Expose services via Traefik |
+| | ├─ [5.1 Network architecture](#51-network-architecture) | DMZ load balancer topology |
+| | ├─ [5.2 Prerequisites](#52-prerequisites) | DMZ floating IP required |
+| | ├─ [5.3 Procedure](#53-procedure) | Create network, deploy Traefik |
+| | ├─ [5.4 Verification](#54-verification) | Confirm load balancer status |
+| | └─ [5.5 Troubleshooting](#55-troubleshooting) | Common issues and solutions |
+| | | |
+| **6** | [**Managing cluster access (RBAC)**](#chapter-6-managing-cluster-access-rbac) | User permissions and roles |
+| | ├─ [6.1 When to use this procedure](#61-when-to-use-this-procedure) | Use cases |
+| | ├─ [6.2 Understanding KKP RBAC](#62-understanding-kkp-rbac) | Identity flow |
+| | ├─ [6.3 Procedure](#63-procedure) | Add user bindings |
+| | └─ [6.4 Verification](#64-verification) | Test user access |
+| | | |
+| **7** | [**Best practices**](#chapter-7-best-practices) | Recommendations for production |
+| | ├─ [7.1 Security](#71-security) | Credentials, network policies |
+| | ├─ [7.2 High availability](#72-high-availability) | Replicas, PDBs, anti-affinity |
+| | └─ [7.3 Operations](#73-operations) | Monitoring, logging, backups |
+| | | |
+| 📎 | [**Appendix A: Quick reference**](#appendix-a-quick-reference) | Commands, URLs, contacts |
+| 📎 | [**Appendix B: Additional resources**](#appendix-b-additional-resources) | External documentation links |
+| 📎 | [**Appendix C: Glossary**](#appendix-c-glossary) | Term definitions |
+
+---
+
 ## About this guide
 
 This guide describes how to deploy and manage production-ready Kubernetes clusters on de.NBI Cloud Berlin infrastructure using **Kubermatic Kubernetes Platform (KKP)**. KKP automates the deployment, scaling, and lifecycle management of Kubernetes clusters on OpenStack.
