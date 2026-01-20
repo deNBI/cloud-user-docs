@@ -70,29 +70,62 @@ The following table describes each cluster type in the KKP hierarchy:
 The following diagram illustrates the deployment topology for KKP on de.NBI Cloud Berlin:
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│                    de.NBI Cloud Berlin                       │
-├──────────────────────────────────────────────────────────────┤
-│                                                              │
-│   ┌──────────────────────────────────────────────────────┐   │
-│   │     KUBERMATIC (Master + Seed) — Managed by de.NBI   │   │
-│   │              k.denbi.bihealth.org                    │   │
-│   └──────────────────────────┬───────────────────────────┘   │
-│                              │                               │
-│   ┌──────────────────────────▼───────────────────────────┐   │
-│   │             YOUR OPENSTACK PROJECT                   │   │
-│   │                                                      │   │
-│   │    User Cluster Worker Nodes (VMs you manage)        │   │
-│   │    Networks: public / dmz                            │   │
-│   └──────────────────────────────────────────────────────┘   │
-│                                                              │
-│   ┌──────────────────────────────────────────────────────┐   │
-│   │   JUMPHOST — jumphost-01/02.denbi.bihealth.org       │   │
-│   │   CLI access: kubectl, helm, k9s                     │   │
-│   └──────────────────────────────────────────────────────┘   │
-│                                                              │
-└──────────────────────────────────────────────────────────────┘
+                                 ┌──────────────┐
+                                 │   INTERNET   │
+                                 └──────┬───────┘
+                                        │
+                ┌───────────────────────┴───────────────────────┐
+                │                                               │
+                ▼                                               ▼
+┌───────────────────────────────────┐               ┌─────────────────────┐
+│  jumphost-01.denbi.bihealth.org   │               │  `dmz` Floating IP  │
+│  jumphost-02.denbi.bihealth.org   │               │   (194.94.x.x)      │
+└───────────────────────────────────┘               └─────────┬───────────┘
+                │                                             │
+                │                                             │
+                │                                             │
+                |                                             |
+                │                                             │
+                │  ┌────────────────────────────────────────────────────────┐
+                │  │  YOUR OPENSTACK PROJECT                  │             │
+                │  │                                          │             │
+                │  │                                          ▼             │
+                │  │                              ┌─────────────────────┐   │
+                │  │                              │   OCTAVIA           │   │
+                │  │                              │   LOADBALANCER      │   │
+                │  │                              └──────────┬──────────┘   │
+                │  │                                         │              │
+                │  │         ┌───────────────────────────────┘              │
+                │  │         │                                              │
+                │  │         ▼                                              │
+                │  │  ┌─────────────────────────────────────────────────┐   │
+                │  │  │                 WORKER NODES                    │   │
+                └─ ┼──┼──▶                                              │   │
+                   │  │      Worker-01    Worker-02    Worker-03  ...   │   │
+                   │  │                                                 │   │
+                   │  └─────────────────────────────────────────────────┘   │
+                   │                                                        │
+                   └────────────────────────────────────────────────────────┘
 ```
+
+**Access paths:**
+
+| Access Type | Flow | Purpose |
+|-------------|------|---------|
+| **Admin SSH** | Internet → Jumphost → Worker Nodes | CLI access, debugging, kubectl |
+| **App Traffic** | Internet → DMZ IP → Octavia LB → Worker Pods | End-user access to your applications |
+| **KKP Dashboard** | Internet → k.denbi.bihealth.org | Create and manage clusters |
+| **K8s Control** | Seed Cluster → VPN → Workers | API server, scheduler, controller |
+
+**Key points:**
+
+- **Jumphosts** (`jumphost-01/02.denbi.bihealth.org`) — Your SSH entry point for administration. From here you can connect to worker nodes and run `kubectl`.
+
+- **Octavia LoadBalancer** — Created automatically by Kubernetes when you deploy a `Service` of type `LoadBalancer`. Lives inside your OpenStack project.
+
+- **DMZ Floating IP** — Public IP address (194.94.x.x) attached to the Octavia LoadBalancer. This is how external users reach your applications.
+
+- **VPN Tunnel** — Secure connection between the Seed Cluster (managed by de.NBI) and your worker nodes. Carries all Kubernetes control plane traffic.
 
 ### 1.4 Datacenters
 
@@ -416,35 +449,101 @@ worker-pool-1-abc123-zzzzz     Ready    <none>   10m   v1.30.0
 
 ## Chapter 5. Configuring external access
 
-To expose services to the internet, configure a load balancer with Traefik ingress controller connected to the OpenStack project network associated with the `dmz` floating-IP network.
+This chapter explains how to expose your Kubernetes services to the internet using OpenStack LoadBalancers and Ingress controllers.
 
-### 5.1 Network architecture
+### 5.1 Understanding external access in OpenStack
+
+Unlike cloud providers with native Kubernetes integration (AWS, GCP, Azure), OpenStack requires the **OpenStack Cloud Controller Manager (CCM)** to provision LoadBalancers. When you create a Kubernetes `Service` of type `LoadBalancer`, the CCM communicates with OpenStack Octavia to create a load balancer in your project.
+
+#### Layer 4 vs Layer 7 load balancing
+
+| Approach | Kubernetes Resource | OSI Layer | Use Case |
+|----------|---------------------|-----------|----------|
+| **LoadBalancer Service** | `Service` (type: LoadBalancer) | L4 (TCP/UDP) | Direct TCP/UDP exposure, databases, non-HTTP services |
+| **Ingress Controller** | `Ingress` / `IngressRoute` + LoadBalancer | L7 (HTTP/HTTPS) | HTTP routing, TLS termination, path-based routing, multiple services behind one IP |
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        EXTERNAL ACCESS OPTIONS                          │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  OPTION A: Direct LoadBalancer (L4)                                     │
+│  ─────────────────────────────────                                      │
+│                                                                         │
+│  Internet ──▶ LoadBalancer ──▶ Service ──▶ Pods                         │
+│               (Octavia)        (type:LB)                                │
+│                                                                         │
+│  ✅ Simple setup                                                        │
+│  ✅ Works for any TCP/UDP service                                       │
+│  ❌ One LoadBalancer per service (costly)                               │
+│  ❌ No HTTP-level features                                              │
+│                                                                         │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  OPTION B: Ingress Controller (L7)                                      │
+│  ─────────────────────────────────                                      │
+│                                                                         │
+│  Internet ──▶ LoadBalancer ──▶ Ingress Controller ──▶ Services ──▶ Pods │
+│               (Octavia)        (Traefik/NGINX)        (ClusterIP)       │
+│                                                                         │
+│  ✅ Multiple services behind one IP                                     │
+│  ✅ TLS termination, path routing, host routing                         │
+│  ✅ Cost-effective (one LoadBalancer)                                   │
+│  ❌ Additional component to manage                                      │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### 5.2 OpenStack Cloud Controller Manager annotations
+
+The OpenStack CCM uses **annotations** on `Service` resources to configure Octavia LoadBalancers. These annotations work with **any** LoadBalancer service, not just Ingress controllers.
+
+**Key annotations:**
+
+| Annotation | Description |
+|------------|-------------|
+| `loadbalancer.openstack.org/network-id` | OpenStack network for the LoadBalancer VIP |
+| `loadbalancer.openstack.org/subnet-id` | OpenStack subnet for the LoadBalancer VIP |
+| `loadbalancer.openstack.org/member-subnet-id` | Subnet where your worker nodes are connected |
+| `loadbalancer.openstack.org/floating-network-id` | External network for floating IP (alternative to manual assignment) |
+
+> 📖 **Reference:** For all available annotations, see the [OpenStack Cloud Provider documentation](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/openstack-cloud-controller-manager/expose-applications-using-loadbalancer-type-service.md).
+
+### 5.3 Network architecture for DMZ access
+
+At de.NBI Cloud Berlin, externally accessible services require a connection to the **DMZ network**, which provides public IP addresses (194.94.x.x range).
 
 ```
 Internet
     │
     ▼
-dmz Floating IP (194.94.4.X)
+DMZ Floating IP (194.94.4.X)
     │
     ▼
-OpenStack Load Balancer
+OpenStack Octavia LoadBalancer
     │
     ▼
-OpenStack DMZ Internal Network  ◄──  Router (connected to dmz pool)
+DMZ Internal Network  ◄──  Router (connected to dmz pool)
     │
     ▼
-Kubernetes Worker Nodes (Traefik → Your Apps)
+Kubernetes Worker Nodes ──▶ Your Applications
 ```
 
-### 5.2 Prerequisites
+> ⚠️ **Why this setup?** The default `public` network in your project provides internal connectivity but not internet-routable IPs. To expose services externally, you must create a network topology connected to the `dmz` floating IP pool.
 
-- Active Kubernetes cluster
-- kubectl and Helm configured on jumphost
-- `dmz` floating IP allocated to OpenStack project (request via [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de))
+### 5.4 Prerequisites
 
-### 5.3 Procedure
+- ✅ Active Kubernetes cluster
+- ✅ kubectl and Helm configured on jumphost
+- ✅ `dmz` floating IP allocated to your OpenStack project
 
-#### Step 1: Create OpenStack DMZ network infrastructure
+> 📧 **Request DMZ floating IPs:** Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)
+
+### 5.5 Procedure: Setting up DMZ network infrastructure
+
+Before deploying any LoadBalancer service with external access, create the required OpenStack network infrastructure.
+
+#### Step 1: Create OpenStack DMZ network resources
 
 In the OpenStack Dashboard, create the following resources:
 
@@ -476,56 +575,79 @@ In the OpenStack Dashboard, create the following resources:
 1. Navigate to **Network → Routers**
 2. Select your DMZ router
 3. Click **Add Interface**
-4. Select your `dmz` subnet
+4. Select your DMZ subnet
 
 #### Step 2: Collect resource IDs
 
 Note the following IDs from OpenStack (**Network → Networks**):
 
-| Resource | Where to Find |
-|----------|---------------|
-| **OpenStack DMZ Network ID** | `<project>_dmz_internal_network` → ID |
-| **OpenStack DMZ Subnet ID** | `<project>_dmz_internal_subnet` → ID |
-| **OpenStack Worker Subnet ID** | `k8s-cluster-xxxxx-network` → Subnets → ID |
+| Resource | Where to Find | Used For |
+|----------|---------------|----------|
+| **DMZ Network ID** | `<project>_dmz_internal_network` → ID | `loadbalancer.openstack.org/network-id` |
+| **DMZ Subnet ID** | `<project>_dmz_internal_subnet` → ID | `loadbalancer.openstack.org/subnet-id` |
+| **Worker Subnet ID** | `k8s-cluster-xxxxx-network` → Subnets → ID | `loadbalancer.openstack.org/member-subnet-id` |
 
-#### Step 3: Install Traefik
+### 5.6 Option A: Direct LoadBalancer service (L4)
 
-Add the Helm repository:
+Use this approach when you need to expose a single service directly, especially for non-HTTP protocols.
+
+**Example: Exposing a TCP service**
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-tcp-service
+  annotations:
+    # Required: Network configuration for DMZ access
+    loadbalancer.openstack.org/network-id: ""
+    loadbalancer.openstack.org/subnet-id: ""
+    loadbalancer.openstack.org/member-subnet-id: ""
+spec:
+  type: LoadBalancer
+  loadBalancerIP: ""  # Your allocated DMZ IP
+  ports:
+    - port: 5432
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    app: my-database
+```
+
+### 5.7 Option B: Ingress controller (L7) — Traefik example
+
+Use this approach when you need HTTP/HTTPS routing, TLS termination, or want to expose multiple services behind a single IP address.
+
+#### Step 1: Add Traefik Helm repository
 
 ```bash
 helm repo add traefik https://traefik.github.io/charts
 helm repo update
 ```
 
-#### Step 4: Create values file
+#### Step 2: Create values file
 
 Create `traefik-values.yaml`:
 
 ```yaml
-# Traefik configuration for de.NBI Cloud Berlin DMZ access
-# Replace <PLACEHOLDER> with your actual values
+# Traefik Ingress Controller for de.NBI Cloud Berlin
+# Replace  with your actual values
 
 service:
   annotations:
-    # Worker subnet for load balancer members
-    loadbalancer.openstack.org/member-subnet-id: "<WORKER_SUBNET_ID>"
-    
-    # DMZ network for load balancer VIP
-    loadbalancer.openstack.org/network-id: "<DMZ_NETWORK_ID>"
-    
-    # DMZ subnet for load balancer VIP
-    loadbalancer.openstack.org/subnet-id: "<DMZ_SUBNET_ID>"
-  
+    # These annotations configure the Octavia LoadBalancer
+    loadbalancer.openstack.org/network-id: ""
+    loadbalancer.openstack.org/subnet-id: ""
+    loadbalancer.openstack.org/member-subnet-id: ""
   spec:
-    # Your allocated DMZ floating IP
-    loadBalancerIP: "<DMZ_FLOATING_IP>"
+    loadBalancerIP: ""
 
-# Recommended: Enable access logs
+# Enable access logs for debugging
 logs:
   access:
     enabled: true
 
-# Recommended: Resource limits
+# Resource limits (adjust based on expected traffic)
 resources:
   requests:
     cpu: "100m"
@@ -535,48 +657,95 @@ resources:
     memory: "512Mi"
 ```
 
-#### Step 5: Deploy Traefik
+#### Step 3: Deploy Traefik
 
 ```bash
-# Create namespace
 kubectl create namespace traefik
 
-# Install Traefik
 helm install traefik traefik/traefik \
   --namespace traefik \
   --values traefik-values.yaml
 ```
 
-### 5.4 Verification
+#### Step 4: Create IngressRoute for your application
 
-**Step 1:** Check pod status
+Once Traefik is running, expose your applications using `IngressRoute` (Traefik CRD) or standard `Ingress` resources:
 
-```bash
-kubectl get pods -n traefik
+**Example IngressRoute:**
+
+```yaml
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: my-app-route
+  namespace: my-app
+spec:
+  entryPoints:
+    - web       # HTTP (port 80)
+    - websecure # HTTPS (port 443)
+  routes:
+    - match: Host(`myapp.example.com`)
+      kind: Rule
+      services:
+        - name: my-app-service
+          port: 80
 ```
 
-**Expected:** Traefik pod in `Running` state 
+**Example standard Ingress:**
 
-**Step 2:** Check service and load balancer
-
-```bash
-kubectl get svc -n traefik
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-app-ingress
+  namespace: my-app
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: myapp.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-app-service
+                port:
+                  number: 80
 ```
 
-**Expected:** `EXTERNAL-IP` shows your `dmz` floating IP 
+> 💡 **Tip:** You can also use **NGINX Ingress Controller** or other ingress controllers. The OpenStack annotations work the same way — just apply them to the ingress controller's LoadBalancer service.
 
-**Step 3:** Check OpenStack load balancer
+### 5.8 Verification
 
-1. Navigate to **Network → LoadBalancers** in OpenStack
-2. Verify the load balancer shows `ACTIVE` / `ONLINE` status 
+**Step 1:** Check LoadBalancer service status
 
-### 5.5 Troubleshooting
+```bash
+kubectl get svc -n traefik  # or your service namespace
+```
+
+**Expected:** `EXTERNAL-IP` shows your DMZ floating IP (not `<pending>`)
+
+**Step 2:** Check OpenStack LoadBalancer
+
+1. Navigate to **Network → Load Balancers** in OpenStack Dashboard
+2. Verify status is `ACTIVE` / `ONLINE`
+
+**Step 3:** Test external connectivity
+
+```bash
+curl -v http://
+```
+
+### 5.9 Troubleshooting
 
 | Issue | Possible Cause | Solution |
 |-------|---------------|----------|
-| 🔴 Load balancer stuck in `PENDING_CREATE` | Floating IP not in project | Request `dmz` IP via email |
-| 🔴 Service shows `<pending>` external IP | Incorrect subnet IDs | Verify all three subnet/network IDs |
-| 🔴 503 errors | No backend pods | Deploy an application and create IngressRoute |
+| 🔴 LoadBalancer stuck in `PENDING_CREATE` | Floating IP not allocated to project | Request DMZ IP via [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
+| 🔴 Service shows `<pending>` external IP | Incorrect network/subnet IDs in annotations | Verify all three IDs match your OpenStack resources |
+| 🔴 LoadBalancer `ACTIVE` but no connectivity | DMZ router not connected to subnet | Check router interfaces in OpenStack |
+| 🔴 503/504 errors | No healthy backend pods | Check pod status with `kubectl get pods` |
+| 🔴 Connection refused | Ingress/IngressRoute misconfigured | Verify host matching and service selectors |
 
 ---
 
@@ -750,14 +919,19 @@ k9s
 
 | Term | Definition |
 |------|------------|
+| **CCM** | Cloud Controller Manager — Kubernetes component that integrates with cloud providers (OpenStack in this case) |
 | **CNI** | Container Network Interface — plugin providing networking for pods (Cilium at de.NBI) |
 | **Control Plane** | Kubernetes management components (API server, scheduler, controller-manager, etcd) |
 | **Datacenter** | KKP concept defining a cloud region where clusters can be created |
 | **DMZ** | Demilitarized zone — network segment for externally accessible services |
 | **Floating IP** | Public IP address that can be associated with OpenStack resources |
+| **Ingress** | Kubernetes resource for L7 HTTP/HTTPS routing to services |
+| **IngressRoute** | Traefik-specific CRD for advanced HTTP routing |
 | **Kubeconfig** | Configuration file containing cluster connection details and credentials |
+| **LoadBalancer** | Kubernetes service type that provisions external load balancers via the cloud provider |
 | **Machine Deployment** | KKP resource defining a group of worker nodes with identical configuration |
 | **Master Cluster** | KKP cluster hosting the Dashboard, API, and Controller Manager |
+| **Octavia** | OpenStack's load balancing service |
 | **OIDC** | OpenID Connect — authentication protocol used by LifeScienceAAI |
 | **RBAC** | Role-Based Access Control — Kubernetes authorization mechanism |
 | **Seed Cluster** | KKP cluster hosting user cluster control planes in isolated namespaces |
