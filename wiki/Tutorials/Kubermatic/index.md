@@ -118,7 +118,8 @@ Before deploying a Kubernetes cluster, verify that you meet the following requir
 | **Worker Node OS** | `Ubuntu 22.04`, `Ubuntu 24.04` |
 | **CNI** | `Cilium (default)`, `Canal` |
 
-> 💡 **Tip:** You can check the available images in the Openstack Dashboard -> [de.NBI Cloud Berlin Images](https://denbi-cloud.bihealth.org/dashboard/project/images)
+> 💡 **Tip:**
+> You can check the available images in the Openstack Dashboard -> [de.NBI Cloud Berlin Images](https://denbi-cloud.bihealth.org/dashboard/project/images)
 
 ### 2.3 Requesting access
 
@@ -128,7 +129,8 @@ Complete the following steps to request access to the KKP platform:
 2. Specify **"Kubernetes"** as a required service in your application
 3. After approval, access Kubermatic at your site's dashboard *(Berlin: **[k.denbi.bihealth.org](https://k.denbi.bihealth.org/)**)*
 
-> 💡 **Need help with de.NBI Cloud Berlin?** Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)
+> 💡 **Need help with de.NBI Cloud Berlin?**
+> Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)
 
 > *For other de.NBI Cloud sites, please contact your respective site's support team.*
 
@@ -218,7 +220,8 @@ k9s version
 
 This chapter guides you through creating a Kubernetes User Cluster using the Kubermatic Dashboard. The control plane components will be automatically provisioned in the Seed Cluster, while worker nodes will be created as VMs in your OpenStack project.
 
-> ⚠️ **Project Quota:** Kubermatic deploys the worker nodes into your project and therefore the deployment is bound to the project quotas regarding flavors and count of worker nodes.
+> ⚠️ **Project Quota:**
+> Kubermatic deploys the worker nodes into your project and therefore the deployment is bound to the project quotas regarding flavors and count of worker nodes.
 
 > ⚠️ **Infrastructure changes (September 2025) — Berlin only**
 > 
@@ -288,9 +291,11 @@ The datacenter determines where your cluster's control plane namespace is create
 | **Network configuration** | `Cilium` (default) / `Canal` |
 | **CNI Version** | Leave as default |
 
-> 💡 **Tip:** All other settings can be left as default.
+> 💡 **Tip:**
+> All other settings can be left as default.
 
-> 💡 **Tip:** You can upgrade Kubernetes versions later through the Kubermatic Dashboard. KKP handles the control plane upgrade in the Seed Cluster and coordinates worker node updates.
+> 💡 **Tip:**
+> You can upgrade Kubernetes versions later through the Kubermatic Dashboard. KKP handles the control plane upgrade in the Seed Cluster and coordinates worker node updates.
 
 ![Cluster Setup](img/05-cluster_setup.png)
 
@@ -332,7 +337,8 @@ Create a **Machine Deployment** to define your worker nodes. These VMs will be c
 | **Image** | Operating system image | `Ubuntu-24.04` |
 | **Flavor** | Instance size | `de.NBI large` |
 
-> 📝 **Note:** Type the image name manually — there is no dropdown. Verify available images in the OpenStack Dashboard *(Berlin: [denbi-cloud.bihealth.org](https://denbi-cloud.bihealth.org/dashboard/project/images))*.
+> 📝 **Note:**
+> Type the image name manually — there is no dropdown. Verify available images in the OpenStack Dashboard *(Berlin: [denbi-cloud.bihealth.org](https://denbi-cloud.bihealth.org/dashboard/project/images))*.
 
 **Recommended configurations:**
 
@@ -358,7 +364,8 @@ Create a **Machine Deployment** to define your worker nodes. These VMs will be c
 5. Workers connect to the control plane via VPN tunnel
 6. Cluster becomes ready for workloads
 
-> 🕐 **Note:** Cluster creation may take up to **20 minutes** due to VM provisioning and component initialization.
+> 🕐 **Note:**
+> Cluster creation may take up to **20 minutes** due to VM provisioning and component initialization.
 
 ### 4.4 Verification
 
@@ -411,8 +418,8 @@ worker-pool-1-abc123-zzzzz     Ready    <none>   10m   v1.30.0
 
 This chapter explains how to expose your Kubernetes services to the internet using OpenStack LoadBalancers and Ingress controllers.
 
-> ⚠️ **Open Ports on Floating-IP Pool DMZ (Berlin-specific)** By default, the firewall permits inbound traffic on ports 80 (HTTP) and 443 (HTTPS) only.
-> 
+> ⚠️ **Open Ports on Floating-IP Pool DMZ (Berlin-specific)**
+> By default, the firewall permits inbound traffic on ports 80 (HTTP) and 443 (HTTPS) only.
 > For services requiring access on ports other than 80 or 443, the load balancer manages traffic forwarding based on its configuration. Direct modification of the default firewall rules is restricted to exceptional circumstances where the load balancer configuration cannot accommodate the requirements.
 
 ### 5.1 Understanding external access in OpenStack
@@ -491,7 +498,8 @@ DMZ Internal Network  ◄──  Router (connected to dmz pool)
 Kubernetes Worker Nodes ──▶ Your Applications
 ```
 
-> ⚠️ **Why this setup? (Berlin-specific)** The default `public` network in your project provides internal connectivity but not internet-routable IPs. To expose services externally, you must create a network topology connected to the `dmz` floating IP pool.
+> ⚠️ **Why this setup? (Berlin-specific)**
+> The default `public` network in your project provides internal connectivity but not internet-routable IPs. To expose services externally, you must create a network topology connected to the `dmz` floating IP pool.
 
 ### 5.4 Prerequisites
 
@@ -677,7 +685,8 @@ spec:
                   number: 80
 ```
 
-> 💡 **Tip:** You can also use **NGINX Ingress Controller** or other ingress controllers. The OpenStack annotations work the same way — just apply them to the ingress controller's LoadBalancer service.
+> 💡 **Tip:** You can also use **NGINX Ingress Controller**
+> or other ingress controllers. The OpenStack annotations work the same way — just apply them to the ingress controller's LoadBalancer service.
 
 ### 5.8 Verification
 
@@ -700,8 +709,8 @@ kubectl get svc -n traefik  # or your service namespace
 curl -v https://<DNS_Name/floating_ip>
 ```
 
-> 💡 **Tip: Automated HTTPS Certificate Renewal via Let's Encrypt** To enable automated certificate renewal through Let's Encrypt, a DNS entry must be configured for the allocated floating IP from the dmz pool.
-> 
+> 💡 **Tip: Automated HTTPS Certificate Renewal via Let's Encrypt**
+> To enable automated certificate renewal through Let's Encrypt, a DNS entry must be configured for the allocated floating IP from the dmz pool.
 > During initial cluster deployment, the certificate provisioning process may fail due to the Octavia load balancer requiring additional time to reach a ready state in OpenStack. In most cases, restarting the pod responsible for certificate management is sufficient to resolve this issue.
 
 
@@ -753,7 +762,8 @@ Locate the LifeScienceAAI ID for each user:
 | **Project members** | View in Kubermatic project settings |
 | **Other users** | Request directly from the user |
 
-> 🔔 **Important:** Use the `@lifescience-ri.eu` domain suffix for all user IDs.  
+> 🔔 **Important:**
+> Use the `@lifescience-ri.eu` domain suffix for all user IDs.  
 > Example: `user123@lifescience-ri.eu`
 
 **Step 3:** Add user binding
