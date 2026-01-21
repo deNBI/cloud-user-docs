@@ -9,6 +9,8 @@
 
 This guide describes how to deploy and manage production-ready Kubernetes clusters on de.NBI Cloud Berlin infrastructure using **Kubermatic Kubernetes Platform (KKP)**. KKP automates the deployment, scaling, and lifecycle management of Kubernetes clusters on OpenStack.
 
+> ⚠️ **Site-specific documentation:** This guide is written and maintained by the de.NBI Cloud Berlin team. URLs, support contacts, and specific configurations in this document apply to **de.NBI Cloud Berlin only**. Other de.NBI Cloud sites offering Kubermatic (e.g., Bielefeld, Heidelberg, Tübingen) may have different endpoints and configurations — please contact your respective site for site-specific information.
+
 ### Audience
 
 This guide is intended for:
@@ -33,27 +35,8 @@ After completing this guide, you will be able to:
 
 KKP organizes infrastructure into three cluster types arranged in a hierarchical model:
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│                      MASTER CLUSTER                          │
-│         Dashboard  ·  KKP API  ·  Controller Manager         │
-└──────────────────────────────┬───────────────────────────────┘
-                               │
-                               ▼
-┌──────────────────────────────────────────────────────────────┐
-│                       SEED CLUSTER                           │
-│      Hosts control plane components for each User Cluster    │
-│      (API Server, Scheduler, Controller Manager, etcd)       │
-└───────────────┬─────────────────────────────┬────────────────┘
-                │                             │
-                ▼                             ▼
-┌───────────────────────────┐   ┌───────────────────────────┐
-│      USER CLUSTER A       │   │      USER CLUSTER B       │
-│      (Your Project)       │   │    (Another Project)      │
-│       Worker Nodes        │   │       Worker Nodes        │
-│      (OpenStack VMs)      │   │      (OpenStack VMs)      │
-└───────────────────────────┘   └───────────────────────────┘
-```
+
+![cluster-hierarchy](img/01-cluster-hierarchy.svg)
 
 ### 1.2 Cluster types
 
@@ -61,52 +44,15 @@ The following table describes each cluster type in the KKP hierarchy:
 
 | Cluster Type | Purpose | Location |
 |--------------|---------|----------|
-| **Master Cluster** | Central management plane hosting the KKP Dashboard, API, and Controller Manager. Stores all user data, projects, SSH keys, and infrastructure provider credentials. | **Managed by de.NBI** |
-| **Seed Cluster** | Hosts Kubernetes control plane components (API server, scheduler, controller-manager, etcd) for each User Cluster in isolated namespaces. Includes monitoring (Prometheus) and secure VPN connectivity. | **Managed by de.NBI** |
-| **User Cluster** | Your Kubernetes cluster hosted in your Openstack project. Contains only worker nodes running your workloads. Control plane runs in the Seed Cluster. Limited by your project quota  | **Managed by Kubermatic in the User Projects** |
+| **Master Cluster** | Central management plane hosting the KKP Dashboard, API, and Controller Manager. Stores all user data, projects, SSH keys, and infrastructure provider credentials. | **Managed by de.NBI Cloud site** |
+| **Seed Cluster** | Hosts Kubernetes control plane components (API server, scheduler, controller-manager, etcd) for each User Cluster in isolated namespaces. Includes monitoring (Prometheus) and secure VPN connectivity. | **Managed by de.NBI Cloud site** |
+| **User Cluster** | Your Kubernetes cluster hosted in your Openstack project. Contains only worker nodes running your workloads. Control plane runs in the Seed Cluster. Limited by your project quota  | **Managed by Project user in Kubermatic Kubernetes Platfom (KKP)** |
 
 ### 1.3 de.NBI Cloud Berlin deployment topology
 
 The following diagram illustrates the deployment topology for KKP on de.NBI Cloud Berlin:
 
-```
-                                 ┌──────────────┐
-                                 │   INTERNET   │
-                                 └──────┬───────┘
-                                        │
-                ┌───────────────────────┴───────────────────────┐
-                │                                               │
-                ▼                                               ▼
-┌───────────────────────────────────┐               ┌─────────────────────┐
-│  jumphost-01.denbi.bihealth.org   │               │  `dmz` Floating IP  │
-│  jumphost-02.denbi.bihealth.org   │               │   (194.94.x.x)      │
-└───────────────────────────────────┘               └─────────┬───────────┘
-                │                                             │
-                │                                             │
-                │                                             │
-                |                                             |
-                │                                             │
-                │  ┌────────────────────────────────────────────────────────┐
-                │  │  YOUR OPENSTACK PROJECT                  │             │
-                │  │                                          │             │
-                │  │                                          ▼             │
-                │  │                              ┌─────────────────────┐   │
-                │  │                              │   OCTAVIA           │   │
-                │  │                              │   LOADBALANCER      │   │
-                │  │                              └──────────┬──────────┘   │
-                │  │                                         │              │
-                │  │         ┌───────────────────────────────┘              │
-                │  │         │                                              │
-                │  │         ▼                                              │
-                │  │  ┌─────────────────────────────────────────────────┐   │
-                │  │  │                 WORKER NODES                    │   │
-                └─ ┼──┼──▶                                              │   │
-                   │  │      Worker-01    Worker-02    Worker-03  ...   │   │
-                   │  │                                                 │   │
-                   │  └─────────────────────────────────────────────────┘   │
-                   │                                                        │
-                   └────────────────────────────────────────────────────────┘
-```
+![deployment-topology](img/02-deployment-topology.svg)
 
 **Access paths:**
 
@@ -132,6 +78,9 @@ The following diagram illustrates the deployment topology for KKP on de.NBI Clou
 
 KKP uses the concept of **Datacenters** to define where User Clusters can be created. A datacenter specifies the cloud provider, region, available floating IP pools, and network configuration.
 
+
+**Berlin Datacenters:**
+
 | Datacenter | Status | Floating IP Pools | Use Case |
 |------------|--------|-------------------|----------|
 | **Berlin** | ✅ Active | `public` / `dmz` | Standard deployments (recommended) |
@@ -141,7 +90,7 @@ KKP uses the concept of **Datacenters** to define where User Clusters can be cre
 
 | Component | Description |
 |-----------|-------------|
-| **KKP Dashboard** | Web interface for cluster management ([k.denbi.bihealth.org](https://k.denbi.bihealth.org/)) |
+| **KKP Dashboard** | Web interface for cluster management *(Berlin: [k.denbi.bihealth.org](https://k.denbi.bihealth.org/))* |
 | **KKP API** | REST API for programmatic cluster management |
 | **KKP Controller Manager** | Reconciles desired state, manages cluster lifecycle |
 | **OpenStack** | Underlying IaaS providing compute, network, and storage |
@@ -158,7 +107,7 @@ Before deploying a Kubernetes cluster, verify that you meet the following requir
 | Requirement | Description |
 |-------------|-------------|
 | **OpenStack Project** | Active de.NBI Cloud Berlin project with Kubernetes access enabled |
-| **SSH Key** | Configured for `jumphost-01.denbi.bihealth.org` or `jumphost-02.denbi.bihealth.org` access |
+| **SSH Key** | Configured for jumphost access *(Berlin: `jumphost-01.denbi.bihealth.org` or `jumphost-02.denbi.bihealth.org`)* |
 | **Application Credentials** | OpenStack API credentials for your project ([creation guide](https://cloud.denbi.de/wiki/Compute_Center/Bielefeld/#application-credentials-use-openstack-api)) |
 
 ### 2.2 Supported configurations
@@ -169,7 +118,8 @@ Before deploying a Kubernetes cluster, verify that you meet the following requir
 | **Worker Node OS** | `Ubuntu 22.04`, `Ubuntu 24.04` |
 | **CNI** | `Cilium (default)`, `Canal` |
 
-> 💡 **Tip:** You can check the available images in the Openstack Dashboard -> [de.NBI Cloud Berlin Images](https://denbi-cloud.bihealth.org/dashboard/project/images)
+> 💡 **Tip:**
+> You can check the available images in the Openstack Dashboard -> [de.NBI Cloud Berlin Images](https://denbi-cloud.bihealth.org/dashboard/project/images)
 
 ### 2.3 Requesting access
 
@@ -177,9 +127,13 @@ Complete the following steps to request access to the KKP platform:
 
 1. Submit an OpenStack project application at [de.NBI Cloud Portal](https://cloud.denbi.de/)
 2. Specify **"Kubernetes"** as a required service in your application
-3. After approval, access Kubermatic at **[k.denbi.bihealth.org](https://k.denbi.bihealth.org/)**
+3. After approval, access Kubermatic at your site's dashboard *(Berlin: **[k.denbi.bihealth.org](https://k.denbi.bihealth.org/)**)*
 
-> 💡 **Need help?** Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)
+> 💡 **Need help with de.NBI Cloud Berlin?**
+> 
+> Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)
+> 
+> *For other de.NBI Cloud sites, please contact your respective site's support team.*
 
 ---
 
@@ -189,14 +143,15 @@ Configure your administration environment on the jumphost before creating cluste
 
 ### 3.1 Prerequisites
 
-- SSH access to `jumphost-01.denbi.bihealth.org` or `jumphost-02.denbi.bihealth.org`
-- Your de.NBI Cloud account credentials
+- SSH access to your site's jumphost *(Berlin: `jumphost-01.denbi.bihealth.org` or `jumphost-02.denbi.bihealth.org`)*
+- de.NBI Cloud account credentials
 
 ### 3.2 Procedure
 
 **Step 1:** Connect to the jumphost
 
 ```bash
+# Berlin jumphost
 ssh <username>@jumphost-01.denbi.bihealth.org
 ```
 
@@ -266,9 +221,11 @@ k9s version
 
 This chapter guides you through creating a Kubernetes User Cluster using the Kubermatic Dashboard. The control plane components will be automatically provisioned in the Seed Cluster, while worker nodes will be created as VMs in your OpenStack project.
 
-> ⚠️ **Project Quota:** Kubermatic deploys the worker nodes into your project and therefore the deployment is bound to the project quotas regarding flavors and count of worker nodes.
+> ⚠️ **Project Quota:**
+> 
+> Kubermatic deploys the worker nodes into your project and therefore the deployment is bound to the project quotas regarding flavors and count of worker nodes.
 
-> ⚠️ **Infrastructure changes (September 2025)**
+> ⚠️ **Infrastructure changes (September 2025) — Berlin only**
 > 
 > The de.NBI Cloud Berlin infrastructure migrated to a new datacenter in September 2025. Key changes:
 > - Always select **Berlin** as the datacenter (not "Berlin DMZ")
@@ -278,7 +235,7 @@ This chapter guides you through creating a Kubernetes User Cluster using the Kub
 
 ### 4.1 Prerequisites
 
-- Access to the Kubermatic Dashboard at [k.denbi.bihealth.org](https://k.denbi.bihealth.org/)
+- Access to the Kubermatic Dashboard *(Berlin: [k.denbi.bihealth.org](https://k.denbi.bihealth.org/))*
 - OpenStack application credentials for your project
 - An SSH public key for worker node access
 
@@ -290,7 +247,7 @@ This chapter guides you through creating a Kubernetes User Cluster using the Kub
 
 #### Step 1: Access the Kubermatic Dashboard
 
-1. Navigate to [k.denbi.bihealth.org](https://k.denbi.bihealth.org/)
+1. Navigate to your site's Kubermatic Dashboard *(Berlin: [k.denbi.bihealth.org](https://k.denbi.bihealth.org/))*
 2. Log in with your LifeScienceAAI credentials
 3. Select or create a project
 
@@ -318,6 +275,8 @@ SSH keys enable direct access to worker nodes for troubleshooting.
 
 The datacenter determines where your cluster's control plane namespace is created and which OpenStack region hosts your worker nodes.
 
+**Berlin Datacenters:**
+
 | Option | Status | Recommendation |
 |--------|--------|----------------|
 | **Berlin** | ✅ Active | Use this option (default) |
@@ -334,9 +293,13 @@ The datacenter determines where your cluster's control plane namespace is create
 | **Network configuration** | `Cilium` (default) / `Canal` |
 | **CNI Version** | Leave as default |
 
-> 💡 **Tip:** All other settings can be left as default.
+> 💡 **Tip:**
+> 
+> All other settings can be left as default.
 
-> 💡 **Tip:** You can upgrade Kubernetes versions later through the Kubermatic Dashboard. KKP handles the control plane upgrade in the Seed Cluster and coordinates worker node updates.
+> 💡 **Tip:**
+> 
+> You can upgrade Kubernetes versions later through the Kubermatic Dashboard. KKP handles the control plane upgrade in the Seed Cluster and coordinates worker node updates.
 
 ![Cluster Setup](img/05-cluster_setup.png)
 
@@ -347,7 +310,9 @@ The datacenter determines where your cluster's control plane namespace is create
 3. Enter your **Application Credential ID**
 4. Enter your **Application Credential Secret**
 
-> ⚠️ **Multiple projects:** Kubermatic displays all projects you can access, but clusters deploy to the project associated with your application credentials. Verify you're using credentials for the correct project.
+> ⚠️ **Multiple projects:**
+> 
+> Kubermatic displays all projects you can access, but clusters deploy to the project associated with your application credentials. Verify you're using credentials for the correct project.
 
 ![Application Credentials](img/06-application_credentials.png)
 
@@ -360,8 +325,11 @@ The datacenter determines where your cluster's control plane namespace is create
 | **Subnet** | Leave empty for auto-creation, or select existing |
 
 > 🚫 **Do not use `dmz` as the floating IP pool** for deployments. This will fail because:
+>
 > - Kubermatic attempts to assign floating-IPs from the `dmz` pool to all worker nodes
+>   
 > - Most projects lack sufficient `dmz` floating-IPs (floating IPs from the `dmz` pool need to be requested)
+>   
 > - Network topology conflicts prevent `dmz` floating-IP association with `public`-connected networks
 
 #### Step 7: Configure worker nodes
@@ -375,7 +343,9 @@ Create a **Machine Deployment** to define your worker nodes. These VMs will be c
 | **Image** | Operating system image | `Ubuntu-24.04` |
 | **Flavor** | Instance size | `de.NBI large` |
 
-> 📝 **Note:** Type the image name manually — there is no dropdown. Verify available images in the [OpenStack Dashboard](https://denbi-cloud.bihealth.org/dashboard/project/images).
+> 📝 **Note:**
+> 
+> Type the image name manually — there is no dropdown. Verify available images in the OpenStack Dashboard *(Berlin: [denbi-cloud.bihealth.org](https://denbi-cloud.bihealth.org/dashboard/project/images))*.
 
 **Recommended configurations:**
 
@@ -401,7 +371,9 @@ Create a **Machine Deployment** to define your worker nodes. These VMs will be c
 5. Workers connect to the control plane via VPN tunnel
 6. Cluster becomes ready for workloads
 
-> 🕐 **Note:** Cluster creation may take up to **20 minutes** due to VM provisioning and component initialization.
+> 🕐 **Note:**
+> 
+> Cluster creation may take up to **20 minutes** due to VM provisioning and component initialization.
 
 ### 4.4 Verification
 
@@ -417,7 +389,7 @@ After cluster creation completes:
 **Step 2:** Configure kubectl on jumphost
 
 ```bash
-# Option A: Copy file via SCP
+# Option A: Copy file via SCP (example for Berlin jumphost)
 scp ~/Downloads/kubeconfig <username>@jumphost-01.denbi.bihealth.org:~/.kube/config
 
 # Option B: Paste content directly
@@ -446,13 +418,20 @@ worker-pool-1-abc123-yyyyy     Ready    <none>   10m   v1.30.0
 worker-pool-1-abc123-zzzzz     Ready    <none>   10m   v1.30.0
 ```
 
-> 📝 **Note:** Worker nodes show `<none>` for ROLES because control plane components run in the Seed Cluster, not on these nodes.
+> 📝 **Note:**
+> 
+> Worker nodes show `<none>` for ROLES because control plane components run in the Seed Cluster, not on these nodes.
 
 ---
 
 ## Chapter 5. Configuring external access
 
 This chapter explains how to expose your Kubernetes services to the internet using OpenStack LoadBalancers and Ingress controllers.
+
+> ⚠️ **Open Ports on Floating-IP Pool DMZ (Berlin-specific)**
+> 
+> By default, the firewall permits inbound traffic on ports 80 (HTTP) and 443 (HTTPS) only.
+> For services requiring access on ports other than 80 or 443, the load balancer manages traffic forwarding based on its configuration. Direct modification of the default firewall rules is restricted to exceptional circumstances where the load balancer configuration cannot accommodate the requirements.
 
 ### 5.1 Understanding external access in OpenStack
 
@@ -479,10 +458,10 @@ Unlike cloud providers with native Kubernetes integration (AWS, GCP, Azure), Ope
   Internet ──▶ LoadBalancer ──▶ Service ──▶ Pods                       
                (Octavia)        (type:LB)                                
                                                                          
-  ✅ Simple setup                                                        
-  ✅ Works for any TCP/UDP service                                       
-  ❌ One LoadBalancer per service (costly)                               
-  ❌ No HTTP-level features                                              
+  + Simple setup                                                        
+  + Works for any TCP/UDP service                                       
+  - One LoadBalancer per service (costly)                               
+  - No HTTP-level features                                              
                                                                          
                                                                         
   OPTION B: Ingress Controller (L7)                                       
@@ -491,10 +470,10 @@ Unlike cloud providers with native Kubernetes integration (AWS, GCP, Azure), Ope
   Internet ──▶ LoadBalancer ──▶ Ingress Controller ──▶ Services ──▶ Pods 
                (Octavia)        (Traefik/NGINX)        (ClusterIP)         
                                                                            
-  ✅ Multiple services behind one IP                                      
-  ✅ TLS termination, path routing, host routing                          
-  ✅ Cost-effective (one LoadBalancer)                                    
-   ❌ Additional component to manage                                       
+  + Multiple services behind one IP                                      
+  + TLS termination, path routing, host routing                          
+  + Cost-effective (one LoadBalancer)                                    
+  - Additional component to manage                                       
 
 ```
 
@@ -515,7 +494,7 @@ The OpenStack CCM uses **annotations** on `Service` resources to configure Octav
 
 ### 5.3 Network architecture for DMZ access
 
-At de.NBI Cloud Berlin, externally accessible services require a connection to the **DMZ network**, which provides public IP addresses (194.94.x.x range).
+At de.NBI Cloud site Berlin, externally accessible services require a connection to the **DMZ network**, which provides public IP addresses (194.94.x.x range).
 
 ```
 Internet
@@ -533,15 +512,18 @@ DMZ Internal Network  ◄──  Router (connected to dmz pool)
 Kubernetes Worker Nodes ──▶ Your Applications
 ```
 
-> ⚠️ **Why this setup?** The default `public` network in your project provides internal connectivity but not internet-routable IPs. To expose services externally, you must create a network topology connected to the `dmz` floating IP pool.
+> ⚠️ **Why this setup? (Berlin-specific)**
+> 
+> The default `public` network in your project provides internal connectivity but not internet-routable IPs. To expose services externally, you must create a network topology connected to the `dmz` floating IP pool.
 
 ### 5.4 Prerequisites
 
-- ✅ Active Kubernetes cluster
-- ✅ kubectl and Helm configured on jumphost
-- ✅ `dmz` floating IP allocated to your OpenStack project
+-  Active Kubernetes cluster
+-  kubectl and Helm configured on jumphost
+-  `dmz` floating IP allocated to your OpenStack project
 
-> 📧 **Request DMZ floating IPs:** Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)
+> 📧 **Request DMZ floating IPs (Berlin only):** Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)  
+> *For other de.NBI Cloud sites, please contact your respective site's support team.*
 
 ### 5.5 Procedure: Setting up DMZ network infrastructure
 
@@ -718,7 +700,9 @@ spec:
                   number: 80
 ```
 
-> 💡 **Tip:** You can also use **NGINX Ingress Controller** or other ingress controllers. The OpenStack annotations work the same way — just apply them to the ingress controller's LoadBalancer service.
+> 💡 **Tip:** You can also use **NGINX Ingress Controller**
+> 
+> or other ingress controllers. The OpenStack annotations work the same way — just apply them to the ingress controller's LoadBalancer service.
 
 ### 5.8 Verification
 
@@ -741,7 +725,10 @@ kubectl get svc -n traefik  # or your service namespace
 curl -v https://<DNS_Name/floating_ip>
 ```
 
-> 💡 **Tip:** For automated http/s-cert renewal via letscenrypt, you need to setup a DNS-entry for the allocated floating-ip from the `dmz` pool. When spinning up the cluster it can happen that the certification process fails, since the Octavia Loadbalancer often needs a longer time to be ready in openstack. Often it is enough to restart the pod which is in charge of running the certification.
+> 💡 **Tip: Automated HTTPS Certificate Renewal via Let's Encrypt**
+> 
+> To enable automated certificate renewal through Let's Encrypt, a DNS entry must be configured for the allocated floating IP from the dmz pool.
+> During initial cluster deployment, the certificate provisioning process may fail due to the Octavia load balancer requiring additional time to reach a ready state in OpenStack. In most cases, restarting the pod responsible for certificate management is sufficient to resolve this issue.
 
 Create `traefik-values.yaml`:
 
@@ -749,11 +736,11 @@ Create `traefik-values.yaml`:
 
 | Issue | Possible Cause | Solution |
 |-------|---------------|----------|
-| 🔴 LoadBalancer stuck in `PENDING_CREATE` | Floating IP not allocated to project | Request DMZ IP via [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
-| 🔴 Service shows `<pending>` external IP | Incorrect network/subnet IDs in annotations | Verify all three IDs match your OpenStack resources |
-| 🔴 LoadBalancer `ACTIVE` but no connectivity | DMZ router not connected to subnet | Check router interfaces in OpenStack |
-| 🔴 503/504 errors | No healthy backend pods | Check pod status with `kubectl get pods` |
-| 🔴 Connection refused | Ingress/IngressRoute misconfigured | Verify host matching and service selectors |
+| LoadBalancer stuck in `PENDING_CREATE` | Floating IP not allocated to project |Request DMZ IP via your site's support *(Berlin: [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de))* |
+| Service shows `<pending>` external IP | Incorrect network/subnet IDs in annotations | Verify all three IDs match your OpenStack resources |
+| LoadBalancer `ACTIVE` but no connectivity | DMZ router not connected to subnet | Check router interfaces in OpenStack |
+| 503/504 errors | No healthy backend pods | Check pod status with `kubectl get pods` |
+| Connection refused | Ingress/IngressRoute misconfigured | Verify host matching and service selectors |
 
 ---
 
@@ -777,7 +764,7 @@ LifeScienceAAI  ──▶  Kubermatic Dashboard  ──▶  User Cluster
 
 **Step 1:** Access RBAC settings
 
-1. Log in to [Kubermatic Dashboard](https://k.denbi.bihealth.org/)
+1. Log in to your site's Kubermatic Dashboard *(Berlin: [k.denbi.bihealth.org](https://k.denbi.bihealth.org/))*
 2. Select your project
 3. Select your cluster
 4. Scroll to the **RBAC** section
@@ -793,7 +780,9 @@ Locate the LifeScienceAAI ID for each user:
 | **Project members** | View in Kubermatic project settings |
 | **Other users** | Request directly from the user |
 
-> 🔔 **Important:** Use the `@lifescience-ri.eu` domain suffix for all user IDs.  
+> 🔔 **Important:**
+> 
+> Use the `@lifescience-ri.eu` domain suffix for all user IDs.  
 > Example: `user123@lifescience-ri.eu`
 
 **Step 3:** Add user binding
@@ -884,7 +873,7 @@ kubectl logs <pod-name> --tail=100
 k9s
 ```
 
-### A.2 Important URLs
+### A.2 Important URLs (Berlin)
 
 | Resource | URL |
 |----------|-----|
@@ -894,10 +883,14 @@ k9s
 
 ### A.3 Support contacts
 
+> ℹ️ **Note:**
+>
+> The following support contacts are for de.NBI Cloud Berlin only. For other de.NBI Cloud sites, please contact your respective site's support team.
+
 | Type | Contact |
 |------|---------|
-| **General inquiries** | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
-| **DMZ IP requests** | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
+| **Berlin — General inquiries** | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
+| **Berlin — DMZ IP requests** | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
 
 ---
 
