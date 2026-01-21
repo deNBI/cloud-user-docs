@@ -128,7 +128,8 @@ Complete the following steps to request access to the KKP platform:
 2. Specify **"Kubernetes"** as a required service in your application
 3. After approval, access Kubermatic at your site's dashboard *(Berlin: **[k.denbi.bihealth.org](https://k.denbi.bihealth.org/)**)*
 
-> 💡 **Need help with de.NBI Cloud Berlin?** Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)  
+> 💡 **Need help with de.NBI Cloud Berlin?** Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)
+
 > *For other de.NBI Cloud sites, please contact your respective site's support team.*
 
 ---
@@ -313,8 +314,11 @@ The datacenter determines where your cluster's control plane namespace is create
 | **Subnet** | Leave empty for auto-creation, or select existing |
 
 > 🚫 **Do not use `dmz` as the floating IP pool** for deployments. This will fail because:
+>
 > - Kubermatic attempts to assign floating-IPs from the `dmz` pool to all worker nodes
+>   
 > - Most projects lack sufficient `dmz` floating-IPs (floating IPs from the `dmz` pool need to be requested)
+>   
 > - Network topology conflicts prevent `dmz` floating-IP association with `public`-connected networks
 
 #### Step 7: Configure worker nodes
