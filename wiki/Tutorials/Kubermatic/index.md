@@ -36,29 +36,7 @@ After completing this guide, you will be able to:
 KKP organizes infrastructure into three cluster types arranged in a hierarchical model:
 
 
-![cluster-hierarchy](img/01-cluster-hierarchy.png)
-
-```text
-┌──────────────────────────────────────────────────────────────┐
-│                      MASTER CLUSTER                          │
-│         Dashboard  ·  KKP API  ·  Controller Manager         │
-└──────────────────────────────┬───────────────────────────────┘
-                               │
-                               ▼
-┌──────────────────────────────────────────────────────────────┐
-│                       SEED CLUSTER                           │
-│      Hosts control plane components for each User Cluster    │
-│      (API Server, Scheduler, Controller Manager, etcd)       │
-└───────────────┬─────────────────────────────┬────────────────┘
-                │                             │
-                ▼                             ▼
-┌───────────────────────────┐   ┌───────────────────────────┐
-│      USER CLUSTER A       │   │      USER CLUSTER B       │
-│      (Your Project)       │   │    (Another Project)      │
-│       Worker Nodes        │   │       Worker Nodes        │
-│      (OpenStack VMs)      │   │      (OpenStack VMs)      │
-└───────────────────────────┘   └───────────────────────────┘
-```
+![cluster-hierarchy](img/01-cluster-hierarchy.svg)
 
 ### 1.2 Cluster types
 
@@ -74,7 +52,7 @@ The following table describes each cluster type in the KKP hierarchy:
 
 The following diagram illustrates the deployment topology for KKP on de.NBI Cloud Berlin:
 
-![deployment-topology](img/02-deployment-topology.png)
+![deployment-topology](img/02-deployment-topology.svg)
 
 ```text
                                  ┌──────────────┐
