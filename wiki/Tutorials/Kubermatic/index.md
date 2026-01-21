@@ -476,10 +476,10 @@ Unlike cloud providers with native Kubernetes integration (AWS, GCP, Azure), Ope
   Internet ──▶ LoadBalancer ──▶ Service ──▶ Pods                       
                (Octavia)        (type:LB)                                
                                                                          
-  ✅ Simple setup                                                        
-  ✅ Works for any TCP/UDP service                                       
-  ❌ One LoadBalancer per service (costly)                               
-  ❌ No HTTP-level features                                              
+  + Simple setup                                                        
+  + Works for any TCP/UDP service                                       
+  - One LoadBalancer per service (costly)                               
+  - No HTTP-level features                                              
                                                                          
                                                                         
   OPTION B: Ingress Controller (L7)                                       
@@ -488,10 +488,10 @@ Unlike cloud providers with native Kubernetes integration (AWS, GCP, Azure), Ope
   Internet ──▶ LoadBalancer ──▶ Ingress Controller ──▶ Services ──▶ Pods 
                (Octavia)        (Traefik/NGINX)        (ClusterIP)         
                                                                            
-  ✅ Multiple services behind one IP                                      
-  ✅ TLS termination, path routing, host routing                          
-  ✅ Cost-effective (one LoadBalancer)                                    
-   ❌ Additional component to manage                                       
+  + Multiple services behind one IP                                      
+  + TLS termination, path routing, host routing                          
+  + Cost-effective (one LoadBalancer)                                    
+  - Additional component to manage                                       
 
 ```
 
@@ -534,9 +534,9 @@ Kubernetes Worker Nodes ──▶ Your Applications
 
 ### 5.4 Prerequisites
 
-- ✅ Active Kubernetes cluster
-- ✅ kubectl and Helm configured on jumphost
-- ✅ `dmz` floating IP allocated to your OpenStack project
+-  Active Kubernetes cluster
+-  kubectl and Helm configured on jumphost
+-  `dmz` floating IP allocated to your OpenStack project
 
 > 📧 **Request DMZ floating IPs:** Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)
 
@@ -745,11 +745,11 @@ curl -v https://<DNS_Name/floating_ip>
 
 | Issue | Possible Cause | Solution |
 |-------|---------------|----------|
-| 🔴 LoadBalancer stuck in `PENDING_CREATE` | Floating IP not allocated to project | Request DMZ IP via [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
-| 🔴 Service shows `<pending>` external IP | Incorrect network/subnet IDs in annotations | Verify all three IDs match your OpenStack resources |
-| 🔴 LoadBalancer `ACTIVE` but no connectivity | DMZ router not connected to subnet | Check router interfaces in OpenStack |
-| 🔴 503/504 errors | No healthy backend pods | Check pod status with `kubectl get pods` |
-| 🔴 Connection refused | Ingress/IngressRoute misconfigured | Verify host matching and service selectors |
+| LoadBalancer stuck in `PENDING_CREATE` | Floating IP not allocated to project | Request DMZ IP via [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
+| Service shows `<pending>` external IP | Incorrect network/subnet IDs in annotations | Verify all three IDs match your OpenStack resources |
+| LoadBalancer `ACTIVE` but no connectivity | DMZ router not connected to subnet | Check router interfaces in OpenStack |
+| 503/504 errors | No healthy backend pods | Check pod status with `kubectl get pods` |
+| Connection refused | Ingress/IngressRoute misconfigured | Verify host matching and service selectors |
 
 ---
 
