@@ -407,6 +407,8 @@ worker-pool-1-abc123-zzzzz     Ready    <none>   10m   v1.30.0
 
 This chapter explains how to expose your Kubernetes services to the internet using OpenStack LoadBalancers and Ingress controllers.
 
+> ⚠️ **Open ports on floating-ip pool dmz (Berlin-specific)** The default ports which are open on the firewall are 80/443 for http/https. For exposing services running on different ports then 80/443, the Loadbalancer will handle this and forwards traffic following the configuration. This default behaviour can only be adapted if in urgent cases the loadbalancer setup isn`t sufficient.
+
 ### 5.1 Understanding external access in OpenStack
 
 Unlike cloud providers with native Kubernetes integration (AWS, GCP, Azure), OpenStack requires the **OpenStack Cloud Controller Manager (CCM)** to provision LoadBalancers. When you create a Kubernetes `Service` of type `LoadBalancer`, the CCM communicates with OpenStack Octavia to create a load balancer in your project.
