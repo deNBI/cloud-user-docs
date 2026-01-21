@@ -9,6 +9,8 @@
 
 This guide describes how to deploy and manage production-ready Kubernetes clusters on de.NBI Cloud Berlin infrastructure using **Kubermatic Kubernetes Platform (KKP)**. KKP automates the deployment, scaling, and lifecycle management of Kubernetes clusters on OpenStack.
 
+> ⚠️ **Site-specific documentation:** This guide is written and maintained by the de.NBI Cloud Berlin team. URLs, support contacts, and specific configurations in this document apply to **de.NBI Cloud Berlin only**. Other de.NBI Cloud sites offering Kubermatic (e.g., Bielefeld, Heidelberg, Tübingen) may have different endpoints and configurations — please contact your respective site for site-specific information.
+
 ### Audience
 
 This guide is intended for:
@@ -132,6 +134,9 @@ The following diagram illustrates the deployment topology for KKP on de.NBI Clou
 
 KKP uses the concept of **Datacenters** to define where User Clusters can be created. A datacenter specifies the cloud provider, region, available floating IP pools, and network configuration.
 
+
+**Berlin Datacenters:**
+
 | Datacenter | Status | Floating IP Pools | Use Case |
 |------------|--------|-------------------|----------|
 | **Berlin** | ✅ Active | `public` / `dmz` | Standard deployments (recommended) |
@@ -141,7 +146,7 @@ KKP uses the concept of **Datacenters** to define where User Clusters can be cre
 
 | Component | Description |
 |-----------|-------------|
-| **KKP Dashboard** | Web interface for cluster management ([k.denbi.bihealth.org](https://k.denbi.bihealth.org/)) |
+| **KKP Dashboard** | Web interface for cluster management *(Berlin: [k.denbi.bihealth.org](https://k.denbi.bihealth.org/))* |
 | **KKP API** | REST API for programmatic cluster management |
 | **KKP Controller Manager** | Reconciles desired state, manages cluster lifecycle |
 | **OpenStack** | Underlying IaaS providing compute, network, and storage |
@@ -158,7 +163,7 @@ Before deploying a Kubernetes cluster, verify that you meet the following requir
 | Requirement | Description |
 |-------------|-------------|
 | **OpenStack Project** | Active de.NBI Cloud Berlin project with Kubernetes access enabled |
-| **SSH Key** | Configured for `jumphost-01.denbi.bihealth.org` or `jumphost-02.denbi.bihealth.org` access |
+| **SSH Key** | Configured for jumphost access *(Berlin: `jumphost-01.denbi.bihealth.org` or `jumphost-02.denbi.bihealth.org`)* |
 | **Application Credentials** | OpenStack API credentials for your project ([creation guide](https://cloud.denbi.de/wiki/Compute_Center/Bielefeld/#application-credentials-use-openstack-api)) |
 
 ### 2.2 Supported configurations
@@ -177,9 +182,10 @@ Complete the following steps to request access to the KKP platform:
 
 1. Submit an OpenStack project application at [de.NBI Cloud Portal](https://cloud.denbi.de/)
 2. Specify **"Kubernetes"** as a required service in your application
-3. After approval, access Kubermatic at **[k.denbi.bihealth.org](https://k.denbi.bihealth.org/)**
+3. After approval, access Kubermatic at your site's dashboard *(Berlin: **[k.denbi.bihealth.org](https://k.denbi.bihealth.org/)**)*
 
-> 💡 **Need help?** Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)
+> 💡 **Need help with de.NBI Cloud Berlin?** Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)  
+> *For other de.NBI Cloud sites, please contact your respective site's support team.*
 
 ---
 
@@ -189,14 +195,15 @@ Configure your administration environment on the jumphost before creating cluste
 
 ### 3.1 Prerequisites
 
-- SSH access to `jumphost-01.denbi.bihealth.org` or `jumphost-02.denbi.bihealth.org`
-- Your de.NBI Cloud account credentials
+- SSH access to your site's jumphost *(Berlin: `jumphost-01.denbi.bihealth.org` or `jumphost-02.denbi.bihealth.org`)*
+- de.NBI Cloud account credentials
 
 ### 3.2 Procedure
 
 **Step 1:** Connect to the jumphost
 
 ```bash
+# Berlin jumphost
 ssh <username>@jumphost-01.denbi.bihealth.org
 ```
 
@@ -268,7 +275,7 @@ This chapter guides you through creating a Kubernetes User Cluster using the Kub
 
 > ⚠️ **Project Quota:** Kubermatic deploys the worker nodes into your project and therefore the deployment is bound to the project quotas regarding flavors and count of worker nodes.
 
-> ⚠️ **Infrastructure changes (September 2025)**
+> ⚠️ **Infrastructure changes (September 2025) — Berlin only**
 > 
 > The de.NBI Cloud Berlin infrastructure migrated to a new datacenter in September 2025. Key changes:
 > - Always select **Berlin** as the datacenter (not "Berlin DMZ")
@@ -278,7 +285,7 @@ This chapter guides you through creating a Kubernetes User Cluster using the Kub
 
 ### 4.1 Prerequisites
 
-- Access to the Kubermatic Dashboard at [k.denbi.bihealth.org](https://k.denbi.bihealth.org/)
+- Access to the Kubermatic Dashboard *(Berlin: [k.denbi.bihealth.org](https://k.denbi.bihealth.org/))*
 - OpenStack application credentials for your project
 - An SSH public key for worker node access
 
@@ -290,7 +297,7 @@ This chapter guides you through creating a Kubernetes User Cluster using the Kub
 
 #### Step 1: Access the Kubermatic Dashboard
 
-1. Navigate to [k.denbi.bihealth.org](https://k.denbi.bihealth.org/)
+1. Navigate to your site's Kubermatic Dashboard *(Berlin: [k.denbi.bihealth.org](https://k.denbi.bihealth.org/))*
 2. Log in with your LifeScienceAAI credentials
 3. Select or create a project
 
@@ -317,6 +324,8 @@ SSH keys enable direct access to worker nodes for troubleshooting.
 #### Step 4: Select the datacenter
 
 The datacenter determines where your cluster's control plane namespace is created and which OpenStack region hosts your worker nodes.
+
+**Berlin Datacenters:**
 
 | Option | Status | Recommendation |
 |--------|--------|----------------|
@@ -375,7 +384,7 @@ Create a **Machine Deployment** to define your worker nodes. These VMs will be c
 | **Image** | Operating system image | `Ubuntu-24.04` |
 | **Flavor** | Instance size | `de.NBI large` |
 
-> 📝 **Note:** Type the image name manually — there is no dropdown. Verify available images in the [OpenStack Dashboard](https://denbi-cloud.bihealth.org/dashboard/project/images).
+> 📝 **Note:** Type the image name manually — there is no dropdown. Verify available images in the OpenStack Dashboard *(Berlin: [denbi-cloud.bihealth.org](https://denbi-cloud.bihealth.org/dashboard/project/images))*.
 
 **Recommended configurations:**
 
@@ -417,7 +426,7 @@ After cluster creation completes:
 **Step 2:** Configure kubectl on jumphost
 
 ```bash
-# Option A: Copy file via SCP
+# Option A: Copy file via SCP (example for Berlin jumphost)
 scp ~/Downloads/kubeconfig <username>@jumphost-01.denbi.bihealth.org:~/.kube/config
 
 # Option B: Paste content directly
@@ -512,7 +521,7 @@ The OpenStack CCM uses **annotations** on `Service` resources to configure Octav
 
 ### 5.3 Network architecture for DMZ access
 
-At de.NBI Cloud Berlin, externally accessible services require a connection to the **DMZ network**, which provides public IP addresses (194.94.x.x range).
+At de.NBI Cloud site Berlin, externally accessible services require a connection to the **DMZ network**, which provides public IP addresses (194.94.x.x range).
 
 ```
 Internet
@@ -530,7 +539,7 @@ DMZ Internal Network  ◄──  Router (connected to dmz pool)
 Kubernetes Worker Nodes ──▶ Your Applications
 ```
 
-> ⚠️ **Why this setup?** The default `public` network in your project provides internal connectivity but not internet-routable IPs. To expose services externally, you must create a network topology connected to the `dmz` floating IP pool.
+> ⚠️ **Why this setup? (Berlin-specific)** The default `public` network in your project provides internal connectivity but not internet-routable IPs. To expose services externally, you must create a network topology connected to the `dmz` floating IP pool.
 
 ### 5.4 Prerequisites
 
@@ -538,7 +547,8 @@ Kubernetes Worker Nodes ──▶ Your Applications
 -  kubectl and Helm configured on jumphost
 -  `dmz` floating IP allocated to your OpenStack project
 
-> 📧 **Request DMZ floating IPs:** Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)
+> 📧 **Request DMZ floating IPs (Berlin only):** Contact [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de)  
+> *For other de.NBI Cloud sites, please contact your respective site's support team.*
 
 ### 5.5 Procedure: Setting up DMZ network infrastructure
 
@@ -745,7 +755,7 @@ curl -v https://<DNS_Name/floating_ip>
 
 | Issue | Possible Cause | Solution |
 |-------|---------------|----------|
-| LoadBalancer stuck in `PENDING_CREATE` | Floating IP not allocated to project | Request DMZ IP via [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
+| LoadBalancer stuck in `PENDING_CREATE` | Floating IP not allocated to project |Request DMZ IP via your site's support *(Berlin: [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de))* |
 | Service shows `<pending>` external IP | Incorrect network/subnet IDs in annotations | Verify all three IDs match your OpenStack resources |
 | LoadBalancer `ACTIVE` but no connectivity | DMZ router not connected to subnet | Check router interfaces in OpenStack |
 | 503/504 errors | No healthy backend pods | Check pod status with `kubectl get pods` |
@@ -773,7 +783,7 @@ LifeScienceAAI  ──▶  Kubermatic Dashboard  ──▶  User Cluster
 
 **Step 1:** Access RBAC settings
 
-1. Log in to [Kubermatic Dashboard](https://k.denbi.bihealth.org/)
+1. Log in to your site's Kubermatic Dashboard *(Berlin: [k.denbi.bihealth.org](https://k.denbi.bihealth.org/))*
 2. Select your project
 3. Select your cluster
 4. Scroll to the **RBAC** section
@@ -880,7 +890,7 @@ kubectl logs <pod-name> --tail=100
 k9s
 ```
 
-### A.2 Important URLs
+### A.2 Important URLs (Berlin)
 
 | Resource | URL |
 |----------|-----|
@@ -890,10 +900,12 @@ k9s
 
 ### A.3 Support contacts
 
+> ℹ️ **Note:** The following support contacts are for de.NBI Cloud Berlin only. For other de.NBI Cloud sites, please contact your respective site's support team.
+
 | Type | Contact |
 |------|---------|
-| **General inquiries** | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
-| **DMZ IP requests** | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
+| **Berlin — General inquiries** | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
+| **Berlin — DMZ IP requests** | [denbi-cloud@bih-charite.de](mailto:denbi-cloud@bih-charite.de) |
 
 ---
 
