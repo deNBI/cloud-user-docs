@@ -411,7 +411,9 @@ worker-pool-1-abc123-zzzzz     Ready    <none>   10m   v1.30.0
 
 This chapter explains how to expose your Kubernetes services to the internet using OpenStack LoadBalancers and Ingress controllers.
 
-> ⚠️ **Open ports on floating-ip pool dmz (Berlin-specific)** The default ports which are open on the firewall are 80/443 for http/https. For exposing services running on different ports then 80/443, the Loadbalancer will handle this and forwards traffic following the configuration. This default behaviour can only be adapted if in urgent cases the loadbalancer setup isn`t sufficient.
+> ⚠️ **Open Ports on Floating-IP Pool DMZ (Berlin-specific)** By default, the firewall permits inbound traffic on ports 80 (HTTP) and 443 (HTTPS) only.
+> 
+> For services requiring access on ports other than 80 or 443, the load balancer manages traffic forwarding based on its configuration. Direct modification of the default firewall rules is restricted to exceptional circumstances where the load balancer configuration cannot accommodate the requirements.
 
 ### 5.1 Understanding external access in OpenStack
 
@@ -698,7 +700,9 @@ kubectl get svc -n traefik  # or your service namespace
 curl -v https://<DNS_Name/floating_ip>
 ```
 
-> 💡 **Tip:** For automated http/s-cert renewal via letscenrypt, you need to setup a DNS-entry for the allocated floating-ip from the `dmz` pool. When spinning up the cluster it can happen that the certification process fails, since the Octavia Loadbalancer often needs a longer time to be ready in openstack. Often it is enough to restart the pod which is in charge of running the certification.
+> 💡 **Tip: Automated HTTPS Certificate Renewal via Let's Encrypt** To enable automated certificate renewal through Let's Encrypt, a DNS entry must be configured for the allocated floating IP from the dmz pool.
+> 
+> During initial cluster deployment, the certificate provisioning process may fail due to the Octavia load balancer requiring additional time to reach a ready state in OpenStack. In most cases, restarting the pod responsible for certificate management is sufficient to resolve this issue.
 
 
 ### 5.9 Troubleshooting
