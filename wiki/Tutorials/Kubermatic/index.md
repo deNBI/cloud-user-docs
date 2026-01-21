@@ -61,9 +61,9 @@ The following table describes each cluster type in the KKP hierarchy:
 
 | Cluster Type | Purpose | Location |
 |--------------|---------|----------|
-| **Master Cluster** | Central management plane hosting the KKP Dashboard, API, and Controller Manager. Stores all user data, projects, SSH keys, and infrastructure provider credentials. | **Managed by de.NBI** |
-| **Seed Cluster** | Hosts Kubernetes control plane components (API server, scheduler, controller-manager, etcd) for each User Cluster in isolated namespaces. Includes monitoring (Prometheus) and secure VPN connectivity. | **Managed by de.NBI** |
-| **User Cluster** | Your Kubernetes cluster hosted in your Openstack project. Contains only worker nodes running your workloads. Control plane runs in the Seed Cluster. Limited by your project quota  | **Managed by Kubermatic in the User Projects** |
+| **Master Cluster** | Central management plane hosting the KKP Dashboard, API, and Controller Manager. Stores all user data, projects, SSH keys, and infrastructure provider credentials. | **Managed by de.NBI Cloud site** |
+| **Seed Cluster** | Hosts Kubernetes control plane components (API server, scheduler, controller-manager, etcd) for each User Cluster in isolated namespaces. Includes monitoring (Prometheus) and secure VPN connectivity. | **Managed by de.NBI Cloud site** |
+| **User Cluster** | Your Kubernetes cluster hosted in your Openstack project. Contains only worker nodes running your workloads. Control plane runs in the Seed Cluster. Limited by your project quota  | **Managed by Project user in Kubermatic Kubernetes Platfom (KKP)** |
 
 ### 1.3 de.NBI Cloud Berlin deployment topology
 
