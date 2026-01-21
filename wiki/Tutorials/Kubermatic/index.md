@@ -35,6 +35,9 @@ After completing this guide, you will be able to:
 
 KKP organizes infrastructure into three cluster types arranged in a hierarchical model:
 
+
+![cluster-hierarchy](img/01-cluster-hierarchy.png)
+
 ```text
 ┌──────────────────────────────────────────────────────────────┐
 │                      MASTER CLUSTER                          │
@@ -70,6 +73,8 @@ The following table describes each cluster type in the KKP hierarchy:
 ### 1.3 de.NBI Cloud Berlin deployment topology
 
 The following diagram illustrates the deployment topology for KKP on de.NBI Cloud Berlin:
+
+![deployment-topology](img/02-deployment-topology.png)
 
 ```text
                                  ┌──────────────┐
