@@ -91,7 +91,7 @@ To add one or more Amazon S3 compatible hosts, follow the instructions below ''m
 configuration information in ''~/.mc/config.json'' file.
 
 ```bash
-mc config host add <ALIAS> <YOUR-S3-ENDPOINT> <YOUR-ACCESS-KEY> <YOUR-SECRET-KEY>
+mc alias set <ALIAS> <YOUR-S3-ENDPOINT> <YOUR-ACCESS-KEY> <YOUR-SECRET-KEY>
 ```
 
 For details check out the [Minio webpage](https://docs.minio.io/).
