@@ -446,6 +446,9 @@ Unlike cloud providers with native Kubernetes integration (AWS, GCP, Azure), Ope
 | **Ingress (Standard API)** | `Ingress` + Ingress Controller (`Deployment`/`DaemonSet` + `Service` type LoadBalancer) | L7 | HTTP / HTTPS | ✅ | Host- and path-based routing, TLS termination | Web apps, REST APIs, multiple services behind one IP |
 | **IngressRoute (CRD)** | `IngressRoute` (controller-specific CRD) + Ingress Controller (`Deployment`/`DaemonSet` + `Service` type LoadBalancer) | L7 | HTTP / HTTPS | ✅ | Advanced routing, middlewares, retries, canary | Complex production traffic management |
 
+1. Navigate to [k.denbi.bihealth.org](https://k.denbi.bihealth.org/)
+2. Log in with your LifeScienceAAI credentials
+3. Select or create a project
 
 ```
                                                                       
@@ -727,6 +730,7 @@ curl -v https://<DNS_Name/floating_ip>
 > To enable automated certificate renewal through Let's Encrypt, a DNS entry must be configured for the allocated floating IP from the dmz pool.
 > During initial cluster deployment, the certificate provisioning process may fail due to the Octavia load balancer requiring additional time to reach a ready state in OpenStack. In most cases, restarting the pod responsible for certificate management is sufficient to resolve this issue.
 
+Create `traefik-values.yaml`:
 
 ### 5.9 Troubleshooting
 
