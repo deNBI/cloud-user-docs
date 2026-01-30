@@ -30,4 +30,8 @@ This section contains cloud site specific configurations, like API endpoints and
 
 ## Cloud Admin
 
-The Cloud admin section contains general instructions for Cloud site administrators.    
+The Cloud admin section contains general instructions for Cloud site administrators.  
+
+## General Information on support requests
+
+One does get an overview of all support addresses [here](https://cloud.denbi.de/support/). Please consider, that the most suitable contact channels for your request will depend on the type of project you are working with. For OpenStack projects, please contact the administrators of the cloud site to which your project has been allocated. The same applies to Kubernetes projects. If you are using SimpleVM you can contact the Cloud Portal Helpdesk. The same applies to general requests and questions, as well as to any requests relating to the Cloud Portal or the application process for cloud projects.
