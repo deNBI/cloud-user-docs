@@ -14,7 +14,6 @@ If like to give us access to your VM that we can help you "hands on", add our ke
 ```
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAzQ86aCv9uzRcm9LTt4lP7sLgNAucZoZuqCtWGvF4sy FabianPaz@denbiadmin
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCfgmdfTN99ARbIsk4IuadXC1mQrSRwZHkrjx6VPRvFS3Keq0Z77qOIawn/Umyf4GiqJHzm2hcwGsUHcCpIbLfZylY0qAmW+rNvCvescU36CKJhI4d4Rax1NGy7As+hiSXbFollr64kwhSIguT4r/khWMzCLWGQIHH+UlKOirk+snYJ5skFtrT9NlBNme7juj2PatiIH58gthlkexoxfnH/mhk5DDIqNcBHbQwS5Rw9CUnlWSNJSV1DvSXUcp7ncIWJgHVSh4yUxDn/LcH/fp0yhdB5dXAJtetNYnnXacXPA4k/dneCJm4lUtmyv8nsSDQ2Dzqv9dlAsPssNp6l1qV8LqvBrwqPneuyzgZhz1s3URoaDzZ2EVvg7aH/DMtRZq7RJKnzCSqGAeZFWMd574VEv5Ghmc1Hw93AZcmD7DZERp0NmF/kSKIJcaslcblkSkDHUlVFiudNaXBVafV2aR/EuA86+zO5n5s3vCKRw4LKc50i6DReUwHgXvjbHcy5R8s= AmirBaleghi@denbiadmin
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBleXwIHspNjqk1KPO2FB8D7uegtJkOvGiQ4aTQGaf8i FabinWannenmacher@fwdebian
 ```
 
 ## General concept of the de.NBI Cloud Tübingen
@@ -36,19 +35,18 @@ Please note, you are responsible for everything that happens with the virtual ma
 
 
 ## SSH-Keys
-To access your VMs, a valid SSH key pair is required. On all POSIX operating systems (including Windows 10 and 11) ‘keygen’ may be used to create a key pair. A command example is given below:
-
-```
+To access your VMs, a valid SSH key pair is required. On all POSIX operating systems (including Windows 10 and 11) `ssh-keygen` may be used to create a key pair. An example is given below:
+```bash
 ssh-keygen –t ed25519
 ```
 
 Please note, keep your private key as private as you would do it with your credit card PIN number. We will never ask you to share your private key.
 
 ### Deploying a Key Pair
-Login to the Horizon dashboard https://denbi.uni-tuebingen.de and navigate to Key Pairs via Project / Compute. Click on `Import Key Pair` and insert your public key after giving it a name.
+Login to the Horizon dashboard https://denbi.uni-tuebingen.de and navigate to `Project / Compute / Key Pairs`. Click on `Import Key Pair` and insert your public key after giving it a name.
 
 ## Launching an Instance
-Navigate to Instances via Project / Compute and click on Launch Instance (upper right). The following entries for the VM are only examples, please chose the appropriate settings for your work case (Operating System (Images), Resources (Flavors)).
+Navigate to `Project / Compute / Instances` and click on `Launch Instance` (upper right). The following entries for the VM are only examples, please chose the appropriate settings for your work case (Operating System (Images), Resources (Flavors)).
 
 #### Details
 ```
@@ -169,13 +167,13 @@ You may copy data from and to your VM using simply the  `scp`  command with the 
 ## Using Cinder Volumes
 Cinder Volumes are nothing else than block devices like a hard drive connected to your computer but in this case virtual. You can mount format and unmount it like a normal block device. In the following it is explained how to create a Cinder Volume and how to use it in your VM. But before some remarks. It is only possible to attach a Cinder Volume to exactly one VM. So you can not share one Volume with other VMs. A more cheerful remark is that the data saved on a Cinder Volume is persistent. As long you do not delete the Volume in the Dashboard (Horizon) your data will not get lost by deleting the VM or anything else happening with the VM. They are also stored three times redundant. But be aware that this comes to a price: While the throughput of cinder volumes can be even faster then local discs, latencies are a few magnitudes higher. So running databases or lots of small file operations on it can be extremely slow.
 
-In the Dashboard (Horizon) you will navigate to the `Compute` section and then to the `Volume` section.
+In the Dashboard (Horizon) you will navigate to `Project / Volumes / Volumes`.
 Here you can create a new volume entering the following parameters
 ```
 Volume name: Type in any name you want to
 Description: Describe for which purpose you will use the volume (optional) 
 Volume Source: Set it to `No source, empty Volume` to get an empty block device
-Type: quobyte_hdd
+Type: Please use `ceph`/`ceph2_hdd` in RegionOne/RegionTwo. Additional types might be made available on request.
 Size (GiB): Select the desired size in Gigabytes
 Availability zone: nova
 ```
@@ -235,21 +233,24 @@ If you followed the instructions above the `MOUNTPOINT` would be `/mnt/volume` A
 
 If you use another filesystem than xfs or ext4 please look up if and how an increase of the capacity is possible.
 
-## Different volume types on the de.NBI Cloud site Tübingen 
-We will differentiate in the following between two different kind of volumes. Both volume types are handled on the same storage system solution running Quobyte, but are different in their handling and functionalities.
+## Different storage types on the de.NBI Cloud site Tübingen 
+We will differentiate in the following between different kinds of storage access.
+All mentioned options have backends such as _Ceph_ or _Quobyte_, that might further differentiate their handling and functionalities.
 
-**Cinder volumes:** Cinder is the OpenStack volume service. As a user you are able to create new volumes, according to the granted project quotas, on your own via the web interface (Dashboard). These volumes are good for storing general data and are a good start. A drawback of this simple solution is, that Cinder volumes can only be attached to one VM at a time. In general, a Cinder volume can be seen as a slice of a larger Quobyte Volume which is s holding the data in the background. 
+**Cinder volumes:** Cinder is the OpenStack volume service. As a user you are able to create new volumes, according to the granted project quotas, on your own via the web interface (Dashboard). These volumes are good for storing general data and are a good start. A drawback of this simple solution is, that Cinder volumes can only be attached to one VM at a time. In general, a Cinder volume can be seen as a large virtual _thumb-drive_.
 
-**Quobyte volumes:** Further, it is possible to use a Quobyte volume directly, which is mounted via an additional network interface in the VM using the quobyte-client tool. These kind of volumes offer the possibility to mount them on multiple VMs at the same time, use different kinds of hardware (SSDs, HDDs), replication methods and also make them available via the S3 protocol. If such a Quobyte volume is required, please contact us. They cannot be created by users themselves, they have to be provided from our side. 
+**Quobyte volumes (DEPRECATED):** Further, it is possible to use the Quobyte backend directly. _Direct Quobyte volumes_ are mounted via an additional network interface in the VM using the quobyte-client tool. These kind of volumes offer the possibility to mount them on multiple VMs at the same time, use different kinds of hardware (SSDs, HDDs), replication methods and also make them available via the S3 protocol. If such a Quobyte volume is required, please contact us. They cannot be created by users themselves, they have to be provided from our side. 
 
 ### Handling Cinder Volumes 
 If you do any actions like snapshoting, shelving, pausing, suspending on your VM make sure that you unmount the volume first.
 
 ### Handling Quobyte Volumes 
-The general process of installing and mounting a Quobyte volume is explained in a separate document that will be send to you on request. 
+This is now deprecated.
+Legacy information about installing and mounting a Quobyte volume is explained in a separate document that will be send to you on request.
 
-## S3
-The required S3 credentials (EC2 Access Key and Secret) are provided over the Dashboard. Login to the Dashboard and on the left side go to `Project -> API Access -> View Credentials`. Please make sure you are logged in to **RegionOne** as the credentials are not displayed on **RegionTwo**. Please be aware that these credentials are project specific **not** user specific.
+### S3
+The required S3 credentials (EC2 Access Key and Secret) are provided over the Dashboard. Login to the Dashboard and on the left side go to `Project / API Access / View Credentials`.
+Please make sure you are logged in to **RegionOne** as the credentials are not displayed on **RegionTwo**. Please be aware that these credentials are project specific **not** user specific.
 
 There are two possibilities to make use of the S3 service. 
 
