@@ -165,10 +165,10 @@ Per default you will have a varying amount of space available (root disc) within
 You may copy data from and to your VM using simply the  `scp`  command with the `–i` flag to use your SSH key.
 
 ## Using Cinder Volumes
-Cinder Volumes are nothing else than block devices like a hard drive connected to your computer but in this case virtual. You can mount format and unmount it like a normal block device. In the following it is explained how to create a Cinder Volume and how to use it in your VM. But before some remarks. It is only possible to attach a Cinder Volume to exactly one VM. So you can not share one Volume with other VMs. A more cheerful remark is that the data saved on a Cinder Volume is persistent. As long you do not delete the Volume in the Dashboard (Horizon) your data will not get lost by deleting the VM or anything else happening with the VM. They are also stored three times redundant. But be aware that this comes to a price: While the throughput of cinder volumes can be even faster then local discs, latencies are a few magnitudes higher. So running databases or lots of small file operations on it can be extremely slow.
+Cinder Volumes are nothing else than block devices like a hard drive connected to your computer but in this case virtual. You can mount format and unmount it like a normal block device. In the following it is explained how to create a Cinder Volume and how to use it in your VM. But before some remarks. It is only possible to attach a Cinder Volume to exactly one VM. So you can not share one Volume with other VMs. A more cheerful remark is that the data saved on a Cinder Volume is persistent. As long you do not delete the Volume in the Dashboard your data will not get lost by deleting the VM or anything else happening with the VM. They are also stored three times redundant. But be aware that this comes to a price: While the throughput of cinder volumes can be even faster then local discs, latencies are a few magnitudes higher. So running databases or lots of small file operations on it can be extremely slow.
 
-In the Dashboard (Horizon) you will navigate to `Project / Volumes / Volumes`.
-Here you can create a new volume entering the following parameters
+On the Dashboard navigate to `Project / Volumes / Volumes`.
+To create a new volume click on `Create Volume` and enter the following parameters
 ```
 Volume name: Type in any name you want to
 Description: Describe for which purpose you will use the volume (optional) 
