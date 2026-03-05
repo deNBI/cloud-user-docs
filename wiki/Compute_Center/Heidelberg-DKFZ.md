@@ -2,9 +2,9 @@
 Welcome to the de.NBI Cloud site DKFZ Heidelberg. In the following guide we want
 to give you a quick introduction how to use our cloud site.
 
-Please note, you are responsible for everything that happens with the virtual
-machines (VMs) you deploy! We as resource provider are not liable for
-anything and do not give any guarantees.
+### Disclaimer
+
+You are solely responsible for all activities related to the virtual machines (VMs) you deploy. As the resource provider, we are not liable for any issues and offer no guarantees. We strongly recommend making your setup as reproducible as possible from the start and ensuring that important data is regularly backed up.
 
 ## How to get in contact with us
 In case you have questions or want to give us any kind of feedback, please
@@ -186,16 +186,16 @@ dashboard to get information about the complete mount path. Under the
 
 You can mount the share with the following command:
 
-    sudo mount -o vers=4.0 manila-prod.isi2.denbi.dkfz.de:/ifs/denbi/prod/YOUR-SHARE /mnt/
+    sudo mount -o vers=4.0 shares.isi1.denbi.dkfz.de:/ifs/denbi/prod/manila/YOUR-SHARE /mnt/
 
 Alternatively you can add the mount path to the "/etc/fstab". Make sure that
 you use NFS version 4.0.
 
 Please make sure that your user (depending on the used distribution: centos,
-debian, ubuntu) is the owner of the NFS share. Therefore run the following
+almalinux and ubuntu) is the owner of the NFS share. Therefore run the following
 command to set the user as owner of the NFS share:
 
-    sudo chown centos:centos /mnt/
+    sudo chown cloud-user:cloud-user /mnt/
 
 **Hint** This example is for a Centos based image.
 
@@ -204,9 +204,9 @@ Please be aware that our images are shipped with the standard users for the
 respective Linux distribution. Here you  can see a list of standard users for
 some common distributions:
 
-  - **CentOS**: centos
+  - **CentOS**: cloud-user
   - **Ubuntu**: ubuntu
-  - **Debian**: debian
+  - **Almalinux**: almalinux
 
 ### Connecting to your VMs directly
 To easily connect directly to your VMs via our jumphost you can configure a
@@ -300,6 +300,10 @@ Therefore set your environment variables for the http/https proxy:
 
 Now, if you have an active SOCKS connection to the jumphost, you should be
 able to use the OpenStack API from your local machine.
+
+### S3 Bucket Availability
+S3‑compatible object storage is not provisioned by default but can be enabled on request.
+To obtain a bucket, please open a support ticket with your project details and include the required bucket size so that we can configure your quota accordingly..
 
 ### Terraform
 
