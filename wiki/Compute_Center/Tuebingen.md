@@ -14,7 +14,6 @@ If like to give us access to your VM that we can help you "hands on", add our ke
 ```
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAzQ86aCv9uzRcm9LTt4lP7sLgNAucZoZuqCtWGvF4sy FabianPaz@denbiadmin
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCfgmdfTN99ARbIsk4IuadXC1mQrSRwZHkrjx6VPRvFS3Keq0Z77qOIawn/Umyf4GiqJHzm2hcwGsUHcCpIbLfZylY0qAmW+rNvCvescU36CKJhI4d4Rax1NGy7As+hiSXbFollr64kwhSIguT4r/khWMzCLWGQIHH+UlKOirk+snYJ5skFtrT9NlBNme7juj2PatiIH58gthlkexoxfnH/mhk5DDIqNcBHbQwS5Rw9CUnlWSNJSV1DvSXUcp7ncIWJgHVSh4yUxDn/LcH/fp0yhdB5dXAJtetNYnnXacXPA4k/dneCJm4lUtmyv8nsSDQ2Dzqv9dlAsPssNp6l1qV8LqvBrwqPneuyzgZhz1s3URoaDzZ2EVvg7aH/DMtRZq7RJKnzCSqGAeZFWMd574VEv5Ghmc1Hw93AZcmD7DZERp0NmF/kSKIJcaslcblkSkDHUlVFiudNaXBVafV2aR/EuA86+zO5n5s3vCKRw4LKc50i6DReUwHgXvjbHcy5R8s= AmirBaleghi@denbiadmin
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBleXwIHspNjqk1KPO2FB8D7uegtJkOvGiQ4aTQGaf8i FabinWannenmacher@fwdebian
 ```
 
 ## General concept of the de.NBI Cloud Tübingen
@@ -36,19 +35,18 @@ Please note, you are responsible for everything that happens with the virtual ma
 
 
 ## SSH-Keys
-To access your VMs, a valid SSH key pair is required. On all POSIX operating systems (including Windows 10 and 11) ‘keygen’ may be used to create a key pair. A command example is given below:
-
-```
+To access your VMs, a valid SSH key pair is required. On all POSIX operating systems (including Windows 10 and 11) `ssh-keygen` may be used to create a key pair. An example is given below:
+```bash
 ssh-keygen –t ed25519
 ```
 
 Please note, keep your private key as private as you would do it with your credit card PIN number. We will never ask you to share your private key.
 
 ### Deploying a Key Pair
-Login to the Horizon dashboard https://denbi.uni-tuebingen.de and navigate to Key Pairs via Project / Compute. Click on `Import Key Pair` and insert your public key after giving it a name.
+Login to the Horizon dashboard https://denbi.uni-tuebingen.de and navigate to `Project / Compute / Key Pairs`. Click on `Import Key Pair` and insert your public key after giving it a name.
 
 ## Launching an Instance
-Navigate to Instances via Project / Compute and click on Launch Instance (upper right). The following entries for the VM are only examples, please chose the appropriate settings for your work case (Operating System (Images), Resources (Flavors)).
+Navigate to `Project / Compute / Instances` and click on `Launch Instance` (upper right). The following entries for the VM are only examples, please chose the appropriate settings for your work case (Operating System (Images), Resources (Flavors)).
 
 #### Details
 ```
@@ -167,15 +165,15 @@ Per default you will have a varying amount of space available (root disc) within
 You may copy data from and to your VM using simply the  `scp`  command with the `–i` flag to use your SSH key.
 
 ## Using Cinder Volumes
-Cinder Volumes are nothing else than block devices like a hard drive connected to your computer but in this case virtual. You can mount format and unmount it like a normal block device. In the following it is explained how to create a Cinder Volume and how to use it in your VM. But before some remarks. It is only possible to attach a Cinder Volume to exactly one VM. So you can not share one Volume with other VMs. A more cheerful remark is that the data saved on a Cinder Volume is persistent. As long you do not delete the Volume in the Dashboard (Horizon) your data will not get lost by deleting the VM or anything else happening with the VM. They are also stored three times redundant. But be aware that this comes to a price: While the throughput of cinder volumes can be even faster then local discs, latencies are a few magnitudes higher. So running databases or lots of small file operations on it can be extremely slow.
+Cinder Volumes are nothing else than block devices like a hard drive connected to your computer but in this case virtual. You can mount format and unmount it like a normal block device. In the following it is explained how to create a Cinder Volume and how to use it in your VM. But before some remarks. It is only possible to attach a Cinder Volume to exactly one VM. So you can not share one Volume with other VMs. A more cheerful remark is that the data saved on a Cinder Volume is persistent. As long you do not delete the Volume in the Dashboard your data will not get lost by deleting the VM or anything else happening with the VM. They are also stored three times redundant. But be aware that this comes to a price: While the throughput of cinder volumes can be even faster then local discs, latencies are a few magnitudes higher. So running databases or lots of small file operations on it can be extremely slow.
 
-In the Dashboard (Horizon) you will navigate to the `Compute` section and then to the `Volume` section.
-Here you can create a new volume entering the following parameters
+On the Dashboard navigate to `Project / Volumes / Volumes`.
+To create a new volume click on `Create Volume` and enter the following parameters
 ```
 Volume name: Type in any name you want to
 Description: Describe for which purpose you will use the volume (optional) 
 Volume Source: Set it to `No source, empty Volume` to get an empty block device
-Type: quobyte_hdd
+Type: Please use `ceph`/`ceph2_hdd` in RegionOne/RegionTwo. Additional types might be made available on request.
 Size (GiB): Select the desired size in Gigabytes
 Availability zone: nova
 ```
@@ -235,77 +233,61 @@ If you followed the instructions above the `MOUNTPOINT` would be `/mnt/volume` A
 
 If you use another filesystem than xfs or ext4 please look up if and how an increase of the capacity is possible.
 
-## Different volume types on the de.NBI Cloud site Tübingen 
-We will differentiate in the following between two different kind of volumes. Both volume types are handled on the same storage system solution running Quobyte, but are different in their handling and functionalities.
+## Different storage types on the de.NBI Cloud site Tübingen 
+We will differentiate in the following between different kinds of storage access.
+All mentioned options have backends such as _Ceph_ or _Quobyte_, that might further differentiate their handling and functionalities.
 
-**Cinder volumes:** Cinder is the OpenStack volume service. As a user you are able to create new volumes, according to the granted project quotas, on your own via the web interface (Dashboard). These volumes are good for storing general data and are a good start. A drawback of this simple solution is, that Cinder volumes can only be attached to one VM at a time. In general, a Cinder volume can be seen as a slice of a larger Quobyte Volume which is s holding the data in the background. 
+**Cinder volumes:** Cinder is the OpenStack volume service. As a user you are able to create new volumes, according to the granted project quotas, on your own via the web interface (Dashboard). These volumes are good for storing general data and are a good start. A drawback of this simple solution is, that Cinder volumes can only be attached to one VM at a time. In general, a Cinder volume can be seen as a large virtual _thumb-drive_.
 
-**Quobyte volumes:** Further, it is possible to use a Quobyte volume directly, which is mounted via an additional network interface in the VM using the quobyte-client tool. These kind of volumes offer the possibility to mount them on multiple VMs at the same time, use different kinds of hardware (SSDs, HDDs), replication methods and also make them available via the S3 protocol. If such a Quobyte volume is required, please contact us. They cannot be created by users themselves, they have to be provided from our side. 
+**Quobyte volumes (DEPRECATED):** Further, it is possible to use the Quobyte backend directly. _Direct Quobyte volumes_ are mounted via an additional network interface in the VM using the quobyte-client tool. These kind of volumes offer the possibility to mount them on multiple VMs at the same time, use different kinds of hardware (SSDs, HDDs), replication methods and also make them available via the S3 protocol. If such a Quobyte volume is required, please contact us. They cannot be created by users themselves, they have to be provided from our side. 
 
 ### Handling Cinder Volumes 
 If you do any actions like snapshoting, shelving, pausing, suspending on your VM make sure that you unmount the volume first.
 
 ### Handling Quobyte Volumes 
-The general process of installing and mounting a Quobyte volume is explained in a separate document that will be send to you on request. 
+This is now deprecated.
+Legacy information about installing and mounting a Quobyte volume is explained in a separate document that will be send to you on request.
 
-## S3
-The required S3 credentials (EC2 Access Key and Secret) are provided over the Dashboard. Login to the Dashboard and on the left side go to `Project -> API Access -> View Credentials`. Please make sure you are logged in to **RegionOne** as the credentials are not displayed on **RegionTwo**. Please be aware that these credentials are project specific **not** user specific.
+### S3
+The required S3 credentials (EC2 Access Key and Secret) are provided over the Dashboard. Login to the Dashboard and on the left side go to `Project / API Access / View Credentials`.
+Please make sure you are logged in to **RegionOne** as the credentials are not displayed on **RegionTwo**. Please be aware that these credentials are project specific **not** user specific.
 
 There are two possibilities to make use of the S3 service. 
 
-You can make a Quobyte volume accessible via S3. More precise, you can make files and directories inside of this volume accessible. A mounted Quobyte volume is required for this and it needs to be enabled for S3 from our side. After that you can access it via the following URL schema (if permissions allow it). All the following steps need to be executed from the machine/VM where the quobyte volume is mounted. 
+#### 1. Make a Quobyte volume accessible via S3
+This will be **deprecated** soon.
+
+More precise, you can make files and directories inside of this volume accessible. A mounted Quobyte volume is required for this and it needs to be enabled for S3 from our side. After that you can access it via the following URL schema (if permissions allow it). All the following steps need to be executed from the machine/VM where the quobyte volume is mounted. 
 
 `https://s3.denbi.uni-tuebingen.de/BUCKET_NAME/FILENAME_OR_DIRECTORY`
-
 
 **Please be aware that S3 is thought to handle flat structures and not multiple nested directory structures, where you might hit some limits.** The URL can be used in a browser or via wget/curl to download the specified content. 
 
 Files and directories have to be made accessible using the `nfs4-acl-tools` that need to be installed. Via the following command for example a file can be made accessible for everyone (mountpoint of the volume here is /mnt/qbvol/ ): 
-
-```
+```bash
 sudo nfs4_setfacl -a A:g:EVERYONE@ANONYMOUS:rtncx /mnt/qbvol/
-
-```
-
-```
 sudo nfs4_setfacl -a A:g:EVERYONE@ANONYMOUS:rtncx /mnt/qbvol/folder
-```
-
-```
 sudo nfs4_setfacl -a A:g:EVERYONE@ANONYMOUS:rtnc /mnt/qbvol/folder/file-object
 ```
 
 Further, you can grant read access to another OpenStack project `other_proj`
-
-```
+```bash
 sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rtncx /mnt/qbvol/
-```
-
-```
 sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rtncx /mnt/qbvol/folder
-```
-
-```
 sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rtnc /mnt/qbvol/folder/file-object
 ```
 
 Or grant write/full access to another OpenStack project `other_proj` 
-
-```
+```bash
 sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rwadtTnNcCx /mnt/qbvol/
-```
-
-```
 sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rwadtTnNcCx /mnt/qbvol/folder
-```
-
-```
 sudo nfs4_setfacl -a A:g:EVERYONE@%other_proj_ID%:rwadtTnNcC/mnt/qbvol/folder/fileobject 
 ```
+
 These are just examples, you can further try other settings from the nfs4_setfacl. This kind of Quobyte volume (S3) is only available on RegionOne. 
 
-
-The second possibility is to use an S3 client to create, list, push, pull buckets and data. We have tested and therefore can recommend the `awscli` client. Please install it and provide the credentials to it. More on the awscli client and downloads can be found [here](https://aws.amazon.com/de/cli/) 
+#### 2. Use an S3 client
+... to create, list, push, pull buckets and data. We have tested and therefore can recommend the `awscli` client. Please install it and provide the credentials to it. More on the awscli client and downloads can be found [here](https://aws.amazon.com/de/cli/) 
 
 To use the `awscli` please install it and provide your credentials through .aws/credentials the following way (e.g. replace `test_user:ec2-access_key` with your access_key, do the sanme for the secret_key): 
 
@@ -366,141 +348,7 @@ aws --endpoint https://s3.denbi.uni-tuebingen.de --profile PROJECT_NAME s3 cp s3
 
 ## Attach a second interface
 If you need a second interface for example to use direct volume mounts of our Quobyte storage for handling sensitive data or you need an internal network to build a virtual cluster where the compute nodes usually do not need to be accessed by the outside network this guide will help you to get them configured.
-In the following we will give examples for CentOS and Ubuntu.
-
-### CentOS7
-1. First launch a VM with a publicly acessible IP address, as usual
-2. Login to the VM
-3. Change to the root user 
-```
-sudo su -
-```
-4. The following command will set the default gateway to network interface eth0 which should be the interface for the public IP address:
-```
-echo 'GATEWAYDEV=eth0' >> /etc/sysconfig/network
-```
-5. Exit as root user running the following command:
-```
-exit
-```
-6. Attach a second interface of your choice via the webinterface (OpenStack Dashboard)
-7. Change back to the VM and run the following command to configure the second interface:
-```
-sudo dhclient
-```
-8. Check if the interface eth1 (usually) now has an IP address configured matching the one shown in the webinterface with the following command:
-```
-ip a
-```
-
-You should see something similar to this output (XXX are replaced by numbers or letter)
-```
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host 
-       valid_lft forever preferred_lft forever
-2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
-    link/ether fa:16:3e:16:91:XX brd ff:ff:ff:ff:ff:ff
-    inet 193.196.20.XXX/XX brd 193.196.20.XXX scope global dynamic eth0
-       valid_lft 85038sec preferred_lft 85038sec
-    inet6 fe80::f816:3eff:fe16:91XX/64 scope link 
-       valid_lft forever preferred_lft forever
-3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
-    link/ether fa:16:3e:4b:83:XX brd ff:ff:ff:ff:ff:ff
-    inet 192.168.58.XXX/XX brd 192.168.XX.255 scope global dynamic eth1
-       valid_lft 85040sec preferred_lft 85040sec
-    inet6 fe80::f816:3eff:fe4b:83XX/64 scope link 
-       valid_lft forever preferred_lft forever
-```
-
-The configuration of the network will not be persistent and after a reboot it would be gone. If you want to make this configuration persistent,
-please follow the following steps we are assuming here that the second interface name is eth1. Further you can skip steps 7. and 8. from above. 
-
-9. Change to the root user 
-```
-sudo su -
-```
-
-10. Create a new network config file, **replace the HWADDR with the one shown in the `ip a` command of your VM**
-```
-vi /etc/sysconfig/network-scripts/ifcfg-eth1</pre>
-With the following content:
-<pre>BOOTPROTO=dhcp
-DEVICE=eth1
-HWADDR=fa:16:3e:4b:83:XX
-MTU=1500
-ONBOOT=yes
-TYPE=Ethernet
-USERCTL=no
-```
-Save and close the file with `:wq`
-
-11. Bring the interface up by running the following command:
-```
-ifup eth1
-```
-Wait until the additional interface has been configured.
-
-12. Check if the interface has been configured correctly running the command:
-```
-ip a
-```
-which should print out a similar output as shown above.
-
-13. Exit as root user running the following command:
-```
-exit</pre>
-```
-
-### Ubuntu 18.04. (Bionic)
-1. First launch a VM with a publicly acessible IP address, as usual
-
-2. Attach a second interface of your choice via the webinterface (OpenStack Dashboard)
-
-3. Check the interface name of the second interface, usually it should be 'ens6' with the following command:
-```
-ip a
-```
-
-4. Change to the root user 
-```
-sudo su -
-```
-
-5. Create a new network config file
-```
-vi /etc/systemd/network/ens6.network
-```
-With the following content:
-```
-[Match]
-Name=ens6
-[Network]
-DHCP=ipv4
-[DHCP]
-UseMTU=true
-RouteMetric=200
-```
-Save and close the file with `:wq`
-
-6. Restart the network with the follwoing command:
-```
-systemctl restart systemd-networkd
-```
-
-7. Exit as root user running the following command:
-```
-exit
-```
-
-8. Check if the interface has been configured correctly running the command:
-```
-ip a
-```
-which should print out a similar output as shown above for the centos7 section.
-The made changes here are directly persistent.
+In the following we will give example an for Ubuntu.
 
 ### Ubuntu 20.04. (Focal)
 1. First launch a VM with a publicly acessible IP address, as usual
@@ -558,95 +406,11 @@ sudo netplan apply
 ```
 ip a
 ```
-which should print out a similar output as shown above for the centos7 section.
 The made changes here are directly persistent.
 
 ## Install CUDA Driver for NVIDIA V100 or NVIDIA RTX A6000
 The following installation instructions help you if you want to install the NVIDIA CUDA drivers for the available NVIDIA V100 GPUs or the NVIDIA RTX A6000 GPUs (CUDA 11.4 required).
-It is assumed that you have a running VM with one or more GPUs attached already running. Otherwise please launch VM using one of the GPU flavors if GPUs are available for your project. The instructions are made for CentOS 7 CentOS 8 and Ubuntu. We also offer existing images with CUDA already installed (CentOS 7.8 CUDA 11.0 2020-07-31, CentOS 7.9 CUDA 11.4 2021-07-01, CentOS 8.4 CUDA 11.4 2021-07-01, Ubuntu 18.04.4 LTS CUDA 11.0 2020-07-24, Ubuntu 20.04 LTS CUDA 11.0 2020-07-31).
-
-### CentOS 7
-1. Update the existing installation
-```
-sudo yum update
-```
-
-2. Install development tools
-```
-sudo yum groupinstall "Development Tools"
-```
-
-3. Install additional, required tools
-```
-sudo yum install kernel-devel epel-release wget htop vim pciutils dkms
-```
-
-4. Next we need to disable the Linux kernel default driver for GPU cards in. For this open the file `/etc/default/grub` with vim for example and add
-the parameter `nouveau.modeset=0` to the line starting with `GRUB_CMDLINE_LINUX=`. The line should be similar to the following example:
-```
-GRUB_TIMEOUT=1
-GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
-GRUB_DEFAULT=saved
-GRUB_DISABLE_SUBMENU=true
-GRUB_TERMINAL="serial console"
-GRUB_SERIAL_COMMAND="serial"
-GRUB_CMDLINE_LINUX="console=tty0 crashkernel=auto net.ifnames=0 console=ttyS0 nouveau.modeset=0"
-GRUB_DISABLE_RECOVERY="true"
-```
-
-5. Make the changes effective
-```
-sudo grub2-mkconfig -o /boot/grub2/grub.cfg
-```
-
-6. Reboot the VM
-```
-sudo reboot
-```
-
-7. Login again and download the CUDA installer (11.0 or higher)
-```
-http://developer.download.nvidia.com/compute/cuda/11.0.2/local_installers/cuda_11.0.2_450.51.05_linux.run
-```
-
-8. Run the installer and type in `accept` and go down to install and hit enter
-```
-sudo sh cuda_11.0.2_450.51.05_linux.run
-```
-
-9. If the installation has finished you can check if everything works by running the following command
-```
-nvidia-smi
-```
-
-That should print out something similar to the following output depending on the number of GPUs requested
-```
-+-----------------------------------------------------------------------------+
-| NVIDIA-SMI 450.51.05    Driver Version: 450.51.05    CUDA Version: 11.0     |
-|-------------------------------+----------------------+----------------------+
-| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-|                               |                      |               MIG M. |
-|===============================+======================+======================|
-|   0  Tesla V100-SXM2...  Off  | 00000000:00:05.0 Off |                    0 |
-| N/A   31C    P0    37W / 300W |      0MiB / 32510MiB |      0%      Default |
-|                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+                                                                               
-+-----------------------------------------------------------------------------+
-| Processes:                                                                  |
-|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
-|        ID   ID                                                   Usage      |
-|=============================================================================|
-|  No running processes found                                                 |
-+-----------------------------------------------------------------------------+
-```
-10. In order to use for example `nvcc` please make sure the cuda directory `/usr/local/cuda` is in your path
-```
-export PATH=/usr/local/cuda/bin:$PATH
-```
-```
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
-```
+It is assumed that you have a running VM with one or more GPUs attached already running. Otherwise please launch VM using one of the GPU flavors if GPUs are available for your project. The instructions are made for CentOS 8 and Ubuntu. We also offer existing images with CUDA already installed (CentOS 8.4 CUDA 11.4 2021-07-01, Ubuntu 20.04 LTS CUDA 11.0 2020-07-31).
 
 ### CentOS 8
 1. Update the existing installation
