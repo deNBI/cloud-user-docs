@@ -1,47 +1,62 @@
 # de.NBI cloud at EMBL
-EMBL OpenStack instance currently runs RHOSP 16.1, which is based on upstream OpenStack Train release.
-You can find plenty of end-user documentation both from [RedHat](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/) 
-and from [upstream openstack project](https://docs.openstack.org/train/user/).
+
+EMBL currently runs a Kubernetes cluster based on Rocky Linux 9 and Kubespray. You can find information about [Kubespray](https://github.com/kubernetes-sigs/kubespray) on github but it is mostly a plain Kubernetes installation. General Documentation can be found [at the official Kuberentes Docuementation page](https://kubernetes.io/docs/home/) We also use Capsule for multi-tenancy. More information about Capsule can be found [on their github page](https://projectcapsule.dev/) It allows us to easily separate projects and users.
 
 ## Contact
+
 The de.NBI cloud team at EMBL can be contacted via denbi-requests(at)embl.de
 
-## Entrypoint
-The OpenStack Dashboard as main entry point to the EMBL de.NBI Cloud is available 
-at [https://denbi.cloud.embl.de](https://denbi.cloud.embl.de).
-
-## Endpoints
-You can get an up-to-date list of API endpoints of the available services using the dashboard or 
-the OpenStack command-line tool (`openstack endpoint list`).
-
 ## Login
-LifeScience AAI federation is the preferred way to authenticate de.NBI users on EMBL cloud instance. Local keystone
-authentication is also available upon request.
+
+Currently we restrict access to our Kubernetes cluster via OIDC connected to our in house Keycloak installation. Once a project has been accepted you will be given Credentials to our DeNBI domain. We use Apache Guacamole to allow web based access to the cluster. [Login](https://bastion-prod(dot)denbi(dot)cloud(dot)embl(dot)de)
 
 ## Network
-EMBL de.NBI cloud implements an external network on the public internet, together with a pool of public IPs available 
-for your projects. Each project will be asigned at least one of these public IPv4 addresses. You will be able to set up 
-internet facing services at ports of your choice (with a few exceptions). We're not providing DNS services but you're 
-welcome to come up with your own DNS arrangemets for services you set up.
 
-## Images
-We provide a couple of default images for common linux distributions (CentOS, Debian, Ubuntu) and Windows (2012).
+EMBL de.NBI Kubernetes cloud is separated into a DMZ network with limited access to other networks. A pool of IPV4 public IPs are available on request. You will be able to set up internet facing services at ports of your choice (with a few exceptions). It should be possible to create [Kubernetes Services](https://kubernetes.io/docs/concepts/services-networking/service/) of type LoadBalancer to get a public ip.
+We're not providing DNS services but you're welcome to come up with your own DNS arrangemets for services you set up.
 
 ## Object storage
-EMBL instance currently does not offer integrated object storage.
+
+EMBL instance offers some object storage for testing. We currently use on premise minio.
 
 ## Protection against loss of data
-Be advised that instances are ephemeral. This means that when instances go offline (for any reason), data on their
-ephemeral disks is lost. Users can prepare against this by using OpenStack Volumes, which store data persistently 
-on the backend Ceph infrastructure.
 
-Be advised that this is not a backup. If you want true backups, independent of this cloud-center, you have to copy 
-your data to a safe location, like an external harddrive, yourself. We do our best to prevent any data loss, but 
+Be advised that stateless services are expected in Kubernetes and stateful services require extra setup. We offer NFS storage via Kubernetes CSI based storage Classes via [Netapp Trident](https://www.netapp.com/trident/). Be advised that this is not a backup. If you want true backups, independent of this cloud-center, you have to copy your data to a safe location, like an external harddrive, yourself. We do our best to prevent any data loss, but
 we can't guarantee that 100%.
 
-## Flavors
-Besides standard OpenStack flavors (m1.\*) and de.NBI instances (de.NBI \*) we also provide flavors sized to align
-optimally to the underlying hardware. They're named f1.optimal\* for CPU only instances and g1.optimal\* for gpu instances.
-Please use them if you plan to run a compute heavy project.
+## Kubernetes documentation
 
-## Happy computing!
+As we run a fairly vanilla Kubernetes installation most of the documentation available online should be applicable. We have internal example of deployments and services available on request. We also have a number of Custom resource definitions in our cluster like Database CRDs for MariaDB, MongoDB and PostgreSQL.
+
+## Flavors
+
+Differntly to Openstack Flavours Kubernetes pods can be provisioned with a specific resources via Yaml in their deployments.
+
+``` yaml
+   resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+
+```
+
+It is also possible to deploy containers with access to Nvidia GPUs via the NVIDIA operator in Kubernetes.
+
+```yaml
+   resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+        nvidia.com/gpu: 1
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+        nvidia.com/gpu: 1
+
+
+```
+
+## Happy computing
