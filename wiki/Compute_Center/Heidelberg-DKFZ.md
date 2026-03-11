@@ -286,20 +286,93 @@ the need to first connect to the jumphost:
     ssh centos@10.133.2xx.xxx
 
 ### Using the OpenStack API
-First, you will need to request a password to use the OpenStack API,
-therefore write a mail to the support team at <denbi-cloud@dkfz-heidelberg.de>.
-Second, the API is not directly accessible from the outside, so the only way to
-access the API from a local machine is through the jumphost. So make sure you've
-configured your SOCKS proxy as described before. In addition you will need to
-configure your environment to use the SOCKS proxy for the API requests.
-Therefore set your environment variables for the http/https proxy:
 
-    export http_proxy=socks5h://localhost:7777
-    export https_proxy=socks5h://localhost:7777
-    export no_proxy=localhost,127.0.0.1,::1
+This guide shows how to set up the OpenStack CLI client on a VM (tested on Ubuntu) to manage your project from the command line.
 
-Now, if you have an active SOCKS connection to the jumphost, you should be
-able to use the OpenStack API from your local machine.
+1. Create Application Credentials: In the OpenStack dashboard, go to your user menu (top right) and Click Application Credentials. Create a new credential for command-line access and download two files: openrc.sh and clouds.yaml
+
+2. Copy the Credentials to Your VM: Launch a VM and copy the downloaded files (openrc.sh and clouds.yaml) to the VM.
+
+3. Place clouds.yaml in the Correct Directory: 
+```bash
+mkdir -p ~/.config/openstack/
+mv clouds.yaml ~/.config/openstack/
+```
+
+4. Install Python Virtual Environment
+```bash
+sudo apt-get update
+sudo apt-get install python3-virtualenv
+```
+
+5. Create and Activate a Virtual Environment
+```bash
+virtualenv ~/venv
+source ~/venv/bin/activate
+```
+
+6. Install the OpenStack Client
+```bash
+pip install python-openstackclient
+```
+
+7. Load Your OpenStack Credentials
+```bash
+source openrc.sh
+```
+
+8. Test the CLI
+```bash
+openstack server list
+```
+You should see a list of servers in your project.
+
+#### Using the OpenStack API from Your Local Machine
+
+If your OpenStack environment is only reachable via a jumphost, you can use a SOCKS proxy.
+
+1. Configure a SOCKS Proxy:
+
+Edit your local SSH configuration file (~/.ssh/config) and add:
+```bash
+Host denbi-jumphost-socks
+    HostName denbi-jumphost-01.dkfz.de
+    User <your_username>
+    IdentityFile /path/to/your/private_key
+    DynamicForward localhost:7777
+    ServerAliveInterval 120
+```
+
+Start the proxy:
+```bash
+ssh denbi-jumphost-socks
+```
+Leave this terminal open — the SOCKS proxy will forward traffic.
+
+2. Configure Your Environment
+
+In a new terminal, export the proxy variables:
+
+```bash
+export http_proxy=socks5h://localhost:7777
+export https_proxy=socks5h://localhost:7777
+export no_proxy=localhost,127.0.0.1,::1
+```
+
+3. Use OpenStack CLI from Your Local Machine
+
+Now you can run OpenStack CLI commands from your local machine as if you were inside the network:
+
+```bash
+source /path/to/openrc.sh
+openstack server list
+```
+or, if you have `clouds.yaml`:
+
+```bash
+openstack --cloud <cloud_name> server list
+```
+
 
 ### S3 Bucket Availability
 S3‑compatible object storage is not provisioned by default but can be enabled on request.
