@@ -23,6 +23,12 @@ As a first step make sure that you import a public ssh-key into your
 OpenStack project (**Project - Compute - Key Pairs - Import
 Key Pair**) so that you can access your VMs later on.
 
+### Access Protection
+Our jumphosts use fail2ban service to protect against repeated failed SSH login attempts. If you use multiple or misconfigured SSH key pairs, you may be temporarily blocked for up to 24 hours; fail2ban will automatically remove the ban once it expires. To avoid this, ensure your SSH configuration is correct and that only the intended key is used for authentication.
+
+### Geo Restrictions
+Access to our jumphosts is limited in certain regions outside the EU due to security policies. If you attempt to connect from a restricted location, you may experience blocked access or connection failures.
+
 ### Deploy your VMs
 The networks are already pre-configured, so you can directly start and deploy
 your VMs. Therefore go to **Project - Compute - Instances** and choose the
@@ -37,7 +43,7 @@ information at least in the categories **Details, Source and Flavor**.
 
   - Choose "Image" as "Boot Source"
   - Set "Create New Volume" to No
-  - Choose an appropriate image from the list (e.g. CentOS)
+  - Choose an appropriate image from the list (e.g. ubuntu)
 
   **Flavor:**
 
@@ -113,7 +119,7 @@ If you need more disk space than the initial image provides (20GB), one
 way is to create a volume and attach it to your VM. Please keep in mind that
 a volume can only be attached to one VM at the same time. The advantage of a
 volume is that it will be available also after you deleted your VM. So you can
-use it to store data temporally.
+use it to store data temporally. Also, there is a hard limit of 4TB per volume.
 
 To create a volume choose **Project - Compute - Volumes** followed by **Create
 Volume** on the right side. Now assign a name to your volume and set the size
@@ -191,13 +197,13 @@ You can mount the share with the following command:
 Alternatively you can add the mount path to the "/etc/fstab". Make sure that
 you use NFS version 4.0.
 
-Please make sure that your user (depending on the used distribution: centos,
+Please make sure that your user (depending on the used distribution:
 almalinux and ubuntu) is the owner of the NFS share. Therefore run the following
 command to set the user as owner of the NFS share:
 
-    sudo chown cloud-user:cloud-user /mnt/
+    sudo chown ubuntu:ubuntu /mnt/
 
-**Hint** This example is for a Centos based image.
+**Hint** This example is for a ubuntu based image.
 
 ### Distribution logins
 Please be aware that our images are shipped with the standard users for the
@@ -235,7 +241,7 @@ introduced in OpenSSH version 7.3.
 You now should be able to connect to your VM directly using the floating ip
 address:
 
-    ssh centos@10.133.2xx.xxx
+    ssh ubuntu@10.133.2xx.xxx
 
 ## File transfer into the de.NBI cloud
 In case you want to transfer local data into the cloud you can use rsync, scp,
@@ -283,7 +289,7 @@ long as you have this connection open you can directly connect to one of your
 VMs from another terminal by specifying the username and ip address without
 the need to first connect to the jumphost:
 
-    ssh centos@10.133.2xx.xxx
+    ssh ubuntu@10.133.2xx.xxx
 
 ### Using the OpenStack API
 
