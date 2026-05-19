@@ -159,6 +159,9 @@ Use volumes to add more persistent disk space to a VM. A volume can only be atta
 
 **Warning:** Creating a volume larger than 250 GB may cause snapshot operations to be slow or to fail.
 
+> ⚠️ **Volume size limit:** The volumes at cloud site Berlin can be up to 4TB in size. Larger volumes are not supported.
+
+
 1. Create the Volume
 - Navigate to Project -> Volumes -> Volumes.
 
@@ -194,6 +197,8 @@ sudo mount /dev/vdb /mnt/data
 
 ### Creating an NFS Share
 NFS shares are ideal for storing large amounts of data that need to be accessed by multiple VMs within your project.
+
+> ⚠️ **Volume size limit:** The maximum storage space available for shares is limited to 1000GB.
 
 1. Create the Share
 - Navigate to the Shares section and click **"Create Share"**.
