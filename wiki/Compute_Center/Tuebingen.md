@@ -159,23 +159,28 @@ Please note, each time you redeploy the VM the IP address will change. So first 
 
 ## Security Groups - Tips and Best Practices
 
-- Security groups in openstack are basically the firewall of your project. They determine which traffic from what sources can reach your instances, and which destinations your instances can reach.
-- **Egress**: Your instance **to** "the internet"
-- **Ingress**: "The internet" **to** your instance
-- _Possibly helpful documentation at __https://hdacloud.h-da.io/os-user-docs/projects/sec-groups/#example-web-servers-and-databases_
+- Security groups in Openstack are a firewall for your project. They determine which traffic from what sources can reach your instances, and which destinations your instances can reach.
+- **Egress**: Your instance **to** "the internet/other destinations". Note that the _default_ security groups allows any outgoing traffic. If you want to improve security by filtering _egress_ traffic you need to remove the _default_ security group from your desired instances.
+- **Ingress**: "The internet/other sources" **to** your instance
 - IP-Adress: Comparable to a street address. This essentially tells devices on a network where to find a host. 0.0.0.0/0 refers to any IPv4 address, ::0/0 is the equivalent in IPv6.
-- Ports: Comparable to a postbox. This essentially tells devices on a network where to send traffic intended for a service. 22 is the default port for SSH for example.
+- Ports: Comparable to a postbox. This essentially tells devices on a network where to send traffic intended for a service. E.g. TCP port 22 is the default port for SSH. In security groups the port is always the destination port.
+- Additional explanations and information can be found at https://hdacloud.h-da.io/os-user-docs/projects/sec-groups/
+
 
 ### Recommendations
 
 * **Least Privilege Principle**: Only open necessary ports required for the desired functionality. If you are unsure about which ports are needed for a specific application, consult the relevant documentation or ask the admin team for help. Opening ports based on guesswork can lead to unnecessary risks and accidental exposure of sensitive data.
 * **Never use all:**  Avoid rules that open all ports. Even if you're intending to open all ports for one instance only to a local network, this overcomplicates finding potential problems and determining the purpose of the security groups in the future. You are essentially opening Pandora's Box by opening all ports (not to mention opening all ports to 0.0.0.0/0).
 * **Use meaningful names and don't combine services**: This ties in to the previous principle. Use meaningful names for your security groups, and try not to use a single security group for multiple applications. If you have a security group named after your instance opening twenty-eight different ports, it becomes cumbersome to remember which port is needed for what service and turns debugging in case of errors a nightmare.
-* **Do not rely on local firewalls**: Do not rely carelessly on specific rules set in tools like iptables or ufw on your instance and open everything up in your security groups. OpenStack security groups are designed for traffic filtering with ease of use in mind, making it more transparent and enabling you to manage or update your rules with ease.
+* **Do not rely on local firewalls**: Do not rely carelessly on specific rules set in tools like iptables or ufw on your instance and open everything up in your security groups. OpenStack security groups are designed for simple traffic filtering, making it more transparent and enabling you to manage or update your rules with ease.
 * **Use specific IP ranges (if possible)**: If you want to make a service available in trusted networks or for certain teams only, use specific IP ranges (CIDR notation) to limit access. If you are unsure about which ranges are needed, consult the admins responsible for the network in question or ask your de.NBI admins for assistance.
 * **Regularly audit your groups**: If you are making changes to your infrastructure and adding or removing services, remember to also apply the corresponding changes to your security groups (e.g., if you remove or disable a web server on one of your instances, remove the rules for ports 80 and 443).
 * **Don't change without checking**: Don't alter the settings of a security group if you're unsure which instances the group is assigned to or what the specific rules are used for. If you have just created a new instance that slightly differs from the other instances in their function, it's probably a good idea to recreate the security group for the new instance and apply changes there.
-* **Prefer SSH port forwarding to opening ports**: Especially if the service you want to access isn't secured with authentication and encryption mechanisms, opening the port through a security group is not a good option. Instead, you can use port forwarding. Let's say an application is exposing a web dashboard on port 8080 on your instance. By using `ssh -L 80:localhost:8080 youruser@yourinstace` you can forward port 8080 from the instance (localhost refers to itself in the above) and make it accessible only to your local machine on port 80. By visiting [http://localhost:80](http://localhost) in a browser, you can thus easily access the web dashboard without needing to change your security groups. Please note: The SSH connection must be kept open or reopened every time you want to access the dashboard.
+* **Prefer SSH port forwarding to opening ports**: Especially if the service you want to access isn't secured with authentication and encryption mechanisms, opening the port through a security group is not a good option. Instead, you can use port forwarding. Let's say an application is exposing a web dashboard on port 8080 of your instance. By using
+    ```bash
+    ssh -L 8000:localhost:8080 youruser@yourinstance
+    ```
+    you can forward port 8080 from the instance (this _localhost_ refers to _localhost_ on your instance) and make it accessible to your local machine on port 8000. By visiting [http://localhost:8000](http://localhost:8000) (this time _localhost_ is your PC) in a browser, you can thus easily access the web dashboard without changing your security groups. Please note: The SSH connection must be kept open or reopened every time you want to access the dashboard.
 
 ### Example and Tip: Using remote security groups in your rules
 
@@ -190,7 +195,7 @@ Imagine I have a proxy service that receives connections from the internet, term
 | Ingress | IPv6 | TCP | 80 (HTTP) | ::/0 | \- | IPv6 http from public networks |
 | Ingress | IPv6 | TCP | 443 (HTTPS) | ::/0 | \- | IPv6 https from public networks |
 
-These rules say, "_allow IPv4 and IPv6 connections to the proxy on ports 80 and 443, from any IP address_".
+These rules say, "_allow (incoming) IPv4 and IPv6 connections to the proxy on ports 80 and 443, from any IP address_".
 
 So far, as normal. My security group for the proxy is called **my_proxies**. For my webservers I will create a security group called **my_webservers**. The webservers need to communicate within my Openstack project only, to and from the proxy(s). So, in the security group **my_webservers** I can use Remote Security Groups instead of an IP address space.
 
@@ -200,9 +205,18 @@ So far, as normal. My security group for the proxy is called **my_proxies**. For
 
 This rule says: "_allow IPv4 traffic to port 80 from any VM that is using the security group my_proxies_". This has the advantage that I can add any number of proxies to my infrastructure, or change the internal address of the proxy(s), without needing to make any changes to the security groups. It is also much easier to understand this security group quickly.
 
+Note that rules can also use the _same_ security group they are a part of. E.g. the **default** security group contains
+
+| Direction | Ether Type | IP Protocol | Port Range | Remote IP Prefix | Remote Security Group | Description |
+|-----------|------------|-------------|------------|------------------|-----------------------|-------------|
+| Ingress | IPv4 | Any | Any | \- | **default** | \- |
+| Ingress | IPv6 | Any | Any | \- | **default** | \- |
+
+which allows any incoming traffic from VMs which also use the project's **default** security group.
+
 ### Security groups and instance firewalls
 
-- Using security groups as a firewall is relatively easy and convenient compared to most on-machine firewall solutions available (`iptables/nftables`, `ufw`, etc.), but there might be situations in which a combination of both is useful to some use cases. `fail2ban` or advanced firewall configurations (rate-limiting, counters, packet validation, port-knocking, source port filtering, etc.) can't be realized with security groups, so combining the use of both can be a viable option to achieve advanced configurations for your instances. We strongly recommend relying on security groups for the vast majority of your firewall needs and only falling back to instance internal firewall tooling if you really need it.
+- Using security groups as a firewall is relatively easy and convenient compared to most on-machine firewall solutions available (`iptables/nftables`, `ufw`, etc.), but there might be situations in which a combination of both is useful to some use cases. Dynamic configurations (such as with `fail2ban`) and other advanced firewall configurations (rate-limiting, counters, packet validation, port-knocking, source port filtering, etc.) can't be realized with security groups, so combining both can be a viable option to achieve advanced configurations for your instances. We strongly recommend relying on security groups for the vast majority of your firewall needs and only falling back to instance internal firewall tooling if you really need it.
 
 ## Transferring data
 Per default you will have a varying amount of space available (root disc) within your VM depending on the chosen operating system. More is easily available through Swift or Cinder volumes. How to use Cinder Volumes is explained below. Further you can use a flavor with 20GB of root disc space to enlarge the available default space.
