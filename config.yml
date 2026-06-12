@@ -3,6 +3,7 @@ docs_dir: /srv_root/docs/wiki
 site_dir: /var/www/html/wiki
 theme:
   name: material
+  font: false
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -90,6 +91,10 @@ extra_javascript:
   - !ENV [ MATOMO_SCRIPT_FILE, matomo.js]
   - mathjax.js
   - assets/mathjax/tex-mml-chtml-mathjax-stix2.js
+
+
+extra_css:
+  - assets/css/fonts.css
 
 extra:
   social:

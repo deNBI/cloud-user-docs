@@ -2,6 +2,7 @@ site_name: "de.NBI Cloud Wiki"
 docs_dir: wiki
 theme:
   name: material
+  font: false
   palette:
     primary: 'light blue'
     accent: 'light blue'
@@ -93,6 +94,10 @@ nav:
 extra_javascript:
   - mathjax.js
   - assets/mathjax/tex-mml-chtml-mathjax-stix2.js
+
+extra_css:
+  - assets/css/fonts.css
+  
 extra:
   social:
   - icon: fontawesome/brands/linkedin
