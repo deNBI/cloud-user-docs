@@ -92,8 +92,7 @@ nav:
 
 extra_javascript:
   - mathjax.js
-  - assets/mathjax/tex-mml-chtml.js
-
+  - assets/mathjax/tex-mml-chtml-mathjax-stix2.js
 extra:
   social:
   - icon: fontawesome/brands/linkedin
