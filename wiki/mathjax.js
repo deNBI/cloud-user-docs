@@ -1,6 +1,5 @@
 window.MathJax = {
-    loader: {
-        load: ['[mathjax-stix2]/chtml'],
+     loader: {
         paths: { 'mathjax-stix2': '/wiki/assets/mathjax' }
     },
     chtml: { font: 'mathjax-stix2' },
