@@ -7,6 +7,7 @@ theme:
     accent: 'light blue'
   logo: 'img/denbi.svg'
   favicon: 'img/denbi.svg'
+  custom_dir: wiki/overrides
 repo_name: 'deNBI/cloud-user-docs'
 
 repo_url: 'https://github.com/deNBI/cloud-user-docs'
@@ -86,3 +87,20 @@ nav:
     - 'Register your identity provider for ELIXIR': cloud_admin/identity_provider.md
     - 'News management': cloud_admin/news_management.md
     - 'Vault management': cloud_admin/vault_admin.md
+extra:
+  social:
+  - icon: fontawesome/brands/linkedin
+    link: https://www.linkedin.com/company/de-nbi/
+    name: de.NBI on LinkedIN
+  - icon: fontawesome/brands/github
+    link: https://github.com/deNBI/
+    name: de.NBI on GitHub
+  - icon: fontawesome/brands/youtube
+    link: https://www.youtube.com/channel/UCgZ5PU3CyD4c8yxxzJi130g?view_as=subscriber
+    name: de.NBI on YouTube
+  - icon: fontawesome/brands/wikipedia-w
+    link: https://en.wikipedia.org/wiki/German_Network_for_Bioinformatics_Infrastructure
+    name: de.NBI on Wikipedia
+  footer_links: 
+    - { name: "Policies", href: "https://cloud.denbi.de/about/policies/" }
+    - { name: "Imprint", href: "https://cloud.denbi.de/about/imprint/" }
