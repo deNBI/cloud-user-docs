@@ -9,5 +9,9 @@ window.MathJax = {
         processEscapes: true,
         processEnvironments: true
     },
-    options: { processHtmlClass: "arithmatex" }
+    options: { processHtmlClass: "arithmatex" },
+    output: {
+        font: 'mathjax-stix2',
+        fontPath: '/wiki/assets/mathjax/mathjax-stix2-font',
+    }
 };
