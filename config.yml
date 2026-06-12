@@ -89,7 +89,7 @@ markdown_extensions:
 extra_javascript:
   - !ENV [ MATOMO_SCRIPT_FILE, matomo.js]
   - mathjax.js
-  - assets/mathjax/tex-mml-chtml.js
+  - assets/mathjax/tex-mml-chtml-nofont.js
 
 extra:
   social:
