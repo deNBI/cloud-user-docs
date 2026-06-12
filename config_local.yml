@@ -31,6 +31,8 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
+  - pymdownx.arithmatex:
+      generic: true
 nav:
   - 'Home' : index.md
   - 'Registration' : registration.md
@@ -87,6 +89,11 @@ nav:
     - 'Register your identity provider for ELIXIR': cloud_admin/identity_provider.md
     - 'News management': cloud_admin/news_management.md
     - 'Vault management': cloud_admin/vault_admin.md
+
+extra_javascript:
+  - mathjax.js
+  - assets/mathjax/tex-mml-chtml.js
+
 extra:
   social:
   - icon: fontawesome/brands/linkedin
