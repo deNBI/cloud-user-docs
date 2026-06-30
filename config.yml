@@ -3,6 +3,7 @@ docs_dir: /srv_root/docs/wiki
 site_dir: /var/www/html/wiki
 theme:
   name: material
+  font: false
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -19,6 +20,7 @@ theme:
       toggle:
         icon: material/weather-night
         name: Switch to light mode
+  custom_dir: wiki/overrides
 
   logo: 'img/denbi.svg'
   favicon: 'img/denbi.svg'
@@ -88,29 +90,30 @@ markdown_extensions:
 extra_javascript:
   - !ENV [ MATOMO_SCRIPT_FILE, matomo.js]
   - mathjax.js
-  - https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?version=3.111.0&features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - assets/mathjax/tex-mml-chtml-mathjax-stix2.js
+
+
+extra_css:
+  - assets/css/fonts.css
 
 extra:
   social:
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/denbiOffice
-      name: de.NBI on Twitter
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/denbiCloud
-      name: de.NBI Cloud on Twitter
-    - icon: fontawesome/brands/linkedin
-      link: https://www.linkedin.com/company/de-nbi/
-      name: de.NBI on LinkedIN
-    - icon: fontawesome/brands/github
-      link: https://github.com/deNBI/
-      name: de.NBI on GitHub
-    - icon: fontawesome/brands/youtube
-      link: https://www.youtube.com/channel/UCgZ5PU3CyD4c8yxxzJi130g?view_as=subscriber
-      name: de.NBI on YouTube
-    - icon: fontawesome/brands/wikipedia-w
-      link: https://en.wikipedia.org/wiki/German_Network_for_Bioinformatics_Infrastructure
-      name: de.NBI on Wikipedia
+  - icon: fontawesome/brands/linkedin
+    link: https://www.linkedin.com/company/de-nbi/
+    name: de.NBI on LinkedIN
+  - icon: fontawesome/brands/github
+    link: https://github.com/deNBI/
+    name: de.NBI on GitHub
+  - icon: fontawesome/brands/youtube
+    link: https://www.youtube.com/channel/UCgZ5PU3CyD4c8yxxzJi130g?view_as=subscriber
+    name: de.NBI on YouTube
+  - icon: fontawesome/brands/wikipedia-w
+    link: https://en.wikipedia.org/wiki/German_Network_for_Bioinformatics_Infrastructure
+    name: de.NBI on Wikipedia
+  footer_links: 
+    - { name: "Policies", href: "https://cloud.denbi.de/about/policies/" }
+    - { name: "Imprint", href: "https://cloud.denbi.de/about/imprint/" }
+    
   simplevm_wiki_link: !ENV [ SIMPLE_VM_WIKI_LINK, 'https://simplevm.denbi.de/wiki/' ]
 
 nav:

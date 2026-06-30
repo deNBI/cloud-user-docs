@@ -1,0 +1,16 @@
+ {% extends "base.html" %}
+
+  {% block footer %}
+    {{ super() }}
+    <footer class="md-footer">
+      <div class="md-footer-links md-footer-meta md-typeset">
+        <div class="md-grid">
+            <div style="margin: auto; text-align: center; padding: 2rem;">
+            {% for link in config.extra.footer_links %}
+            <a href="{{ link.href }}" rel="noopener noreferrer" target="_blank">{{ link.name }}</a>{% if not loop.last %} | {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+      </div>
+    </footer>
+  {% endblock %}

@@ -132,7 +132,7 @@ new `basicauth` section as seen below.
 example.bi.denbi.de {
   reverse_proxy 127.0.0.1:8000
   basicauth / {
-    alice $2a$14$osbZTr.aovwDoO8WULE7hu0rF8YbrZt5Ltp0W.tIARgkE8525HLCG
+    alice <hash>
   }
 }
 ```
@@ -141,9 +141,9 @@ To add more users, simply add more lines to the `basicauth` section:
 
 ```
   basicauth / {
-    alice $2a$14$osbZTr.aovwDoO8WULE7hu0rF8YbrZt5Ltp0W.tIARgkE8525HLCG
-    bob $2a$14$INrlWVMNeuULZYnkVIBclefLHGmXLB.WQdKQGr/FjpeJYDrmGUN1e
-    carol $2a$14$nPEUHsqMDS7YfuVzo1n3iecRBexUI9wQINymbnedI0iG4E.Pchfe6
+    alice <hash>
+    bob <hash>
+    carol <hash>
   }
 ```
 
