@@ -124,7 +124,7 @@ secure and up-to-date.
 If you have detected a possible security problem with an instance, please contact the site
 administrators immediately and ask for support. They will to advise you on how to proceed.
 
-### Remote port access and Security Groups: Tips and best practices
+### Remote port access and Openstack Security Groups: Tips and best practices
 
 - Security groups are a firewall for your project. They determine which traffic from what sources can reach your instances, and which destinations your instances can reach.
 - **Egress**: Your instance **to** "internal and public destinations". Note that the _default_ security groups allows any outgoing traffic. If you want to improve security by filtering _egress_ traffic you need to remove the _default_ security group from your desired instances.
@@ -134,12 +134,13 @@ administrators immediately and ask for support. They will to advise you on how t
 - Additional explanations and information can be found at https://hdacloud.h-da.io/os-user-docs/projects/sec-groups/
 
 
-#### Recommendations
+#### General firewall recommendations
 
 * **Least Privilege Principle**: Only open necessary ports required for the desired functionality. If you are unsure about which ports are needed for a specific application, consult the relevant documentation or ask the admin team for help. Opening ports based on guesswork can lead to unnecessary risks and accidental exposure of sensitive data.
 * **Never use all:**  Avoid rules that open all ports. Even if you're intending to open all ports for one instance only to a local network, this overcomplicates finding potential problems and determining the purpose of the security groups in the future. You are essentially opening Pandora's Box by opening all ports (not to mention opening all ports to 0.0.0.0/0 or ::/0).
-* **Use meaningful names and don't combine services**: This ties in to the previous principle. Use meaningful names for your security groups, and try not to use a single security group for multiple applications. If you have a security group named after your instance opening twenty-eight different ports, it becomes cumbersome to remember which port is needed for what service and turns debugging in case of errors a nightmare.
-* **Do not rely on local firewalls**: Do not rely carelessly on specific rules set in tools like iptables or ufw on your instance and open everything up in your security groups. OpenStack security groups are designed for simple traffic filtering, making it more transparent and enabling you to manage or update your rules with ease.
+* **Use meaningful names/comments and don't combine services**: This ties in to the previous principle. Use meaningful names for your security groups, and try not to use a single security group for multiple applications. If you have a security group named after your instance opening twenty-eight different ports, it becomes cumbersome to remember which port is needed for what service and turns debugging in case of errors a nightmare.
+    The same applies to the names and comments of firewall chains on instances.
+* **Do not rely on single firewall layers**: Do not rely carelessly on specific rules set in tools like `iptables` or `ufw` on your instance and open everything up in your security groups. OpenStack security groups are designed for simple traffic filtering, making it more transparent and enabling you to manage or update your rules for your entire project with ease.
 * **Use specific IP ranges (if possible)**: If you want to make a service available in trusted networks or for certain teams only, use specific IP ranges (CIDR notation) to limit access.
     E.g. limit this to your institution's IP address range.
     For Bielefeld University this would be `129.70.0.0/16`, which amounts to only 0.002% of the world's IPv4 addresses, thereby drastically reducing the attack surface. 
@@ -188,13 +189,13 @@ Note that rules can also use the _same_ security group they are a part of. E.g. 
 
 which allows any incoming traffic from VMs which also use the project's **default** security group.
 
-#### Security groups and instance firewalls
+#### Openstack security groups and instance firewalls
 
 Using security groups as a firewall is relatively easy and convenient compared to most on-machine firewall solutions available (`iptables/nftables`, `ufw`, etc.),
-but there might be situations in which a combination of both is useful for some use cases.
+but there might be situations in which a combination of both is useful/adviced.
 Dynamic configurations (such as with `fail2ban`) and other advanced firewall configurations (rate-limiting, counters, packet validation, port-knocking, source port filtering, etc.) can't be realized with security groups,
 so combining both can be a viable option to achieve additional redundancy and advanced configurations for your instances.
-We recommend relying on (Openstack) security groups for the vast majority of your firewall needs and falling back to instance internal firewall tooling if you really need it.
+We recommend relying on security groups for the vast majority of your firewall needs and adding instance internal firewall tooling for redundancy and additional features.
 
 #### Determine your institution's IP address range and convert it to CIDR notation
 
@@ -223,6 +224,9 @@ Further information:
 
 
 ### Application security
+
+Some service do not need to communicate through public interfaces:
+Configure them to listen on link-local and/or internal interfaces only.
 
 Many applications support authentication (e.g. username and password). Use it to stop any outside
 attacks that were (easily) able to guess your instance's IP and port (which are not secret by any
