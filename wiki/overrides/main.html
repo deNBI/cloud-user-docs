@@ -7,7 +7,9 @@
         <div class="md-grid">
             <div style="margin: auto; text-align: center; padding: 2rem;">
             {% for link in config.extra.footer_links %}
-            <a href="{{ link.href }}" rel="noopener noreferrer" target="_blank">{{ link.name }}</a>{% if not loop.last %} | {% endif %}
+            <a href="{{ link.href }}" 
+            {%if link.new_tab | default(true) %}rel="noopener noreferrer" target="_blank"{% endif %}>{{ link.name }}</a>
+            {% if not loop.last %} | {% endif %}
             {% endfor %}
             </div>
         </div>
