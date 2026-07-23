@@ -1,37 +1,59 @@
 # de.NBI Cloud Tübingen
 Welcome to the de.NBI Cloud site Tübingen. In the following we will
-give you a basic introduction how to use our cloud site.
+give you a basic introduction on how to use our cloud site.
 
 ## How to get in contact with us
-In case you have questions or want to give us any kind of feedback, please
+If you need support, have questions or want to give us any kind of feedback,
 contact us via <denbi@zdv.uni-tuebingen.de>.
 
 If you need help please add the **ID** of your instance/volume, your operating system and in which region it is located.
 
-## Giving access to de.NBI admins
-If like to give us access to your VM that we can help you "hands on", add our keys by adding the following lines to the file ~/.ssh/authorized_keys
-
+### Giving access to de.NBI admins
+If you need to give us access to your VM that we can help you with internal configuration and debugging,
+add the following keys/lines to the VM's `~/.ssh/authorized_keys`
 ```
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAzQ86aCv9uzRcm9LTt4lP7sLgNAucZoZuqCtWGvF4sy FabianPaz@denbiadmin
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCfgmdfTN99ARbIsk4IuadXC1mQrSRwZHkrjx6VPRvFS3Keq0Z77qOIawn/Umyf4GiqJHzm2hcwGsUHcCpIbLfZylY0qAmW+rNvCvescU36CKJhI4d4Rax1NGy7As+hiSXbFollr64kwhSIguT4r/khWMzCLWGQIHH+UlKOirk+snYJ5skFtrT9NlBNme7juj2PatiIH58gthlkexoxfnH/mhk5DDIqNcBHbQwS5Rw9CUnlWSNJSV1DvSXUcp7ncIWJgHVSh4yUxDn/LcH/fp0yhdB5dXAJtetNYnnXacXPA4k/dneCJm4lUtmyv8nsSDQ2Dzqv9dlAsPssNp6l1qV8LqvBrwqPneuyzgZhz1s3URoaDzZ2EVvg7aH/DMtRZq7RJKnzCSqGAeZFWMd574VEv5Ghmc1Hw93AZcmD7DZERp0NmF/kSKIJcaslcblkSkDHUlVFiudNaXBVafV2aR/EuA86+zO5n5s3vCKRw4LKc50i6DReUwHgXvjbHcy5R8s= AmirBaleghi@denbiadmin
 ```
 
 ## General concept of the de.NBI Cloud Tübingen
-A cloud like the one you will use here can be seen as computing resources which are available on demand.
-You can get much more compute cores (CPU), main memory (RAM) and also storage capacity than you have
-available on your own work station. The de.NBI Cloud Tübingen provides you the mentioned resources as an infrastructure (IaaS).
-The available resources are used by starting Virtual Machines (VMs) on the provided computing machines.
-You can start different virtual machines with different Linux based operating systems (OS) which consume different kind of
-resources. The VMs can be customized on your own to fit your needs in the best way.
-What you get is a computing infrastructure where you can run calculations or simulations with a flexible amount of resources
-in your own computing environment (VM).
+The de.NBI Cloud Tübingen offers compute and storage resources on demand:
+it provides infrastructure as a service (IaaS).
+
+Users get access to more compute cores (CPU), main memory (RAM), GPUs and storage capacity
+than available on local work stations.
+Compute resources are provided via virtual machines (VMs)
+which provide flexibility as they can
+ - have different Linux based operating systems (OS)
+ - be assigned different (kinds/amounts of) resources
+ - customized/configured internally
+ - snapshotted to revert to previous states
+ - cloned to scale out
+ - attached to serveral storage solutions
+
+In short, user needs are met by providing a customizable computing infrastructure
+that can run calculations, simulations and services with a flexible amount of resources.
 
 ## Login
 You need to apply for a login for https://denbi.uni-tuebingen.de. 
 
-The cloud site in Tübingen consists of two sites that are called RegionOne and RegionTwo. The two regions offer different resources. RegionOne offers low memory CPU nodes and high memory CPU nodes. RegioTwo offers medium memory CPU nodes and GPU nodes (NVIDIA V100). Also the storage components of these two regions are divided but have the same capabilities. Depending on which region your resources are please switch to the specific region. Per default RegionOne is chosen after the login. If you need to change to RegionTwo click on the `RegionOne` button in the upper left corner of the browser window. 
+The cloud site in Tübingen consists of two sites
+which offer different compute resources.
+- _RegionOne_ offers low- and high-memory CPU nodes and some H200 GPUs.
+- _RegioTwo_ offers medium- and high-memory CPU nodes and the majority of our GPU resources (V100, RTX A6000 and H200).
 
-Please note, you are responsible for everything that happens with the virtual machines (VMs) you deploy! We as resource provider are not liable for anything and do not give any guarantees.
+Each region has separate storage backends with the same capabilities and capacities.
+By default _RegionOne_ is chosen after the login.
+Use the drop-down menu in the upper left corner of the dashboard to change it.
+
+### Policies
+
+!!! note
+    To make unused but blocked resources available to everybody
+    we will shelve and offload VMs that have been shutoff or inactive+errorneous for more than 7 days.
+
+    We also reserve the right to convert shelved VMs to storage volumes to free public IPv4 addresses.
+    We'll notify the project PI when this happens.
 
 
 ## SSH-Keys
@@ -40,13 +62,23 @@ To access your VMs, a valid SSH key pair is required. On all POSIX operating sys
 ssh-keygen –t ed25519
 ```
 
-Please note, keep your private key as private as you would do it with your credit card PIN number. We will never ask you to share your private key.
+!!! warn
+    Create your own key pairs.
+    Never share your **private** keys with anybody.
+    We will also never ask for it.
+
 
 ### Deploying a Key Pair
 Login to the Horizon dashboard https://denbi.uni-tuebingen.de and navigate to `Project / Compute / Key Pairs`. Click on `Import Key Pair` and insert your public key after giving it a name.
 
 ## Launching an Instance
-Navigate to `Project / Compute / Instances` and click on `Launch Instance` (upper right). The following entries for the VM are only examples, please chose the appropriate settings for your work case (Operating System (Images), Resources (Flavors)).
+
+!!! note
+    You are responsible for everything that happens with the virtual machines (VMs) you deploy!
+    We, as resource provider, are not liable for anything and do not give any guarantees.
+
+Navigate to `Project / Compute / Instances` and click on `Launch Instance` (upper right).
+The following entries for the VM are only examples, please choose the appropriate settings for your use case.
 
 #### Details
 ```
@@ -57,14 +89,25 @@ Count: 1
 
 #### Source
 ```
-Select Boot Source: Instance Snapshot or Images
-Create New Volume: No (Otherwise the root partition of the instance is launched on a volume which is not recommended!)
-Allocated: Select the required OS by clicking on the up arrow
+Select Boot Source: 'Images', for a default OS or
+                    'Instance Snapshot' if you want to recreate or clone a previous VM
+
+Create New Volume:  'No', if you want to have a fast root disk (local on the HV). 
+                         Its size will be fixed by the flavor you choose.
+                    'Yes', to put the root disk in the storage backend. This
+                       - is more complicated
+                       - will be slower
+                       - more resilient as the data survives single disk and node failures
+                       - can be affected by storage backend issues
+                       - allows to adjust the disk size (you will need Openstack volume quota). Request sufficient space for OS and software! We recommend to attach additional 'data' volumes after creating the VM. 
+                    If in doubt select 'No' initially: This is easier to convert to a 'Volume' VM than the other way around.
+
+Allocated:          Select the desired image/OS by clicking on its '↑' button.
 ```
 
 #### Flavor
 ```
-Allocated: Select the required flavor by clicking on the up arrow
+Allocated: Select the required flavor by clicking its '↑' button.
 ```
 
 #### Networks
@@ -95,40 +138,29 @@ For network selection, since we cannot provide enough IPv4 for all users, we nee
 
 #### Network Ports
 ```
-Leave it unchanged
+Unless previously instructed otherwise: Leave it unchanged
 ```
 
 #### Security Groups
 ```
-Allocated: Select the set up network by clicking on the up arrow beneath the network name and move ‘default’ to the Available section
+Allocated: Select the desired security groups by clicking their '↑' buttons in the Available section.
+           Generally 'external_access' should suffice at first.
 ```
+
+Security groups can be adjusted later.
+Please consider our [security recommendations](../security.md#remote-port-access-and-openstack-security-groups-tips-and-best-practices).
 
 #### Key Pair
 ```
 Select your key pair
 ```
 
-#### Configuration
+#### Configuration, Server Groups, Scheduler Hints & Metadata
 ```
-Leave it unchanged
-```
-
-#### Server Groups
-```
-Leave it unchanged
+Leave all unchanged
 ```
 
-#### Scheduler Hints
-```
-Leave it unchanged
-```
-
-#### Metadata
-```
-Leave it unchanged
-```
-
-Finally launch the instance. You should see a fresh instance entry. It may take a couple of minutes to spawn the instance depending on the requested resources. 
+Finally **launch** the instance. You should see a fresh instance entry. It may take a couple of minutes to spawn the instance depending on the requested resources. 
 
 ## Accessing a VM via SSH
 Just use ssh, specifying the correct IP, the right key and the username of the OS (centos, ubuntu, debian, ...), you have chosen for example ‘centos’. An example of a Linux command is given below:
