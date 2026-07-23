@@ -97,6 +97,20 @@ extra_css:
   - assets/css/fonts.css
 
 extra:
+  consent:
+    title: Cookie consent
+    description: >-
+      We use analytics cookies (Matomo) to understand how visitors use the wiki
+      so we can improve it. With your consent, you help us make the documentation
+      better. You can withdraw consent at any time.
+    actions:
+      - accept
+      - reject
+      - manage
+    cookies:
+      analytics:
+        name: Matomo
+        checked: true
   social:
   - icon: fontawesome/brands/linkedin
     link: https://www.linkedin.com/company/de-nbi/
@@ -113,6 +127,7 @@ extra:
   footer_links: 
     - { name: "Policies", href: "https://cloud.denbi.de/about/policies/" }
     - { name: "Imprint", href: "https://cloud.denbi.de/about/imprint/" }
+    - { name: "Cookie Consent", href: "#__consent", new_tab: false }
     
   simplevm_wiki_link: !ENV [ SIMPLE_VM_WIKI_LINK, 'https://simplevm.denbi.de/wiki/' ]
 
