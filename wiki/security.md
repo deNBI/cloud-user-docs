@@ -136,19 +136,18 @@ administrators immediately and ask for support. They will to advise you on how t
 
 #### General firewall recommendations
 
+In the following list the terms _security group_ and _firewall rule_ are interchangeable.
+
 * **Least Privilege Principle**: Only open necessary ports required for the desired functionality. If you are unsure about which ports are needed for a specific application, consult the relevant documentation or ask the admin team for help. Opening ports based on guesswork can lead to unnecessary risks and accidental exposure of sensitive data.
 * **Never use all:**  Avoid rules that open all ports. Even if you're intending to open all ports for one instance only to a local network, this overcomplicates finding potential problems and determining the purpose of the security groups in the future. You are essentially opening Pandora's Box by opening all ports (not to mention opening all ports to 0.0.0.0/0 or ::/0).
-* **Use meaningful names/comments and don't combine services**: This ties in to the previous principle. Use meaningful names for your security groups, and try not to use a single security group for multiple applications. If you have a security group named after your instance opening twenty-eight different ports, it becomes cumbersome to remember which port is needed for what service and turns debugging in case of errors a nightmare.
+* **Use meaningful names/comments and don't combine services**: This ties in to the previous principle. Use meaningful names for your security groups, and try not to use a single security group for multiple applications.
+    If you have a security group named after your instance opening twenty-eight different ports, it becomes cumbersome to remember which port is needed for what service and turns debugging in case of errors a nightmare.
     The same applies to the names and comments of firewall chains on instances.
-* **Do not rely on single firewall layers**: Do not rely carelessly on specific rules set in tools like `iptables` or `ufw` on your instance and open everything up in your security groups. OpenStack security groups are designed for simple traffic filtering, making it more transparent and enabling you to manage or update your rules for your entire project with ease.
 * **Use specific IP ranges (if possible)**: If you want to make a service available in trusted networks or for certain teams only, use specific IP ranges (CIDR notation) to limit access.
     E.g. limit this to your institution's IP address range.
     For Bielefeld University this would be `129.70.0.0/16`, which amounts to only 0.002% of the world's IPv4 addresses, thereby drastically reducing the attack surface. 
     If you are unsure about which ranges are needed, consult the admins responsible for the network in question, ask your de.NBI admins for assistance or see the [guide below](#determine-your-institutions-ip-address-range-and-convert-it-to-cidr-notation).
-* **Regularly audit your groups**: If you are making changes to your infrastructure and adding or removing services, remember to also apply the corresponding changes to your security groups (e.g., if you remove or disable a web server on one of your instances, remove the rules for ports 80 and 443).
-* **Don't change without checking**: Don't alter the settings of a security group if you're unsure which instances the group is assigned to or what the specific rules are used for. If you have just created a new instance that slightly differs from the other instances in their function, it's probably a good idea to recreate the security group for the new instance and apply changes there.
-    E.g. the `default` security group (which all new instances get) should not be touched. Create a new one instead, add your rules and attach it only to the instances you need outside access to.
-
+* **Regularly audit your security groups**: If you are making changes to your infrastructure and adding or removing services, remember to also apply the corresponding changes to your security groups (e.g., if you remove or disable a web server on one of your instances, remove the rules for ports 80 and 443).
 * **Prefer SSH port forwarding to opening ports**: Especially if the service you want to access isn't secured with authentication and encryption mechanisms, opening the port through a security group is not a good option. Instead, you can use port forwarding. Let's say an application is exposing a web dashboard on port 8080 of your instance. By using
     ```bash
     ssh -L 8000:localhost:8080 youruser@yourinstance
@@ -156,6 +155,12 @@ administrators immediately and ask for support. They will to advise you on how t
     you can forward port 8080 from the instance (this _localhost_ refers to _localhost_ on your instance) and make it accessible to your local machine on port 8000. By visiting [http://localhost:8000](http://localhost:8000) (this time _localhost_ is your PC) in a browser, you can thus easily access the web dashboard without changing your security groups.
     Note that the SSH connection must be kept open or reopened every time you want to access the dashboard. <br/>
     Further information: [http://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding](http://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding)
+
+#### Security group specific recommendations
+* **Do not rely on single firewall layers**: Do not rely carelessly on specific rules set in tools like `iptables` or `ufw` on your instance and open everything up in your security groups. OpenStack security groups are designed for simple traffic filtering, making it more transparent and enabling you to manage or update your rules for your entire project with ease.
+* **Don't change without checking**: Don't alter the settings of a security group if you're unsure which instances the group is assigned to or what the specific rules are used for. If you have just created a new instance that slightly differs from the other instances in their function, it's probably a good idea to recreate the security group for the new instance and apply changes there.
+    E.g. the `default` security group (which is added to new instances by default) should never be altered. Create a new one instead, add your rules and attach it only to the instances you need outside access to.
+
 
 #### Example and Tip: Using remote security groups in your rules
 
@@ -191,11 +196,11 @@ which allows any incoming traffic from VMs which also use the project's **defaul
 
 #### Openstack security groups and instance firewalls
 
-Using security groups as a firewall is relatively easy and convenient compared to most on-machine firewall solutions available (`iptables/nftables`, `ufw`, etc.),
-but there might be situations in which a combination of both is useful/adviced.
-Dynamic configurations (such as with `fail2ban`) and other advanced firewall configurations (rate-limiting, counters, packet validation, port-knocking, source port filtering, etc.) can't be realized with security groups,
-so combining both can be a viable option to achieve additional redundancy and advanced configurations for your instances.
-We recommend relying on security groups for the vast majority of your firewall needs and adding instance internal firewall tooling for redundancy and additional features.
+Using security groups as a firewall is relatively easy and convenient compared to most on-machine firewall solutions available (`iptables/nftables`, `ufw`, etc.)
+and cannot be altered from within a VM.
+But dynamic configurations (such as with `fail2ban`) and other advanced firewall configurations (rate-limiting, counters, packet validation, port-knocking, source port filtering, etc.) can't be realized with security groups, so combining both can be a viable option.
+We recommend to restrict access with security groups to the maximum extend possible
+and adding instance internal firewall tooling for redundancy and additional features.
 
 #### Determine your institution's IP address range and convert it to CIDR notation
 
@@ -230,7 +235,9 @@ Configure them to listen on link-local and/or internal interfaces only.
 
 Many applications support authentication (e.g. username and password). Use it to stop any outside
 attacks that were (easily) able to guess your instance's IP and port (which are not secret by any
-means). It is also highly recommended to protect your network traffic from prying eyes using TLS
+means).
+
+It is also highly recommended to **protect your network traffic** from prying eyes **using TLS**
 which is available inside almost all server applications, especially webservers.
 
 Feel free to take a look at the tutorial [Secure hosting of a public Web Server](Tutorials/PublicWebServer/index.md) for guidance.
