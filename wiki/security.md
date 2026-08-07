@@ -124,7 +124,7 @@ secure and up-to-date.
 If you have detected a possible security problem with an instance, please contact the site
 administrators immediately and ask for support. They will to advise you on how to proceed.
 
-### Remote port access and Openstack Security Groups: Tips and best practices
+#### Remote port access and Openstack Security Groups: Tips and best practices
 
 - Security groups are a firewall for your project. They determine which traffic from what sources can reach your instances, and which destinations your instances can reach.
 - **Egress**: Your instance **to** "internal and public destinations". Note that the _default_ security groups allows any outgoing traffic. If you want to improve security by filtering _egress_ traffic you need to remove the _default_ security group from your desired instances.
@@ -136,7 +136,7 @@ administrators immediately and ask for support. They will to advise you on how t
 
 #### General firewall recommendations
 
-In the following list the terms _security group_ and _firewall rule_ are interchangeable.
+In the following list the terms 'security group' and 'firewall rule' are interchangeable.
 
 * **Least Privilege Principle**: Only open necessary ports required for the desired functionality. If you are unsure about which ports are needed for a specific application, consult the relevant documentation or ask the admin team for help. Opening ports based on guesswork can lead to unnecessary risks and accidental exposure of sensitive data.
 * **Never use all:**  Avoid rules that open all ports. Even if you're intending to open all ports for one instance only to a local network, this overcomplicates finding potential problems and determining the purpose of the security groups in the future. You are essentially opening Pandora's Box by opening all ports (not to mention opening all ports to 0.0.0.0/0 or ::/0).
@@ -152,11 +152,12 @@ In the following list the terms _security group_ and _firewall rule_ are interch
     ```bash
     ssh -L 8000:localhost:8080 youruser@yourinstance
     ```
-    you can forward port 8080 from the instance (this _localhost_ refers to _localhost_ on your instance) and make it accessible to your local machine on port 8000. By visiting [http://localhost:8000](http://localhost:8000) (this time _localhost_ is your PC) in a browser, you can thus easily access the web dashboard without changing your security groups.
+    you can forward port 8080 from the instance (this `localhost` refers to `localhost` on your instance) and make it accessible to your local machine on port 8000. By visiting [http://localhost:8000](http://localhost:8000) (this time `localhost` is your PC) in a browser, you can thus easily access the web dashboard without changing your security groups.
     Note that the SSH connection must be kept open or reopened every time you want to access the dashboard. <br/>
     Further information: [http://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding](http://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding)
 
 #### Security group specific recommendations
+
 * **Do not rely on single firewall layers**: Do not rely carelessly on specific rules set in tools like `iptables` or `ufw` on your instance and open everything up in your security groups. OpenStack security groups are designed for simple traffic filtering, making it more transparent and enabling you to manage or update your rules for your entire project with ease.
 * **Don't change without checking**: Don't alter the settings of a security group if you're unsure which instances the group is assigned to or what the specific rules are used for. If you have just created a new instance that slightly differs from the other instances in their function, it's probably a good idea to recreate the security group for the new instance and apply changes there.
     E.g. the `default` security group (which is added to new instances by default) should never be altered. Create a new one instead, add your rules and attach it only to the instances you need outside access to.
@@ -164,7 +165,7 @@ In the following list the terms _security group_ and _firewall rule_ are interch
 
 #### Example and Tip: Using remote security groups in your rules
 
-_Remote Security Group_ rules in Security Groups are a useful way to manage access between VMs in Openstack. When understood, they make it much easier and safer to scale and modify within Openstack projects.
+'Remote Security Group' rules in Security Groups are a useful way to manage access between VMs in Openstack. When understood, they make it much easier and safer to scale and modify within Openstack projects.
 
 Imagine I have a proxy service that receives connections from the internet, terminates the HTTPS and passes requests on to webservers. My proxy needs to accept connections from the outside world, so it will have the standard http/https rules:
 
@@ -185,7 +186,7 @@ So far, as normal. My security group for the proxy is called **my_proxies**. For
 
 This rule says: "_allow IPv4 traffic to port 80 from any VM that is using the security group my_proxies_". This has the advantage that I can add any number of proxies to my infrastructure, or change the internal address of the proxy(s), without needing to make any changes to the security groups. It is also much easier to understand this security group quickly.
 
-Note that rules can also use the _same_ security group they are a part of. E.g. the **default** security group contains
+Note that rules can also use the **same** security group they are a part of. E.g. the **default** security group contains
 
 | Direction | Ether Type | IP Protocol | Port Range | Remote IP Prefix | Remote Security Group | Description |
 |-----------|------------|-------------|------------|------------------|-----------------------|-------------|
@@ -220,7 +221,7 @@ and adding instance internal firewall tooling for redundancy and additional feat
    - Enter the start of the range into the field `IP Address`.
    - Adjust the `Mask Bits` (`16` is a good starting point) until the end of your institution's IP range matches (or is included in) the range shown in the field `CIDR Address Range`.
    
-3. Use the `Net: CIDR Notation` from the calculator to configure the _Remote CIDR_ of your security group rule (e.g. `129.70.0.0/16`).
+3. Use the `Net: CIDR Notation` from the calculator to configure the 'Remote CIDR' of your security group rule (e.g. `129.70.0.0/16`).
 
 Further information:
 

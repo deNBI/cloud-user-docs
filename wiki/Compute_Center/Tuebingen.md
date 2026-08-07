@@ -39,11 +39,11 @@ You need to apply for a login for https://denbi.uni-tuebingen.de.
 
 The cloud site in Tübingen consists of two sites
 which offer different compute resources.
-- _RegionOne_ offers low- and high-memory CPU nodes and some H200 GPUs.
-- _RegioTwo_ offers medium- and high-memory CPU nodes and the majority of our GPU resources (V100, RTX A6000 and H200).
+- **RegionOne** offers low- and high-memory CPU nodes and some H200 GPUs.
+- **RegioTwo** offers medium- and high-memory CPU nodes and the majority of our GPU resources (V100, RTX A6000 and H200).
 
 Each region has separate storage backends with the same capabilities and capacities.
-By default _RegionOne_ is chosen after the login.
+By default **RegionOne** is chosen after the login.
 Use the drop-down menu in the upper left corner of the dashboard to change it.
 
 ### Policies
@@ -265,11 +265,13 @@ If you use another filesystem than xfs or ext4 please look up if and how an incr
 
 ## Different storage types on the de.NBI Cloud site Tübingen 
 We will differentiate in the following between different kinds of storage access.
-All mentioned options have backends such as _Ceph_ or _Quobyte_, that might further differentiate their handling and functionalities.
+All mentioned options have backends such as 'Ceph' or 'Quobyte', that might further differentiate their handling and functionalities.
 
-**Cinder volumes:** Cinder is the OpenStack volume service. As a user you are able to create new volumes, according to the granted project quotas, on your own via the web interface (Dashboard). These volumes are good for storing general data and are a good start. A drawback of this simple solution is, that Cinder volumes can only be attached to one VM at a time. In general, a Cinder volume can be seen as a large virtual _thumb-drive_.
+**Cinder volumes:** Cinder is the OpenStack volume service. As a user you are able to create new volumes, according to the granted project quotas, on your own via the web interface (Dashboard). These volumes are good for storing general data and are a good start. A drawback of this simple solution is, that Cinder volumes can only be attached to one VM at a time. In general, a Cinder volume can be seen as a large 'virtual thumb-drive'.
 
-**Quobyte volumes (DEPRECATED):** Further, it is possible to use the Quobyte backend directly. _Direct Quobyte volumes_ are mounted via an additional network interface in the VM using the quobyte-client tool. These kind of volumes offer the possibility to mount them on multiple VMs at the same time, use different kinds of hardware (SSDs, HDDs), replication methods and also make them available via the S3 protocol. If such a Quobyte volume is required, please contact us. They cannot be created by users themselves, they have to be provided from our side. 
+**Quobyte volumes (DEPRECATED):** Further, it is possible to use the Quobyte backend directly.
+'Direct Quobyte volumes' are mounted via an additional network interface in the VM using the quobyte-client tool.
+These kind of volumes offer the possibility to mount them on multiple VMs at the same time, use different kinds of hardware (SSDs, HDDs), replication methods and also make them available via the S3 protocol. If such a Quobyte volume is required, please contact us. They cannot be created by users themselves, they have to be provided from our side. 
 
 ### Handling Cinder Volumes 
 If you do any actions like snapshoting, shelving, pausing, suspending on your VM make sure that you unmount the volume first.
