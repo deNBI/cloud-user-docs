@@ -145,7 +145,7 @@ In the following list the terms 'security group' and 'firewall rule' are interch
     The same applies to the names and comments of firewall chains on instances.
 * **Use specific IP ranges (if possible)**: If you want to make a service available in trusted networks or for certain teams only, use specific IP ranges (CIDR notation) to limit access.
     E.g. limit this to your institution's IP address range.
-    For Bielefeld University this would be `129.70.0.0/16`, which amounts to only 0.002% of the world's IPv4 addresses, thereby drastically reducing the attack surface. 
+    For Bielefeld University this would be `129.70.0.0/16`, which amounts to only 0.002% of the world's IPv4 addresses, thereby drastically reducing the attack surface.
     If you are unsure about which ranges are needed, consult the admins responsible for the network in question, ask your de.NBI admins for assistance or see the [guide below](#determine-your-institutions-ip-address-range-and-convert-it-to-cidr-notation).
 * **Regularly audit your security groups**: If you are making changes to your infrastructure and adding or removing services, remember to also apply the corresponding changes to your security groups (e.g., if you remove or disable a web server on one of your instances, remove the rules for ports 80 and 443).
 * **Prefer SSH port forwarding to opening ports**: Especially if the service you want to access isn't secured with authentication and encryption mechanisms, opening the port through a security group is not a good option. Instead, you can use port forwarding. Let's say an application is exposing a web dashboard on port 8080 of your instance. By using

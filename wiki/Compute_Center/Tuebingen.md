@@ -24,6 +24,7 @@ Users get access to more compute cores (CPU), main memory (RAM), GPUs and storag
 than available on local work stations.
 Compute resources are provided via virtual machines (VMs)
 which provide flexibility as they can
+
  - have different Linux based operating systems (OS)
  - be assigned different (kinds/amounts of) resources
  - customized/configured internally
@@ -34,11 +35,22 @@ which provide flexibility as they can
 In short, user needs are met by providing a customizable computing infrastructure
 that can run calculations, simulations and services with a flexible amount of resources.
 
+### Policies
+
+!!! note
+    To make unused but blocked resources available to everybody
+    we will shelve and offload VMs that have been shutoff or inactive + in an error state for more than 7 days.
+
+    We also reserve the right to convert shelved VMs to storage volumes to free public IPv4 addresses.
+    We'll notify the project PI when this happens.
+
+
 ## Login
 You need to apply for a login for https://denbi.uni-tuebingen.de. 
 
 The cloud site in Tübingen consists of two sites
-which offer different compute resources.
+which offer different compute resources:
+
 - **RegionOne** offers low- and high-memory CPU nodes and some H200 GPUs.
 - **RegioTwo** offers medium- and high-memory CPU nodes and the majority of our GPU resources (V100, RTX A6000 and H200).
 
@@ -46,17 +58,8 @@ Each region has separate storage backends with the same capabilities and capacit
 By default **RegionOne** is chosen after the login.
 Use the drop-down menu in the upper left corner of the dashboard to change it.
 
-### Policies
 
-!!! note
-    To make unused but blocked resources available to everybody
-    we will shelve and offload VMs that have been shutoff or inactive+errorneous for more than 7 days.
-
-    We also reserve the right to convert shelved VMs to storage volumes to free public IPv4 addresses.
-    We'll notify the project PI when this happens.
-
-
-## SSH-Keys
+### SSH-Keys
 To access your VMs, a valid SSH key pair is required. On all POSIX operating systems (including Windows 10 and 11) `ssh-keygen` may be used to create a key pair. An example is given below:
 ```bash
 ssh-keygen –t ed25519
@@ -92,14 +95,14 @@ Count: 1
 Select Boot Source: 'Images', for a default OS or
                     'Instance Snapshot' if you want to recreate or clone a previous VM
 
-Create New Volume:  'No', if you want to have a fast root disk (local on the HV). 
+Create New Volume:  'No', if you want to have a fast root disk (local on the HV).
                          Its size will be fixed by the flavor you choose.
                     'Yes', to put the root disk in the storage backend. This
                        - is more complicated
                        - will be slower
                        - more resilient as the data survives single disk and node failures
                        - can be affected by storage backend issues
-                       - allows to adjust the disk size (you will need Openstack volume quota). Request sufficient space for OS and software! We recommend to attach additional 'data' volumes after creating the VM. 
+                       - allows to adjust the disk size (you will need Openstack volume quota). Request sufficient space for OS and software! We recommend to attach additional 'data' volumes after creating the VM.
                     If in doubt select 'No' initially: This is easier to convert to a 'Volume' VM than the other way around.
 
 Allocated:          Select the desired image/OS by clicking on its '↑' button.
@@ -160,7 +163,7 @@ Select your key pair
 Leave all unchanged
 ```
 
-Finally **launch** the instance. You should see a fresh instance entry. It may take a couple of minutes to spawn the instance depending on the requested resources. 
+Finally **launch** the instance. You should see a fresh instance entry. It may take a couple of minutes to spawn the instance depending on the requested resources.
 
 ## Accessing a VM via SSH
 Just use ssh, specifying the correct IP, the right key and the username of the OS (centos, ubuntu, debian, ...), you have chosen for example ‘centos’. An example of a Linux command is given below:
@@ -271,7 +274,7 @@ All mentioned options have backends such as 'Ceph' or 'Quobyte', that might furt
 
 **Quobyte volumes (DEPRECATED):** Further, it is possible to use the Quobyte backend directly.
 'Direct Quobyte volumes' are mounted via an additional network interface in the VM using the quobyte-client tool.
-These kind of volumes offer the possibility to mount them on multiple VMs at the same time, use different kinds of hardware (SSDs, HDDs), replication methods and also make them available via the S3 protocol. If such a Quobyte volume is required, please contact us. They cannot be created by users themselves, they have to be provided from our side. 
+These kind of volumes offer the possibility to mount them on multiple VMs at the same time, use different kinds of hardware (SSDs, HDDs), replication methods and also make them available via the S3 protocol. If such a Quobyte volume is required, please contact us. They cannot be created by users themselves, they have to be provided from our side.
 
 ### Handling Cinder Volumes 
 If you do any actions like snapshoting, shelving, pausing, suspending on your VM make sure that you unmount the volume first.
