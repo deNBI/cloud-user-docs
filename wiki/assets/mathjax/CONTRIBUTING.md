@@ -11,7 +11,7 @@ There are lots and lots of ways to get involved, this document covers:
     * [feature requests](#feature-requests)
     * [change requests](#change-requests)
 * [working on MathJax core](#working-on-mathjax-core)
-    * [key branches and tags](#key-branches--tags)
+    * [key branches and tags](#key-branches-tags)
     * [submitting pull requests](#submitting-pull-requests)
     * [testing and quality assurance](#testing-and-quality-assurance)
     * [writing documentation](#writing-documentation)
@@ -69,7 +69,7 @@ Guidelines for bug reports:
    case](https://css-tricks.com/reduced-test-cases/). Be specific
    about your setup (browser, OS versions, etc). Use services like
    [jsbin](http://jsbin.com), [CodePen](http://codepen.io), or
-   [jsFiddle](http://jsfiddle.com) to make collaboration on minimal
+   [jsFiddle](https://jsfiddle.net/) to make collaboration on minimal
    test cases easier for everyone.
 
 5. **Include a screenshot/cast as a last resort** &mdash; Is your
@@ -237,7 +237,7 @@ requests in the same way as branches.
 
 MathJax's main documentation can be found at [docs.mathjax.org](http://docs.mathjax.org).
 The source of the docs is hosted in the
-[mathjax/MathJax-docs](http://github.com/mathjax/MathJax-docs) repo here on GitHub.
+[mathjax/MathJax-docs](https://github.com/mathjax/MathJax-docs) repo here on GitHub.
 
 The documentation is generated using
 [Sphinx-doc](http://sphinx-doc.org/) and hosted on [Read the
