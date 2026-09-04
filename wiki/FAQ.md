@@ -82,7 +82,7 @@ Yes, take a look [here](https://cloud.denbi.de/about/testimonials/)!
 
 ### How can I acknowledge the de.NBI Cloud in publications?
 
-See [here](../citation_and_publication/#citation-information) for more information.
+See [here](citation_and_publication.md#citation-information) for more information.
 
 ### Where can I find the terms of use and privacy policy?
 

@@ -44,15 +44,30 @@ plugins:
       raise_error_after_finish: True
       retry_max_times: 3
       raise_error_excludes:
-        -1: [ "https://cloud.denbi.de/portal/webapp/#/userinfo", "http://169.254.169.254", "https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=lifescience", "https://login.elixir-czech.org/oidc/", "https://spreg-legacy.aai.elixir-czech.org/spreg/auth/facilities/myServices","http://BIBIGRID_MASTER/ganglia" ]
+        -1: [ "https://cloud.denbi.de/portal/webapp/#/userinfo", "http://169.254.169.254", "https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=lifescience", "https://login.elixir-czech.org/oidc/", "https://spreg-legacy.aai.elixir-czech.org/spreg/auth/facilities/myServices","http://BIBIGRID_MASTER/ganglia", "https://bastion-prod(dot)denbi(dot)cloud(dot)embl(dot)de" ]
         400: [ "http://169.254.169.254" ]
-        403: [ "https://s3.denbi.uni-tuebingen.de","https://cloud-init.io", "https://linux.die.net/man/5/nfs", "https://geant.org/Services/" ]
+        403: [ "https://s3.denbi.uni-tuebingen.de","https://www.netapp.com/trident/","https://cloud-init.io", "https://linux.die.net/man/5/nfs", "https://geant.org/Services/", "https://www.netapp.com/trident/ " ]
         404: ["https://cloud.denbi.de/about/credits-calculator/"]
+        429: [ "https://docs.ansible.com" ]
         500: [ "https://cloud.denbi.de/register", "https://signup.aai.lifescience-ri.eu/fed/registrar/?vo=elixir_test" ]
-        504: [ "https://denbi.cloud.embl.de", https://cloud.denbi.de/about/credits-calculator/", "https://packages.ubuntu.com/","https://denbi-cloud.bihealth.org","http://apt-cache.bi.denbi.de:9999","http://129.70.51.2:9999","https://cloud.denbi.dkfz-heidelberg.de","https://denbi-cloud.bioquant.uni-heidelberg.de","https://denbi-cloud.bioquant.uni-heidelberg.de" ]
+        503: [ "https://s3.denbi.uni-tuebingen.de" ]
+        504: [ "https://denbi.cloud.embl.de", "https://cloud.denbi.de/about/credits-calculator/", "https://packages.ubuntu.com/","https://denbi-cloud.bihealth.org","http://apt-cache.bi.denbi.de:9999","http://129.70.51.2:9999","https://cloud.denbi.dkfz-heidelberg.de","https://denbi-cloud.bioquant.uni-heidelberg.de","https://denbi-cloud.bioquant.uni-heidelberg.de", "https://docs.kubermatic.com" ]
       ignore_urls:
         - "https://services.aai.lifescience-ri.eu/spreg/auth/facilities/myServices"
         - "https://spreg-legacy.aai.elixir-czech.org/spreg/auth/requests/new"
+        # Ignore everything in the MathJax assets folder (includes CONTRIBUTING.md)
+        - ".*assets/mathjax/.*"
+        - ".*wiki/assets/mathjax/.*"
+        # URLs blocked by bot protection (e.g. Cloudflare challenge)
+        - "https://stackoverflow.com/questions/41137494/ha-proxy-rule-404-not-found"
+        # Ansible docs frequently return 429 (Too Many Requests)
+        - "https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html"
+        - "https://docs.ansible.com/ansible/2.9/modules/modules_by_category.html"
+        - "https://docs.ansible.com/ansible/latest/user_guide/playbooks.html"
+        - "https://docs.ansible.com/ansible/latest/getting_started/index.html"
+      ignore_pages:
+       - assets/mathjax/CONTRIBUTING.md
+
 markdown_extensions:
   - abbr
   - attr_list
@@ -153,6 +168,10 @@ nav:
       - 'OpenStack Components': Concept/openstack.md
       - 'Flavors': Concept/flavors.md
       - 'Images': Concept/images.md
+      - 'Image Builder': Concept/image_builder.md
+      - 'Network': Concept/network.md
+      - 'Object Storage Giessen': Concept/object_storage_giessen.md
+      - 'Volumes': Concept/volumes.md
   - 'Tutorials':
       - 'Tutorials': Tutorials/index.md
       - 'Access de.NBI Virtual Machines from Windows 10': Tutorials/Win10_SSH/index.md
@@ -173,7 +192,6 @@ nav:
       - 'Persistent SSH Sessions': Tutorials/Persistent_SSH_Sessions/index.md
       - 'Theia Web IDE': Tutorials/TheiaIde/index.md
       - 'UserData': Tutorials/UserData/index.md
-      - 'Using X2GO': Tutorials/X2GO/x2go.md
   - 'FAQ': 'FAQ.md'
   - 'Compute Center Specific':
       - 'Berlin': Compute_Center/Berlin.md
