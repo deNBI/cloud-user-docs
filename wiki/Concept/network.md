@@ -71,6 +71,6 @@ There are some possibilities to access several VMs through one IP address.
 
 - Jump Host : Use one VM as jump host. That VM has the credentials to ssh into all the other VMs.
 
-- Gateway : Another possibility to use one floating IP for several instances is to setup a gateway. See [UserData tutorial](/Tutorials/UserData) for detailed description how to achieve this.
+- Gateway : Another possibility to use one floating IP for several instances is to setup a gateway. See [UserData tutorial](../Tutorials/UserData/index.md) for detailed description how to achieve this.
 
 - VPN : Advanced users can setup a VPN (e.g. using [OpenVPN](https://openvpn.net)) to access cloud instances directly.
