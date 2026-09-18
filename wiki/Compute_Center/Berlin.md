@@ -18,6 +18,10 @@ authentication you will be redirected to the OpenStack dashboard.
 
 **Important Note** We block incoming connections from several countries. If you cannot access the dashboard or the jumphost from outside Germany, please contact us for assistance.
 
+**Important Note** We block all external DNS Server e.g. 8.8.8.8, so please use our DNS Servers: 10.57.196.4 and 10.57.196.5
+
+**Important Note** We block all external NTP Server, so please use time.charite.de
+
 ## Deploying Your First VM
 The networks are pre-configured, so you can immediately begin deploying VMs.
 
@@ -195,50 +199,16 @@ sudo mkdir -p /mnt/data
 sudo mount /dev/vdb /mnt/data
 ```
 
+### Creating  Object Storage
+
+S3-compatible Object Storage is available for storing unstructured data and large datasets. To create a bucket or request S3 access credentials for your project, please reach out to us at denbi-cloud@bih-charite.de.
+
 ### Creating an NFS Share
-NFS shares are ideal for storing large amounts of data that need to be accessed by multiple VMs within your project.
-
-> ⚠️ **Volume size limit:** The maximum storage space available for shares is limited to 1000GB.
-
-1. Create the Share
-- Navigate to the Shares section and click **"Create Share"**.
-
-- Fill in the details:
-
-  - Share Name: A descriptive name.
-
-  - Share Protocol: NFS (pre-selected).
-
-  - Size (GiB): The size of the share (must be within your project's quota).
-
-  - Share Type: isilon-denbi.
-
-  - Availability Zone: nova.
-
-2. Manage Access Rules
-By default, a new share is inaccessible. You must grant access to your VMs.
-
-- Find your share, click the dropdown arrow, and select **"Manage Rules"**.
-
-- Click **"Add Rule"** and provide the following:
-
-  - Access Type: ip.
-
-  - Access Level: read-write or read-only.
-
-  - Access To: The IP address of the VM you want to grant access to.
-
-**Important:** Keep your access rules updated to ensure only authorized VMs can access your data.
+NFS shares are ideal for storing large amounts of data that need to be accessed by multiple VMs within your project. We do not offer self managed NFS share, if you need shared storage please contact us: at <denbi-cloud@bih-charite.de> and then we can create an NFS share for you project.
 
   
 ### Mount the Share on Your VM
-1. **Find the share path:** In the Shares dashboard, click on your share's name. The path will be listed under "Export locations". It will look like this:
-
-```console
-manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/$yourShareUiid.
-``` 
-
-2. Install the NFS client (if not already installed):
+1. Install the NFS client (if not already installed):
 
 
 ```console
@@ -246,32 +216,17 @@ manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/$yourShareUiid.
 sudo apt update && sudo apt install nfs-common
 ```
 
-3. Mount the share:
+2. Mount the share:
 
 ```console
 sudo mount -t nfs your-full-export-location-path /path/to/mount/point
-# Example:
-sudo mount -t nfs manila-prod.isi.denbi.bihealth.org:/ifs/denbi/prod/share-YOUR_UIID /mnt/volume
 ```
 
-4. Set permissions: Ensure the correct user owns the mounted directory.
+3. Set permissions: Ensure the correct user owns the mounted directory.
 
 ```console
 # Example for an Ubuntu VM:
 sudo chown ubuntu:ubuntu /mnt/volume
-```
-
-**Important:** At present, only NFS version 3 is supported.
-
-The following should be set to the local NFSv4 domain name
-
-```console
-cat /etc/idmapd.conf 
-[General]
-#Verbosity = 0
-# The following should be set to the local NFSv4 domain name
-# The default is the host's DNS domain name.
-Domain = denbi.bihealth.org
 ```
 
 ## Using the OpenStack API
