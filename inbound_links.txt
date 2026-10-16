@@ -18,13 +18,10 @@ registration/                                                           landing_
 /                                                                       landing_page CMS: main menu "Wiki"
 
 # Cloud portal (deNBI/cloud-portal-webapp, src/links/links.ts)
-# Known broken in cloud-portal-webapp (links.ts on dev and master, 2026-10-16).
-# Re-enable once the portal points to cloud_admin/news_management/ and
-# portal/user_information/#link-accounts-to-lifescience-formerly-elixir.
 /                                                                       cloud-portal-webapp: WIKI, WIKI_SVM_MIGRATION_LINK
 quickstart/#generate-ssh-keys                                           cloud-portal-webapp: WIKI_GENERATE_KEYS
-# cloud_admin/#news-management                                            cloud-portal-webapp: WIKI_NEWS_MANAGEMENT
-# portal/user_information/#link-accounts-to-elixir                        cloud-portal-webapp: WIKI_LINK_ACCOUNTS
+cloud_admin/news_management/                                            cloud-portal-webapp: WIKI_NEWS_MANAGEMENT
+portal/user_information/#link-accounts-to-lifescience-formerly-elixir   cloud-portal-webapp: WIKI_LINK_ACCOUNTS
 portal/allocation/#terms                                                cloud-portal-webapp: WIKI_CLOUD_TERMS_LINK
 portal/allocation/#principal-investigator                               cloud-portal-webapp: WIKI_PRINCIPAL_INVESTIGATOR
 portal/user_information/#link-accounts-to-lifescience-formerly-elixir   cloud-portal-webapp: WIKI_LINKING_ACCOUNTS
