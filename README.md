@@ -37,6 +37,18 @@ pip install mkdocs-material
 mkdocs serve -f config_local.yml
 ~~~
 
+### Inbound links
+
+Other de.NBI resources (landing page, cloud portal, SimpleVM wiki) link to specific wiki pages and headings.
+These URLs are listed in [inbound_links.txt](inbound_links.txt), and CI fails if one of them no longer resolves.
+If you rename or move a listed page or heading, update the linking resource and the list.
+To run the check locally, build the site and pass the output directory:
+
+~~~BASH
+uv run mkdocs build -f config_local.yml -d site
+python3 scripts/check_inbound_links.py site inbound_links.txt
+~~~
+
 ### Text writing plugin for JetBrains IDEs
 
 The [Grazie Professional plugin](https://plugins.jetbrains.com/plugin/16136-grazie-professional) can be used,

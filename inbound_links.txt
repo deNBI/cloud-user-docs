@@ -1,0 +1,51 @@
+# Wiki URLs that other de.NBI resources link to.
+#
+# Renaming or moving one of these pages or headings breaks a link outside
+# this repository. CI builds the wiki and fails if an entry below no longer
+# resolves (scripts/check_inbound_links.py).
+#
+# If you rename a page or heading on purpose: update the linking resource
+# (named in the second column) and then this list.
+# If you add a link to the wiki somewhere else: add it here.
+#
+# Format: <path relative to https://cloud.denbi.de/wiki/>[#anchor]  <source>
+# Use "/" for the wiki root. Lines starting with "#" are comments.
+
+# Landing page (deNBI/landing_page)
+citation_and_publication/#citation-information                          landing_page: home/templates/home/publication_page.html
+citation_and_publication/#adding-a-doi-digital-object-identifier        landing_page: home/templates/home/publication_page.html
+registration/                                                           landing_page CMS: /get-started/
+/                                                                       landing_page CMS: main menu "Wiki"
+
+# Cloud portal (deNBI/cloud-portal-webapp, src/links/links.ts)
+# Known broken in cloud-portal-webapp (links.ts on dev and master, 2026-10-16).
+# Re-enable once the portal points to cloud_admin/news_management/ and
+# portal/user_information/#link-accounts-to-lifescience-formerly-elixir.
+/                                                                       cloud-portal-webapp: WIKI, WIKI_SVM_MIGRATION_LINK
+quickstart/#generate-ssh-keys                                           cloud-portal-webapp: WIKI_GENERATE_KEYS
+# cloud_admin/#news-management                                            cloud-portal-webapp: WIKI_NEWS_MANAGEMENT
+# portal/user_information/#link-accounts-to-elixir                        cloud-portal-webapp: WIKI_LINK_ACCOUNTS
+portal/allocation/#terms                                                cloud-portal-webapp: WIKI_CLOUD_TERMS_LINK
+portal/allocation/#principal-investigator                               cloud-portal-webapp: WIKI_PRINCIPAL_INVESTIGATOR
+portal/user_information/#link-accounts-to-lifescience-formerly-elixir   cloud-portal-webapp: WIKI_LINKING_ACCOUNTS
+citation_and_publication/#publications                                  cloud-portal-webapp: WIKI_PUBLICATIONS
+portal/project_overview/#member-management                              cloud-portal-webapp: WIKI_MEMBER_MANAGEMENT
+FAQ/                                                                    cloud-portal-webapp: WIKI_FAQ
+cloud_admin/news_management/#message-of-the-day                         cloud-portal-webapp: WIKI_MOTD
+portal/credits/                                                         cloud-portal-webapp: CREDITS_WIKI
+portal/personal_data                                                    cloud-portal-webapp: WIKI_PERSONAL_DATA
+Tutorials/Persistent_SSH_Sessions/                                      cloud-portal-webapp: WIKI_PERSISTENT_TERMINAL_LINK
+
+# SimpleVM wiki (deNBI/simplevm-user-docs, via extra.cloud_portal_wiki_link)
+Concept/flavors/                                                        simplevm-user-docs
+portal/allocation/                                                      simplevm-user-docs
+portal/modification/#resource-modifications                             simplevm-user-docs
+portal/user_information/#ssh-key                                        simplevm-user-docs
+quickstart/#generate-ssh-keys                                           simplevm-user-docs
+registration                                                            simplevm-user-docs
+Tutorials/BiBiGrid/                                                     simplevm-user-docs
+Tutorials/TheiaIde/                                                     simplevm-user-docs
+Tutorials                                                               simplevm-user-docs: wiki/Tutorials/index.md
+
+# Developer guidelines (deNBI/guidelines)
+Compute_Center/Bielefeld/#application-credentials-use-openstack-api     guidelines: quickstart/client.md
