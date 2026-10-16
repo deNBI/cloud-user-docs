@@ -23,19 +23,15 @@ docker run -it -v "$(pwd):/srv_root/docs"  -p "8000:8000" --env ENABLED_HTMLPROO
 
 ### Local
 
-Please install the libraries used in the production instance:
-https://github.com/deNBI/mkdocsWebhook/blob/master/Dockerfile#L4
-
-For a quick start you can also use pip to install both mkdocs and mkdocs-material:
-
-~~~BASH
-pip install mkdocs
-pip install mkdocs-material
-~~~
+Dependencies are managed with [uv](https://docs.astral.sh/uv/) and pinned to the versions in the
+[production image](https://github.com/deNBI/mkdocsWebhook/blob/master/Dockerfile).
+`config_local.yml` inherits all settings from `config.yml` and only replaces the container paths.
 
 ~~~BASH
-mkdocs serve -f config_local.yml
+uv run mkdocs serve -f config_local.yml
 ~~~
+
+When the production image is updated, update the pins in `pyproject.toml` with `uv add`.
 
 ### Text writing plugin for JetBrains IDEs
 
