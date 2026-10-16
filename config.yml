@@ -92,9 +92,10 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.snippets:
+      base_path: !relative $config_dir
       check_paths: True
       auto_append:
-        - /srv_root/docs/wiki/includes/glossary.md
+        - wiki/includes/glossary.md
   - pymdownx.superfences
   - pymdownx.tasklist:
       custom_checkbox: true
