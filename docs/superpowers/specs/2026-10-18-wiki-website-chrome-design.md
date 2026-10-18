@@ -144,9 +144,10 @@ legal line.
   → `https://cloud.denbi.de/about/imprint/` · Cookie settings → `#__consent`
   (opens Material's consent dialog; same tab)
 - **Legal line:** "© {current year} de.NBI" · "Edit this page on GitHub" (the
-  page's edit link, opening GitHub's editor on the default branch `main`;
-  `edit_uri` changes from the stale `blob/master/wiki/` to `edit/main/wiki/`,
-  as the maintainer decided) · right-aligned text links "de.NBI" →
+  page's edit link, opening GitHub's editor on `dev`, the branch pull
+  requests target per `PULL_REQUEST_TEMPLATE.md`; `edit_uri` changes from the
+  stale `blob/master/wiki/` to `edit/dev/wiki/`. The maintainer first chose
+  `main`, then accepted `dev` when the PR template came up) · right-aligned text links "de.NBI" →
   `https://www.denbi.de/` and "GitHub" → `https://github.com/deNBI`.
 
 This replaces the current `footer_links` row and the social icons (LinkedIn,
