@@ -8,10 +8,6 @@ hide:
 The de.NBI Cloud provides free computing and storage resources for academic life science research in Germany.
 This wiki explains how to get access, how to work with your project and what is specific to each cloud site.
 
-[Get started](registration.md){ .md-button .md-button--primary }
-[Service status](https://status.cloud.denbi.de/){ .md-button }
-[Get help](#get-help){ .md-button }
-
 ## What do you want to do?
 
 <div class="grid cards" markdown>
