@@ -481,3 +481,29 @@ html {
     margin-left: 0;
   }
 }
+
+/* ---------- Dark mode ---------- */
+
+[data-md-color-scheme="slate"] .denbi-quick {
+  background: #06121e;
+}
+
+[data-md-color-scheme="slate"] .denbi-quick__back {
+  border-right-color: var(--denbi-line);
+}
+
+[data-md-color-scheme="slate"] .denbi-logo--light {
+  display: none;
+}
+
+[data-md-color-scheme="slate"] .denbi-logo--dark {
+  display: inline;
+}
+
+/* Official logos are never recoloured; those without a negative version
+   sit on a light panel. */
+[data-md-color-scheme="slate"] .denbi-logo-panel {
+  padding: 4px 6px;
+  border-radius: 8px;
+  background: #ffffff;
+}
