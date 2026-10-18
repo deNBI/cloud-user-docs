@@ -230,6 +230,39 @@ body {
   box-shadow: none;
 }
 
+/* Icon in a tinted tile, as on the website: :material-lock:{ .denbi-tile } */
+.md-typeset .twemoji.denbi-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9em;
+  height: 1.9em;
+  margin-right: 0.45em;
+  border-radius: 8px;
+  background-color: var(--denbi-tint);
+  color: var(--denbi-blue);
+  vertical-align: middle;
+}
+
+.md-typeset .twemoji.denbi-tile svg {
+  width: 1.2em;
+  height: 1.2em;
+  max-height: none;
+}
+
+/* A heading that starts with a tile keeps the tile left of all its lines. */
+.md-typeset :is(h2, h3, h4):has(> .twemoji.denbi-tile:first-child) {
+  position: relative;
+  padding-left: 2.35em;
+}
+
+.md-typeset :is(h2, h3, h4) > .twemoji.denbi-tile:first-child {
+  position: absolute;
+  top: calc(0.5lh - 0.95em);
+  left: 0;
+  margin: 0;
+}
+
 /* ---------- Admonitions (the website's callout) ---------- */
 
 .md-typeset :is(.admonition, details) {
