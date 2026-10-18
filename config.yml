@@ -32,6 +32,9 @@ repo_name: 'deNBI/cloud-user-docs'
 repo_url: 'https://github.com/deNBI/cloud-user-docs'
 edit_uri: blob/master/wiki/
 use_directory_urls: true
+# The theme overrides live inside docs_dir; don't publish the raw templates.
+exclude_docs: |
+  /overrides/
 site_url: !ENV [ SITE_URL, 'https://cloud.denbi.de/wiki/' ]
 
 plugins:
@@ -118,8 +121,18 @@ extra_javascript:
 extra_css:
   - assets/css/fonts.css
   - assets/css/denbi.css
+  - assets/css/chrome.css
 
 extra:
+  # Header links, copied by hand from the website's Wagtail site chrome.
+  website_url: https://cloud.denbi.de/
+  apply: { label: "Apply for a project", short_label: "Apply", url: "https://cloud.denbi.de/register/" }
+  quick_links:  # icon: file in wiki/overrides/.icons/symbols/ without .svg; url "" is the wiki home
+    - { label: "Portal login", url: "https://cloud.denbi.de/portal/", icon: login }
+    - { label: "Wiki", url: "", icon: menu_book, current: true }
+    - { label: "Status", url: "https://status.cloud.denbi.de/", icon: dns }
+    - { label: "Facility news", url: "https://cloud.denbi.de/news/facility-news/", icon: campaign }
+    - { label: "Support", url: "https://cloud.denbi.de/support/", icon: support_agent }
   consent:
     title: Cookie consent
     description: >-

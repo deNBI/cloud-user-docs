@@ -1,0 +1,108 @@
+/*
+ * Header and footer of the de.NBI Cloud website, rebuilt for the wiki.
+ * Values follow landing_page/static/cloud/css/cloud.css (.quick, .nav,
+ * .btn, .site-footer). Colours come from the --denbi-* tokens in denbi.css.
+ */
+
+/* ---------- Quick access ---------- */
+
+.denbi-quick {
+  background: #042746;
+  color: #dbe7f3;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 15px;
+}
+
+.denbi-quick__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 20px;
+  min-height: 40px;
+  padding: 0 0.8rem;
+}
+
+.denbi-quick a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.denbi-quick a:hover,
+.denbi-quick a:focus-visible {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.denbi-quick__back {
+  display: inline-block !important;
+  font-weight: 600;
+  padding-right: 20px !important;
+  border-right: 1px solid #2a4a6b;
+}
+
+.denbi-quick__label {
+  color: #8fb3d6;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.denbi-quick__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.denbi-quick__link[aria-current] .denbi-quick__text {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.denbi-quick__icon {
+  display: inline-flex;
+  color: var(--denbi-cyan);
+}
+
+.denbi-quick__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 900px) {
+  .denbi-quick__label {
+    display: none;
+  }
+
+  .denbi-quick__link .denbi-quick__text,
+  .denbi-quick__back-site {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .denbi-quick__icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .denbi-quick__inner,
+  .denbi-quick__list {
+    column-gap: 16px;
+  }
+
+  .denbi-quick__back {
+    padding-right: 16px !important;
+  }
+}
