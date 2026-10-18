@@ -345,6 +345,19 @@ html {
   }
 }
 
+/* Drawer title (phones and tablets): the menu row's colours instead of
+   Material's blue bar, on which the colour logo is illegible. */
+.md-nav--primary .md-nav__title[for="__drawer"] {
+  background: var(--denbi-bg);
+  color: var(--denbi-ink);
+  border-bottom: 1px solid var(--denbi-line);
+}
+
+/* Beats Material's .md-nav__title .md-nav__button.md-logo img { display: block }. */
+.md-nav__title .md-nav__button.md-logo img.denbi-logo--dark {
+  display: none;
+}
+
 /* ---------- Footer ---------- */
 
 .denbi-footer {
@@ -515,4 +528,12 @@ html {
 
 [data-md-color-scheme="slate"] .denbi-logo-panel {
   border-color: transparent;
+}
+
+[data-md-color-scheme="slate"] .md-nav__title .md-nav__button.md-logo img.denbi-logo--light {
+  display: none;
+}
+
+[data-md-color-scheme="slate"] .md-nav__title .md-nav__button.md-logo img.denbi-logo--dark {
+  display: block;
 }

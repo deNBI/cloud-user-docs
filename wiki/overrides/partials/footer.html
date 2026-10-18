@@ -5,7 +5,7 @@
 {% macro logo(item) -%}
   {%- set images -%}
     <img class="{{ "denbi-logo--light" if item.dark else "denbi-logo" }}" src="{{ item.light | url }}" alt="{{ item.name }}" height="{{ item.height or 48 }}">
-    {%- if item.dark %}<img class="denbi-logo--dark" src="{{ item.dark | url }}" alt="" height="{{ item.height or 48 }}">{% endif -%}
+    {%- if item.dark %}<img class="denbi-logo--dark" src="{{ item.dark | url }}" alt="{{ item.name }}" height="{{ item.height or 48 }}">{% endif -%}
   {%- endset -%}
   {%- if item.panel %}{% set images %}<span class="denbi-logo-panel">{{ images }}</span>{% endset %}{% endif -%}
   {%- if item.href -%}
@@ -19,8 +19,7 @@
     <div class="denbi-footer__cols">
       <div class="denbi-footer__brand">
         <a class="denbi-footer__home" href="{{ config.extra.website_url }}">
-          <img class="denbi-logo--light" src="{{ 'assets/images/denbi-logo-color.svg' | url }}" alt="de.NBI Cloud" width="150" height="40">
-          <img class="denbi-logo--dark" src="{{ 'assets/images/denbi-logo-light.svg' | url }}" alt="" width="150" height="40">
+          {% include "partials/denbi-logo.html" %}
         </a>
         <p>{{ config.extra.footer_brand_text }}</p>
       </div>

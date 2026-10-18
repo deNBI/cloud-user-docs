@@ -110,3 +110,11 @@ def test_logos_without_dark_variant_stay_visible(site):
         imgs = wrap.find_all("img")
         if len(imgs) == 1:
             assert "denbi-logo--light" not in imgs[0].get("class", []), imgs[0]["src"]
+
+
+def test_logo_twins_share_alt(site):
+    # Hidden twins are removed from the accessibility tree, so each one needs the name.
+    f = footer(site, "")
+    for dark in f.select("img.denbi-logo--dark"):
+        light = dark.find_previous_sibling("img")
+        assert dark["alt"] and dark["alt"] == light["alt"], dark["src"]

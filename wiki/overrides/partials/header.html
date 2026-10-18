@@ -17,8 +17,7 @@
       {% include ".icons/" ~ icon ~ ".svg" %}
     </label>
     <a class="denbi-header__logo" href="{{ config.extra.website_url }}">
-      <img class="denbi-logo--light" src="{{ 'assets/images/denbi-logo-color.svg' | url }}" alt="de.NBI Cloud" width="150" height="40">
-      <img class="denbi-logo--dark" src="{{ 'assets/images/denbi-logo-light.svg' | url }}" alt="" width="150" height="40">
+      {% include "partials/denbi-logo.html" %}
     </a>
     <a class="denbi-header__wordmark" href="{{ nav.homepage.url | url }}">Wiki</a>
     <nav class="denbi-sections" aria-label="Wiki sections">
