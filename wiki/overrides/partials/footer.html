@@ -1,0 +1,58 @@
+{#-
+  Footer in the style of the de.NBI Cloud website, replacing Material's
+  partials/footer.html (9.7.7). Links and logos come from config.extra.
+-#}
+{% macro logo(item) -%}
+  {%- set images -%}
+    <img class="denbi-logo--light" src="{{ item.light | url }}" alt="{{ item.name }}" height="{{ item.height or 48 }}">
+    {%- if item.dark %}<img class="denbi-logo--dark" src="{{ item.dark | url }}" alt="" height="{{ item.height or 48 }}">{% endif -%}
+  {%- endset -%}
+  {%- if item.panel %}{% set images %}<span class="denbi-logo-panel">{{ images }}</span>{% endset %}{% endif -%}
+  {%- if item.href -%}
+    <a class="denbi-footer__logo" href="{{ item.href }}" rel="noopener">{{ images }}</a>
+  {%- else -%}
+    <span class="denbi-footer__logo">{{ images }}</span>
+  {%- endif -%}
+{%- endmacro %}
+<footer class="md-footer denbi-footer">
+  <div class="md-grid">
+    <div class="denbi-footer__cols">
+      <div class="denbi-footer__brand">
+        <a class="denbi-footer__home" href="{{ config.extra.website_url }}">
+          <img class="denbi-logo--light" src="{{ 'assets/images/denbi-logo-color.svg' | url }}" alt="de.NBI Cloud" width="150" height="40">
+          <img class="denbi-logo--dark" src="{{ 'assets/images/denbi-logo-light.svg' | url }}" alt="" width="150" height="40">
+        </a>
+        <p>{{ config.extra.footer_brand_text }}</p>
+      </div>
+      {% for column in config.extra.footer_columns %}
+      <nav class="denbi-footer__col" aria-label="{{ column.heading }}">
+        <h2>{{ column.heading }}</h2>
+        <ul>
+          {% for link in column.links %}
+          <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+      {% endfor %}
+    </div>
+    <div class="denbi-footer__partners">
+      {% for group in config.extra.footer_logo_groups %}
+      <div class="denbi-footer__logos" role="group" aria-labelledby="denbi-logos-{{ loop.index }}">
+        <h2 id="denbi-logos-{{ loop.index }}">{{ group.heading }}</h2>
+        {% for item in group.logos %}{{ logo(item) }}{% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="denbi-footer__legal">
+      <span>© {{ build_date_utc.year }} de.NBI</span>
+      {% if page and page.edit_url %}
+      <a href="{{ page.edit_url }}">Edit this page on GitHub</a>
+      {% endif %}
+      <ul>
+        {% for link in config.extra.footer_legal_links %}
+        <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</footer>
