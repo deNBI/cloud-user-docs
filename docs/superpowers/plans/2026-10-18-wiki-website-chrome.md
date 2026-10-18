@@ -354,7 +354,7 @@ def test_no_material_tabs_or_repo_widget(site):
 ### Task 6: Footer
 
 **Files:**
-- Modify: `config.yml` (add `footer_brand_text`, `footer_logo_groups`, `footer_columns`, `footer_legal_links`; remove `extra.footer_links` and `extra.social`; change `edit_uri` from `blob/master/wiki/` to `edit/main/wiki/`), `wiki/overrides/main.html` (the `footer` block becomes `{% include "partials/footer.html" %}`), `chrome.css` (`/* Footer */`)
+- Modify: `config.yml` (add `footer_brand_text`, `footer_logo_groups`, `footer_columns`, `footer_legal_links`; remove `extra.footer_links` and `extra.social`; change `edit_uri` from `blob/master/wiki/` to `edit/dev/wiki/`), `wiki/overrides/main.html` (the `footer` block becomes `{% include "partials/footer.html" %}`), `chrome.css` (`/* Footer */`)
 - Create: `wiki/overrides/partials/footer.html`
 - Test: `tests/test_footer.py`
 
@@ -415,7 +415,7 @@ def test_footer_legal_line(site):
     text = legal.get_text(" ", strip=True)
     assert re.search(r"© \d{4} de\.NBI", text)
     assert legal.find("a", string="Edit this page on GitHub")["href"] == \
-           "https://github.com/deNBI/cloud-user-docs/edit/main/wiki/portal/allocation.md"
+           "https://github.com/deNBI/cloud-user-docs/edit/dev/wiki/portal/allocation.md"
     assert [(a.get_text(strip=True), a["href"]) for a in legal.select("ul a")] == \
            [("de.NBI", "https://www.denbi.de/"), ("GitHub", "https://github.com/deNBI")]
 
