@@ -7,16 +7,16 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: 'light blue'
-      accent: 'light blue'
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-sunny
         name: Switch to dark mode
 
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: 'light blue'
-      accent: 'light blue'
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-night
         name: Switch to light mode
@@ -97,7 +97,11 @@ markdown_extensions:
       check_paths: True
       auto_append:
         - wiki/includes/glossary.md
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
@@ -112,6 +116,7 @@ extra_javascript:
 
 extra_css:
   - assets/css/fonts.css
+  - assets/css/denbi.css
 
 extra:
   consent:

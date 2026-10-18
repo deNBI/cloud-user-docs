@@ -1,39 +1,67 @@
-/* raleway-regular - latin */
+/*
+ * Self-hosted fonts, matching the de.NBI Cloud website.
+ * Raleway (headings) and Source Sans 3 (body) are the latin subsets from
+ * @fontsource/raleway@5.3.0 and @fontsource/source-sans-3@5.3.0.
+ * Licences: ../fonts/OFL-raleway.txt, ../fonts/OFL-source-sans-3.txt
+ */
+
+/* raleway - headings */
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-display: swap;
   font-family: 'Raleway';
   font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/raleway-v37-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  font-weight: 600;
+  src: url('../fonts/raleway-latin-600-normal.woff2') format('woff2');
 }
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'Raleway';
-  font-style: italic;
-  font-weight: 400;
-  src: url('../fonts/raleway-v37-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-/* bold */
-@font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-display: swap;
   font-family: 'Raleway';
   font-style: normal;
   font-weight: 700;
-  src: url('../fonts/raleway-v37-latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url('../fonts/raleway-latin-700-normal.woff2') format('woff2');
 }
 
-
-
-:root {
-  --md-text-font: 'Raleway';
-  --md-code-font: 'Source Code Pro';
-}
-
-/* source-code-pro-regular - latin */
+/* source-sans-3 - body and UI */
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-display: swap;
+  font-family: 'Source Sans 3';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/source-sans-3-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-display: swap;
+  font-family: 'Source Sans 3';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../fonts/source-sans-3-latin-400-italic.woff2') format('woff2');
+}
+@font-face {
+  font-display: swap;
+  font-family: 'Source Sans 3';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../fonts/source-sans-3-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-display: swap;
+  font-family: 'Source Sans 3';
+  font-style: italic;
+  font-weight: 600;
+  src: url('../fonts/source-sans-3-latin-600-italic.woff2') format('woff2');
+}
+
+/* source-code-pro-regular - code */
+@font-face {
+  font-display: swap;
   font-family: 'Source Code Pro';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/source-code-pro-v31-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url('../fonts/source-code-pro-v31-latin-regular.woff2') format('woff2');
+}
+
+:root {
+  --md-text-font: 'Source Sans 3';
+  --md-code-font: 'Source Code Pro';
+  --denbi-heading-font: 'Raleway', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
 }
