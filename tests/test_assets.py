@@ -5,7 +5,7 @@ WIKI = Path(__file__).resolve().parents[1] / "wiki"
 LOGOS = ["denbi-logo-color.svg", "denbi-logo-light.svg"]
 PARTNERS = ["bmftr-en.png", "eu-nextgenerationeu-en.png", "eu-nextgenerationeu-en-neg.png", "elixir-standard.svg",
             "elixir-negative-orange.svg", "ls-login.png", "SOURCE.txt"]
-ICONS = ["login", "menu_book", "dns", "campaign", "support_agent"]
+ICONS = ["login", "menu_book", "dns", "campaign", "support_agent", "light_mode", "dark_mode"]
 
 
 def test_files_exist():
@@ -70,3 +70,20 @@ def test_partner_sources_documented():
     src = (WIKI / "assets/images/partners/SOURCE.txt").read_text()
     for f in PARTNERS[:-1]:
         assert f in src, f
+
+
+def css_rules(css: str) -> list[tuple[str, str]]:
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    return [(sel.strip(), body) for sel, body in re.findall(r"([^{}]+)\{([^{}]*)\}", css)]
+
+
+def test_header_button_follows_the_theme():
+    # Like .md-button--primary in denbi.css: blue fill with white text in light
+    # mode, light-blue fill with navy text in dark mode.
+    rules = [(s, b) for s, b in css_rules((WIKI / "assets/css/chrome.css").read_text())
+             if s.startswith(".denbi-btn")]
+    assert rules
+    for selector, body in rules:
+        assert not re.search(r"#[0-9a-fA-F]{3,8}", body), selector
+    base = next(body for selector, body in rules if selector == ".denbi-btn")
+    assert "background: var(--denbi-blue)" in base and "color: var(--md-primary-bg-color)" in base

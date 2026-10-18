@@ -253,20 +253,22 @@
   display: inline-flex;
   align-items: center;
   padding: 10px 16px;
-  border: 1.5px solid #005aa9;
+  border: 1.5px solid var(--denbi-blue);
   border-radius: 8px;
-  background: #005aa9;
-  color: #ffffff;
+  background: var(--denbi-blue);
+  color: var(--md-primary-bg-color);
   font: 600 15px/1 'Source Sans 3', system-ui, sans-serif;
   white-space: nowrap;
   text-decoration: none;
 }
 
+/* As .md-button--primary: follows the colour scheme (light-blue fill with navy
+   text in dark mode). */
 .denbi-btn:hover,
 .denbi-btn:focus-visible {
-  border-color: #042746;
-  background: #042746;
-  color: #ffffff;
+  border-color: var(--denbi-ink);
+  background: var(--denbi-ink);
+  color: var(--denbi-bg);
 }
 
 .denbi-header__apply-short {
