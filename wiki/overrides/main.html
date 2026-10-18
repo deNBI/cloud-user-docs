@@ -10,6 +10,9 @@
     {% include "partials/header.html" %}
   {% endblock %}
 
+  {# The sections are part of the menu row (partials/header.html). #}
+  {% block tabs %}{% endblock %}
+
   {% block footer %}
     {{ super() }}
     <footer class="md-footer">
