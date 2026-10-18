@@ -4,7 +4,7 @@
 -#}
 {% macro logo(item) -%}
   {%- set images -%}
-    <img class="denbi-logo--light" src="{{ item.light | url }}" alt="{{ item.name }}" height="{{ item.height or 48 }}">
+    <img class="{{ "denbi-logo--light" if item.dark else "denbi-logo" }}" src="{{ item.light | url }}" alt="{{ item.name }}" height="{{ item.height or 48 }}">
     {%- if item.dark %}<img class="denbi-logo--dark" src="{{ item.dark | url }}" alt="" height="{{ item.height or 48 }}">{% endif -%}
   {%- endset -%}
   {%- if item.panel %}{% set images %}<span class="denbi-logo-panel">{{ images }}</span>{% endset %}{% endif -%}

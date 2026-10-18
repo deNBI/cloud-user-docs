@@ -102,3 +102,11 @@ def test_simplevm_link_matches_config():
     use = next(c for c in cfg["extra"]["footer_columns"] if c["heading"] == "Use")
     url = next(link["url"] for link in use["links"] if link["label"] == "SimpleVM wiki")
     assert url == cfg["extra"]["simplevm_wiki_link"][1]  # the !ENV default
+
+
+def test_logos_without_dark_variant_stay_visible(site):
+    # Only a logo with a dark twin may be hidden in dark mode (.denbi-logo--light).
+    for wrap in footer(site, "").select(".denbi-footer__logo"):
+        imgs = wrap.find_all("img")
+        if len(imgs) == 1:
+            assert "denbi-logo--light" not in imgs[0].get("class", []), imgs[0]["src"]
