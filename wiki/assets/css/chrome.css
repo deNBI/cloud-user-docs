@@ -4,6 +4,13 @@
  * .btn, .site-footer). Colours come from the --denbi-* tokens in denbi.css.
  */
 
+/* ---------- Logos ---------- */
+
+/* Logos come in pairs: --light is shown in light mode, --dark in dark mode. */
+.denbi-logo--dark {
+  display: none;
+}
+
 /* ---------- Quick access ---------- */
 
 .denbi-quick {
@@ -104,5 +111,229 @@
 
   .denbi-quick__back {
     padding-right: 16px !important;
+  }
+}
+
+/* ---------- Menu row ---------- */
+
+/* Material sizes its offsets for a 2.4rem header; the menu row is 72px. */
+html {
+  scroll-padding-top: 4.4rem;
+}
+
+.denbi-header {
+  background: var(--denbi-bg);
+  color: var(--denbi-ink);
+  border-bottom: 1px solid var(--denbi-line);
+  box-shadow: none;
+}
+
+.denbi-header .md-header__inner {
+  gap: 16px;
+  height: 3.6rem;
+  padding: 0 0.8rem;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+}
+
+.denbi-header .md-header__button {
+  margin: 0;
+  padding: 0.4rem;
+}
+
+.denbi-header__logo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.denbi-header__logo img {
+  width: auto;
+  height: 40px;
+}
+
+.denbi-header__wordmark {
+  flex-shrink: 0;
+  margin-left: -6px;
+  padding-left: 14px;
+  border-left: 1px solid var(--denbi-line);
+  color: var(--denbi-ink);
+  font-family: 'Raleway', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 32px;
+  text-decoration: none;
+}
+
+.denbi-header__wordmark:hover {
+  color: var(--denbi-blue);
+}
+
+.denbi-sections {
+  display: none;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  transition: opacity .25s;
+}
+
+.denbi-sections__list {
+  display: flex;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.denbi-sections__link {
+  display: block;
+  padding: 4px 0;
+  color: var(--denbi-ink);
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.denbi-sections__link:hover,
+.denbi-sections__link[aria-current] {
+  color: var(--denbi-blue);
+}
+
+.denbi-sections__link[aria-current] {
+  box-shadow: inset 0 -2px 0 var(--denbi-blue);
+}
+
+[data-md-toggle="search"]:checked ~ .md-header .denbi-sections {
+  opacity: 0;
+}
+
+.denbi-header__tools {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* Search field on a white menu row instead of the coloured Material header. */
+@media screen and (min-width: 60em) {
+  .denbi-header .md-search__form {
+    background-color: var(--denbi-bg-alt);
+    border: 1px solid var(--denbi-line);
+    border-radius: 6px;
+  }
+
+  .denbi-header .md-search__input::placeholder,
+  .denbi-header .md-search__input + .md-search__icon {
+    color: var(--denbi-muted);
+  }
+
+  .denbi-header .md-search__inner {
+    width: 8rem;
+  }
+}
+
+.denbi-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  border: 1.5px solid #005aa9;
+  border-radius: 8px;
+  background: #005aa9;
+  color: #ffffff;
+  font: 600 15px/1 'Source Sans 3', system-ui, sans-serif;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.denbi-btn:hover,
+.denbi-btn:focus-visible {
+  border-color: #042746;
+  background: #042746;
+  color: #ffffff;
+}
+
+.denbi-header__apply-short {
+  display: none;
+}
+
+@media screen and (min-width: 76.25em) {
+  .denbi-sections {
+    display: block;
+  }
+
+  .md-sidebar {
+    top: 3.6rem;
+  }
+}
+
+
+@media (max-width: 900px) {
+  .denbi-header .md-header__inner {
+    gap: 8px;
+  }
+
+  .denbi-header__logo img {
+    height: 32px;
+  }
+
+  .denbi-header__wordmark {
+    font-size: 17px;
+  }
+
+  .denbi-header__apply-long {
+    display: none;
+  }
+
+  .denbi-header__apply-short {
+    display: inline;
+  }
+
+  .denbi-btn {
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .denbi-header .md-header__inner {
+    gap: 6px;
+    padding: 0 0.4rem;
+  }
+
+  .denbi-header .md-header__button {
+    padding: 0.3rem;
+  }
+
+  .denbi-header__logo img {
+    height: 28px;
+  }
+
+  .denbi-header__wordmark {
+    margin-left: 0;
+    padding-left: 8px;
+    font-size: 16px;
+  }
+
+  .denbi-header__tools {
+    gap: 2px;
+  }
+
+  .denbi-btn {
+    padding: 7px 10px;
+  }
+}
+
+@media (max-width: 340px) {
+  .denbi-header__logo img {
+    height: 22px;
+  }
+
+  .denbi-header__wordmark {
+    padding-left: 6px;
+    font-size: 15px;
+  }
+
+  .denbi-header__tools {
+    gap: 0;
   }
 }

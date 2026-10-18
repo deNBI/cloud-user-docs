@@ -1,0 +1,58 @@
+{#-
+  Menu row in the style of the de.NBI Cloud website, replacing Material's
+  partials/header.html (9.7.7). Keeps the drawer button, palette toggle and
+  search from Material; the wiki sections take the place of navigation tabs.
+-#}
+{% macro section_href(nav_item) -%}
+  {%- if nav_item.children -%}
+    {{- section_href(nav_item.children | first) -}}
+  {%- else -%}
+    {{- nav_item.url | url -}}
+  {%- endif -%}
+{%- endmacro %}
+<header class="md-header denbi-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="{{ lang.t('header') }}">
+    <label class="md-header__button md-icon" for="__drawer">
+      {% set icon = config.theme.icon.menu or "material/menu" %}
+      {% include ".icons/" ~ icon ~ ".svg" %}
+    </label>
+    <a class="denbi-header__logo" href="{{ config.extra.website_url }}">
+      <img class="denbi-logo--light" src="{{ 'assets/images/denbi-logo-color.svg' | url }}" alt="de.NBI Cloud" width="150" height="40">
+      <img class="denbi-logo--dark" src="{{ 'assets/images/denbi-logo-light.svg' | url }}" alt="" width="150" height="40">
+    </a>
+    <a class="denbi-header__wordmark" href="{{ nav.homepage.url | url }}">Wiki</a>
+    <nav class="denbi-sections" aria-label="Wiki sections">
+      <ul class="denbi-sections__list">
+        {% for nav_item in nav.items %}
+        <li>
+          <a class="denbi-sections__link" href="{{ section_href(nav_item) }}"{% if nav_item.active %} aria-current="true"{% endif %}>{{ nav_item.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+    <div class="denbi-header__tools">
+      {% if config.theme.palette %}
+        {% if not config.theme.palette is mapping %}
+          {% include "partials/palette.html" %}
+        {% endif %}
+      {% endif %}
+      {% if not config.theme.palette is mapping %}
+        {% include "partials/javascripts/palette.html" %}
+      {% endif %}
+      {% if "material/search" in config.plugins %}
+        {% set search = config.plugins["material/search"] | attr("config") %}
+        {% if search.enabled %}
+          <label class="md-header__button md-icon" for="__search">
+            {% set icon = config.theme.icon.search or "material/magnify" %}
+            {% include ".icons/" ~ icon ~ ".svg" %}
+          </label>
+          {% include "partials/search.html" %}
+        {% endif %}
+      {% endif %}
+      <a class="denbi-header__apply denbi-btn" href="{{ config.extra.apply.url }}">
+        <span class="denbi-header__apply-long">{{ config.extra.apply.label }}</span>
+        <span class="denbi-header__apply-short">{{ config.extra.apply.short_label }}</span>
+      </a>
+    </div>
+  </nav>
+</header>

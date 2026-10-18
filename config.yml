@@ -22,7 +22,7 @@ theme:
         name: Switch to light mode
   custom_dir: wiki/overrides
 
-  logo: 'img/denbi.svg'
+  logo: 'assets/images/denbi-logo-color.svg'
   favicon: 'img/denbi.svg'
   features:
     - navigation.top
