@@ -127,10 +127,14 @@ extra:
   # Header links, copied by hand from the website's Wagtail site chrome.
   website_url: https://cloud.denbi.de/
   apply: { label: "Apply for a project", short_label: "Apply", url: "https://cloud.denbi.de/register/" }
-  quick_links:  # icon: file in wiki/overrides/.icons/symbols/ without .svg; url "" is the wiki home
+  # icon: file in wiki/overrides/.icons/symbols/ without .svg; url "" is the wiki home;
+  # badge: live image shown after the label (Uptime Kuma status-page badge, same
+  # colours as the website, which keep 4.5:1 contrast to the badge's white text)
+  quick_links:
     - { label: "Portal login", url: "https://cloud.denbi.de/portal/", icon: login }
     - { label: "Wiki", url: "", icon: menu_book, current: true }
-    - { label: "Status", url: "https://status.cloud.denbi.de/", icon: dns }
+    - { label: "Status", url: "https://status.cloud.denbi.de/", icon: dns,
+        badge: "https://status.cloud.denbi.de/api/status-page/default/badge?style=flat-square&upColor=2e7d32&downColor=c62828&partialColor=8a5a00&maintenanceColor=5f6368" }
     - { label: "Facility news", url: "https://cloud.denbi.de/news/facility-news/", icon: campaign }
     - { label: "Support", url: "https://cloud.denbi.de/support/", icon: support_agent }
   consent:
