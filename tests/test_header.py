@@ -1,8 +1,9 @@
+import re
 from urllib.parse import urljoin
 
 import pytest
 
-from conftest import page
+from conftest import ROOT, page
 from test_navigation import SECTIONS
 
 SITE_URL = "https://cloud.denbi.de/wiki/"
@@ -129,3 +130,23 @@ def test_drawer_logo_has_both_variants(site):
         (["denbi-logo--light"], "denbi-logo-color.svg", "de.NBI Cloud"),
         (["denbi-logo--dark"], "denbi-logo-light.svg", "de.NBI Cloud"),
     ]
+
+
+SYMBOLS = ROOT / "wiki" / "overrides" / ".icons" / "symbols"
+
+
+def svg_path(svg: str) -> str:
+    return re.search(r'<path d="([^"]+)"', svg).group(1)
+
+
+@pytest.mark.parametrize("path", MENU_PAGES)
+def test_palette_toggle_uses_the_website_icons(site, path):
+    # Same Material Symbols as the website's switch (landing_page
+    # static/cloud/icons/light_mode.svg and dark_mode.svg): the sun shows in
+    # light mode ("Switch to dark mode"), the moon in dark mode.
+    palette = header(site, path).select_one("form[data-md-component=palette]")
+    icons = {label["title"]: svg_path(str(label.svg)) for label in palette.select("label")}
+    assert icons == {
+        "Switch to dark mode": svg_path((SYMBOLS / "light_mode.svg").read_text()),
+        "Switch to light mode": svg_path((SYMBOLS / "dark_mode.svg").read_text()),
+    }

@@ -10,7 +10,7 @@ theme:
       primary: custom
       accent: custom
       toggle:
-        icon: material/weather-sunny
+        icon: symbols/light_mode  # same Material Symbols as the website's switch
         name: Switch to dark mode
 
     - media: "(prefers-color-scheme: dark)"
@@ -18,7 +18,7 @@ theme:
       primary: custom
       accent: custom
       toggle:
-        icon: material/weather-night
+        icon: symbols/dark_mode
         name: Switch to light mode
   custom_dir: wiki/overrides
 
