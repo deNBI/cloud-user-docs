@@ -33,6 +33,20 @@ uv run mkdocs serve -f config_local.yml
 
 When the production image is updated, update the pins in `pyproject.toml` with `uv add`.
 
+Run the checks, which build the wiki and inspect the generated pages, with:
+
+~~~BASH
+uv run pytest
+~~~
+
+### Header and footer
+
+The header and footer follow the [de.NBI Cloud website](https://cloud.denbi.de/). Their links and logos
+live in `config.yml` under `extra:` (`quick_links`, `apply`, `footer_columns`, `footer_logo_groups`,
+`footer_legal_links`). The website's navigation is edited in its CMS, so update these values by hand
+when it changes. Templates are in `wiki/overrides/partials/`, styles in `wiki/assets/css/chrome.css`,
+and the sources of the partner logos in `wiki/assets/images/partners/SOURCE.txt`.
+
 ### Text writing plugin for JetBrains IDEs
 
 The [Grazie Professional plugin](https://plugins.jetbrains.com/plugin/16136-grazie-professional) can be used,
