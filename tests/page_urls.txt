@@ -37,7 +37,7 @@ Tutorials/UserData/index.html
 Tutorials/Win10_SSH/index.html
 Tutorials/index.html
 citation_and_publication/index.html
-cloud_admin/Elixir_OIDC/index.html
+cloud_admin/elixir_OIDC/index.html
 cloud_admin/identity_provider/index.html
 cloud_admin/news_management/index.html
 cloud_admin/project_management/index.html
