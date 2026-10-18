@@ -337,3 +337,147 @@ html {
     gap: 0;
   }
 }
+
+/* ---------- Footer ---------- */
+
+.denbi-footer {
+  margin-top: 72px;
+  padding: 48px 0 24px;
+  border-top: 1px solid var(--denbi-line);
+  background: var(--denbi-bg-alt);
+  color: var(--denbi-ink);
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 15px;
+}
+
+.denbi-footer .md-grid {
+  padding: 0 0.8rem;
+}
+
+.denbi-footer h2 {
+  margin: 0 0 12px;
+  color: var(--denbi-muted);
+  font-family: 'Raleway', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.denbi-footer ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.denbi-footer a {
+  color: var(--denbi-ink);
+  text-decoration: none;
+}
+
+.denbi-footer a:hover,
+.denbi-footer a:focus-visible {
+  color: var(--denbi-blue);
+  text-decoration: underline;
+}
+
+.denbi-footer__cols {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.denbi-footer__home {
+  display: inline-flex;
+}
+
+.denbi-footer__home img {
+  width: auto;
+  height: 40px;
+}
+
+.denbi-footer__brand p {
+  max-width: 40ch;
+  margin: 12px 0 0;
+  color: var(--denbi-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Funder and partner logos: one compact row below the link columns. */
+.denbi-footer__partners {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 40px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--denbi-line);
+}
+
+.denbi-footer__logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+
+.denbi-footer__logos h2 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.denbi-footer__logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.denbi-footer__logo img {
+  width: auto;
+}
+
+.denbi-logo-panel {
+  display: inline-flex;
+}
+
+.denbi-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--denbi-line);
+  color: var(--denbi-muted);
+  font-size: 14px;
+}
+
+.denbi-footer__legal a {
+  color: var(--denbi-muted);
+}
+
+.denbi-footer__legal ul {
+  display: flex;
+  gap: 16px;
+  margin-left: auto;
+}
+
+@media (max-width: 800px) {
+  .denbi-footer__cols {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .denbi-footer__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .denbi-footer__cols {
+    grid-template-columns: 1fr;
+  }
+
+  .denbi-footer__legal ul {
+    margin-left: 0;
+  }
+}

@@ -30,7 +30,7 @@ theme:
     - navigation.tabs
 repo_name: 'deNBI/cloud-user-docs'
 repo_url: 'https://github.com/deNBI/cloud-user-docs'
-edit_uri: blob/master/wiki/
+edit_uri: edit/dev/wiki/
 use_directory_urls: true
 # The theme overrides live inside docs_dir; don't publish the raw templates.
 exclude_docs: |
@@ -147,24 +147,38 @@ extra:
       analytics:
         name: Matomo
         checked: true
-  social:
-  - icon: fontawesome/brands/linkedin
-    link: https://www.linkedin.com/company/de-nbi/
-    name: de.NBI on LinkedIN
-  - icon: fontawesome/brands/github
-    link: https://github.com/deNBI/
-    name: de.NBI on GitHub
-  - icon: fontawesome/brands/youtube
-    link: https://www.youtube.com/channel/UCgZ5PU3CyD4c8yxxzJi130g?view_as=subscriber
-    name: de.NBI on YouTube
-  - icon: fontawesome/brands/wikipedia-w
-    link: https://en.wikipedia.org/wiki/German_Network_for_Bioinformatics_Infrastructure
-    name: de.NBI on Wikipedia
-  footer_links: 
-    - { name: "Policies", href: "https://cloud.denbi.de/about/policies/" }
-    - { name: "Imprint", href: "https://cloud.denbi.de/about/imprint/" }
-    - { name: "Cookie Consent", href: "#__consent", new_tab: false }
-    
+  # Footer, copied by hand from the website's Wagtail site chrome (trimmed for the wiki).
+  footer_brand_text: 'Part of de.NBI (say "DEN-bee"), the German Network for Bioinformatics Infrastructure and ELIXIR Germany.'
+  footer_logo_groups:  # paths under wiki/; dark: dark-mode variant; panel: light panel in dark mode; height in px (default 48)
+    - heading: "Funded by"
+      logos:
+        - { name: "Federal Ministry of Research, Technology and Space (BMFTR)", light: assets/images/partners/bmftr-en.png, panel: true, height: 80 }
+        - { name: "Funded by the European Union – NextGenerationEU", light: assets/images/partners/eu-nextgenerationeu-en.png, dark: assets/images/partners/eu-nextgenerationeu-en-neg.png }
+    - heading: "In collaboration with"
+      logos:
+        - { name: "ELIXIR", href: "https://elixir-europe.org/", light: assets/images/partners/elixir-standard.svg, dark: assets/images/partners/elixir-negative-orange.svg }
+        - { name: "LS Login", href: "https://www.lifescience-ri.eu/life-science-login/", light: assets/images/partners/ls-login.png, height: 36 }
+  footer_columns:
+    - heading: "Use"
+      links:
+        - { label: "Support", url: "https://cloud.denbi.de/support/" }
+        - { label: "SimpleVM wiki", url: "https://simplevm.denbi.de/wiki/" }  # keep equal to simplevm_wiki_link
+        - { label: "Training material (de.KCD)", url: "https://datenkompetenz.cloud/training/" }
+    - heading: "de.NBI Cloud"
+      links:
+        - { label: "Website home", url: "https://cloud.denbi.de/" }
+        - { label: "Apply for a project", url: "https://cloud.denbi.de/register/" }
+        - { label: "Portal login", url: "https://cloud.denbi.de/portal/" }
+        - { label: "Service status", url: "https://status.cloud.denbi.de/" }
+    - heading: "Legal"
+      links:
+        - { label: "Terms of use", url: "https://cloud.denbi.de/about/policies/" }
+        - { label: "Imprint", url: "https://cloud.denbi.de/about/imprint/" }
+        - { label: "Cookie settings", url: "#__consent" }
+  footer_legal_links:
+    - { label: "de.NBI", url: "https://www.denbi.de/" }
+    - { label: "GitHub", url: "https://github.com/deNBI" }
+
   simplevm_wiki_link: !ENV [ SIMPLE_VM_WIKI_LINK, 'https://simplevm.denbi.de/wiki/' ]
 
 nav:
