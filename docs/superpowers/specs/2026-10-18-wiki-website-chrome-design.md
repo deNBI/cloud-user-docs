@@ -141,7 +141,9 @@ legal line.
   → `https://cloud.denbi.de/about/imprint/` · Cookie settings → `#__consent`
   (opens Material's consent dialog; same tab)
 - **Legal line:** "© {current year} de.NBI" · "Edit this page on GitHub" (the
-  page's edit link) · right-aligned text links "de.NBI" →
+  page's edit link, opening GitHub's editor on the default branch `main`;
+  `edit_uri` changes from the stale `blob/master/wiki/` to `edit/main/wiki/`,
+  as the maintainer decided) · right-aligned text links "de.NBI" →
   `https://www.denbi.de/` and "GitHub" → `https://github.com/deNBI`.
 
 This replaces the current `footer_links` row and the social icons (LinkedIn,
@@ -205,17 +207,21 @@ change.
   hand without editing templates. `config_local.yml` inherits them.
 - Production is served under `https://cloud.denbi.de/wiki/`. Links to the
   website are absolute URLs.
-- Icons: copy the six Material Symbols SVGs the header uses (`login`,
-  `menu_book`, `dns`, `campaign`, `support_agent`, plus `open_in_new` if
-  needed) from the website. Material for MkDocs also bundles Material Symbols
-  as `material/...`; either is fine as long as they look identical.
+- Icons: copy the five Material Symbols SVGs the quick access bar uses
+  (`login`, `menu_book`, `dns`, `campaign`, `support_agent`) from the website,
+  with its `SOURCE.txt`. Material for MkDocs bundles Material Design Icons,
+  not Material Symbols, so they would not look identical.
 - Accessibility at the level of the website: a skip link, a labelled `<nav>`
-  for quick access ("Quick access"), `aria-current="page"` on the Wiki link and
-  the current section, contrast following the "cyan is a fill only" rule in
-  `denbi.css`, and full keyboard use of search and the toggle.
-- Must work at phone width without horizontal scrolling. Below the website's
-  breakpoint, the menu row falls back to Material's drawer, which already holds
-  the sections. The quick access bar stays visible with icons only.
+  for quick access ("Quick access"), `aria-current="true"` on the Wiki link and
+  the current section (both mark the current item in a set, not the exact
+  page; the maintainer confirmed this), contrast following the "cyan is a fill
+  only" rule in `denbi.css`, and full keyboard use of search and the toggle.
+- Must work at phone width without horizontal scrolling. The sections show in
+  the menu row from 76.25em (1220px), the breakpoint where Material's sidebar
+  becomes the lifted section sidebar. Below that, the menu row falls back to
+  Material's drawer, which already holds the sections. The maintainer accepted
+  this. The quick access bar stays visible with icons only. "Apply for a
+  project" shortens to "Apply" below 900px, the website's mobile breakpoint.
 - The `htmlproofer` check must keep passing.
 - Local preview: `uv run mkdocs serve -f config_local.yml`.
 
@@ -238,8 +244,8 @@ first, then go live together. Consequences for the build:
   the palette toggle, instant loading and consent keep working.
 - Whether the quick access bar scrolls away while the menu row stays sticky.
   Mirror what the website does on `feat/cloud-redesign`.
-- Spacing and breakpoints. Copy the values from `cloud.css` where they exist
-  (the website switches to the mobile menu at 900px).
+- Spacing and the remaining breakpoints. Copy the values from `cloud.css`
+  where they exist.
 - Whether "Concept" stays a sub-group inside OpenStack (expected: yes), and
   whether the home page shows the "Getting started" sidebar.
 - The exact shade of the dark quick access bar, if `#06121e` does not meet
