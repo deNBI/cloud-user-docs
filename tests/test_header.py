@@ -74,7 +74,8 @@ def test_menu_row_logo_and_wordmark(site, path):
     imgs = logo.find_all("img")
     assert {i["src"].rsplit("/", 1)[1] for i in imgs} == {"denbi-logo-color.svg", "denbi-logo-light.svg"}
     assert all(i.get("alt") is not None for i in imgs)
-    assert [i["alt"] for i in imgs if i["alt"]] == ["de.NBI Cloud"]
+    # Only one twin is rendered per colour scheme, so both carry the name.
+    assert [i["alt"] for i in imgs] == ["de.NBI Cloud", "de.NBI Cloud"]
     wordmark = h.select_one("a.denbi-header__wordmark")
     assert wordmark.get_text(strip=True) == "Wiki"
     assert resolve(path, wordmark["href"]) == SITE_URL
@@ -117,3 +118,12 @@ def test_no_material_tabs_or_repo_widget(site):
     soup = page(site, "")
     assert soup.select_one("nav.md-tabs") is None
     assert soup.select_one(".md-header__source") is None
+
+
+def test_drawer_logo_has_both_variants(site):
+    logo = page(site, "portal/allocation/").select_one('label.md-nav__title[for="__drawer"] a.md-logo')
+    imgs = logo.find_all("img")
+    assert [(i["class"], i["src"].rsplit("/", 1)[1], i["alt"]) for i in imgs] == [
+        (["denbi-logo--light"], "denbi-logo-color.svg", "de.NBI Cloud"),
+        (["denbi-logo--dark"], "denbi-logo-light.svg", "de.NBI Cloud"),
+    ]
