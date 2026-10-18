@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 WIKI = Path(__file__).resolve().parents[1] / "wiki"
@@ -16,12 +17,39 @@ def test_files_exist():
         assert (WIKI / "overrides/.icons/symbols" / f"{i}.svg").is_file(), i
 
 
+ACTIVE_CONTENT = re.compile(
+    # href may only point inside the document (#id) or to an embedded raster image.
+    r"<script|javascript:|<foreignobject|\son[a-z]+\s*=|href\s*=\s*[\"']?(?!#|data:image/)[^\"'\s>]",
+    re.IGNORECASE,
+)
+
+
+def active_content(svg_text: str) -> list[str]:
+    """Scripts, event handlers, embedded documents and external references in an SVG."""
+    return [m.group(0) for m in ACTIVE_CONTENT.finditer(svg_text)]
+
+
+def test_active_content_detects_unsafe_svg():
+    assert active_content('<svg><path d="M0 0"/><use href="#a"/></svg>') == []
+    assert active_content('<svg><image xlink:href="data:image/png;base64,iVBO"/></svg>') == []
+    for bad in ('<svg onload="x()">', '<svg><script>x()</script>', '<svg><image href="a.png"/>',
+                '<svg><a xlink:href="https://example.org">', '<svg><foreignObject>',
+                '<svg><a href="javascript:x()">'):
+        assert active_content(bad), bad
+
+
+THEME_SVGS = [WIKI / "assets/images", WIKI / "overrides"]
+
+
 def test_svgs_have_no_active_content():
     for svg in WIKI.glob("**/*.svg"):
         if "mathjax" in svg.parts:
             continue
-        text = svg.read_text(errors="ignore").lower()
-        assert "<script" not in text and "javascript:" not in text, svg
+        found = active_content(svg.read_text(errors="ignore"))
+        if not any(svg.is_relative_to(d) for d in THEME_SVGS):
+            # Diagrams in pages (draw.io exports) use foreignObject for their labels.
+            found = [f for f in found if f.lower() != "<foreignobject"]
+        assert found == [], svg
 
 
 def test_light_logo_has_no_dark_lettering():

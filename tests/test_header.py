@@ -51,6 +51,8 @@ def test_status_link_shows_the_live_badge(site, path):
     assert status["href"] == "https://status.cloud.denbi.de/"
     assert badge["src"] == STATUS_BADGE
     assert badge["alt"] == "" and badge["height"] == "20"
+    # The status server does not need to learn which wiki page was open.
+    assert badge["referrerpolicy"] == "no-referrer"
 
 
 @pytest.mark.parametrize("path", PAGES)
