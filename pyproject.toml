@@ -13,3 +13,9 @@ dependencies = [
     "mkdocs-material==9.7.7",
     "pymdown-extensions==11.0.2",
 ]
+
+[dependency-groups]
+dev = [
+    "beautifulsoup4>=4.15.0",
+    "pytest>=9.1.1",
+]
