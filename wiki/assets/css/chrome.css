@@ -44,10 +44,10 @@
   text-decoration: underline;
 }
 
-.denbi-quick__back {
-  display: inline-block !important;
+.denbi-quick .denbi-quick__back {
+  display: inline-block;
   font-weight: 600;
-  padding-right: 20px !important;
+  padding-right: 20px;
   border-right: 1px solid #2a4a6b;
 }
 
@@ -116,16 +116,17 @@
     column-gap: 16px;
   }
 
-  .denbi-quick__back {
-    padding-right: 16px !important;
+  .denbi-quick .denbi-quick__back {
+    padding-right: 16px;
   }
 }
 
 /* ---------- Menu row ---------- */
 
-/* Material sizes its offsets for a 2.4rem header; the menu row is 72px. */
-html {
-  scroll-padding-top: 4.4rem;
+/* Material keeps anchors 3.6rem down for its 2.4rem header; the menu row
+   is 3.6rem, so the same 1.2rem gap needs 4.8rem. */
+.md-typeset :target {
+  --md-scroll-margin: 4.8rem;
 }
 
 .denbi-header {
@@ -227,7 +228,15 @@ html {
   .denbi-header .md-search__form {
     background-color: var(--denbi-bg-alt);
     border: 1px solid var(--denbi-line);
-    border-radius: 6px;
+    border-radius: 8px;
+  }
+
+  .denbi-header .md-search__form:hover {
+    background-color: var(--denbi-tint);
+  }
+
+  .denbi-header .md-search__input {
+    color: var(--denbi-ink);
   }
 
   .denbi-header .md-search__input::placeholder,
@@ -536,4 +545,13 @@ html {
 
 [data-md-color-scheme="slate"] .md-nav__title .md-nav__button.md-logo img.denbi-logo--dark {
   display: block;
+}
+
+/* ---------- Print ---------- */
+
+/* Material hides its header, footer and sidebars when printing. */
+@media print {
+  .denbi-quick {
+    display: none;
+  }
 }

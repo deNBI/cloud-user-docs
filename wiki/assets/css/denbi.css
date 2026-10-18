@@ -135,8 +135,7 @@ body {
 .md-typeset h1,
 .md-typeset h2,
 .md-typeset h3,
-.md-typeset h4,
-.md-header__title {
+.md-typeset h4 {
   font-family: var(--denbi-heading-font);
   color: var(--denbi-ink);
   letter-spacing: -0.01em;
@@ -176,46 +175,9 @@ body {
   text-underline-offset: 3px;
 }
 
-/* ---------- Header and navigation ---------- */
+/* ---------- Navigation ---------- */
 
-/* White main navigation with navy text, like the website. */
-.md-header,
-.md-header--shadow {
-  background-color: var(--denbi-bg);
-  color: var(--denbi-ink);
-  box-shadow: none;
-  border-bottom: 1px solid var(--denbi-line);
-}
-
-.md-header__title {
-  font-weight: 700;
-}
-
-.md-header__button.md-logo img,
-.md-header__button.md-logo svg {
-  height: 1.6rem;
-}
-
-@media screen and (min-width: 60em) {
-  .md-search__form {
-    background-color: var(--denbi-bg-alt);
-    border: 1px solid var(--denbi-line);
-    border-radius: 8px;
-  }
-
-  .md-search__form:hover {
-    background-color: var(--denbi-tint);
-  }
-
-  .md-search__input,
-  .md-search__icon {
-    color: var(--denbi-ink);
-  }
-
-  .md-search__input::placeholder {
-    color: var(--denbi-muted);
-  }
-}
+/* The header and footer are styled in chrome.css. */
 
 .md-nav__link--active,
 .md-nav__item .md-nav__link--active {
