@@ -170,9 +170,10 @@ footer follow the same dark palette:
   lettering (`#231F20`, `#58595B`, `#929497`) recoloured to light tones. Keep
   the blue, cyan and magenta marks. Switch between the two logos with the
   colour scheme.
-- Funder and partner logos: official logos must not be recoloured. In dark
-  mode, the BMFTR logo sits on a small light panel (white, rounded
-  `--radius`, a few px padding). The EU and ELIXIR logos switch to their
+- Funder and partner logos: official logos must not be recoloured. The
+  BMFTR logo sits on a small white panel (rounded `--radius`, a few px
+  padding) in both modes; in light mode the panel has a thin `--denbi-line`
+  border (maintainer's request). The EU and ELIXIR logos switch to their
   official negative (white-lettering) versions, and the LS Login badge stays
   as is (see "Logos"). This is my call, following the builder check.
 
