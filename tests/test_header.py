@@ -35,6 +35,24 @@ def test_quick_access_bar(site, path):
     assert all(a.find("svg") is not None for a in nav.select("a"))
 
 
+# Same badge as the website's quick access bar (landing_page STATUS_BADGE_URL).
+STATUS_BADGE = ("https://status.cloud.denbi.de/api/status-page/default/badge"
+                "?style=flat-square&upColor=2e7d32&downColor=c62828"
+                "&partialColor=8a5a00&maintenanceColor=5f6368")
+
+
+@pytest.mark.parametrize("path", PAGES)
+def test_status_link_shows_the_live_badge(site, path):
+    nav = page(site, path).select_one("div.denbi-quick nav")
+    badges = nav.select("img.denbi-quick__badge")
+    assert len(badges) == 1
+    badge = badges[0]
+    status = badge.find_parent("a")
+    assert status["href"] == "https://status.cloud.denbi.de/"
+    assert badge["src"] == STATUS_BADGE
+    assert badge["alt"] == "" and badge["height"] == "20"
+
+
 @pytest.mark.parametrize("path", PAGES)
 def test_quick_access_wiki_link_resolves(site, path):
     wiki = page(site, path).select_one('div.denbi-quick a[aria-current="true"]')

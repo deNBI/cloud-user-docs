@@ -84,6 +84,13 @@
   height: 18px;
 }
 
+/* Live status from Uptime Kuma; its state is in the image, the link text names the target. */
+.denbi-quick__badge {
+  height: 20px;
+  width: auto;
+  border-radius: 3px;
+}
+
 @media (max-width: 900px) {
   .denbi-quick__label {
     display: none;
