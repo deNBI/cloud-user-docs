@@ -443,8 +443,14 @@ html {
   width: auto;
 }
 
+/* Official logos are never recoloured; those without a negative version
+   sit on a white panel, in both colour schemes. */
 .denbi-logo-panel {
   display: inline-flex;
+  padding: 4px 6px;
+  border: 1px solid var(--denbi-line);
+  border-radius: 8px;
+  background: #ffffff;
 }
 
 .denbi-footer__legal {
@@ -507,10 +513,6 @@ html {
   display: inline;
 }
 
-/* Official logos are never recoloured; those without a negative version
-   sit on a light panel. */
 [data-md-color-scheme="slate"] .denbi-logo-panel {
-  padding: 4px 6px;
-  border-radius: 8px;
-  background: #ffffff;
+  border-color: transparent;
 }
