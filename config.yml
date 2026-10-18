@@ -134,7 +134,7 @@ extra:
     - { label: "Portal login", url: "https://cloud.denbi.de/portal/", icon: login }
     - { label: "Wiki", url: "", icon: menu_book, current: true }
     - { label: "Status", url: "https://status.cloud.denbi.de/", icon: dns,
-        badge: "https://status.cloud.denbi.de/api/status-page/default/badge?style=flat-square&upColor=2e7d32&downColor=c62828&partialColor=8a5a00&maintenanceColor=5f6368" }
+        badge: "https://status.cloud.denbi.de/api/status-page/default/badge?style=flat-square&upColor=2e7d32&downColor=c62828&partialColor=b45309&maintenanceColor=5f6368" }
     - { label: "Facility news", url: "https://cloud.denbi.de/news/facility-news/", icon: campaign }
     - { label: "Support", url: "https://cloud.denbi.de/support/", icon: support_agent }
   consent:

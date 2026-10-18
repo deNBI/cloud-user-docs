@@ -38,7 +38,7 @@ def test_quick_access_bar(site, path):
 # Same badge as the website's quick access bar (landing_page STATUS_BADGE_URL).
 STATUS_BADGE = ("https://status.cloud.denbi.de/api/status-page/default/badge"
                 "?style=flat-square&upColor=2e7d32&downColor=c62828"
-                "&partialColor=8a5a00&maintenanceColor=5f6368")
+                "&partialColor=b45309&maintenanceColor=5f6368")
 
 
 @pytest.mark.parametrize("path", PAGES)
