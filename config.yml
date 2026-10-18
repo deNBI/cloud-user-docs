@@ -27,6 +27,7 @@ theme:
   features:
     - navigation.top
     - navigation.indexes
+    - navigation.tabs
 repo_name: 'deNBI/cloud-user-docs'
 repo_url: 'https://github.com/deNBI/cloud-user-docs'
 edit_uri: blob/master/wiki/
@@ -154,9 +155,11 @@ extra:
   simplevm_wiki_link: !ENV [ SIMPLE_VM_WIKI_LINK, 'https://simplevm.denbi.de/wiki/' ]
 
 nav:
-  - 'Home': index.md
-  - 'Registration': registration.md
-  - 'Citation and publication': citation_and_publication.md
+  - 'Getting started':
+      - 'Home': index.md
+      - 'Registration': registration.md
+      - 'Citation and publication': citation_and_publication.md
+      - 'Security': security.md
   - 'Portal':
       - 'Allocation': portal/allocation.md
       - 'Resource/Lifetime Modifications': portal/modification.md
@@ -166,19 +169,19 @@ nav:
       - 'Using Vault': portal/vault_user.md
       - 'Cloud Credits': portal/credits.md
       - 'Personal Data': portal/personal_data.md
-  - 'Simple VM':
+  - 'SimpleVM':
       - simple_vm/index.md
-  - 'OpenStack Quickstart': quickstart.md
-  - 'Security': security.md
-  - 'Concept':
-      - 'OpenStack Basics': Concept/basics.md
-      - 'OpenStack Components': Concept/openstack.md
-      - 'Flavors': Concept/flavors.md
-      - 'Images': Concept/images.md
-      - 'Image Builder': Concept/image_builder.md
-      - 'Network': Concept/network.md
-      - 'Object Storage Giessen': Concept/object_storage_giessen.md
-      - 'Volumes': Concept/volumes.md
+  - 'OpenStack':
+      - 'OpenStack Quickstart': quickstart.md
+      - 'Concept':
+          - 'OpenStack Basics': Concept/basics.md
+          - 'OpenStack Components': Concept/openstack.md
+          - 'Flavors': Concept/flavors.md
+          - 'Images': Concept/images.md
+          - 'Image Builder': Concept/image_builder.md
+          - 'Network': Concept/network.md
+          - 'Object Storage Giessen': Concept/object_storage_giessen.md
+          - 'Volumes': Concept/volumes.md
   - 'Tutorials':
       - 'Tutorials': Tutorials/index.md
       - 'Access de.NBI Virtual Machines from Windows 10': Tutorials/Win10_SSH/index.md
@@ -199,8 +202,7 @@ nav:
       - 'Persistent SSH Sessions': Tutorials/Persistent_SSH_Sessions/index.md
       - 'Theia Web IDE': Tutorials/TheiaIde/index.md
       - 'UserData': Tutorials/UserData/index.md
-  - 'FAQ': 'FAQ.md'
-  - 'Compute Center Specific':
+  - 'Sites':
       - 'Berlin': Compute_Center/Berlin.md
       - 'Bielefeld': Compute_Center/Bielefeld.md
       - 'EMBL': Compute_Center/EMBL.md
@@ -209,9 +211,10 @@ nav:
       - 'Heidelberg Uni': Compute_Center/Heidelberg.md
       - 'Heidelberg DKFZ': Compute_Center/Heidelberg-DKFZ.md
       - 'Tuebingen': Compute_Center/Tuebingen.md
-  - 'Cloud Admin':
-      - 'Project management': cloud_admin/project_management.md
-      - 'Configure OpenStack to use Elixir AAI via OpenID Connect': cloud_admin/elixir_OIDC.md
-      - 'Register your identity provider for ELIXIR': cloud_admin/identity_provider.md
-      - 'News management': cloud_admin/news_management.md
-      - 'Vault management': cloud_admin/vault_admin.md
+      - 'For site administrators':
+          - 'Project management': cloud_admin/project_management.md
+          - 'Configure OpenStack to use Elixir AAI via OpenID Connect': cloud_admin/elixir_OIDC.md
+          - 'Register your identity provider for ELIXIR': cloud_admin/identity_provider.md
+          - 'News management': cloud_admin/news_management.md
+          - 'Vault management': cloud_admin/vault_admin.md
+  - 'FAQ': 'FAQ.md'
