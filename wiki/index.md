@@ -163,3 +163,36 @@ The site pages describe login, networks, storage and API access for OpenStack an
     For an existing project, **Contact Support** under **Facility** on the
     [project overview](portal/project_overview.md) page opens an email to the right team.
     All contact addresses are listed on the [support page](https://cloud.denbi.de/support/).
+
+## Improve this wiki
+
+This wiki is written by the de.NBI Cloud team and its users. If something is
+missing, outdated or unclear, you can help fix it.
+
+<div class="grid cards" markdown>
+
+-   :material-pencil-outline:{ .lg .middle } **Fix or improve a page**
+
+    ---
+
+    Every page has an **Edit this page on GitHub** link at the bottom. Change
+    the text in your browser, and GitHub opens a pull request for you.
+
+-   :material-message-alert-outline:{ .lg .middle } **Report a problem**
+
+    ---
+
+    Found a mistake or a missing topic?
+    [Open an issue](https://github.com/deNBI/cloud-user-docs/issues/new)
+    and tell us which page it is about.
+
+-   :material-file-document-plus-outline:{ .lg .middle } **Add a page or tutorial**
+
+    ---
+
+    Write the page in Markdown, link it in `config.yml` and open a pull request
+    against the `dev` branch. The
+    [README](https://github.com/deNBI/cloud-user-docs#readme) explains how to
+    preview the wiki on your computer.
+
+</div>
