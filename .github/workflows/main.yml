@@ -11,6 +11,22 @@ on:
    pull_request:
 
 jobs:
+  tests:
+    # Builds the wiki with the pinned dependencies (pyproject.toml, uv.lock)
+    # and checks the generated pages: URLs, header, footer, logos.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout cloud-user-docs repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Run tests
+        run: uv run --locked pytest -q
+
   runner-job:
     runs-on: ubuntu-latest
     steps:
