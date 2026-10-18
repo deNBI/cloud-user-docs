@@ -1,0 +1,376 @@
+/*
+ * de.NBI Cloud theme for MkDocs Material.
+ * Colours, type and components follow the de.NBI Cloud website
+ * (colour scheme A, "de.NBI Classic"). Keep the tokens in sync with the website.
+ *
+ * Contrast rule: the bright de.NBI cyan (--denbi-cyan) is a fill only.
+ * Text on it is always navy, and it is never the only outline on white;
+ * use --denbi-cyan-line for lines.
+ */
+
+/* ---------- Tokens ---------- */
+
+:root,
+[data-md-color-scheme="default"] {
+  --denbi-ink: #042746;
+  --denbi-blue: #005aa9;
+  --denbi-cyan: #00adee;
+  --denbi-cyan-line: #0077b6;
+  --denbi-tint: #eaf8fe;
+  --denbi-line: #e2e2e2;
+  --denbi-magenta: #eb008b;
+  --denbi-magenta-strong: #c4006f;
+  --denbi-muted: #4c5d70;
+  --denbi-bg: #ffffff;
+  --denbi-bg-alt: #f5f8fb;
+  --denbi-on-cyan: #042746;
+
+  --denbi-warning-line: #b87400;
+  --denbi-warning-bg: #fff6e0;
+  --denbi-warning-icon: #8a5a00;
+  --denbi-danger-line: #c62828;
+  --denbi-danger-bg: #fdecec;
+  --denbi-danger-icon: #b71c1c;
+  --denbi-success-line: #2e9e5b;
+  --denbi-success-bg: #e9f7ef;
+  --denbi-success-icon: #1e7a44;
+}
+
+/* Dark mode: the same roles on a navy background. All text pairs pass AA. */
+[data-md-color-scheme="slate"] {
+  --denbi-ink: #e6eef6;
+  --denbi-blue: #7cc0f5;
+  --denbi-cyan: #00adee;
+  --denbi-cyan-line: #38bdf8;
+  --denbi-tint: #12324f;
+  --denbi-line: #2b3d52;
+  --denbi-magenta: #ff5cb8;
+  --denbi-magenta-strong: #c4006f;
+  --denbi-muted: #a7b6c7;
+  --denbi-bg: #0d1b2a;
+  --denbi-bg-alt: #13263a;
+  --denbi-on-cyan: #042746;
+
+  --denbi-warning-line: #e0a526;
+  --denbi-warning-bg: #2a2412;
+  --denbi-warning-icon: #ffc94d;
+  --denbi-danger-line: #ef6b62;
+  --denbi-danger-bg: #2e1a1f;
+  --denbi-danger-icon: #ff8a80;
+  --denbi-success-line: #3fbf78;
+  --denbi-success-bg: #122a22;
+  --denbi-success-icon: #6fd39a;
+}
+
+/* ---------- Material colour variables ---------- */
+
+[data-md-color-scheme="default"],
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: var(--denbi-blue);
+  --md-primary-fg-color--light: var(--denbi-cyan-line);
+  --md-primary-fg-color--dark: var(--denbi-ink);
+  --md-accent-fg-color: var(--denbi-ink);
+  --md-accent-fg-color--transparent: color-mix(in srgb, var(--denbi-blue) 10%, transparent);
+
+  --md-default-fg-color: var(--denbi-ink);
+  --md-default-fg-color--light: var(--denbi-muted);
+  --md-default-fg-color--lighter: color-mix(in srgb, var(--denbi-muted) 55%, transparent);
+  --md-default-fg-color--lightest: color-mix(in srgb, var(--denbi-ink) 8%, transparent);
+  --md-default-bg-color: var(--denbi-bg);
+  --md-default-bg-color--light: color-mix(in srgb, var(--denbi-bg) 70%, transparent);
+  --md-default-bg-color--lighter: color-mix(in srgb, var(--denbi-bg) 30%, transparent);
+  --md-default-bg-color--lightest: color-mix(in srgb, var(--denbi-bg) 12%, transparent);
+
+  --md-typeset-color: var(--denbi-ink);
+  --md-typeset-a-color: var(--denbi-blue);
+  --md-typeset-table-color: var(--denbi-line);
+  --md-typeset-table-color--light: var(--denbi-bg-alt);
+  --md-code-bg-color: var(--denbi-bg-alt);
+
+  --md-admonition-fg-color: var(--denbi-ink);
+  --md-admonition-bg-color: var(--denbi-tint);
+
+  --md-footer-fg-color: var(--denbi-ink);
+  --md-footer-fg-color--light: var(--denbi-muted);
+  --md-footer-fg-color--lighter: var(--denbi-muted);
+  --md-footer-bg-color: var(--denbi-bg-alt);
+  --md-footer-bg-color--dark: var(--denbi-bg-alt);
+
+  /* Mermaid, in the figure style of the website */
+  --md-mermaid-font-family: var(--md-text-font-family);
+  --md-mermaid-edge-color: var(--denbi-ink);
+  --md-mermaid-node-bg-color: var(--denbi-bg);
+  --md-mermaid-node-fg-color: var(--denbi-blue);
+  --md-mermaid-label-bg-color: var(--denbi-bg);
+  --md-mermaid-label-fg-color: var(--denbi-ink);
+  --md-mermaid-sequence-number-bg-color: var(--denbi-cyan);
+  --md-mermaid-sequence-number-fg-color: var(--denbi-on-cyan);
+  --denbi-mermaid-cluster-bg-color: var(--denbi-tint);
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-bg-color: #ffffff;
+  --md-primary-bg-color--light: #ffffffb3;
+  --md-accent-bg-color: #ffffff;
+}
+
+/* On the light-blue primary of dark mode, text on primary is navy. */
+[data-md-color-scheme="slate"] {
+  --md-primary-bg-color: var(--denbi-bg);
+  --md-primary-bg-color--light: color-mix(in srgb, var(--denbi-bg) 70%, transparent);
+  --md-accent-bg-color: var(--denbi-bg);
+}
+
+/* ---------- Typography ---------- */
+
+body {
+  font-variant-numeric: lining-nums;
+}
+
+.md-typeset {
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-header__title {
+  font-family: var(--denbi-heading-font);
+  color: var(--denbi-ink);
+  letter-spacing: -0.01em;
+}
+
+.md-typeset h1 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.md-typeset h2 {
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.md-typeset h3,
+.md-typeset h4 {
+  font-weight: 600;
+}
+
+/* Never uppercase labels: "de.NBI" must not render as "DE.NBI". */
+.md-typeset h5,
+.md-typeset h6 {
+  font-weight: 600;
+  color: var(--denbi-muted);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.md-typeset strong,
+.md-typeset b,
+.md-typeset th {
+  font-weight: 600;
+}
+
+.md-typeset a {
+  text-underline-offset: 3px;
+}
+
+/* ---------- Header and navigation ---------- */
+
+/* White main navigation with navy text, like the website. */
+.md-header,
+.md-header--shadow {
+  background-color: var(--denbi-bg);
+  color: var(--denbi-ink);
+  box-shadow: none;
+  border-bottom: 1px solid var(--denbi-line);
+}
+
+.md-header__title {
+  font-weight: 700;
+}
+
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  height: 1.6rem;
+}
+
+@media screen and (min-width: 60em) {
+  .md-search__form {
+    background-color: var(--denbi-bg-alt);
+    border: 1px solid var(--denbi-line);
+    border-radius: 8px;
+  }
+
+  .md-search__form:hover {
+    background-color: var(--denbi-tint);
+  }
+
+  .md-search__input,
+  .md-search__icon {
+    color: var(--denbi-ink);
+  }
+
+  .md-search__input::placeholder {
+    color: var(--denbi-muted);
+  }
+}
+
+.md-nav__link--active,
+.md-nav__item .md-nav__link--active {
+  font-weight: 600;
+}
+
+/* ---------- Buttons ---------- */
+
+.md-typeset .md-button {
+  border: 1.5px solid var(--denbi-blue);
+  border-radius: 8px;
+  color: var(--denbi-blue);
+  font-weight: 600;
+}
+
+.md-typeset .md-button:focus,
+.md-typeset .md-button:hover {
+  background-color: var(--denbi-tint);
+  border-color: var(--denbi-blue);
+  color: var(--denbi-ink);
+}
+
+.md-typeset .md-button--primary {
+  background-color: var(--denbi-blue);
+  color: var(--md-primary-bg-color);
+}
+
+.md-typeset .md-button--primary:focus,
+.md-typeset .md-button--primary:hover {
+  background-color: var(--denbi-ink);
+  border-color: var(--denbi-ink);
+  color: var(--denbi-bg);
+}
+
+/* ---------- Cards ---------- */
+
+.md-typeset .grid.cards > :is(ul, ol) > li,
+.md-typeset .grid > .card {
+  border: 1px solid var(--denbi-line);
+  border-radius: 12px;
+  box-shadow: none;
+  background-color: var(--denbi-bg);
+}
+
+.md-typeset .grid.cards > :is(ul, ol) > li:focus-within,
+.md-typeset .grid.cards > :is(ul, ol) > li:hover,
+.md-typeset .grid > .card:focus-within,
+.md-typeset .grid > .card:hover {
+  border-color: var(--denbi-cyan-line);
+  box-shadow: none;
+}
+
+/* ---------- Admonitions (the website's callout) ---------- */
+
+.md-typeset :is(.admonition, details) {
+  --denbi-adm-line: var(--denbi-cyan);
+  --denbi-adm-bg: var(--denbi-tint);
+  --denbi-adm-icon: var(--denbi-blue);
+}
+
+.md-typeset :is(.admonition, details):is(.warning, .warn, .caution, .attention, .important) {
+  --denbi-adm-line: var(--denbi-warning-line);
+  --denbi-adm-bg: var(--denbi-warning-bg);
+  --denbi-adm-icon: var(--denbi-warning-icon);
+}
+
+.md-typeset :is(.admonition, details):is(.danger, .error, .failure, .fail, .missing, .bug) {
+  --denbi-adm-line: var(--denbi-danger-line);
+  --denbi-adm-bg: var(--denbi-danger-bg);
+  --denbi-adm-icon: var(--denbi-danger-icon);
+}
+
+.md-typeset :is(.admonition, details):is(.success, .check, .done) {
+  --denbi-adm-line: var(--denbi-success-line);
+  --denbi-adm-bg: var(--denbi-success-bg);
+  --denbi-adm-icon: var(--denbi-success-icon);
+}
+
+.md-typeset :is(.admonition, details):is(.example, .quote, .cite) {
+  --denbi-adm-line: var(--denbi-muted);
+  --denbi-adm-bg: var(--denbi-bg-alt);
+  --denbi-adm-icon: var(--denbi-muted);
+}
+
+/* :not(#_) raises specificity above Material's per-type colour rules. */
+.md-typeset :is(.admonition, details):not(#_) {
+  background-color: var(--denbi-adm-bg);
+  border: 0;
+  border-left: 4px solid var(--denbi-adm-line);
+  border-radius: 0 12px 12px 0;
+  box-shadow: none;
+  color: var(--denbi-ink);
+  font-size: 0.8rem;
+}
+
+.md-typeset :is(.admonition, details):not(#_) > :is(.admonition-title, summary) {
+  background-color: transparent;
+  border: 0;
+  font-weight: 600;
+}
+
+.md-typeset :is(.admonition, details):not(#_) > :is(.admonition-title, summary)::before {
+  background-color: var(--denbi-adm-icon);
+}
+
+.md-typeset details:not(#_) > summary::after {
+  color: var(--denbi-adm-icon);
+}
+
+/* ---------- Tables ---------- */
+
+.md-typeset table:not([class]) {
+  border: 1px solid var(--denbi-line);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--denbi-bg-alt);
+  color: var(--denbi-ink);
+}
+
+.md-typeset table:not([class]) tbody tr:hover {
+  background-color: var(--denbi-tint);
+  box-shadow: none;
+}
+
+/* ---------- Code ---------- */
+
+.md-typeset pre > code,
+.md-typeset .highlight {
+  border-radius: 8px;
+}
+
+.md-typeset :not(pre) > code {
+  border-radius: 4px;
+}
+
+/* ---------- Footer ---------- */
+
+.md-footer {
+  border-top: 1px solid var(--denbi-line);
+}
+
+.md-footer-meta {
+  border-top: 1px solid var(--denbi-line);
+}
+
+.md-footer-meta .md-typeset a,
+.md-footer__link {
+  color: var(--denbi-ink);
+}
+
+.md-footer-meta .md-typeset a:is(:focus, :hover),
+.md-footer__link:is(:focus, :hover) {
+  color: var(--denbi-blue);
+}

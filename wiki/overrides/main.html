@@ -1,5 +1,10 @@
  {% extends "base.html" %}
 
+  {% block libs %}
+    {{ super() }}
+    <script src="{{ 'assets/javascripts/mermaid-theme.js' | url }}"></script>
+  {% endblock %}
+
   {% block footer %}
     {{ super() }}
     <footer class="md-footer">
