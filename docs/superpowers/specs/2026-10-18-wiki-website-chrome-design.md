@@ -119,10 +119,13 @@ Website `.site-footer` style: light grey-blue background (`--denbi-bg-alt`),
 top border, a grid of one brand column (wider) and three link columns, then a
 legal line.
 
-- **Brand column:** the colour logo → `https://cloud.denbi.de/`; the text
+- **Brand column:** the colour logo → `https://cloud.denbi.de/` and the text
   'Part of de.NBI (say "DEN-bee"), the German Network for Bioinformatics
-  Infrastructure and ELIXIR Germany.'; then two logo groups (see "Logos").
-  1. **Funders** (maintainer's decision): BMFTR and the official EU
+  Infrastructure and ELIXIR Germany.'
+- **Logo row** (maintainer's request, to keep the footer compact): one row
+  spanning the full width, below the link columns and above the legal line,
+  with two labelled groups side by side (see "Logos"):
+  1. **Funded by** (maintainer's decision): BMFTR and the official EU
      NextGenerationEU logo. The EU logo *is* the EU funding notice, which the
      de.KCD training link requires. It appears exactly once in the footer;
      there is no separate flag-plus-text notice like the website's
@@ -168,11 +171,10 @@ footer follow the same dark palette:
   the blue, cyan and magenta marks. Switch between the two logos with the
   colour scheme.
 - Funder and partner logos: official logos must not be recoloured. In dark
-  mode, the BMFTR and EU logos sit on a small light panel (white, rounded
-  `--radius`, a few px padding); both files have white backgrounds anyway.
-  ELIXIR switches to its white-lettering version instead, and the LS Login
-  badge stays as is (see "Logos"). This is my call, following the builder
-  check.
+  mode, the BMFTR logo sits on a small light panel (white, rounded
+  `--radius`, a few px padding). The EU and ELIXIR logos switch to their
+  official negative (white-lettering) versions, and the LS Login badge stays
+  as is (see "Logos"). This is my call, following the builder check.
 
 Light mode looks exactly like the website.
 
@@ -184,7 +186,7 @@ naming the organisation. Source files:
 | Logo | Light mode | Dark mode | Source |
 |---|---|---|---|
 | BMFTR ("With funding from the: Federal Ministry of Research, Technology and Space") | as is | on light panel | `https://datenkompetenz.cloud/media/original_images/BMFTR_en_DTP_CMYK_gef_durch.jpg` (CMYK JPEG; convert to sRGB PNG/WebP without changing the artwork) |
-| EU NextGenerationEU ("Funded by the European Union") | as is | on light panel | Official **English** version from the European Commission's NextGenerationEU logo downloads. de.KCD uses the German version (`Forderhinweis_EU_vertikal.jpg`); the wiki is English, so using the English one is my call |
+| EU NextGenerationEU ("Funded by the European Union") | English horizontal positive (`EN_Funded_by_the_European_Union_RGB_POS.png`) | English horizontal negative (`..._RGB_NEG.png`) | European Commission download centre, `https://ec.europa.eu/regional_policy/information-sources/logo-download-center_en` (`nextgenerationeu_en.zip`). de.KCD uses the German vertical version; English (the wiki's language) and horizontal (for the compact logo row) are my calls |
 | ELIXIR | `ELIXIR_logo_standard.svg` (orange + dark grey `#4D4848` lettering) | `ELIXIR_logo_negative_orange.svg` (orange + white lettering) | Official SVGs supplied by the maintainer (`~/Downloads/ELIXIR_logo_standard(1).svg`, `~/Downloads/ELIXIR_logo_negative_orange(1).svg`). Checked: no scripts or external references. The all-white `negative_white` variant is not used. Commit without the `(1)` in the file names |
 | LS Login (LS AAI) | as is | as is (the badge has its own light background and cyan border, so it needs no panel) | `https://www.lifescience-ri.eu/wp-content/uploads/2025/09/login-grey-wide.jpg.png` (450×100 PNG, from https://www.lifescience-ri.eu/life-science-login/) |
 

@@ -27,7 +27,7 @@
 2. **Phone width (360px).** There must be no horizontal scroll. The quick access bar shows icons only and the wiki link keeps an accessible name. The drawer button opens Material's drawer with all 7 sections, and Apply shortens to "Apply". Pinned in Task 4 (accessible-name test) and Task 5 (`test_menu_row_has_drawer_button` + browser check).
 3. **Search and the palette toggle inside the custom header.** The `/` and `s` shortcuts, the results overlay, and the light/dark toggle (which persists across pages) must keep working. Pinned in Task 5 (`test_menu_row_keeps_search_and_palette` + browser check).
 4. **The 404 page and deep pages.** On `404.html` and on three-level pages such as `Tutorials/Ansible/`, every header and footer link must resolve. Pinned in Task 4 and Task 6 (tests run on `404.html` and a deep page).
-5. **Dark mode logos.** The de.NBI logo swaps to the light variant. BMFTR and EU sit on a light panel, and ELIXIR swaps to the negative orange version. Pinned in Task 6 (`test_footer_logo_variants`) and Task 7 (browser check).
+5. **Dark mode logos.** The de.NBI logo swaps to the light variant. BMFTR sits on a light panel, and EU and ELIXIR swap to their official negative versions. Pinned in Task 6 (`test_footer_logo_variants`) and Task 7 (browser check).
 
 ---
 
@@ -73,7 +73,7 @@ extra:
     - heading: "Funded by"
       logos:
         - { name: "Federal Ministry of Research, Technology and Space (BMFTR)", light: assets/images/partners/bmftr-en.png, panel: true }
-        - { name: "Funded by the European Union – NextGenerationEU", light: assets/images/partners/eu-nextgenerationeu-en.png, panel: true }
+        - { name: "Funded by the European Union – NextGenerationEU", light: assets/images/partners/eu-nextgenerationeu-en.png, dark: assets/images/partners/eu-nextgenerationeu-en-neg.png }
     - heading: "In collaboration with"
       logos:
         - { name: "ELIXIR", href: "https://elixir-europe.org/", light: assets/images/partners/elixir-standard.svg, dark: assets/images/partners/elixir-negative-orange.svg }
@@ -212,7 +212,7 @@ def test_partner_sources_documented():
   - Add `fill="currentColor"` to each icon's `<svg>` tag, and remove its `width` and `height` attributes.
 - [ ] **Step 4: Get the partner logos.** Download into a scratch folder and check each before copying it in:
   - **BMFTR:** download `https://datenkompetenz.cloud/media/original_images/BMFTR_en_DTP_CMYK_gef_durch.jpg` and convert it to sRGB PNG without touching the artwork: `sips -s format png --matchTo "/System/Library/ColorSync/Profiles/sRGB Profile.icc" <in> --out bmftr-en.png`. Then scale it to 600px wide with `sips -Z 600`.
-  - **EU:** get the official **English** vertical "Funded by the European Union – NextGenerationEU" logo from the European Commission, and convert it to `eu-nextgenerationeu-en.png` (≤ 600px). If you can't find an official English source, stop and ask; do not use a third-party copy.
+  - **EU:** get the official **English** horizontal "Funded by the European Union – NextGenerationEU" logo from the European Commission, and convert it to `eu-nextgenerationeu-en.png` (≤ 600px). If you can't find an official English source, stop and ask; do not use a third-party copy.
   - **ELIXIR:** copy `~/Downloads/ELIXIR_logo_standard(1).svg` → `elixir-standard.svg` and `~/Downloads/ELIXIR_logo_negative_orange(1).svg` → `elixir-negative-orange.svg`.
   - **LS Login:** download `https://www.lifescience-ri.eu/wp-content/uploads/2025/09/login-grey-wide.jpg.png` → `ls-login.png`.
   - **SOURCE.txt:** one line per file with its source URL (or "supplied by the maintainer, 2026-10-18" for ELIXIR) and the date.
@@ -388,19 +388,27 @@ def test_footer_brand(site, path):
     b = page(site, path).select_one("footer.denbi-footer .denbi-footer__brand")
     assert b.select_one("a")["href"] == "https://cloud.denbi.de/"
     assert 'Part of de.NBI (say "DEN-bee")' in b.get_text()
+    assert b.select_one(".denbi-footer__logos") is None     # logos live in their own row
+
+def test_footer_logo_row(site, path):
+    grid = page(site, path).select_one("footer.denbi-footer > .md-grid")
+    order = [c["class"][0] for c in grid.find_all(recursive=False)]
+    assert order == ["denbi-footer__cols", "denbi-footer__partners", "denbi-footer__legal"]
     groups = {g.find("h2").get_text(strip=True): [i["alt"] for i in g.select("img:not(.denbi-logo--dark)")]
-              for g in b.select(".denbi-footer__logos")}
+              for g in grid.select(".denbi-footer__partners .denbi-footer__logos")}
     assert list(groups) == ["Funded by", "In collaboration with"]
     assert len(groups["Funded by"]) == 2 and len(groups["In collaboration with"]) == 2
 
 def test_eu_notice_once(site, path):
     f = page(site, path).select_one("footer.denbi-footer")
-    assert len(f.select('img[src*="eu-nextgenerationeu-en"]')) == 1
+    assert len(f.select('img.denbi-logo--light[src*="eu-nextgenerationeu-en"]')) == 1
+    assert len(f.select('img.denbi-logo--dark[src*="eu-nextgenerationeu-en-neg"]')) == 1
 
 def test_footer_logo_variants(site):
     f = page(site, "").select_one("footer.denbi-footer")
     assert f.select_one('img.denbi-logo--dark[src*="elixir-negative-orange"]')
-    assert len(f.select(".denbi-logo-panel img")) == 2   # BMFTR + EU
+    panel = f.select(".denbi-logo-panel img")
+    assert len(panel) == 1 and "bmftr-en" in panel[0]["src"]
 
 def test_footer_legal_line(site):
     legal = page(site, "portal/allocation/").select_one("footer.denbi-footer .denbi-footer__legal")
@@ -428,13 +436,14 @@ def test_simplevm_link_matches_config():
 - [ ] **Step 2: Run them.** `uv run pytest tests/test_footer.py -v`. Expected: FAIL.
 - [ ] **Step 3: Implement `partials/footer.html`.**
   - `footer.md-footer.denbi-footer > div.md-grid`, containing:
-    - `div.denbi-footer__cols` with `div.denbi-footer__brand` (logo link with both de.NBI logo variants, the text, and one `div.denbi-footer__logos` per group with `h2` + logos) and one `nav.denbi-footer__col[aria-label=<heading>]` per column, each with `h2` + `ul > li > a`
+    - `div.denbi-footer__cols` with `div.denbi-footer__brand` (logo link with both de.NBI logo variants, and the text) and one `nav.denbi-footer__col[aria-label=<heading>]` per column, each with `h2` + `ul > li > a`
+    - then `div.denbi-footer__partners`: one compact row with one `div.denbi-footer__logos` per group (`h2` + logos), groups side by side
     - then `div.denbi-footer__legal`: `© {{ build_date_utc.year }} de.NBI`, the edit link if `page.edit_url`, and `ul` with the legal links
   - **Logos:** a logo with `dark` renders two `img`s, `.denbi-logo--light` and `.denbi-logo--dark`. A logo with `panel: true` is wrapped in `span.denbi-logo-panel`. A logo with `href` is wrapped in `a[rel=noopener]`. Every `img` has `alt=name` (the hidden dark twin gets `alt=""`), `height="48"`, and `src` via `| url`.
   - **Link targets:** links starting with `#` open in the same tab; external links don't force a new tab (same as the website).
 - [ ] **Step 4: Style it (`/* Footer */`).**
   - Port `.site-footer` from `cloud.css` lines 657–672: `--denbi-bg-alt` background, top border, `48px 0 24px` padding, grid `1.6fr 1fr 1fr 1fr` with 32px gap, 2 columns ≤800px and 1 column ≤480px, `h2` in Raleway 15px `--denbi-muted`, `--denbi-ink` links with `--denbi-blue` underlined on hover.
-  - Logo groups: flex wrap, 16px gap, `img { height: 48px; width: auto }`, small heading.
+  - Logo row `.denbi-footer__partners`: full width, top border `--denbi-line`, 24px top margin and padding, one flex row with wrap (32px gap between groups). Each group is a flex row with a small heading (`h2`, 13px, `--denbi-muted`) followed by its logos (16px gap, `img { height: 48px; width: auto }`), so on desktop all four logos sit on one line.
   - In light mode `.denbi-logo--dark` is `display: none`.
 - [ ] **Step 5: Run the tests.** `uv run pytest -v`. Expected: PASS.
 - [ ] **Step 6: Check it in the browser.** The footer matches the approved mockup (`.superpowers/brainstorm/*/content/footer-v2.html`), "Cookie settings" opens the consent dialog, and at 360px there's one column with no overflow.
@@ -446,7 +455,7 @@ def test_simplevm_link_matches_config():
 - Modify: `wiki/assets/css/chrome.css` (`/* Dark mode */`)
 
 **Interfaces:**
-- Consumes: `.denbi-quick`, `.denbi-header`, `.denbi-footer`, `.denbi-logo--light/--dark`, `.denbi-logo-panel`, and the `[data-md-color-scheme="slate"]` tokens in `denbi.css`.
+- Consumes: `.denbi-quick`, `.denbi-header`, `.denbi-footer`, `.denbi-footer__partners`, `.denbi-logo--light/--dark`, `.denbi-logo-panel`, and the `[data-md-color-scheme="slate"]` tokens in `denbi.css`.
 
 - [ ] **Step 1: Write the CSS (no unit test; the markup is already pinned).** Everything goes under `[data-md-color-scheme="slate"]`:
   - quick access bar background `#06121e`, divider `--denbi-line`
