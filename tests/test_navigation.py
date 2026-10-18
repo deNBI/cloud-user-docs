@@ -32,3 +32,7 @@ def test_cloud_admin_is_under_sites(site):
     active = soup.select_one("nav.md-nav--primary > ul > li.md-nav__item--active")
     assert label(active) == "Sites"
     assert "For site administrators" in active.get_text()
+
+
+def test_theme_templates_not_published(site):
+    assert not (site / "overrides").exists()

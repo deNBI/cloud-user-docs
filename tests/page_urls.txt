@@ -44,7 +44,6 @@ cloud_admin/project_management/index.html
 cloud_admin/vault_admin/index.html
 includes/glossary/index.html
 index.html
-overrides/main.html
 portal/allocation/index.html
 portal/credits/index.html
 portal/modification/index.html

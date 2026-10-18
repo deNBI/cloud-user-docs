@@ -5,6 +5,11 @@
     <script src="{{ 'assets/javascripts/mermaid-theme.js' | url }}"></script>
   {% endblock %}
 
+  {% block header %}
+    {% include "partials/quick-access.html" %}
+    {% include "partials/header.html" %}
+  {% endblock %}
+
   {% block footer %}
     {{ super() }}
     <footer class="md-footer">
@@ -12,7 +17,7 @@
         <div class="md-grid">
             <div style="margin: auto; text-align: center; padding: 2rem;">
             {% for link in config.extra.footer_links %}
-            <a href="{{ link.href }}" 
+            <a href="{{ link.href }}"
             {%if link.new_tab | default(true) %}rel="noopener noreferrer" target="_blank"{% endif %}>{{ link.name }}</a>
             {% if not loop.last %} | {% endif %}
             {% endfor %}
