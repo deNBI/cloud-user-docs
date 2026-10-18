@@ -1,13 +1,22 @@
 from pathlib import Path
+from xml.etree import ElementTree
 
 from conftest import page
 
+SITE_URL = "https://cloud.denbi.de/wiki/"
+
 
 def built_pages(site: Path) -> list[str]:
-    return sorted(
-        p.relative_to(site).as_posix() for p in site.rglob("*.html")
-        if p.relative_to(site).parts[0] not in ("assets", "search")
-    )
+    """Pages as MkDocs publishes them, from its sitemap, plus 404.html.
+
+    Listing the files on disk would depend on the file system: on macOS, which
+    ignores case, cloud_admin/elixir_OIDC/ lands in the Elixir_OIDC/ image folder.
+    """
+    sitemap = ElementTree.parse(site / "sitemap.xml").getroot()
+    locs = [loc.text for loc in sitemap.iter("{http://www.sitemaps.org/schemas/sitemap/0.9}loc")]
+    pages = [loc.removeprefix(SITE_URL) + "index.html" for loc in locs]
+    # assets/ holds MathJax's own CONTRIBUTING page, not a wiki page.
+    return sorted([p for p in pages if not p.startswith("assets/")] + ["404.html"])
 
 
 def test_page_urls_unchanged(site):
