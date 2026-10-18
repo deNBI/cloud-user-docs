@@ -1,0 +1,24 @@
+Funder and partner logos. Official artwork, used unaltered (only colour
+space conversion and scaling). Do not recolour.
+
+bmftr-en.png
+  Federal Ministry of Research, Technology and Space, "With funding from the" (English).
+  Source: https://datenkompetenz.cloud/media/original_images/BMFTR_en_DTP_CMYK_gef_durch.jpg
+  Converted from CMYK JPEG to sRGB PNG and scaled to 600 px wide (2026-10-18).
+
+eu-nextgenerationeu-en.png, eu-nextgenerationeu-en-neg.png
+  "Funded by the European Union – NextGenerationEU", English, horizontal, RGB,
+  positive (light backgrounds) and negative (dark backgrounds) versions.
+  Source: European Commission download centre for visual elements,
+  https://ec.europa.eu/regional_policy/information-sources/logo-download-center_en
+  (nextgenerationeu_en.zip: ngeu_EN/horizontal/RGB/PNG/EN_Funded_by_the_European_Union_RGB_POS.png
+  and _NEG.png). Scaled to 800 px wide (2026-10-18).
+
+elixir-standard.svg, elixir-negative-orange.svg
+  ELIXIR logo, standard (light backgrounds) and negative orange (dark backgrounds).
+  Supplied by the maintainer, 2026-10-18 (official ELIXIR logo files).
+
+ls-login.png
+  LS Login (Life Science Login) badge.
+  Source: https://www.lifescience-ri.eu/wp-content/uploads/2025/09/login-grey-wide.jpg.png
+  (from https://www.lifescience-ri.eu/life-science-login/), 2026-10-18.
