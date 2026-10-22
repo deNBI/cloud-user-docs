@@ -1,5 +1,5 @@
 ## Citation information
-The development and support of the cloud is possible above all through the funding of the cloud infrastructure by the Federal Ministry of Education and Research (BMBF)! We would highly appreciate the following citation in your next publication(s):
+The development and support of the cloud is possible above all through the funding of the cloud infrastructure by the Federal Ministry of Research, Technology and Space (BMFTR)! We would highly appreciate the following citation in your next publication(s):
 
 !!! Citation 
     'This work was supported by the de.NBI Cloud within the German Network for Bioinformatics Infrastructure (de.NBI) and ELIXIR-DE (Forschungszentrum Jülich and W-de.NBI-001, W-de.NBI-004, W-de.NBI-008, W-de.NBI-010, W-de.NBI-013, W-de.NBI-014, W-de.NBI-016, W-de.NBI-022).'
