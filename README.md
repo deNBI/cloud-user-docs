@@ -23,19 +23,29 @@ docker run -it -v "$(pwd):/srv_root/docs"  -p "8000:8000" --env ENABLED_HTMLPROO
 
 ### Local
 
-Please install the libraries used in the production instance:
-https://github.com/deNBI/mkdocsWebhook/blob/master/Dockerfile#L4
-
-For a quick start you can also use pip to install both mkdocs and mkdocs-material:
-
-~~~BASH
-pip install mkdocs
-pip install mkdocs-material
-~~~
+Dependencies are managed with [uv](https://docs.astral.sh/uv/) and pinned to the versions in the
+[production image](https://github.com/deNBI/mkdocsWebhook/blob/master/Dockerfile).
+`config_local.yml` inherits all settings from `config.yml` and only replaces the container paths.
 
 ~~~BASH
-mkdocs serve -f config_local.yml
+uv run mkdocs serve -f config_local.yml
 ~~~
+
+When the production image is updated, update the pins in `pyproject.toml` with `uv add`.
+
+Run the checks, which build the wiki and inspect the generated pages, with:
+
+~~~BASH
+uv run pytest
+~~~
+
+### Header and footer
+
+The header and footer follow the [de.NBI Cloud website](https://cloud.denbi.de/). Their links and logos
+live in `config.yml` under `extra:` (`quick_links`, `apply`, `footer_columns`, `footer_logo_groups`,
+`footer_legal_links`). The website's navigation is edited in its CMS, so update these values by hand
+when it changes. Templates are in `wiki/overrides/partials/`, styles in `wiki/assets/css/chrome.css`,
+and the sources of the partner logos in `wiki/assets/images/partners/SOURCE.txt`.
 
 ### Text writing plugin for JetBrains IDEs
 

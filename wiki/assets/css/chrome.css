@@ -1,0 +1,557 @@
+/*
+ * Header and footer of the de.NBI Cloud website, rebuilt for the wiki.
+ * Values follow landing_page/static/cloud/css/cloud.css (.quick, .nav,
+ * .btn, .site-footer). Colours come from the --denbi-* tokens in denbi.css.
+ */
+
+/* ---------- Logos ---------- */
+
+/* Logos come in pairs: --light is shown in light mode, --dark in dark mode. */
+.denbi-logo--dark {
+  display: none;
+}
+
+/* ---------- Quick access ---------- */
+
+.denbi-quick {
+  background: #042746;
+  color: #dbe7f3;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 15px;
+}
+
+.denbi-quick__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 20px;
+  min-height: 40px;
+  padding: 0 0.8rem;
+}
+
+.denbi-quick a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.denbi-quick a:hover,
+.denbi-quick a:focus-visible {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.denbi-quick .denbi-quick__back {
+  display: inline-block;
+  font-weight: 600;
+  padding-right: 20px;
+  border-right: 1px solid #2a4a6b;
+}
+
+.denbi-quick__label {
+  color: #8fb3d6;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.denbi-quick__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.denbi-quick__link[aria-current] .denbi-quick__text {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.denbi-quick__icon {
+  display: inline-flex;
+  color: var(--denbi-cyan);
+}
+
+.denbi-quick__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Live status from Uptime Kuma; its state is in the image, the link text names the target. */
+.denbi-quick__badge {
+  height: 20px;
+  width: auto;
+  border-radius: 3px;
+}
+
+@media (max-width: 900px) {
+  .denbi-quick__label {
+    display: none;
+  }
+
+  .denbi-quick__link .denbi-quick__text,
+  .denbi-quick__back-site {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .denbi-quick__icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .denbi-quick__inner,
+  .denbi-quick__list {
+    column-gap: 16px;
+  }
+
+  .denbi-quick .denbi-quick__back {
+    padding-right: 16px;
+  }
+}
+
+/* ---------- Menu row ---------- */
+
+/* Material keeps anchors 3.6rem down for its 2.4rem header; the menu row
+   is 3.6rem, so the same 1.2rem gap needs 4.8rem. */
+.md-typeset :target {
+  --md-scroll-margin: 4.8rem;
+}
+
+.denbi-header {
+  background: var(--denbi-bg);
+  color: var(--denbi-ink);
+  border-bottom: 1px solid var(--denbi-line);
+  box-shadow: none;
+}
+
+.denbi-header .md-header__inner {
+  gap: 16px;
+  height: 3.6rem;
+  padding: 0 0.8rem;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+}
+
+.denbi-header .md-header__button {
+  margin: 0;
+  padding: 0.4rem;
+}
+
+.denbi-header__logo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.denbi-header__logo img {
+  width: auto;
+  height: 40px;
+}
+
+.denbi-header__wordmark {
+  flex-shrink: 0;
+  margin-left: -6px;
+  padding-left: 14px;
+  border-left: 1px solid var(--denbi-line);
+  color: var(--denbi-ink);
+  font-family: 'Raleway', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 32px;
+  text-decoration: none;
+}
+
+.denbi-header__wordmark:hover {
+  color: var(--denbi-blue);
+}
+
+.denbi-sections {
+  display: none;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  transition: opacity .25s;
+}
+
+.denbi-sections__list {
+  display: flex;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.denbi-sections__link {
+  display: block;
+  padding: 4px 0;
+  color: var(--denbi-ink);
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.denbi-sections__link:hover,
+.denbi-sections__link[aria-current] {
+  color: var(--denbi-blue);
+}
+
+.denbi-sections__link[aria-current] {
+  box-shadow: inset 0 -2px 0 var(--denbi-blue);
+}
+
+[data-md-toggle="search"]:checked ~ .md-header .denbi-sections {
+  opacity: 0;
+}
+
+.denbi-header__tools {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* Search field on a white menu row instead of the coloured Material header. */
+@media screen and (min-width: 60em) {
+  .denbi-header .md-search__form {
+    background-color: var(--denbi-bg-alt);
+    border: 1px solid var(--denbi-line);
+    border-radius: 8px;
+  }
+
+  .denbi-header .md-search__form:hover {
+    background-color: var(--denbi-tint);
+  }
+
+  .denbi-header .md-search__input {
+    color: var(--denbi-ink);
+  }
+
+  .denbi-header .md-search__input::placeholder,
+  .denbi-header .md-search__input + .md-search__icon {
+    color: var(--denbi-muted);
+  }
+
+  .denbi-header .md-search__inner {
+    width: 8rem;
+  }
+}
+
+.denbi-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  border: 1.5px solid #005aa9;
+  border-radius: 8px;
+  background: #005aa9;
+  color: #ffffff;
+  font: 600 15px/1 'Source Sans 3', system-ui, sans-serif;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.denbi-btn:hover,
+.denbi-btn:focus-visible {
+  border-color: #042746;
+  background: #042746;
+  color: #ffffff;
+}
+
+.denbi-header__apply-short {
+  display: none;
+}
+
+@media screen and (min-width: 76.25em) {
+  .denbi-sections {
+    display: block;
+  }
+
+  .md-sidebar {
+    top: 3.6rem;
+  }
+}
+
+
+@media (max-width: 900px) {
+  .denbi-header .md-header__inner {
+    gap: 8px;
+  }
+
+  .denbi-header__logo img {
+    height: 32px;
+  }
+
+  .denbi-header__wordmark {
+    font-size: 17px;
+  }
+
+  .denbi-header__apply-long {
+    display: none;
+  }
+
+  .denbi-header__apply-short {
+    display: inline;
+  }
+
+  .denbi-btn {
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .denbi-header .md-header__inner {
+    gap: 6px;
+    padding: 0 0.4rem;
+  }
+
+  .denbi-header .md-header__button {
+    padding: 0.3rem;
+  }
+
+  .denbi-header__logo img {
+    height: 28px;
+  }
+
+  .denbi-header__wordmark {
+    margin-left: 0;
+    padding-left: 8px;
+    font-size: 16px;
+  }
+
+  .denbi-header__tools {
+    gap: 2px;
+  }
+
+  .denbi-btn {
+    padding: 7px 10px;
+  }
+}
+
+@media (max-width: 340px) {
+  .denbi-header__logo img {
+    height: 22px;
+  }
+
+  .denbi-header__wordmark {
+    padding-left: 6px;
+    font-size: 15px;
+  }
+
+  .denbi-header__tools {
+    gap: 0;
+  }
+}
+
+/* Drawer title (phones and tablets): the menu row's colours instead of
+   Material's blue bar, on which the colour logo is illegible. */
+.md-nav--primary .md-nav__title[for="__drawer"] {
+  background: var(--denbi-bg);
+  color: var(--denbi-ink);
+  border-bottom: 1px solid var(--denbi-line);
+}
+
+/* Beats Material's .md-nav__title .md-nav__button.md-logo img { display: block }. */
+.md-nav__title .md-nav__button.md-logo img.denbi-logo--dark {
+  display: none;
+}
+
+/* ---------- Footer ---------- */
+
+.denbi-footer {
+  margin-top: 72px;
+  padding: 48px 0 24px;
+  border-top: 1px solid var(--denbi-line);
+  background: var(--denbi-bg-alt);
+  color: var(--denbi-ink);
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 15px;
+}
+
+.denbi-footer .md-grid {
+  padding: 0 0.8rem;
+}
+
+.denbi-footer h2 {
+  margin: 0 0 12px;
+  color: var(--denbi-muted);
+  font-family: 'Raleway', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.denbi-footer ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.denbi-footer a {
+  color: var(--denbi-ink);
+  text-decoration: none;
+}
+
+.denbi-footer a:hover,
+.denbi-footer a:focus-visible {
+  color: var(--denbi-blue);
+  text-decoration: underline;
+}
+
+.denbi-footer__cols {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.denbi-footer__home {
+  display: inline-flex;
+}
+
+.denbi-footer__home img {
+  width: auto;
+  height: 40px;
+}
+
+.denbi-footer__brand p {
+  max-width: 40ch;
+  margin: 12px 0 0;
+  color: var(--denbi-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Funder and partner logos: one compact row below the link columns. */
+.denbi-footer__partners {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 40px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--denbi-line);
+}
+
+.denbi-footer__logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+
+.denbi-footer__logos h2 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.denbi-footer__logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.denbi-footer__logo img {
+  width: auto;
+}
+
+/* Official logos are never recoloured; those without a negative version
+   sit on a white panel, in both colour schemes. */
+.denbi-logo-panel {
+  display: inline-flex;
+  padding: 4px 6px;
+  border: 1px solid var(--denbi-line);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.denbi-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--denbi-line);
+  color: var(--denbi-muted);
+  font-size: 14px;
+}
+
+.denbi-footer__legal a {
+  color: var(--denbi-muted);
+}
+
+.denbi-footer__legal ul {
+  display: flex;
+  gap: 16px;
+  margin-left: auto;
+}
+
+@media (max-width: 800px) {
+  .denbi-footer__cols {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .denbi-footer__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .denbi-footer__cols {
+    grid-template-columns: 1fr;
+  }
+
+  .denbi-footer__legal ul {
+    margin-left: 0;
+  }
+}
+
+/* ---------- Dark mode ---------- */
+
+[data-md-color-scheme="slate"] .denbi-quick {
+  background: #06121e;
+}
+
+[data-md-color-scheme="slate"] .denbi-quick__back {
+  border-right-color: var(--denbi-line);
+}
+
+[data-md-color-scheme="slate"] .denbi-logo--light {
+  display: none;
+}
+
+[data-md-color-scheme="slate"] .denbi-logo--dark {
+  display: inline;
+}
+
+[data-md-color-scheme="slate"] .denbi-logo-panel {
+  border-color: transparent;
+}
+
+[data-md-color-scheme="slate"] .md-nav__title .md-nav__button.md-logo img.denbi-logo--light {
+  display: none;
+}
+
+[data-md-color-scheme="slate"] .md-nav__title .md-nav__button.md-logo img.denbi-logo--dark {
+  display: block;
+}
+
+/* ---------- Print ---------- */
+
+/* Material hides its header, footer and sidebars when printing. */
+@media print {
+  .denbi-quick {
+    display: none;
+  }
+}

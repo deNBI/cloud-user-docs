@@ -9,9 +9,37 @@ availability, and integrity of digital assets in daily work environments.
 We want to highlight the importance of implementing robust security measures, to maintain a secure digital environment.
 The following is a list of some generally useful safety precautions.
 
-### Locking Your Office Door: A Simple yet Effective Security Measure
+### At a glance
 
-![Locking the door](img/security/door_lock.png)
+<div class="grid cards" markdown>
+
+-   :material-door-closed-lock:{ .denbi-tile } **[Lock your door](#locking-your-office-door-a-simple-yet-effective-security-measure)**
+
+    Lock your office every time you leave it.
+
+-   :material-monitor-lock:{ .denbi-tile } **[Lock your screen](#locking-your-screen-protecting-sensitive-information-from-unintended-eyes)**
+
+    Lock your screen every time you leave your workstation.
+
+-   :material-usb-flash-drive-outline:{ .denbi-tile } **[Leave found USB drives alone](#the-hidden-dangers-of-found-usb-drives)**
+
+    Never plug in a found drive; hand it to IT security.
+
+-   :material-wifi-lock:{ .denbi-tile } **[Avoid unsecured Wi-Fi](#the-risk-of-unsecured-wi-fi-networks)**
+
+    Use a VPN, a trusted network or your mobile connection.
+
+-   :material-file-document-remove-outline:{ .denbi-tile } **[Dispose of documents securely](#the-dangers-of-improper-document-disposal)**
+
+    Use secure shredding bins or certified destruction.
+
+-   :material-shield-check-outline:{ .denbi-tile } **[Stay aware](#general-measures-and-awareness)**
+
+    Watch for phishing; use strong passwords, 2FA and updates.
+
+</div>
+
+### :material-door-closed-lock:{ .denbi-tile } Locking Your Office Door: A Simple yet Effective Security Measure
 
 Leaving your office door unlocked may seem like a minor oversight, but it can have significant consequences for the security of your company or research institute.
 An unsecured workspace can give unauthorised people access to sensitive information, confidential documents and valuable equipment.
@@ -20,9 +48,7 @@ Locking your office door when you leave is a simple but effective way to protect
 It prevents opportunisticc intruders from entering your workspace and ensures that only authorised personnel have access to sensitive areas.
 Make it a habit to lock your door every time you leave your office to contribute to the overall security of your organisation.
 
-### Locking Your Screen: Protecting Sensitive Information from Unintended Eyes
-
-![Locking your screen](img/security/screen_lock.png)
+### :material-monitor-lock:{ .denbi-tile } Locking Your Screen: Protecting Sensitive Information from Unintended Eyes
 
 Leaving your computer unattended with an unlocked screen can be just as risky as leaving your office door open.
 An unsecured workstation can give unauthorised people access to sensitive information, confidential documents and restricted systems.
@@ -31,9 +57,7 @@ By locking your screen when you leave your desk, you can ensure that only author
 In addition, many organisations require regular screen locking as part of their security policy to comply with regulatory requirements and industry standards.
 Make it a habit to lock your screen every time you leave your workstation to protect sensitive information and contribute to the overall security of your organisation.
 
-### The Hidden Dangers of Found USB Drives
-
-![USB Drives](img/security/usb_sticks.png)
+### :material-usb-flash-drive-outline:{ .denbi-tile } The Hidden Dangers of Found USB Drives
 
 USB drives are convenient and portable, but they can also be a hidden threat to your organisation's security.
 Inserting an unknown or found USB drive into your computer can expose your system to malware, viruses and other types of cyber threats.
@@ -42,9 +66,7 @@ By plugging in a suspicious USB drive, you may inadvertently introduce ransomwar
 It is important to exercise extreme caution when dealing with unfamiliar USB drives. Never connect a found or untrusted USB device to your work computer or other company-owned equipment.
 Instead, hand it over to IT security personnel for proper analysis and disposal. Remember, the risk is not worth the reward - it's better to be safe than sorry!
 
-### The Risk of Unsecured Wi-Fi Networks
-
-![WiFi](img/security/unsecure_wifi.png)
+### :material-wifi-lock:{ .denbi-tile } The Risk of Unsecured Wi-Fi Networks
 
 Public Wi-Fi networks can be convenient for staying connected on-the-go, but they often come with significant security risks. 
 When you use an unknown or unsecured Wi-Fi network, you may be exposing your device and sensitive information to cyber threats. 
@@ -57,9 +79,7 @@ To protect yourself and your organization's data, avoid using unsecured Wi-Fi ne
 - Use your mobile device's cellular connection instead of public Wi-Fi
 - Wait until you are connected to a trusted network before accessing sensitive information
      
-### The Dangers of Improper Document Disposal
-
-![Document Disposal](img/security/documents_trash.png)
+### :material-file-document-remove-outline:{ .denbi-tile } The Dangers of Improper Document Disposal
 
 Sensitive documents containing confidential information, such as employee records,
 financial records and proprietary business or research information, require special handling when it comes to disposal.
@@ -73,9 +93,7 @@ Consider using:
 
 When not in use, sensitive documents should be kept secure to prevent them from being accessed by unauthorized individuals.
 
-### General Measures and Awareness
-
-![Technical measures](img/security/technical_measures.png)
+### :material-shield-check-outline:{ .denbi-tile } General Measures and Awareness
 
 As we rely more heavily on digital technologies to communicate and conduct business and research,
 it's essential to be aware of the potential risks and take steps to protect ourselves.

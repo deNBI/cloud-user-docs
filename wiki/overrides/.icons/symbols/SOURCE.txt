@@ -1,0 +1,4 @@
+Material Symbols Outlined, weight 400, fill 0, 24px.
+Source: npm package @material-symbols/svg-400@0.47.5, folder outlined/
+(https://cdn.jsdelivr.net/npm/@material-symbols/svg-400@0.47.5/outlined/<name>.svg)
+Licence: Apache License 2.0 (Google).
