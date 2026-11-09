@@ -33,6 +33,12 @@ uv run mkdocs serve -f config_local.yml
 
 When the production image is updated, update the pins in `pyproject.toml` with `uv add`.
 
+Run the checks, which build the wiki and inspect the generated pages, with:
+
+~~~BASH
+uv run pytest
+~~~
+
 ### Text writing plugin for JetBrains IDEs
 
 The [Grazie Professional plugin](https://plugins.jetbrains.com/plugin/16136-grazie-professional) can be used,
