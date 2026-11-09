@@ -1,0 +1,21 @@
+[project]
+name = "cloud-user-docs"
+version = "0.1.0"
+description = "de.NBI Cloud Wiki (MkDocs)"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "mkdocs==1.6.1",
+    "mkdocs-git-revision-date-localized-plugin==1.5.4",
+    "mkdocs-glightbox==0.5.2",
+    "mkdocs-htmlproofer-plugin==1.5.0",
+    "mkdocs-macros-plugin==1.5.0",
+    "mkdocs-material==9.7.7",
+    "pymdown-extensions==11.0.2",
+]
+
+[dependency-groups]
+dev = [
+    "beautifulsoup4>=4.15.0",
+    "pytest>=9.1.1",
+]
