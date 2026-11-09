@@ -13,7 +13,7 @@ on:
 jobs:
   tests:
     # Builds the wiki with the pinned dependencies (pyproject.toml, uv.lock)
-    # and checks the generated pages: URLs, navigation, home page.
+    # and checks the generated pages: URLs, header, footer, logos.
     runs-on: ubuntu-latest
     steps:
       - name: Checkout cloud-user-docs repository
